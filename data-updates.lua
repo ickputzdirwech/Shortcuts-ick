@@ -6,10 +6,7 @@
  * Remote hiding, generation of disabled artillery and equipment, and autogeneration of unsupported modded shortcuts
 --]]
 
---[[ This code has been modified by ickputzdirwech. Removed code is commented out like the following line: ]]
---[[ ORIGINAL: ... ]]
---[[ New lines are marked at the end like the following line: ]]
--- ickputzdirwech
+-- This code has been modified by ickputzdirwech.
 
 require("shortcuts")
 
@@ -29,7 +26,7 @@ local function hide_the_remote(recipe, technology, item)
 		if technology ~= nil and tech_prototype then
 			local effect = tech_prototype.effects
 			for i=1,(#effect) do
-				if effect[i].type == "unlock-recipe" then -- SOMETHING IS WRONG: if data.raw["technology"]["artillery"].effects.type == "unlock-recipe" then
+				if effect[i].type == "unlock-recipe" then
 					if effect[i].recipe == recipe then
 						table.remove(effect, i)
 						return
@@ -43,30 +40,97 @@ end
 if settings.startup["artillery-targeting-remote"].value == true then
 	hide_the_remote("artillery-targeting-remote", "artillery", data.raw["capsule"]["artillery-targeting-remote"])
 end
+
 if settings.startup["discharge-defense-remote"].value == true then
 	hide_the_remote("discharge-defense-remote", "discharge-defense-equipment", data.raw["capsule"]["discharge-defense-remote"])
 end
---[[ ORIGINAL:
-if mods["YARM"] and data.raw["item"]["resource-monitor"] and data.raw["technology"]["resource-monitoring"] and settings.startup["resource-monitor"].value == true then
-	hide_the_remote("resource-monitor", "resource-monitoring", data.raw["item"]["resource-monitor"])
+
+if settings.startup["spidertron-remote"].value == "enabled" then
+	hide_the_remote("spidertron-remote", "spidertron")
 end
-]]
-if mods["OutpostPlanner"] and mods["PlannerCore"] and data.raw["selection-tool"]["outpost-builder"] and settings.startup["outpost-builder"].value == true then
-	hide_the_remote("outpost-builder", nil, data.raw["selection-tool"]["outpost-builder"])
+if settings.startup["spidertron-remote"].value == "enabled (hide remote from inventory)" then
+	hide_the_remote( nil, nil, data.raw["spidertron-remote"]["spidertron-remote"])
 end
+
+-- SUPPORTED MODS
+if mods["aai-programmable-vehicles"] then
+	if data.raw["selection-tool"]["unit-remote-control"] then
+		hide_the_remote("unit-remote-control", nil, data.raw["selection-tool"]["unit-remote-control"])
+	end
+	if data.raw["selection-tool"]["path-remote-control"] then
+		hide_the_remote("path-remote-control", nil, data.raw["selection-tool"]["path-remote-control"])
+	end
+end
+
 if mods["Orbital Ion Cannon"] and data.raw["item"]["ion-cannon-targeter"] and data.raw["technology"]["orbital-ion-cannon"] and settings.startup["ion-cannon-targeter"].value == true then
 	hide_the_remote("ion-cannon-targeter", "orbital-ion-cannon", data.raw["item"]["ion-cannon-targeter"])
 end
-if mods["ModuleInserter"] and data.raw["selection-tool"]["module-inserter"] and settings.startup["module-inserter"].value == true then
-	hide_the_remote("module-inserter", "construction-robotics", data.raw["selection-tool"]["module-inserter"])
+
+if mods["OutpostPlanner"] and mods["PlannerCore"] and data.raw["selection-tool"]["outpost-builder"] and settings.startup["outpost-builder"].value == true then
+	hide_the_remote("outpost-builder", nil, data.raw["selection-tool"]["outpost-builder"])
 end
-if mods["aai-programmable-vehicles"] then
-	if --[[settings.startup["unit-remote-control"].value == true and]] data.raw["selection-tool"]["unit-remote-control"] then
-		hide_the_remote("unit-remote-control", nil, data.raw["selection-tool"]["unit-remote-control"])
+
+if mods["VehicleWagon2"] and settings.startup["vehicle-wagon-2-winch"].value == true then
+	hide_the_remote("winch", "vehicle-wagons", data.raw["capsule"]["winch"])
+end
+
+-- OTHER MODS
+if mods["circuit-checker"] and data.raw["selection-tool"]["circuit-checker"] then
+	hide_the_remote(nil, nil, data.raw["selection-tool"]["circuit-checker"])
+end
+
+if mods["RailSignalPlanner"] and data.raw["selection-tool"]["rail-signal-planner"] then
+	hide_the_remote(nil, nil, data.raw["selection-tool"]["rail-signal-planner"])
+end
+
+if mods["OreEraser"] and data.raw["selection-tool"]["Ore Eraser"] then
+	hide_the_remote(nil, nil, data.raw["selection-tool"]["Ore Eraser"])
+end
+
+--Fix P.U.M.P. selection-tool order and disabled_small_icon
+if mods["pump"] then
+	if data.raw["selection-tool"]["pump-selection-tool"] then
+		data.raw["selection-tool"]["pump-selection-tool"].subgroup = "tool"
+		data.raw["selection-tool"]["pump-selection-tool"].order = "c[automated-construction]-d[pump-selection-tool]"
 	end
-	if --[[settings.startup["path-remote-control"].value == true and]] data.raw["selection-tool"]["path-remote-control"] then
-		hide_the_remote("path-remote-control", nil, data.raw["selection-tool"]["path-remote-control"])
+	if data.raw["shortcut"]["pump-shortcut"] then
+		data.raw["shortcut"]["pump-shortcut"].disabled_small_icon.filename = "__Shortcuts-ick__/graphics/pump_icon_24_white.png"
+			data.raw["shortcut"]["pump-shortcut"].disabled_icon = {
+    		filename = "__Shortcuts-ick__/graphics/pump_icon_32_white.png",
+				priority = "extra-high-no-scale",
+				size = 32,
+				scale = 1,
+				flags = {"icon"}
+			}
 	end
+end
+
+--Remove technology_to_unlock and/or change action for mod shortcuts in order to make them available based in researched in a specific game.
+if mods["circuit-checker"] and data.raw.shortcut["check-circuit"] then
+	data.raw.shortcut["check-circuit"].action = "lua"
+	data.raw.shortcut["check-circuit"].item_to_create = nil
+	data.raw.shortcut["check-circuit"].technology_to_unlock = nil
+end
+if mods["Spider_Control"] and data.raw.shortcut["squad-spidertron-follow"] then
+	data.raw.shortcut["squad-spidertron-follow"].technology_to_unlock = nil
+end
+if mods["Spider_Control"] and data.raw.shortcut["squad-spidertron-remote"] then
+	data.raw.shortcut["squad-spidertron-remote"].action = "lua"
+	data.raw.shortcut["squad-spidertron-remote"].item_to_create = nil
+	data.raw.shortcut["squad-spidertron-remote"].technology_to_unlock = nil
+end
+if mods["pump"] and data.raw.shortcut["pump-shortcut"] then
+	data.raw.shortcut["pump-shortcut"].action = "lua"
+	data.raw.shortcut["pump-shortcut"].item_to_create = nil
+	data.raw.shortcut["pump-shortcut"].technology_to_unlock = nil
+end
+if mods["RailSignalPlanner"] and data.raw.shortcut["give-rail-signal-planner"] then
+	data.raw.shortcut["give-rail-signal-planner"].action = "lua"
+	data.raw.shortcut["give-rail-signal-planner"].item_to_create = nil
+end
+if mods["ModuleInserter"] and data.raw.shortcut["module-inserter"] then
+	data.raw.shortcut["module-inserter"].action = "lua"
+	data.raw.shortcut["module-inserter"].item_to_create = nil
 end
 
 local disabled_equipment = {}
@@ -134,30 +198,8 @@ if not mods["Nanobots"] then
 
 end
 
---[[ ORIGINAL:
-data:extend({
-	{
-		type = "virtual-signal", -- TODO: placeholder, when removing, remember to remove localised name too!
-		name = "signal-danger",
-		localised_name = {"gui-alert-tooltip.title"},
-		icon = "__core__/graphics/danger-icon.png",
-		icon_size = 64,
-		subgroup = "virtual-signal-color",
-		order = "d[colors]-[9danger]",
-	},
-	{
-		type = "virtual-signal",
-		name = "signal-disabled",
-		localised_name = {"gui-alert-tooltip.title"},
-		icon = "__core__/graphics/destroyed-icon.png",
-		icon_size = 64,
-		subgroup = "virtual-signal-color",
-		order = "d[colors]-[9disabled]",
-	}
-})
-]]
 
-if settings.startup["artillery-jammer-remote"].value == true then
+if settings.startup["artillery-toggle"].value == "both" or settings.startup["artillery-toggle"].value == "Artillery wagon" or settings.startup["artillery-toggle"].value == "Artillery turret" then
 
 	local disabled_turret = {}
 	local disabled_turret_item = {}
@@ -166,9 +208,9 @@ if settings.startup["artillery-jammer-remote"].value == true then
 
 	if settings.startup["artillery-toggle"].value == "both" then
 		disable_turret_list = {"artillery-wagon", "artillery-turret",}
-	elseif settings.startup["artillery-toggle"].value == "artillery-wagon" then
+	elseif settings.startup["artillery-toggle"].value == "Artillery wagon" then
 		disable_turret_list = {"artillery-wagon"}
-	elseif settings.startup["artillery-toggle"].value == "artillery-turret" then
+	elseif settings.startup["artillery-toggle"].value == "Artillery turret" then
 		disable_turret_list = {"artillery-turret"}
 	end
 
@@ -221,7 +263,8 @@ if settings.startup["tree-killer"].value == true then
 	data:extend({decon_spec})
 end
 
-if settings.startup["autogen"].value == true then
+
+if settings.startup["autogen-color"].value == "default" or settings.startup["autogen-color"].value == "red" or settings.startup["autogen-color"].value == "green" or settings.startup["autogen-color"].value == "blue" then
 
 	--	create a post on the discussion page if you want your shortcut to be added to this blacklist.
 	local shortcut_blacklist = {
@@ -230,6 +273,13 @@ if settings.startup["autogen"].value == true then
 		"module-inserter",
 		"path-remote-control",
 		"unit-remote-control",
+		"fp_beacon_selector",
+		"artillery-jammer-tool",
+		"pump-selection-tool",
+		"rail-signal-planner",
+		"circuit-checker",
+		"squad-spidertron-remote-sel",
+		"merge-chest-selector",
 	}
 
 	for _, tool in pairs(data.raw["selection-tool"]) do
@@ -307,4 +357,10 @@ if settings.startup["autogen"].value == true then
 		end
 	end
 
+end
+
+--Remove technology_to_unlock and/or change action for mod shortcuts in order to make them available based in researched in a specific game.
+if mods["WellPlanner"] and data.raw.shortcut["well-planner"] then
+	data.raw.shortcut["well-planner"].action = "lua"
+	data.raw.shortcut["well-planner"].item_to_create = nil
 end

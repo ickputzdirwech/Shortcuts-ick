@@ -1,0 +1,19 @@
+OTHER MOD:
+Make Chest Merge Tool from Merging Chest mod available based on steel chest technology
+
+OWN MOD:
+BUGS:
+hide initial technology_to_unlock for path remote controls
+
+rail block visualization, nightvision, personal laser defense and belt immunity equipment wrong disabled_icon
+spidertron remote and car finder wrong disabled_small_icon
+
+
+NEW:
+auto targeting with gunner
+auto targeting without gunner
+enable logistics while moving
+
+MOD PORTAL:
+Description
+Update title
