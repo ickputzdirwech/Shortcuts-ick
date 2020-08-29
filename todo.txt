@@ -1,13 +1,11 @@
 OTHER MOD:
-Make Chest Merge Tool from Merging Chest mod available based on steel chest technology
+Make merge-chest-selector dependant on technology
+Merging chest black disabled icons
+car finder black disabled_small_icon
 
 OWN MOD:
 BUGS:
 hide initial technology_to_unlock for path remote controls
-
-rail block visualization, nightvision, personal laser defense and belt immunity equipment wrong disabled_icon
-spidertron remote and car finder wrong disabled_small_icon
-
 
 NEW:
 auto targeting with gunner
@@ -15,5 +13,20 @@ auto targeting without gunner
 enable logistics while moving
 
 MOD PORTAL:
-Description
-Update title
+
+
+MORLEY376:
+Todo ( For next release - Next update with content may be some weeks away )
+keyboard binds (customizable if possible)
+Support the Picker mods
+
+Ideas for future releases ( On hold - working on nuclear ICBM mod )
+Stuff for GameViewSettings
+Custom screenshot (zoom level, resolution, etc. customizable)
+Autosave button for singleplayer worlds
+Combat drone full deploy? (Uses as many drone capsules as required to fill the cap to max)
+Bloodbelt/lamp autowire builder toggle?
+Personal logistics jammer? (unsure if this is moddable)
+Safety lock for weapons (prevent the ability to nuke/shotgun/flame your base) (unsure if this is moddable)
+Polar grid
+Clock/time played statistics (see player.online_time and game.tick)

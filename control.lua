@@ -80,13 +80,13 @@ local function toggle_rail(player)
 	if global.toggle_rail[player.index] == true then
 		player.game_view_settings.show_rail_block_visualisation = false
 		--player.map_view_settings = {["show-rail-signal-states"] = false}
-		player.map_view_settings = {["show-non-standard-map-info"] = {["show-rail-signal-states"] = false}}
+		--player.map_view_settings = {["show-non-standard-map-info"] = {["show-rail-signal-states"] = false}}
 		global.toggle_rail[player.index] = false
 		player.set_shortcut_toggled("rail-block-visualization-toggle", false)
 	elseif global.toggle_rail[player.index] == false then
 		player.game_view_settings.show_rail_block_visualisation = true
 		--player.map_view_settings = {["show-rail-signal-states"] = true}
-		player.map_view_settings = {["show-non-standard-map-info"] = {["show-rail-signal-states"] = true}}
+		--player.map_view_settings = {["show-non-standard-map-info"] = {["show-rail-signal-states"] = true}}
 		global.toggle_rail[player.index] = true
 		player.set_shortcut_toggled("rail-block-visualization-toggle", true)
 	end

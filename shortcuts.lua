@@ -163,6 +163,14 @@ if settings.startup["rail-block-visualization-toggle"].value == true then
 				scale = 1,
 				flags = {"icon"}
 			},
+			disabled_icon =
+			{
+				filename = "__Shortcuts-ick__/graphics/rail-block-visualization-toggle-x32-white.png",
+				priority = "extra-high-no-scale",
+				size = 32,
+				scale = 1,
+				flags = {"icon"}
+			},
 			disabled_small_icon =
 			{
 				filename = "__Shortcuts-ick__/graphics/rail-block-visualization-toggle-x24-white.png",
@@ -287,6 +295,14 @@ if not mods["Nanobots"] then
 					scale = 1,
 					flags = {"icon"}
 				},
+				disabled_icon =
+				{
+					filename = "__Shortcuts-ick__/graphics/belt-immunity-toggle-x32-white.png",
+					priority = "extra-high-no-scale",
+					size = 32,
+					scale = 1,
+					flags = {"icon"}
+				},
 				disabled_small_icon =
 				{
 					filename = "__Shortcuts-ick__/graphics/belt-immunity-toggle-x24-white.png",
@@ -326,6 +342,14 @@ if not mods["Nanobots"] then
 					scale = 1,
 					flags = {"icon"}
 				},
+				disabled_icon =
+				{
+					filename = "__Shortcuts-ick__/graphics/night-vision-toggle-x32-white.png",
+					priority = "extra-high-no-scale",
+					size = 32,
+					scale = 1,
+					flags = {"icon"}
+				},
 				disabled_small_icon =
 				{
 					filename = "__Shortcuts-ick__/graphics/night-vision-toggle-x24-white.png",
@@ -362,6 +386,14 @@ if not mods["Nanobots"] then
 					filename = "__Shortcuts-ick__/graphics/active-defense-equipment-x24.png",
 					priority = "extra-high-no-scale",
 					size = 24,
+					scale = 1,
+					flags = {"icon"}
+				},
+				disabled_icon =
+				{
+					filename = "__Shortcuts-ick__/graphics/active-defense-equipment-x32-white.png",
+					priority = "extra-high-no-scale",
+					size = 32,
 					scale = 1,
 					flags = {"icon"}
 				},
@@ -559,6 +591,14 @@ if settings.startup["spidertron-remote"].value == "enabled" or "enabled (hide re
 				scale = 1,
 				flags = {"icon"},
 				tint = {},
+			},
+			disabled_small_icon =
+			{
+				filename = "__Shortcuts-ick__/graphics/spidertron-remote-x40-white.png",
+				priority = "extra-high-no-scale",
+				size = 40,
+				scale = 1,
+				flags = {"icon"},
 			},
 		},
 	})
@@ -791,6 +831,14 @@ if mods["VehicleWagon2"] and settings.startup["vehicle-wagon-2-winch"].value == 
 				filename = "__Shortcuts-ick__/graphics/module-inserter-x24.png",
 				priority = "extra-high-no-scale",
 				size = 24,
+				scale = 1,
+				flags = {"icon"}
+			},
+			disabled_icon =
+			{
+				filename = "__Shortcuts-ick__/graphics/module-inserter-x32-white.png",
+				priority = "extra-high-no-scale",
+				size = 32,
 				scale = 1,
 				flags = {"icon"}
 			},

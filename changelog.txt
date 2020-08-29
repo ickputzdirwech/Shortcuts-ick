@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.18.0
-Date: 2019-05-06
+Date: 2020-05-06
   Major Features:
     - Initial release. Made original mod from npc_strider(morley376) mods.factorio.com/mod/Shortcuts compatible for 0.18 .
   Changes:
@@ -13,7 +13,7 @@ Date: 2019-05-06
 
 ---------------------------------------------------------------------------------------------------
 Version: 0.18.1
-Date: 2019-07-31
+Date: 2020-07-31
   Features:
     - Now supports vehicle wagon 2.
     - Some shortcuts are now only available when a certain technology is unlocked in that specific save.
@@ -31,7 +31,7 @@ Date: 2019-07-31
 
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.0
-Date: 2019-08-14
+Date: 2020-08-14
   Features:
     - Now supports Spidertron remote!
   Changes:
@@ -56,16 +56,21 @@ Date: 2019-08-21
 
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.2
-Date: 2019-08-21
+Date: 2020-08-21
   Bugfixes:
     - Fixed mod not loading when P.U.M.P. was active.
 
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.3
-Date: 2019-08-22
-  Changes:
-    - Chest Merge Tool from Merging Chest mod now
+Date: 2020-08-22
   Bugfixes:
-    - Fixed disabling setting "artillery cannon toggle" wouldn't work properly.
+    - Fixed disabling setting "artillery cannon toggle" didn't work properly.
     - Fixed disabling setting "automatically generate mod shortcuts" didn't work properly.
     - Fixed that the shortcut for Chest Merge Tool from Merging Chest mod would be overwritten.
+    - Fixed that several disabled icons were black instead of white.
+
+---------------------------------------------------------------------------------------------------
+Version: 1.0.4
+Date: 2020-08-23
+  Bugfixes:
+    - Hotfix: Fixed rail block visualisation shortcut.
