@@ -18,20 +18,26 @@ local function hide_the_remote(recipe, technology, item)
 			item.flags = {"only-in-cursor"}
 		end
 	end
-	local recipe_prototype = data.raw["recipe"][recipe]
-	local tech_prototype = data.raw["technology"][technology]
+	local recipe_prototype = data.raw.recipe[recipe]
+	local tech_prototype = data.raw.technology[technology]
 	if recipe_prototype then
 		recipe_prototype.hidden = true
-		recipe_prototype.ingredients ={{"iron-plate", 1}}
+		recipe_prototype.ingredients = {{"iron-plate", 1}}
 		if technology ~= nil and tech_prototype then
 			local effect = tech_prototype.effects
-			for i=1,(#effect) do
-				if effect[i].type == "unlock-recipe" then
-					if effect[i].recipe == recipe then
-						table.remove(effect, i)
-						return
+			--for some reason the following is incompatible with TrainConstructionSite.
+			--if not mods["trainConstructionSite"] then -- workaround
+				for i,e in pairs(effect) do --solution from lovely_santa
+				--for i=1,(#effect) do
+				--if effect[i] ~= nil then --solution from mrudat
+					if effect[i].type == "unlock-recipe" then
+						if effect[i].recipe == recipe then
+							table.remove(effect, i)
+							return
+						end
 					end
-				end
+				--end
+				--end
 			end
 		end
 	end
@@ -49,7 +55,7 @@ if settings.startup["spidertron-remote"].value == "enabled" then
 	hide_the_remote("spidertron-remote", "spidertron")
 end
 if settings.startup["spidertron-remote"].value == "enabled (hide remote from inventory)" then
-	hide_the_remote( nil, nil, data.raw["spidertron-remote"]["spidertron-remote"])
+	hide_the_remote("spidertron-remote", "spidertron", data.raw["spidertron-remote"]["spidertron-remote"])
 end
 
 -- SUPPORTED MODS
@@ -87,23 +93,6 @@ if mods["OreEraser"] and data.raw["selection-tool"]["Ore Eraser"] then
 	hide_the_remote(nil, nil, data.raw["selection-tool"]["Ore Eraser"])
 end
 
---Fix P.U.M.P. selection-tool order and disabled_small_icon
-if mods["pump"] then
-	if data.raw["selection-tool"]["pump-selection-tool"] then
-		data.raw["selection-tool"]["pump-selection-tool"].subgroup = "tool"
-		data.raw["selection-tool"]["pump-selection-tool"].order = "c[automated-construction]-d[pump-selection-tool]"
-	end
-	if data.raw["shortcut"]["pump-shortcut"] then
-		data.raw["shortcut"]["pump-shortcut"].disabled_small_icon.filename = "__Shortcuts-ick__/graphics/pump_icon_24_white.png"
-			data.raw["shortcut"]["pump-shortcut"].disabled_icon = {
-    		filename = "__Shortcuts-ick__/graphics/pump_icon_32_white.png",
-				priority = "extra-high-no-scale",
-				size = 32,
-				scale = 1,
-				flags = {"icon"}
-			}
-	end
-end
 
 --Remove technology_to_unlock and/or change action for mod shortcuts in order to make them available based in researched in a specific game.
 if mods["circuit-checker"] and data.raw.shortcut["check-circuit"] then
@@ -147,16 +136,36 @@ if settings.startup["active-defense-equipment"].value == true then
 	equipment_list[#equipment_list+1] = "active-defense-equipment"
 end
 
+--[[if mods["GunEquipment"] then
+	local NoMagazine = table.deepcopy(data.raw["item"]["personal-turret-equipment"])
+	NoMagazine.name = "personal-turret-no-magazine-equipment"
+	NoMagazine.localised_name = {"", {"equipment-name.personal-turret-no-magazine-equipment"}, " (", {"gui-constant.off"}, ")"}
+	local FirearmMagazine = table.deepcopy(data.raw["item"]["personal-turret-equipment"])
+	FirearmMagazine.name = "personal-turret-firearm-magazine-equipment"
+	local PiercingRoundsMagazine = table.deepcopy(data.raw["item"]["personal-turret-equipment"])
+	PiercingRoundsMagazine.name = "personal-turret-piercing-rounds-magazine-equipment"
+	local UraniumRoundsMagazine = table.deepcopy(data.raw["item"]["personal-turret-equipment"])
+	UraniumRoundsMagazine.name = "personal-turret-uranium-rounds-magazine-equipment"
+	data:extend{NoMagazine, FirearmMagazine, PiercingRoundsMagazine, UraniumRoundsMagazine}
+end]]
+
 if not mods["Nanobots"] then
 
-	for i=1,(#equipment_list) do
+	for i,e in pairs(equipment_list) do
+	--for i=1,(#equipment_list) do
+
 		for _, equipment in pairs(data.raw[equipment_list[i]]) do
 			local i = #disabled_equipment+1
 			disabled_equipment[i] = util.table.deepcopy(equipment)
+
+			--make it compatible with NightvisionToggles and GunEquipment
+			if disabled_equipment[i].name ~= "nvt-night-vision-equipment" and string.sub(disabled_equipment[i].name,1,16) ~= "personal-turret-" then
+
 			local name = disabled_equipment[i].name
 			if (equipment.type == "active-defense-equipment" and equipment.automatic == true) or equipment.type ~= "active-defense-equipment" then
 				disabled_equipment[i].name = "disabled-" .. name
 				disabled_equipment[i].localised_name = {"", {"equipment-name." .. name}, " (", {"gui-constant.off"}, ")"}
+				disabled_equipment[i].sprite.tint = {0.5, 0.5, 0.5}
 			elseif (equipment.type == "active-defense-equipment" and equipment.automatic == false) then
 				disabled_equipment[i].name = "disabledinactive-" .. name
 				disabled_equipment[i].localised_name = {"equipment-name." .. name}
@@ -176,7 +185,7 @@ if not mods["Nanobots"] then
 				disabled_equipment_item[i].placed_as_equipment_result = name
 			end
 
-			disabled_equipment_item[i] = util.table.deepcopy(data.raw["item"][equipment_list[i]]) -- LEGACY ITEM (Disable for release)
+			--disabled_equipment_item[i] = util.table.deepcopy(data.raw["item"][equipment_list[i]]) -- LEGACY ITEM (Disable for release)
 			if not disabled_equipment_item[i] then
 				disabled_equipment_item[i] = util.table.deepcopy(data.raw["item"]["night-vision-equipment"])
 			end
@@ -187,6 +196,9 @@ if not mods["Nanobots"] then
 			disabled_equipment_item[i].localised_description = {"item-description." .. name}
 			disabled_equipment_item[i].placed_as_equipment_result = name
 		end
+
+		end
+
 	end
 
 	for i=1,(#disabled_equipment),1 do
@@ -280,6 +292,7 @@ if settings.startup["autogen-color"].value == "default" or settings.startup["aut
 		"circuit-checker",
 		"squad-spidertron-remote-sel",
 		"merge-chest-selector",
+		"trainbuilder-manual",
 	}
 
 	for _, tool in pairs(data.raw["selection-tool"]) do

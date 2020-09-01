@@ -1,32 +1,56 @@
-OTHER MOD:
-Make merge-chest-selector dependant on technology
-Merging chest black disabled icons
-car finder black disabled_small_icon
+---------------------------------------------------------------------------------------------------
+OTHER MODS:
+---------------------------------------------------------------------------------------------------
+OTHER:
+- Make merge-chest-selector dependant on technology
 
+BAD ICONS:
+- Merging chest disabled icons
+- car finder disabled icons
+- marc_calc_4func disabled icons from MaxRateCalculator
+
+NEW ICONS:
+-
+
+NEW SHORTCUTS:
+- trainbuilder-manual
+- Proper integration of GunEquipment
+
+---------------------------------------------------------------------------------------------------
 OWN MOD:
+---------------------------------------------------------------------------------------------------
 BUGS:
-hide initial technology_to_unlock for path remote controls
+- hide initial technology_to_unlock for path remote controls
 
-NEW:
-auto targeting with gunner
-auto targeting without gunner
-enable logistics while moving
+NEW SHORTCUTS:
+- auto targeting with gunner
+- auto targeting without gunner
+- enable logistics while moving
 
+OTHER:
+- locales
+- move as much as possible into data stage
+
+---------------------------------------------------------------------------------------------------
 MOD PORTAL:
+---------------------------------------------------------------------------------------------------
+OTHER:
+-
 
-
+---------------------------------------------------------------------------------------------------
 MORLEY376:
-Todo ( For next release - Next update with content may be some weeks away )
-keyboard binds (customizable if possible)
-Support the Picker mods
+---------------------------------------------------------------------------------------------------
+TODO: ( For next release - Next update with content may be some weeks away )
+- keyboard binds (customizable if possible)
+- Support the Picker mods
 
 Ideas for future releases ( On hold - working on nuclear ICBM mod )
-Stuff for GameViewSettings
-Custom screenshot (zoom level, resolution, etc. customizable)
-Autosave button for singleplayer worlds
-Combat drone full deploy? (Uses as many drone capsules as required to fill the cap to max)
-Bloodbelt/lamp autowire builder toggle?
-Personal logistics jammer? (unsure if this is moddable)
-Safety lock for weapons (prevent the ability to nuke/shotgun/flame your base) (unsure if this is moddable)
-Polar grid
-Clock/time played statistics (see player.online_time and game.tick)
+- Stuff for GameViewSettings
+- Custom screenshot (zoom level, resolution, etc. customizable)
+- Autosave button for singleplayer worlds
+- Combat drone full deploy? (Uses as many drone capsules as required to fill the cap to max)
+- Bloodbelt/lamp autowire builder toggle?
+- Personal logistics jammer? (unsure if this is moddable) OTHER MOD EXISTS ALREADY
+- Safety lock for weapons (prevent the ability to nuke/shotgun/flame your base) (unsure if this is moddable)
+- Polar grid
+- Clock/time played statistics (see player.online_time and game.tick)

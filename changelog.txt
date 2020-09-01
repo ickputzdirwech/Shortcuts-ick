@@ -74,3 +74,13 @@ Version: 1.0.4
 Date: 2020-08-23
   Bugfixes:
     - Hotfix: Fixed rail block visualisation shortcut.
+
+---------------------------------------------------------------------------------------------------
+Version: 1.0.5
+Date: 2020-09-01
+  Features:
+    - Disabled equipment has now a grey tint.
+  Bugfixes:
+    - Fixed compatibility issue with Train construction site mod.
+    - Fixed compatibility issue with Gun Equipment mod.
+    - Fixed compatibility issue with Nightvision Toggles mod.

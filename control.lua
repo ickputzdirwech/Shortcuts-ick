@@ -33,7 +33,7 @@ local function update_state(event, equipment_type) -- toggles the armor
 				local name = equipment.name
 				local position = equipment.position
 				local energy = equipment.energy
-				if not (string.sub(equipment.name,1,9) == "disabled-") then
+				if not (string.sub(equipment.name,1,9) == "disabled-" or string.sub(equipment.name,1,4) == "nvt-") then
 					if equipment_type ~= "active-defense-equipment" or (equipment_type == "active-defense-equipment" and game.equipment_prototypes["disabled-" .. equipment.name]) then
 						grid.take{name = name, position = position}
 						local new_equipment = grid.put{name="disabled-" .. name, position=position}
@@ -45,6 +45,14 @@ local function update_state(event, equipment_type) -- toggles the armor
 				elseif (string.sub(equipment.name,1,9) == "disabled-") then
 					grid.take{name = name, position = position}
 					local new_equipment = grid.put{name=(string.sub(name,10,#name)), position=position}
+					if new_equipment and new_equipment.valid then
+						new_equipment.energy = energy
+					end
+					game.players[event.player_index].set_shortcut_toggled(equipment_type, true)
+				-- make it compatible with NightvisionToggles
+				elseif (string.sub(equipment.name,1,4) == "nvt-") then
+					grid.take{name = name, position = position}
+					local new_equipment = grid.put{name=(string.sub(name,5,#name)), position=position}
 					if new_equipment and new_equipment.valid then
 						new_equipment.energy = energy
 					end
@@ -354,6 +362,7 @@ script.on_event(defines.events.on_player_removed_equipment, function(event)
 		reset_state(event,2)
 	end
 end)
+
 
 local function shortcut_type(event)
 	local prototype_name = event.prototype_name
