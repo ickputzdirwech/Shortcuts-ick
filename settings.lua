@@ -198,9 +198,8 @@ data:extend(
     order = "d[remotes]-d[spidertron-remote]",
   },
 
-  -- MOD
+  -- MODS
 	--	Since we cannot conditionally extend mod settings, we have to implement them whether the mod is enabled or not :(
-	--	This can break the localization of the shortcut if the mod is not installed
   {
     type = "string-setting",
     name = "autogen-color",

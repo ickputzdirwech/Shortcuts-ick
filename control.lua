@@ -113,6 +113,18 @@ local function false_shortcuts(player) -- disables things
 		player.set_shortcut_available("belt-immunity-equipment", false)
 		player.set_shortcut_toggled("belt-immunity-equipment", false)
 	end
+	--[[if game.active_mods["PickerInventoryTools"] and game.active_mods["Nanobots"] then
+		player.set_shortcut_available("toggle-equipment-bot-chip-feeder", false)
+		player.set_shortcut_available("toggle-equipment-bot-chip-items", false)
+		player.set_shortcut_available("toggle-equipment-bot-chip-launcher", false)
+		player.set_shortcut_available("toggle-equipment-bot-chip-nanointerface", false)
+		player.set_shortcut_available("toggle-equipment-bot-chip-trees", false)
+		player.set_shortcut_toggled("toggle-equipment-bot-chip-feeder", false)
+		player.set_shortcut_toggled("toggle-equipment-bot-chip-items", false)
+		player.set_shortcut_toggled("toggle-equipment-bot-chip-launcher", false)
+		player.set_shortcut_toggled("toggle-equipment-bot-chip-nanointerface", false)
+		player.set_shortcut_toggled("toggle-equipment-bot-chip-trees", false)
+	end]]
 end
 
 local function enable_it(player, equipment, grid, type) -- enables things
@@ -129,6 +141,22 @@ local function enable_it(player, equipment, grid, type) -- enables things
 				new_equipment.energy = energy
 			end
 		end
+
+		--[[--Make compatible with PickerInventoryTools
+		if (string.sub(equipment.name,1,19) == "equipment-bot-chip-") then
+			player.set_shortcut_available("toggle-"..name, true)
+			player.set_shortcut_toggled("toggle-"..name, true)
+		end
+		if (string.sub(equipment.name,1,16) == "picker-disabled-") then
+			player.set_shortcut_available("toggle-"..string.sub(name,17,#name), true)
+			player.set_shortcut_toggled("toggle-"..string.sub(name,17,#name), true)
+			grid.take{name = name, position = position}
+			local new_equipment = grid.put{name=(string.sub(name,17,#name)), position=position}
+			if new_equipment and new_equipment.valid then
+				new_equipment.energy = energy
+			end
+		end]]
+
 	end
 end
 local function reset_state(event, toggle) -- verifies placement of equipment and armor switching
@@ -348,37 +376,28 @@ local function initialize()
 end
 
 script.on_event(defines.events.on_player_armor_inventory_changed, function(event)
-	if not game.active_mods["Nanobots"] then
 		reset_state(event,0)
-	end
 end)
 script.on_event(defines.events.on_player_placed_equipment, function(event)
-	if not game.active_mods["Nanobots"] then
 		reset_state(event,1)
-	end
 end)
 script.on_event(defines.events.on_player_removed_equipment, function(event)
-	if not game.active_mods["Nanobots"] then
 		reset_state(event,2)
-	end
 end)
 
 
 local function shortcut_type(event)
 	local prototype_name = event.prototype_name
-	if not game.active_mods["Nanobots"] then
-		if prototype_name == "night-vision-equipment" then
-			update_state(event, "night-vision-equipment")
-			return
-		elseif prototype_name == "belt-immunity-equipment" then
-			update_state(event, "belt-immunity-equipment")
-			return
-		elseif prototype_name == "active-defense-equipment" then
-			update_state(event, "active-defense-equipment")
-			return
-		end
-	end
-	if prototype_name == "big-zoom" then
+	if prototype_name == "night-vision-equipment" then
+		update_state(event, "night-vision-equipment")
+		return
+	elseif prototype_name == "belt-immunity-equipment" then
+		update_state(event, "belt-immunity-equipment")
+		return
+	elseif prototype_name == "active-defense-equipment" then
+		update_state(event, "active-defense-equipment")
+		return
+	elseif prototype_name == "big-zoom" then
 		local player = game.players[event.player_index]
 		if settings.global["disable-zoom"].value == true then
 			player.zoom = settings.get_player_settings(player)["zoom-level"].value
@@ -424,6 +443,16 @@ local function shortcut_type(event)
 		local player = game.players[event.player_index]
 			if player.clean_cursor() then
 				player.cursor_stack.set_stack({name="unit-remote-control"})
+			end
+	elseif prototype_name == "artillery-cluster-remote" then
+		local player = game.players[event.player_index]
+			if player.clean_cursor() then
+				player.cursor_stack.set_stack({name="artillery-cluster-remote"})
+			end
+	elseif prototype_name == "artillery-discovery-remote" then
+		local player = game.players[event.player_index]
+			if player.clean_cursor() then
+				player.cursor_stack.set_stack({name="artillery-discovery-remote"})
 			end
 	elseif prototype_name == "ion-cannon-targeter" then
 		local player = game.players[event.player_index]
@@ -516,6 +545,12 @@ script.on_event(defines.events.on_player_created, function(event)
 			player.set_shortcut_available("unit-remote-control", false)
 		end
 	end
+	if settings.startup["artillery-targeting-remote"].value == true and game.active_mods["AdvArtilleryRemotes"] then
+		if player.force.technologies["artillery"].researched == false then
+			player.set_shortcut_available("artillery-cluster-remote", false)
+			player.set_shortcut_available("artillery-discovery-remote", false)
+		end
+	end
 	if settings.startup["ion-cannon-targeter"].value == true and game.active_mods["Orbital Ion Cannon"] then
 		if player.force.technologies["orbital-ion-cannon"].researched == false then
 			player.set_shortcut_available("ion-cannon-targeter", false)
@@ -537,19 +572,14 @@ script.on_event(defines.events.on_player_created, function(event)
 		end
 	end
 
-	if not game.active_mods["Nanobots"] then
-		if settings.startup["night-vision-equipment"].value == true then
-			player.set_shortcut_available("night-vision-equipment", false)
-		end
-		if settings.startup["active-defense-equipment"].value == true then
-			player.set_shortcut_available("active-defense-equipment", false)
-		end
-		if settings.startup["belt-immunity-equipment"].value == true then
-			player.set_shortcut_available("belt-immunity-equipment", false)
-		end
-	else
-		player.print("WARNING: Shortcuts for modular equipment disabled as Nanobots is installed")
-		player.print("> Use the Nanobots hotkeys instead: \"Ctrl F1 - F7 Will toggle specific modular armor equipment on or off\"")
+	if settings.startup["night-vision-equipment"].value == true then
+		player.set_shortcut_available("night-vision-equipment", false)
+	end
+	if settings.startup["active-defense-equipment"].value == true then
+		player.set_shortcut_available("active-defense-equipment", false)
+	end
+	if settings.startup["belt-immunity-equipment"].value == true then
+		player.set_shortcut_available("belt-immunity-equipment", false)
 	end
 
 	if game.active_mods["circuit-checker"] then
@@ -601,6 +631,16 @@ script.on_event(defines.events.on_player_created, function(event)
 		end
 	end
 
+	if game.active_mods["PickerInventoryTools"] and game.active_mods["Nanobots"] then
+		if player.force.technologies["personal-roboport-equipment"].researched == false then
+			player.set_shortcut_available("toggle-equipment-bot-chip-feeder", false)
+			player.set_shortcut_available("toggle-equipment-bot-chip-items", false)
+			player.set_shortcut_available("toggle-equipment-bot-chip-launcher", false)
+			player.set_shortcut_available("toggle-equipment-bot-chip-nanointerface", false)
+			player.set_shortcut_available("toggle-equipment-bot-chip-trees", false)
+		end
+	end
+
 end)
 
 script.on_event(defines.events.on_player_selected_area, jam_artillery)
@@ -623,6 +663,12 @@ script.on_event(defines.events.on_research_finished, function(event)
 			end
 			if settings.startup["artillery-targeting-remote"].value == true then
 				player.set_shortcut_available("artillery-targeting-remote", true)
+			end
+			if settings.startup["artillery-targeting-remote"].value == true and game.active_mods["AdvArtilleryRemotes"] then
+				player.set_shortcut_available("artillery-cluster-remote", true)
+			end
+			if settings.startup["artillery-targeting-remote"].value == true and game.active_mods["AdvArtilleryRemotes"] then
+				player.set_shortcut_available("artillery-discovery-remote", true)
 			end
 		end
 		if event.research and event.research.name == "discharge-defense-equipment" then
@@ -704,6 +750,16 @@ script.on_event(defines.events.on_research_finished, function(event)
 		if event.research and event.research.name == "modules" then
 			if game.active_mods["ModuleInserter"] then
 				player.set_shortcut_available("module-inserter", true)
+			end
+		end
+
+		if event.research and event.research.name == "personal-roboport-equipment" then
+			if game.active_mods["PickerInventoryTools"] and game.active_mods["Nanobots"] then
+				player.set_shortcut_available("toggle-equipment-bot-chip-feeder", true)
+				player.set_shortcut_available("toggle-equipment-bot-chip-items", true)
+				player.set_shortcut_available("toggle-equipment-bot-chip-launcher", true)
+				player.set_shortcut_available("toggle-equipment-bot-chip-nanointerface", true)
+				player.set_shortcut_available("toggle-equipment-bot-chip-trees", true)
 			end
 		end
 

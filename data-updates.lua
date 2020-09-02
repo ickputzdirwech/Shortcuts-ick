@@ -8,8 +8,6 @@
 
 -- This code has been modified by ickputzdirwech.
 
-require("shortcuts")
-
 local function hide_the_remote(recipe, technology, item)
 	if item then
 		if item.flags then
@@ -25,19 +23,13 @@ local function hide_the_remote(recipe, technology, item)
 		recipe_prototype.ingredients = {{"iron-plate", 1}}
 		if technology ~= nil and tech_prototype then
 			local effect = tech_prototype.effects
-			--for some reason the following is incompatible with TrainConstructionSite.
-			--if not mods["trainConstructionSite"] then -- workaround
-				for i,e in pairs(effect) do --solution from lovely_santa
-				--for i=1,(#effect) do
-				--if effect[i] ~= nil then --solution from mrudat
-					if effect[i].type == "unlock-recipe" then
-						if effect[i].recipe == recipe then
-							table.remove(effect, i)
-							return
-						end
+			for i, e in pairs(effect) do
+				if effect[i].type == "unlock-recipe" then
+					if effect[i].recipe == recipe then
+						table.remove(effect, i)
+						return
 					end
-				--end
-				--end
+				end
 			end
 		end
 	end
@@ -68,6 +60,15 @@ if mods["aai-programmable-vehicles"] then
 	end
 end
 
+if mods["AdvArtilleryRemotes"] then
+	if data.raw.capsule["artillery-cluster-remote"] then
+		hide_the_remote("artillery-cluster-remote", "artillery", data.raw.capsule["artillery-cluster-remote"])
+	end
+	if data.raw["selection-tool"]["artillery-discovery-remote"] then
+		hide_the_remote("artillery-discovery-remote", "artillery", data.raw["selection-tool"]["artillery-discovery-remote"])
+	end
+end
+
 if mods["Orbital Ion Cannon"] and data.raw["item"]["ion-cannon-targeter"] and data.raw["technology"]["orbital-ion-cannon"] and settings.startup["ion-cannon-targeter"].value == true then
 	hide_the_remote("ion-cannon-targeter", "orbital-ion-cannon", data.raw["item"]["ion-cannon-targeter"])
 end
@@ -93,6 +94,15 @@ if mods["OreEraser"] and data.raw["selection-tool"]["Ore Eraser"] then
 	hide_the_remote(nil, nil, data.raw["selection-tool"]["Ore Eraser"])
 end
 
+--Remove shortcuts from PickerInventoryTools
+if mods["PickerInventoryTools"] then
+	if data.raw.shortcut["toggle-active-defense-equipment"] then
+		data.raw.shortcut["toggle-active-defense-equipment"] = nil
+	end
+	if data.raw.shortcut["toggle-night-vision-equipment"] then
+		data.raw.shortcut["toggle-night-vision-equipment"] = nil
+	end
+end
 
 --Remove technology_to_unlock and/or change action for mod shortcuts in order to make them available based in researched in a specific game.
 if mods["circuit-checker"] and data.raw.shortcut["check-circuit"] then
@@ -149,65 +159,62 @@ end
 	data:extend{NoMagazine, FirearmMagazine, PiercingRoundsMagazine, UraniumRoundsMagazine}
 end]]
 
-if not mods["Nanobots"] then
 
-	for i,e in pairs(equipment_list) do
-	--for i=1,(#equipment_list) do
+for i, e in pairs(equipment_list) do
 
-		for _, equipment in pairs(data.raw[equipment_list[i]]) do
-			local i = #disabled_equipment+1
-			disabled_equipment[i] = util.table.deepcopy(equipment)
+	for _, equipment in pairs(data.raw[equipment_list[i]]) do
+		local i = #disabled_equipment+1
+		disabled_equipment[i] = util.table.deepcopy(equipment)
 
-			--make it compatible with NightvisionToggles and GunEquipment
-			if disabled_equipment[i].name ~= "nvt-night-vision-equipment" and string.sub(disabled_equipment[i].name,1,16) ~= "personal-turret-" then
+		--make it compatible with NightvisionToggles, GunEquipment and Nanobots
+		if disabled_equipment[i].name ~= "nvt-night-vision-equipment" and string.sub(disabled_equipment[i].name,1,16) ~= "personal-turret-" then
+			if string.sub(disabled_equipment[i].name,1,7) ~= "picker-" then
 
-			local name = disabled_equipment[i].name
-			if (equipment.type == "active-defense-equipment" and equipment.automatic == true) or equipment.type ~= "active-defense-equipment" then
-				disabled_equipment[i].name = "disabled-" .. name
-				disabled_equipment[i].localised_name = {"", {"equipment-name." .. name}, " (", {"gui-constant.off"}, ")"}
-				disabled_equipment[i].sprite.tint = {0.5, 0.5, 0.5}
-			elseif (equipment.type == "active-defense-equipment" and equipment.automatic == false) then
-				disabled_equipment[i].name = "disabledinactive-" .. name
-				disabled_equipment[i].localised_name = {"equipment-name." .. name}
-			end
-			disabled_equipment[i].energy_input = "0kW"
-			disabled_equipment[i].take_result = name
-			if equipment_list[i] == "belt-immunity-equipment" or (equipment.type == "active-defense-equipment" and equipment.automatic == true) then
-				disabled_equipment[i].energy_source.input_flow_limit = "0kW"
-				disabled_equipment[i].energy_source.buffer_capacity = "0kJ"
-				disabled_equipment[i].energy_source.drain = "1kW"
-			end
+				local name = disabled_equipment[i].name
+				if (equipment.type == "active-defense-equipment" and equipment.automatic == true) or equipment.type ~= "active-defense-equipment" then
+					disabled_equipment[i].name = "disabled-" .. name
+					disabled_equipment[i].localised_name = {"", {"equipment-name." .. name}, " (", {"gui-constant.off"}, ")"}
+					disabled_equipment[i].sprite.tint = {0.5, 0.5, 0.5}
+				elseif (equipment.type == "active-defense-equipment" and equipment.automatic == false) then
+					disabled_equipment[i].name = "disabledinactive-" .. name
+					disabled_equipment[i].localised_name = {"equipment-name." .. name}
+				end
+				disabled_equipment[i].energy_input = "0kW"
+				disabled_equipment[i].take_result = name
+				if equipment_list[i] == "belt-immunity-equipment" or (equipment.type == "active-defense-equipment" and equipment.automatic == true) then
+					disabled_equipment[i].energy_source.input_flow_limit = "0kW"
+					disabled_equipment[i].energy_source.buffer_capacity = "0kJ"
+					disabled_equipment[i].energy_source.drain = "1kW"
+				end
 
-			if not data.raw["item"][equipment_list[i]] then --for mods which have a different item name compared to equipment name
-				disabled_equipment_item[i] = util.table.deepcopy(data.raw["item"]["night-vision-equipment"])
+				if not data.raw["item"][equipment_list[i]] then --for mods which have a different item name compared to equipment name
+					disabled_equipment_item[i] = util.table.deepcopy(data.raw["item"]["night-vision-equipment"])
+					disabled_equipment_item[i].name = "disabled-" .. name
+					disabled_equipment_item[i].flags = {"hidden"}
+					disabled_equipment_item[i].placed_as_equipment_result = name
+				end
+
+				--disabled_equipment_item[i] = util.table.deepcopy(data.raw["item"][equipment_list[i]]) -- LEGACY ITEM (Disable for release)
+				if not disabled_equipment_item[i] then
+					disabled_equipment_item[i] = util.table.deepcopy(data.raw["item"]["night-vision-equipment"])
+				end
+
 				disabled_equipment_item[i].name = "disabled-" .. name
 				disabled_equipment_item[i].flags = {"hidden"}
+				-- disabled_equipment_item[i].localised_name = {"", {"equipment-name." .. name}, " (", {"gui-constant.off"}, ")"}
+				disabled_equipment_item[i].localised_description = {"item-description." .. name}
 				disabled_equipment_item[i].placed_as_equipment_result = name
 			end
-
-			--disabled_equipment_item[i] = util.table.deepcopy(data.raw["item"][equipment_list[i]]) -- LEGACY ITEM (Disable for release)
-			if not disabled_equipment_item[i] then
-				disabled_equipment_item[i] = util.table.deepcopy(data.raw["item"]["night-vision-equipment"])
-			end
-
-			disabled_equipment_item[i].name = "disabled-" .. name
-			disabled_equipment_item[i].flags = {"hidden"}
-			-- disabled_equipment_item[i].localised_name = {"", {"equipment-name." .. name}, " (", {"gui-constant.off"}, ")"}
-			disabled_equipment_item[i].localised_description = {"item-description." .. name}
-			disabled_equipment_item[i].placed_as_equipment_result = name
-		end
-
-		end
-
-	end
-
-	for i=1,(#disabled_equipment),1 do
-		data:extend({disabled_equipment[i]})
-		if disabled_equipment_item[i] then
-			data:extend({disabled_equipment_item[i]})
 		end
 	end
 
+end
+
+for i=1,(#disabled_equipment),1 do
+	data:extend({disabled_equipment[i]})
+	if disabled_equipment_item[i] then
+		data:extend({disabled_equipment_item[i]})
+	end
 end
 
 

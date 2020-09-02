@@ -21,6 +21,7 @@ OWN MOD:
 ---------------------------------------------------------------------------------------------------
 BUGS:
 - hide initial technology_to_unlock for path remote controls
+- exoskeleton and personal roboport not greyed out
 
 NEW SHORTCUTS:
 - auto targeting with gunner
@@ -42,7 +43,6 @@ MORLEY376:
 ---------------------------------------------------------------------------------------------------
 TODO: ( For next release - Next update with content may be some weeks away )
 - keyboard binds (customizable if possible)
-- Support the Picker mods
 
 Ideas for future releases ( On hold - working on nuclear ICBM mod )
 - Stuff for GameViewSettings
