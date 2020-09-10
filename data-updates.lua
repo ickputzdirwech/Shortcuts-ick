@@ -8,10 +8,13 @@
 
 -- This code has been modified by ickputzdirwech.
 
+require("prototypes.shortcuts-mods-updates")
+
 local function hide_the_remote(recipe, technology, item)
 	if item then
 		if item.flags then
-			item.flags[#item.flags+1] = "only-in-cursor"
+			table.insert(item.flags, "only-in-cursor")
+			--item.flags[#item.flags+1] = "only-in-cursor"
 		else
 			item.flags = {"only-in-cursor"}
 		end
@@ -64,8 +67,8 @@ if mods["AdvArtilleryRemotes"] then
 	if data.raw.capsule["artillery-cluster-remote"] then
 		hide_the_remote("artillery-cluster-remote", "artillery", data.raw.capsule["artillery-cluster-remote"])
 	end
-	if data.raw["selection-tool"]["artillery-discovery-remote"] then
-		hide_the_remote("artillery-discovery-remote", "artillery", data.raw["selection-tool"]["artillery-discovery-remote"])
+	if data.raw.capsule["artillery-discovery-remote"] then
+		hide_the_remote("artillery-discovery-remote", "artillery", data.raw.capsule["artillery-discovery-remote"])
 	end
 end
 
@@ -181,6 +184,7 @@ for i, e in pairs(equipment_list) do
 				end
 				disabled_equipment[i].energy_input = "0kW"
 				disabled_equipment[i].take_result = name
+				disabled_equipment[i].flags = {"hidden"}
 				if equipment_list[i] == "belt-immunity-equipment" or (equipment.type == "active-defense-equipment" and equipment.automatic == true) then
 					disabled_equipment[i].energy_source.input_flow_limit = "0kW"
 					disabled_equipment[i].energy_source.buffer_capacity = "0kJ"
@@ -188,7 +192,7 @@ for i, e in pairs(equipment_list) do
 				end
 
 				if not data.raw["item"][equipment_list[i]] then --for mods which have a different item name compared to equipment name
-					disabled_equipment_item[i] = util.table.deepcopy(data.raw["item"]["night-vision-equipment"])
+					disabled_equipment_item[i] = util.table.deepcopy(data.raw["item"][name])
 					disabled_equipment_item[i].name = "disabled-" .. name
 					disabled_equipment_item[i].flags = {"hidden"}
 					disabled_equipment_item[i].placed_as_equipment_result = name
@@ -196,14 +200,18 @@ for i, e in pairs(equipment_list) do
 
 				--disabled_equipment_item[i] = util.table.deepcopy(data.raw["item"][equipment_list[i]]) -- LEGACY ITEM (Disable for release)
 				if not disabled_equipment_item[i] then
-					disabled_equipment_item[i] = util.table.deepcopy(data.raw["item"]["night-vision-equipment"])
+					disabled_equipment_item[i] = util.table.deepcopy(data.raw["item"][name])
 				end
 
 				disabled_equipment_item[i].name = "disabled-" .. name
-				disabled_equipment_item[i].flags = {"hidden"}
-				-- disabled_equipment_item[i].localised_name = {"", {"equipment-name." .. name}, " (", {"gui-constant.off"}, ")"}
+				disabled_equipment_item[i].localised_name = {"", {"equipment-name." .. name}, " (", {"gui-constant.off"}, ")"}
 				disabled_equipment_item[i].localised_description = {"item-description." .. name}
 				disabled_equipment_item[i].placed_as_equipment_result = name
+				disabled_equipment_item[i].order = disabled_equipment_item[i].order .. "-z"
+				if disabled_equipment_item[i].icon then
+					disabled_equipment_item[i].icons = {{icon = disabled_equipment_item[i].icon, tint = {0.5, 0.5, 0.5}}}
+					disabled_equipment_item[i].icon = nil
+				end
 			end
 		end
 	end
@@ -239,6 +247,7 @@ if settings.startup["artillery-toggle"].value == "both" or settings.startup["art
 			disabled_turret[i] = util.table.deepcopy(entity)
 			local name = disabled_turret[i].name
 			local gun = disabled_turret[i].gun
+
 			disabled_turret_item[i] = util.table.deepcopy(data.raw["item-with-entity-data"][name])
 			if disabled_turret_item[i] == nil then
 				disabled_turret_item[i] = util.table.deepcopy(data.raw["item"][name])
@@ -249,15 +258,30 @@ if settings.startup["artillery-toggle"].value == "both" or settings.startup["art
 			disabled_turret_item[i].name = "disabled-" .. name
 			disabled_turret_item[i].place_result = "disabled-" .. name
 			disabled_turret_item[i].flags = {"hidden"}
+			if disabled_turret_item[i].icon then
+				disabled_turret_item[i].icons = {{icon = disabled_turret_item[i].icon, tint = {0.5, 0.5, 0.5}}}
+				disabled_turret_item[i].icon = nil
+			end
+
 			disabled_turret[i].name = "disabled-" .. name
-			-- disabled_turret[i].flags = {"hidden"} Turns out flagging an entity (Not ITEM!) as hidden makes it immune to selection-tools...
+			--disabled_turret[i].flags = {"hidden"} --Turns out flagging an entity (Not ITEM!) as hidden makes it immune to selection-tools...
 			disabled_turret[i].localised_name = {"", {"entity-name." .. entity.name}, " (", {"gui-constant.off"}, ")"}
+			if disabled_turret[i].icon then
+				disabled_turret[i].icons = {{icon = disabled_turret[i].icon, tint = {0.5, 0.5, 0.5}}}
+				disabled_turret[i].icon = nil
+			end
+
 			disabled_gun[i] = util.table.deepcopy(data.raw["gun"][gun])
 			disabled_gun[i].name = "disabled-" .. gun
+			disabled_gun[i].localised_name = {"", {"item-name." .. entity.name}, " (", {"gui-constant.off"}, ")"}
 			disabled_gun[i].flags = {"hidden"}
-			disabled_gun[i].tint = { r = 1.0, g = 0.0, b = 0.0, a = 1.0 }
 			disabled_gun[i].attack_parameters.range = 0
 			disabled_gun[i].attack_parameters.min_range = 0
+			if disabled_gun[i].icon then
+				disabled_gun[i].icons = {{icon = disabled_gun[i].icon, tint = {0.5, 0.5, 0.5}}}
+				disabled_gun[i].icon = nil
+			end
+
 			disabled_turret[i].gun = disabled_gun[i].name
 		end
 	end

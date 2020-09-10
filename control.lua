@@ -223,9 +223,9 @@ local function artillery_swap(wagon,new_name)
 	local shellcount = {}
 	local inventory
 	if wagon.type == "artillery-wagon" then
-		inventory = table.deepcopy(wagon.get_inventory(defines.inventory.artillery_wagon_ammo))
+		inventory = wagon.get_inventory(defines.inventory.artillery_wagon_ammo)
 	elseif wagon.type == "artillery-turret" then
-		inventory = table.deepcopy(wagon.get_inventory(defines.inventory.artillery_turret_ammo))
+		inventory = wagon.get_inventory(defines.inventory.artillery_turret_ammo)
 	end
 
 	for i=1,(#inventory) do
@@ -272,7 +272,15 @@ local function jam_artillery(event)
 				i=i+1
 				local new_name = ("disabled-" .. name)
 				local new_wagon = artillery_swap(wagon,new_name)
-				rendering.draw_sprite{sprite="utility.warning_icon", x_scale=1.5, y_scale=1.5, target_offset={0.0,-0.5}, render_layer="entity-info-icon-above", target=new_wagon, surface=new_wagon.surface, forces={new_wagon.force}} -- ickputzdirwech
+				rendering.draw_sprite{
+					sprite = "utility.warning_icon",
+					x_scale = 1, y_scale = 1,
+					target_offset = {0.0,-0.25},
+					render_layer = "entity-info-icon-above",
+					target = new_wagon,
+					surface = new_wagon.surface,
+					forces = {new_wagon.force}
+				}
 			elseif wagon.valid and (type == "artillery-wagon" or type == "artillery-turret") and (string.sub(name,1,9) == "disabled-") then
 				j=j+1
 				local new_name = (string.sub(name,10,#name))
@@ -539,8 +547,8 @@ script.on_event(defines.events.on_player_created, function(event)
 		end
 	end
 
-	if settings.startup["aai-remote-controls"].value == true and game.active_mods["aai-programmable-vehicles"] then
-		if player.force.technologies["automobilism"].researched == false and player.force.technologies["spidertron"].researched == false then
+	if settings.startup["aai-remote-controls"] then
+		if settings.startup["aai-remote-controls"].value == true and player.force.technologies["automobilism"].researched == false and player.force.technologies["spidertron"].researched == false then
 			player.set_shortcut_available("path-remote-control", false)
 			player.set_shortcut_available("unit-remote-control", false)
 		end
@@ -551,8 +559,8 @@ script.on_event(defines.events.on_player_created, function(event)
 			player.set_shortcut_available("artillery-discovery-remote", false)
 		end
 	end
-	if settings.startup["ion-cannon-targeter"].value == true and game.active_mods["Orbital Ion Cannon"] then
-		if player.force.technologies["orbital-ion-cannon"].researched == false then
+	if settings.startup["ion-cannon-targeter"] then
+		if settings.startup["ion-cannon-targeter"].value == true and player.force.technologies["orbital-ion-cannon"].researched == false then
 			player.set_shortcut_available("ion-cannon-targeter", false)
 		end
 	end
@@ -566,8 +574,8 @@ script.on_event(defines.events.on_player_created, function(event)
 			player.set_shortcut_available("spidertron-remote", false)
 		end
 	end
-	if settings.startup["vehicle-wagon-2-winch"].value == true and game.active_mods["VehicleWagon2"] then
-		if player.force.technologies["vehicle-wagons"].researched == false then
+	if settings.startup["vehicle-wagon-2-winch"] then
+		if settings.startup["vehicle-wagon-2-winch"].value == true and player.force.technologies["vehicle-wagons"].researched == false then
 			player.set_shortcut_available("vehicle-wagon-2-winch", false)
 		end
 	end
@@ -677,14 +685,14 @@ script.on_event(defines.events.on_research_finished, function(event)
 			end
 		end
 
-		if event.research and event.research.name == "automobilism" or "spidertron" then
-			if settings.startup["aai-remote-controls"].value == true and game.active_mods["aai-programmable-vehicles"] then
+		if settings.startup["aai-remote-controls"] then
+			if event.research and (event.research.name == "automobilism" or "spidertron") and settings.startup["aai-remote-controls"].value == true then
 				player.set_shortcut_available("path-remote-control", true)
 				player.set_shortcut_available("unit-remote-control", true)
 			end
 		end
-		if event.research and event.research.name == "orbital-ion-cannon" then
-			if settings.startup["ion-cannon-targeter"].value == true and game.active_mods["Orbital Ion Cannon"] then
+		if settings.startup["ion-cannon-targeter"] then
+			if event.research and event.research.name == "orbital-ion-cannon" and settings.startup["ion-cannon-targeter"].value == true then
 				player.set_shortcut_available("ion-cannon-targeter", true)
 			end
 		end
@@ -698,8 +706,8 @@ script.on_event(defines.events.on_research_finished, function(event)
 				player.set_shortcut_available("spidertron-remote", true)
 			end
 		end
-		if event.research and event.research.name == "vehicle-wagons" then
-			if settings.startup["vehicle-wagon-2-winch"].value == true and game.active_mods["VehicleWagon2"] then
+		if settings.startup["vehicle-wagon-2-winch"] then
+			if event.research and event.research.name == "vehicle-wagons" and settings.startup["vehicle-wagon-2-winch"].value == true then
 				player.set_shortcut_available("vehicle-wagon-2-winch", true)
 			end
 		end

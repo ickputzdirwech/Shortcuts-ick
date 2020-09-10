@@ -2,7 +2,7 @@
 OTHER MODS:
 ---------------------------------------------------------------------------------------------------
 OTHER:
-- Make merge-chest-selector dependant on technology
+- Make chest merge tool from Merging Chests mod available dependant on research.
 
 BAD ICONS:
 - Merging chest disabled icons

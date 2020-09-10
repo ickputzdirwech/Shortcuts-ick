@@ -199,7 +199,6 @@ data:extend(
   },
 
   -- MODS
-	--	Since we cannot conditionally extend mod settings, we have to implement them whether the mod is enabled or not :(
   {
     type = "string-setting",
     name = "autogen-color",
@@ -209,39 +208,54 @@ data:extend(
     default_value = "default",
     order = "e[mods]-a",
   },
-	{
-		type = "bool-setting",
-    name = "aai-remote-controls",
-    setting_type = "startup",
-    default_value = true,
-    order = "e[mods]-b[aai-remote-controls]",
-	},
-	{
-		type = "bool-setting",
-		name = "ion-cannon-targeter",
-		setting_type = "startup",
-		default_value = true,
-    order = "e[mods]-c[ion-cannon-targeter]",
-	},
-	{
-		type = "bool-setting",
-		name = "max-rate-calculator",
-		setting_type = "startup",
-		default_value = true,
-    order = "e[mods]-d[max-rate-calculator]",
-	},
-	{
-		type = "bool-setting",
-		name = "outpost-builder",
-    setting_type = "startup",
-		default_value = true,
-    order = "e[mods]-e[outpost-builder]",
-	},
-	{
-		type = "bool-setting",
-		name = "vehicle-wagon-2-winch",
-		setting_type = "startup",
-		default_value = true,
-    order = "e[mods]-f[vehicle-wagon-2-winch]"
-	},
 })
+
+if mods["aai-programmable-vehicles"] then
+  data:extend({{
+      type = "bool-setting",
+      name = "aai-remote-controls",
+      setting_type = "startup",
+      default_value = true,
+      order = "e[mods]-b[aai-remote-controls]",
+  	}})
+end
+
+if mods["Orbital Ion Cannon"] then
+  data:extend({{
+      type = "bool-setting",
+  		name = "ion-cannon-targeter",
+  		setting_type = "startup",
+  		default_value = true,
+      order = "e[mods]-c[ion-cannon-targeter]",
+  	}})
+end
+
+if mods["MaxRateCalculator"] then
+  data:extend({{
+      type = "bool-setting",
+  		name = "max-rate-calculator",
+  		setting_type = "startup",
+  		default_value = true,
+      order = "e[mods]-d[max-rate-calculator]",
+  	}})
+end
+
+if mods["OutpostPlanner"] then
+  data:extend({{
+      type = "bool-setting",
+  		name = "outpost-builder",
+      setting_type = "startup",
+  		default_value = true,
+      order = "e[mods]-e[outpost-builder]",
+  	}})
+end
+
+if mods["VehicleWagon2"] then
+  data:extend({{
+  		type = "bool-setting",
+  		name = "vehicle-wagon-2-winch",
+  		setting_type = "startup",
+  		default_value = true,
+      order = "e[mods]-f[vehicle-wagon-2-winch]",
+  	}})
+end
