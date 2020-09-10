@@ -110,3 +110,9 @@ Date: 2020-09-10
     - Fixed artillery-discovery-remote from AdvArtilleryRemotes would go into inventory.
     - Fixed error caused by Ion cannon targeter shortcut not getting generated when various other mods were active.
     - Fixed error when artillery wagon fire toggle was used.
+
+---------------------------------------------------------------------------------------------------
+Version: 1.0.9
+Date: 2020-09-10
+  Bugfixes:
+    - Hotfix: Fixed error when researching and AAI Programmable vehicles were not installed.

@@ -659,12 +659,7 @@ commands.add_command("shortcuts_initialize_variables", "debug: ensure that all g
 
 script.on_event(defines.events.on_research_finished, function(event)
 	for _,player in pairs(event.research.force.players) do
-		if event.research and event.research.name == "automobilism" then
-			if settings.startup["aai-remote-controls"].value == true and game.active_mods["aai-programmable-vehicles"] then
-				player.set_shortcut_available("path-remote-control", true)
-				player.set_shortcut_available("unit-remote-control", true)
-			end
-		end
+		
 		if event.research and event.research.name == "artillery" then
 			if settings.startup["artillery-toggle"].value == "both" or settings.startup["artillery-toggle"].value == "Artillery wagon" or settings.startup["artillery-toggle"].value == "Artillery turret" then
 				player.set_shortcut_available("artillery-jammer-remote", true)
