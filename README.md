@@ -38,7 +38,7 @@ You can download the mod on the [mod portal](https://mods.factorio.com/mod/Short
 * Personal laser defense
 
 
-**Remotes**
+**Artillery**
 
 * Artillery targeting remote
 * MOD: AdvArtilleryRemotes

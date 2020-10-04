@@ -141,3 +141,9 @@ Date: 2020-10-04
     - Changed internal name of "Deconstrcution planner (only trees/rocks)".
   Bugfixes:
     - Fixed that setting the startup setting spidertron remote to disabled had no effect.
+
+---------------------------------------------------------------------------------------------------
+Version: 1.0.11
+Date: 2020-10-04
+  Bugfixes:
+    - Hotfix: Fixed error when "Zoom out of world" shortcut was used.

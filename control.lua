@@ -563,7 +563,7 @@ script.on_event(defines.events.on_lua_shortcut, function(event)
 	elseif prototype_name == "rail-block-visualization-toggle" then
 		toggle_rail(player)
 	elseif prototype_name == "big-zoom" then
-		big_zoom(even)
+		big_zoom(player)
 
 -- VEHICLE
 	elseif prototype_name == "spidertron-logistics" then
