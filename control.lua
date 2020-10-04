@@ -1,13 +1,34 @@
 --[[ Copyright (c) 2019 npc_strider
  * For direct use of code or graphics, credit is appreciated and encouraged. See LICENSE.txt for more information.
- * This mod may contain modified code sourced from base/core Factorio
- *
- * control.lua
- * Scripts for updating armor, toggling artillery pieces, drawing grids and managing toggles and variables.
---]]
+ * This mod may contain modified code sourced from base/core Factorio.
+ * This mod has been modified by ickputzdirwech.
+]]
 
--- This code has been modified by ickputzdirwech.
+--[[ Overview of control.lua:
+	* Scripts for updating armor, drawing grids and managing toggles and variables.
+		- Equipment functions
+		- Reset equipment states
+		- Debug
+	* Scripts for artillery cannon fire selection tool
+	* Scripts for basic shortcuts
+		- Character lamp
+		- Emergency locator beacon
+		- Grid
+		- Rail block visualisation
+		- Zoom
+	* Script for shortcuts that give an item
+	* Scripts for spidertron shortcuts
+		- Enable/disable logistics while moving
+		- Auto targeting without gunner
+		- Auto targeting with gunner
+	* Scripts for on_lua_shortcut
+	* Scripts for custom inputs
+	* Scripts to enable and disable shortcuts on_player_created and on_research_finished
+]]
 
+---------------------------------------------------------------------------------------------------
+-- EQUIPMENT FUNCTIONS
+---------------------------------------------------------------------------------------------------
 local function update_armor(event)
 	local player = game.players[event.player_index]
 	local power_armor = player.get_inventory(defines.inventory.character_armor)
@@ -60,43 +81,6 @@ local function update_state(event, equipment_type) -- toggles the armor
 				end
 			end
 		end
-	end
-end
-
-local function toggle_light(player)
-	if player.character then
-		if global.shortcuts_light[player.index] == nil then
-			global.shortcuts_light[player.index] = true
-		end
-		if global.shortcuts_light[player.index] == true then
-			player.character.disable_flashlight()
-			global.shortcuts_light[player.index] = false
-			player.set_shortcut_toggled("flashlight-toggle", false)
-		elseif global.shortcuts_light[player.index] == false then
-			player.character.enable_flashlight()
-			global.shortcuts_light[player.index] = true
-			player.set_shortcut_toggled("flashlight-toggle", true)
-		end
-	else
-		player.print({"", {"error.error-message-box-title"}, ": ", {"player-doesnt-exist", {"gui.character"}}, " (", {"controller.god"}, "): ", {"entity-name.small-lamp"}, " ", {"gui-mod-info.status-disabled"}})
-	end
-end
-local function toggle_rail(player)
-	if global.toggle_rail[player.index] == nil then
-		global.toggle_rail[player.index] = false
-	end
-	if global.toggle_rail[player.index] == true then
-		player.game_view_settings.show_rail_block_visualisation = false
-		--player.map_view_settings = {["show-rail-signal-states"] = false}
-		--player.map_view_settings = {["show-non-standard-map-info"] = {["show-rail-signal-states"] = false}}
-		global.toggle_rail[player.index] = false
-		player.set_shortcut_toggled("rail-block-visualization-toggle", false)
-	elseif global.toggle_rail[player.index] == false then
-		player.game_view_settings.show_rail_block_visualisation = true
-		--player.map_view_settings = {["show-rail-signal-states"] = true}
-		--player.map_view_settings = {["show-non-standard-map-info"] = {["show-rail-signal-states"] = true}}
-		global.toggle_rail[player.index] = true
-		player.set_shortcut_toggled("rail-block-visualization-toggle", true)
 	end
 end
 
@@ -159,6 +143,10 @@ local function enable_it(player, equipment, grid, type) -- enables things
 
 	end
 end
+
+---------------------------------------------------------------------------------------------------
+-- RESET EQUIPMENT STATE
+---------------------------------------------------------------------------------------------------
 local function reset_state(event, toggle) -- verifies placement of equipment and armor switching
 	update_armor(event)
 	local player = game.players[event.player_index]
@@ -218,6 +206,41 @@ local function reset_state(event, toggle) -- verifies placement of equipment and
 	end
 end
 
+script.on_event(defines.events.on_player_armor_inventory_changed, function(event)
+		reset_state(event,0)
+end)
+script.on_event(defines.events.on_player_placed_equipment, function(event)
+		reset_state(event,1)
+end)
+script.on_event(defines.events.on_player_removed_equipment, function(event)
+		reset_state(event,2)
+end)
+
+---------------------------------------------------------------------------------------------------
+-- DEBUG
+---------------------------------------------------------------------------------------------------
+local function initialize()
+	if global.shortcuts_light == nil then
+		global.shortcuts_light = {}
+	end
+	if global.toggle_rail == nil then
+		global.toggle_rail = {}
+	end
+	if global.shortcuts_armor == nil then
+		global.shortcuts_armor = {}
+	end
+	if global.shortcuts_grid == nil then
+		global.shortcuts_grid = {}
+	end
+end
+
+script.on_init(initialize)
+script.on_configuration_changed(initialize)
+commands.add_command("shortcuts_initialize_variables", "debug: ensure that all global tables are not nil (should not happen in a normal game)", initialize)
+
+---------------------------------------------------------------------------------------------------
+-- TOGGLE ARTILLERY CANNON FIRE SELECTION TOOL
+---------------------------------------------------------------------------------------------------
 local function artillery_swap(wagon,new_name)
 	local shellname = {}
 	local shellcount = {}
@@ -260,7 +283,7 @@ local function artillery_swap(wagon,new_name)
 	return new_wagon
 end
 
-local function jam_artillery(event)
+script.on_event(defines.events.on_player_selected_area, function(event)
 	if event.item == "artillery-jammer-tool" and event.entities ~= nil then
 		local player = game.players[event.player_index]
 		local i = 0
@@ -296,6 +319,50 @@ local function jam_artillery(event)
 				player.force.print("Player " .. player.name .. " on surface " .. player.surface.name .. " has enabled " .. j .. " and disabled " .. i .. " artillery")
 			end
 		end
+	end
+end)
+
+if settings.startup["artillery-toggle"].value == "both" or settings.startup["artillery-toggle"].value == "artillery-turret" or settings.startup["artillery-toggle"].value == "artillery-wagon" then
+	script.on_event(defines.events.on_robot_built_entity, function(event)
+		rendering.draw_sprite{
+			sprite = "utility.warning_icon",
+			x_scale = 1, y_scale = 1,
+			target_offset = {0.0,-0.25},
+			render_layer = "entity-info-icon-above",
+			target = event.created_entity,
+			surface = event.created_entity.surface,
+			forces = {event.created_entity.force}
+		}
+	end, {{filter = "name", name = "disabled-artillery-turret"}, {filter = "name", name = "disabled-artillery-wagon"}})
+end
+
+---------------------------------------------------------------------------------------------------
+-- BASIC
+---------------------------------------------------------------------------------------------------
+local function toggle_light(player)
+	if player.character then
+		if global.shortcuts_light[player.index] == nil then
+			global.shortcuts_light[player.index] = true
+		end
+		if global.shortcuts_light[player.index] == true then
+			player.character.disable_flashlight()
+			global.shortcuts_light[player.index] = false
+			player.set_shortcut_toggled("flashlight-toggle", false)
+		elseif global.shortcuts_light[player.index] == false then
+			player.character.enable_flashlight()
+			global.shortcuts_light[player.index] = true
+			player.set_shortcut_toggled("flashlight-toggle", true)
+		end
+	else
+		player.print({"", {"error.error-message-box-title"}, ": ", {"player-doesnt-exist", {"gui.character"}}, " (", {"controller.god"}, "): ", {"entity-name.small-lamp"}, " ", {"gui-mod-info.status-disabled"}})
+	end
+end
+
+local function signal_flare(player)
+	if settings.global["disable-zoom"].value == true then
+		player.force.print({"", "[img=utility.danger_icon] [color=1,0.1,0.1]", {"entity-name.character"}, " " ..  player.name .. " [gps=" .. math.floor(player.position.x+0.5) .. "," .. math.floor(player.position.y+0.5) ..  "][/color] [img=utility.danger_icon]"})
+	else
+		player.print({"", {"error.error-message-box-title"}, ": ", {"technology-name.military"}, " ", {"entity-name.beacon"}, " ", {"gui-mod-info.status-disabled"}})
 	end
 end
 
@@ -368,35 +435,184 @@ local function draw_grid(player_index)
 	end
 end
 
-local function initialize()
-	if global.shortcuts_light == nil then
-		global.shortcuts_light = {}
+local function toggle_rail(player)
+	if global.toggle_rail[player.index] == nil then
+		global.toggle_rail[player.index] = false
 	end
-	if global.toggle_rail == nil then
-		global.toggle_rail = {}
-	end
-	if global.shortcuts_armor == nil then
-		global.shortcuts_armor = {}
-	end
-	if global.shortcuts_grid == nil then
-		global.shortcuts_grid = {}
+	if global.toggle_rail[player.index] == true then
+		player.game_view_settings.show_rail_block_visualisation = false
+		--player.map_view_settings = {["show-rail-signal-states"] = false}
+		--player.map_view_settings = {["show-non-standard-map-info"] = {["show-rail-signal-states"] = false}}
+		global.toggle_rail[player.index] = false
+		player.set_shortcut_toggled("rail-block-visualization-toggle", false)
+	elseif global.toggle_rail[player.index] == false then
+		player.game_view_settings.show_rail_block_visualisation = true
+		--player.map_view_settings = {["show-rail-signal-states"] = true}
+		--player.map_view_settings = {["show-non-standard-map-info"] = {["show-rail-signal-states"] = true}}
+		global.toggle_rail[player.index] = true
+		player.set_shortcut_toggled("rail-block-visualization-toggle", true)
 	end
 end
 
-script.on_event(defines.events.on_player_armor_inventory_changed, function(event)
-		reset_state(event,0)
-end)
-script.on_event(defines.events.on_player_placed_equipment, function(event)
-		reset_state(event,1)
-end)
-script.on_event(defines.events.on_player_removed_equipment, function(event)
-		reset_state(event,2)
+local function big_zoom(player)
+	if settings.global["disable-zoom"].value == true then
+		player.zoom = settings.get_player_settings(player)["zoom-level"].value
+	else
+		player.print({"", {"error.error-message-box-title"}, ": ", {"controls.alt-zoom-out"}, " ", {"gui-mod-info.status-disabled"}})
+	end
+end
+
+---------------------------------------------------------------------------------------------------
+-- GIVE ITEM
+---------------------------------------------------------------------------------------------------
+local function give_shortcut_item(player, prototype_name)
+	if game.item_prototypes[prototype_name] then
+		if player.clean_cursor() then
+			player.cursor_stack.set_stack({name = prototype_name})
+			if prototype_name == "tree-killer" then
+				player.cursor_stack.trees_and_rocks_only = true
+			end
+		end
+	end
+end
+
+---------------------------------------------------------------------------------------------------
+-- SPIDERTRON
+---------------------------------------------------------------------------------------------------
+local function spidertron_shortcuts(player, player_vehicle, prototype_name)
+	player.set_shortcut_available(prototype_name, true)
+	if player_vehicle == true then
+		player.set_shortcut_toggled(prototype_name, true)
+	elseif player_vehicle == false then
+		player.set_shortcut_toggled(prototype_name, false)
+	end
+end
+
+script.on_event(defines.events.on_player_driving_changed_state, function(event)
+	local player = game.players[event.player_index]
+	if settings.startup["spidertron-logistics"].value == true then
+		if player.driving == true then
+			if player.vehicle.type == "spider-vehicle" then
+				spidertron_shortcuts(player, player.vehicle.enable_logistics_while_moving, "spidertron-logistics")
+			end
+		end
+		if player.driving == false then
+			player.set_shortcut_available("spidertron-logistics", false)
+		end
+	end
+	if settings.startup["spidertron-automatic-targeting"].value == true then
+		if player.driving == true then
+			if player.vehicle.type == "spider-vehicle" then
+				spidertron_shortcuts(player, player.vehicle.vehicle_automatic_targeting_parameters.auto_target_without_gunner, "targeting-without-gunner")
+				spidertron_shortcuts(player, player.vehicle.vehicle_automatic_targeting_parameters.auto_target_with_gunner, "targeting-with-gunner")
+			end
+		end
+		if player.driving == false then
+			player.set_shortcut_available("targeting-without-gunner", false)
+			player.set_shortcut_available("targeting-with-gunner", false)
+		end
+	end
 end)
 
+script.on_event(defines.events.on_gui_closed, function(event)
+	local player = game.players[event.player_index]
+	if event.gui_type == 1 then
+		if event.entity.type == "spider-vehicle" then
+			if event.entity.get_driver() ~= nil then
+				if player.character ~= nil then
+					if event.entity.get_driver().player.index == event.player_index then
+						if settings.startup["spidertron-logistics"].value == true then
+							spidertron_shortcuts(player, event.entity.enable_logistics_while_moving, "spidertron-logistics")
+						end
+						if settings.startup["spidertron-automatic-targeting"].value == true then
+							spidertron_shortcuts(player, event.entity.vehicle_automatic_targeting_parameters.auto_target_without_gunner, "targeting-without-gunner")
+							spidertron_shortcuts(player, event.entity.vehicle_automatic_targeting_parameters.auto_target_with_gunner, "targeting-with-gunner")
+						end
+					end
+				end
+				if player.character == nil then
+					if event.entity.get_driver().index == event.player_index then
+						if settings.startup["spidertron-logistics"].value == true then
+							spidertron_shortcuts(player, event.entity.enable_logistics_while_moving, "spidertron-logistics")
+						end
+						if settings.startup["spidertron-automatic-targeting"].value == true then
+							spidertron_shortcuts(player, event.entity.vehicle_automatic_targeting_parameters.auto_target_without_gunner, "targeting-without-gunner")
+							spidertron_shortcuts(player, event.entity.vehicle_automatic_targeting_parameters.auto_target_with_gunner, "targeting-with-gunner")
+						end
+					end
+				end
+			end
+		end
+	end
+end)
 
-local function shortcut_type(event)
+---------------------------------------------------------------------------------------------------
+-- ON LUA SHORTCUT
+---------------------------------------------------------------------------------------------------
+script.on_event(defines.events.on_lua_shortcut, function(event)
 	local prototype_name = event.prototype_name
-	if prototype_name == "night-vision-equipment" then
+	local player = game.players[event.player_index]
+
+-- BASIC
+	if prototype_name == "flashlight-toggle" then
+		toggle_light(player)
+	elseif prototype_name == "signal-flare" then
+		signal_flare(player)
+	elseif prototype_name == "draw-grid" then
+		draw_grid(event.player_index)
+	elseif prototype_name == "rail-block-visualization-toggle" then
+		toggle_rail(player)
+	elseif prototype_name == "big-zoom" then
+		big_zoom(even)
+
+-- VEHICLE
+	elseif prototype_name == "spidertron-logistics" then
+		if player.driving == true then
+			if player.vehicle.type == "spider-vehicle" then
+				if player.vehicle.enable_logistics_while_moving == true then
+					player.vehicle.enable_logistics_while_moving = false
+					player.set_shortcut_toggled(prototype_name, false)
+				else
+					player.vehicle.enable_logistics_while_moving = true
+					player.set_shortcut_toggled(prototype_name, true)
+				end
+			end
+		end
+	elseif prototype_name == "targeting-without-gunner" then
+	if player.driving == true then
+		if player.vehicle.type == "spider-vehicle" then
+			if player.vehicle.vehicle_automatic_targeting_parameters.auto_target_without_gunner == true then
+				local params = player.vehicle.vehicle_automatic_targeting_parameters
+				params.auto_target_without_gunner = false
+				player.vehicle.vehicle_automatic_targeting_parameters = params
+				player.set_shortcut_toggled(prototype_name, false)
+			else
+				local params = player.vehicle.vehicle_automatic_targeting_parameters
+				params.auto_target_without_gunner = true
+				player.vehicle.vehicle_automatic_targeting_parameters = params
+				player.set_shortcut_toggled(prototype_name, true)
+			end
+		end
+	end
+	elseif prototype_name == "targeting-with-gunner" then
+		if player.driving == true then
+			if player.vehicle.type == "spider-vehicle" then
+				if player.vehicle.vehicle_automatic_targeting_parameters.auto_target_with_gunner == true then
+					local params = player.vehicle.vehicle_automatic_targeting_parameters
+					params.auto_target_with_gunner = false
+					player.vehicle.vehicle_automatic_targeting_parameters = params
+					player.set_shortcut_toggled(prototype_name, false)
+				else
+					local params = player.vehicle.vehicle_automatic_targeting_parameters
+					params.auto_target_with_gunner = true
+					player.vehicle.vehicle_automatic_targeting_parameters = params
+					player.set_shortcut_toggled(prototype_name, true)
+				end
+			end
+		end
+
+-- TOGGLES
+	elseif prototype_name == "night-vision-equipment" then
 		update_state(event, "night-vision-equipment")
 		return
 	elseif prototype_name == "belt-immunity-equipment" then
@@ -405,183 +621,165 @@ local function shortcut_type(event)
 	elseif prototype_name == "active-defense-equipment" then
 		update_state(event, "active-defense-equipment")
 		return
-	elseif prototype_name == "big-zoom" then
-		local player = game.players[event.player_index]
-		if settings.global["disable-zoom"].value == true then
-			player.zoom = settings.get_player_settings(player)["zoom-level"].value
-		else
-			player.print({"", {"error.error-message-box-title"}, ": ", {"controls.alt-zoom-out"}, " ", {"gui-mod-info.status-disabled"}})
-		end
-	elseif prototype_name == "draw-grid" then
-		draw_grid(event.player_index)
-	elseif prototype_name == "tree-killer" then
-		local player = game.players[event.player_index]
-		if player.cursor_stack.valid_for_read == false then
-			if player.cursor_stack.can_set_stack({name="shortcuts-deconstruction-planner"}) then
-				player.cursor_stack.set_stack({name="shortcuts-deconstruction-planner"})
-				player.cursor_stack.trees_and_rocks_only = true
-			end
-		end
-	elseif prototype_name == "artillery-jammer-remote" then
-		local player = game.players[event.player_index]
-			if player.clean_cursor() then
-				player.cursor_stack.set_stack({name="artillery-jammer-tool"})
-			end
-	elseif prototype_name == "artillery-targeting-remote" then
-		local player = game.players[event.player_index]
-			if player.clean_cursor() then
-				player.cursor_stack.set_stack({name="artillery-targeting-remote"})
-			end
-	elseif prototype_name == "discharge-defense-remote" then
-		local player = game.players[event.player_index]
-			if player.clean_cursor() then
-				player.cursor_stack.set_stack({name="discharge-defense-remote"})
-			end
-	elseif prototype_name == "spidertron-remote" then
-		local player = game.players[event.player_index]
-			if player.clean_cursor() then
-				player.cursor_stack.set_stack({name="spidertron-remote"})
-			end
-	elseif prototype_name == "path-remote-control" then
-		local player = game.players[event.player_index]
-			if player.clean_cursor() then
-				player.cursor_stack.set_stack({name="path-remote-control"})
-			end
-	elseif prototype_name == "unit-remote-control" then
-		local player = game.players[event.player_index]
-			if player.clean_cursor() then
-				player.cursor_stack.set_stack({name="unit-remote-control"})
-			end
-	elseif prototype_name == "artillery-cluster-remote" then
-		local player = game.players[event.player_index]
-			if player.clean_cursor() then
-				player.cursor_stack.set_stack({name="artillery-cluster-remote"})
-			end
-	elseif prototype_name == "artillery-discovery-remote" then
-		local player = game.players[event.player_index]
-			if player.clean_cursor() then
-				player.cursor_stack.set_stack({name="artillery-discovery-remote"})
-			end
-	elseif prototype_name == "ion-cannon-targeter" then
-		local player = game.players[event.player_index]
-			if player.clean_cursor() then
-				player.cursor_stack.set_stack({name="ion-cannon-targeter"})
-			end
-	elseif prototype_name == "vehicle-wagon-2-winch" then
-		local player = game.players[event.player_index]
-			if player.clean_cursor() then
-				player.cursor_stack.set_stack({name="winch"})
-			end
-	elseif prototype_name == "flashlight-toggle" then
-		toggle_light(game.players[event.player_index])
-	elseif prototype_name == "rail-block-visualization-toggle" then
-		toggle_rail(game.players[event.player_index])
-	elseif prototype_name == "signal-flare" then
-		local player = game.players[event.player_index]
-		if settings.global["disable-zoom"].value == true then
-			player.force.print({"", "[img=utility.danger_icon] [color=1,0.1,0.1]", {"entity-name.character"}, " " ..  player.name .. " [gps=" .. math.floor(player.position.x+0.5) .. "," .. math.floor(player.position.y+0.5) ..  "][/color] [img=utility.danger_icon]"}) -- ickputzdirwech
-		else
-			player.print({"", {"error.error-message-box-title"}, ": ", {"technology-name.military"}, " ", {"entity-name.beacon"}, " ", {"gui-mod-info.status-disabled"}})
-		end
 
-	elseif prototype_name == "check-circuit" then
-	local player = game.players[event.player_index]
-		if player.clean_cursor() then
-			player.cursor_stack.set_stack({name="check-circuit"})
-		end
-	elseif prototype_name == "squad-spidertron-remote" then
-	local player = game.players[event.player_index]
-		if player.clean_cursor() then
-			player.cursor_stack.set_stack({name="squad-spidertron-remote"})
-		end
+-- GIVE ITEM
 	elseif prototype_name == "pump-shortcut" then
-	local player = game.players[event.player_index]
-		if player.clean_cursor() then
-			player.cursor_stack.set_stack({name="pump-selection-tool"})
+		if game.item_prototypes["pump-selection-tool"] then
+			if player.clean_cursor() then
+				player.cursor_stack.set_stack({name = "pump-selection-tool"})
+			end
 		end
 	elseif prototype_name == "give-rail-signal-planner" then
-	local player = game.players[event.player_index]
-		if player.clean_cursor() then
-			player.cursor_stack.set_stack({name="rail-signal-planner"})
+		if game.item_prototypes["rail-signal-planner"] then
+			if player.clean_cursor() then
+				player.cursor_stack.set_stack({name = "rail-signal-planner"})
+			end
 		end
-	elseif prototype_name == "well-planner" then
-	local player = game.players[event.player_index]
-		if player.clean_cursor() then
-			player.cursor_stack.set_stack({name="well-planner"})
+	elseif prototype_name == "cliff-fish-item-on-ground" then
+		if game.item_prototypes["tree-killer"] then
+			if player.clean_cursor() then
+				player.cursor_stack.set_stack({name = "tree-killer"})
+				player.cursor_stack.entity_filters = {game.entity_prototypes["cliff"].name, game.entity_prototypes["fish"].name, game.entity_prototypes["item-on-ground"].name}
+			end
 		end
-	elseif prototype_name == "module-inserter" then
-	local player = game.players[event.player_index]
-		if player.clean_cursor() then
-			player.cursor_stack.set_stack({name="module-inserter"})
-		end
-
+	elseif game.shortcut_prototypes[prototype_name] then
+		give_shortcut_item(player, prototype_name) --[[ "artillery-targeting-remote", "winch",
+		"discharge-defense-remote", "spidertron-remote", "path-remote-control", "unit-remote-control",
+		"artillery-cluster-remote", "artillery-discovery-remote", "ion-cannon-targeter", "check-circuit",
+		"squad-spidertron-remote", "well-planner" and "module-inserter", "artillery-jammer-tool", "tree-killer" ]]
 	end
+end)
+
+---------------------------------------------------------------------------------------------------
+-- CUSTOM INPUTS
+---------------------------------------------------------------------------------------------------
+-- BASIC
+if settings.startup["flashlight-toggle"].value == true then
+	script.on_event("flashlight-toggle", function(event)
+	  toggle_light(game.players[event.player_index])
+	end)
+end
+if settings.startup["signal-flare"].value == true then
+	script.on_event("signal-flare", function(event)
+	  signal_flare(game.players[event.player_index])
+	end)
+end
+if settings.startup["draw-grid"].value == true then
+	script.on_event("draw-grid", function(event)
+		draw_grid(event.player_index)
+	end)
+end
+if settings.startup["rail-block-visualization-toggle"].value == true then
+	script.on_event("rail-block-visualization-toggle", function(event)
+	  toggle_rail(game.players[event.player_index])
+	end)
+end
+if settings.startup["big-zoom"].value == true then
+	script.on_event("big-zoom", function(event)
+	  big_zoom(game.players[event.player_index])
+	end)
 end
 
-script.on_event(defines.events.on_lua_shortcut, shortcut_type)
+-- BLUEPRINT
+if settings.startup["tree-killer"].value == true then
+	script.on_event("tree-killer", function(event)
+		give_shortcut_item(game.players[event.player_index], "tree-killer")
+	end)
+	script.on_event("cliff-fish-item-on-ground", function(event)
+		player = game.players[event.player_index]
+		if game.item_prototypes["tree-killer"] then
+			if player.clean_cursor() then
+				player.cursor_stack.set_stack({name = "tree-killer"})
+				player.cursor_stack.entity_filters = {game.entity_prototypes["cliff"].name, game.entity_prototypes["fish"].name, game.entity_prototypes["item-on-ground"].name}
+			end
+		end
+	end)
+end
 
--- script.on_event(defines.events.on_player_main_inventory_changed, update_inventory)
+-- TOGGLES
+if settings.startup["belt-immunity-equipment"].value == true then
+	script.on_event("belt-immunity-equipment", function(event)
+		update_state(event, "belt-immunity-equipment")
+		return
+	end)
+end
+if settings.startup["night-vision-equipment"].value == true then
+	script.on_event("night-vision-equipment", function(event)
+		update_state(event, "night-vision-equipment")
+		return
+	end)
+end
+if settings.startup["active-defense-equipment"].value == true then
+	script.on_event("active-defense-equipment", function(event)
+		update_state(event, "active-defense-equipment")
+		return
+	end)
+end
 
+-- VEHICLES
+if settings.startup["spidertron-logistics"].value == true then
+	script.on_event("spidertron-logistics", function(event)
+		local player = game.players[event.player_index]
+		if player.driving == true then
+			if player.vehicle.type == "spider-vehicle" then
+				if player.vehicle.enable_logistics_while_moving == true then
+					player.vehicle.enable_logistics_while_moving = false
+					player.set_shortcut_toggled("spidertron-logistics", false)
+				else
+					player.vehicle.enable_logistics_while_moving = true
+					player.set_shortcut_toggled("spidertron-logistics", true)
+				end
+			end
+		end
+	end)
+end
+if settings.startup["spidertron-automatic-targeting"].value == true then
+	script.on_event("targeting-without-gunner", function(event)
+		local player = game.players[event.player_index]
+		if player.driving == true then
+			if player.vehicle.type == "spider-vehicle" then
+				if player.vehicle.vehicle_automatic_targeting_parameters.auto_target_without_gunner == true then
+					local params = player.vehicle.vehicle_automatic_targeting_parameters
+					params.auto_target_without_gunner = false
+					player.vehicle.vehicle_automatic_targeting_parameters = params
+					player.set_shortcut_toggled("targeting-without-gunner", false)
+				else
+					local params = player.vehicle.vehicle_automatic_targeting_parameters
+					params.auto_target_without_gunner = true
+					player.vehicle.vehicle_automatic_targeting_parameters = params
+					player.set_shortcut_toggled("targeting-without-gunner", true)
+				end
+			end
+		end
+	end)
+	script.on_event("targeting-with-gunner", function(event)
+		local player = game.players[event.player_index]
+		if player.driving == true then
+			if player.vehicle.type == "spider-vehicle" then
+				if player.vehicle.vehicle_automatic_targeting_parameters.auto_target_with_gunner == true then
+					local params = player.vehicle.vehicle_automatic_targeting_parameters
+					params.auto_target_with_gunner = false
+					player.vehicle.vehicle_automatic_targeting_parameters = params
+					player.set_shortcut_toggled("targeting-with-gunner", false)
+				else
+					local params = player.vehicle.vehicle_automatic_targeting_parameters
+					params.auto_target_with_gunner = true
+					player.vehicle.vehicle_automatic_targeting_parameters = params
+					player.set_shortcut_toggled("targeting-with-gunner", true)
+				end
+			end
+		end
+	end)
+end
+
+---------------------------------------------------------------------------------------------------
+-- ON PLAYER CREATED
+---------------------------------------------------------------------------------------------------
 script.on_event(defines.events.on_player_created, function(event)
 	local player = game.players[event.player_index]
+
 	if settings.startup["flashlight-toggle"].value == true then
 		player.set_shortcut_toggled("flashlight-toggle", true)
-	end
-	if settings.startup["rail-block-visualization-toggle"].value == true then
-		player.set_shortcut_toggled("rail-block-visualization-toggle", false)
-	end
-
-	if settings.startup["artillery-toggle"].value == "both" or settings.startup["artillery-toggle"].value == "Artillery wagon" or settings.startup["artillery-toggle"].value == "Artillery turret" then
-		if player.force.technologies["artillery"].researched == false then
-			player.set_shortcut_available("artillery-jammer-remote", false)
-		end
-	end
-	if settings.startup["artillery-targeting-remote"].value == true then
-		if player.force.technologies["artillery"].researched == false then
-			player.set_shortcut_available("artillery-targeting-remote", false)
-		end
-	end
-	if settings.startup["discharge-defense-remote"].value == true then
-		if player.force.technologies["discharge-defense-equipment"].researched == false then
-			player.set_shortcut_available("discharge-defense-remote", false)
-		end
-	end
-
-	if settings.startup["aai-remote-controls"] then
-		if settings.startup["aai-remote-controls"].value == true and player.force.technologies["automobilism"].researched == false and player.force.technologies["spidertron"].researched == false then
-			player.set_shortcut_available("path-remote-control", false)
-			player.set_shortcut_available("unit-remote-control", false)
-		end
-	end
-	if settings.startup["artillery-targeting-remote"].value == true and game.active_mods["AdvArtilleryRemotes"] then
-		if player.force.technologies["artillery"].researched == false then
-			player.set_shortcut_available("artillery-cluster-remote", false)
-			player.set_shortcut_available("artillery-discovery-remote", false)
-		end
-	end
-	if settings.startup["ion-cannon-targeter"] then
-		if settings.startup["ion-cannon-targeter"].value == true and player.force.technologies["orbital-ion-cannon"].researched == false then
-			player.set_shortcut_available("ion-cannon-targeter", false)
-		end
-	end
-	if settings.startup["rail-block-visualization-toggle"].value == true then
-		if player.force.technologies["railway"].researched == false then
-			player.set_shortcut_available("rail-block-visualization-toggle", false)
-		end
-	end
-	if settings.startup["spidertron-remote"].value == "enabled" or "enabled (hide remote from inventory)" then
-		if player.force.technologies["spidertron"].researched == false then
-			player.set_shortcut_available("spidertron-remote", false)
-		end
-	end
-	if settings.startup["vehicle-wagon-2-winch"] then
-		if settings.startup["vehicle-wagon-2-winch"].value == true and player.force.technologies["vehicle-wagons"].researched == false then
-			player.set_shortcut_available("vehicle-wagon-2-winch", false)
-		end
-	end
-
-	if settings.startup["night-vision-equipment"].value == true then
-		player.set_shortcut_available("night-vision-equipment", false)
 	end
 	if settings.startup["active-defense-equipment"].value == true then
 		player.set_shortcut_available("active-defense-equipment", false)
@@ -589,58 +787,76 @@ script.on_event(defines.events.on_player_created, function(event)
 	if settings.startup["belt-immunity-equipment"].value == true then
 		player.set_shortcut_available("belt-immunity-equipment", false)
 	end
+	if settings.startup["night-vision-equipment"].value == true then
+		player.set_shortcut_available("night-vision-equipment", false)
+	end
+	if settings.startup["spidertron-logistics"].value == true then
+		player.set_shortcut_available("spidertron-logistics", false)
+	end
+	--[[ For some reason I can't write to vehicle_automatic_targeting_parameters
+	if settings.startup["spidertron-automatic-targeting"].value == true then
+		player.set_shortcut_available("targeting-without-gunner", false)
+		player.set_shortcut_available("targeting-with-gunner", false)
+	end]]
 
-	if game.active_mods["circuit-checker"] then
-		if player.force.technologies["circuit-network"].researched == false then
-			player.set_shortcut_available("check-circuit", false)
-		end
-	end
-	if game.active_mods["QoL-TempStations"] then
-		if player.force.technologies["railway"].researched == false then
-			player.set_shortcut_available("shortcut-temporarystations", false)
-		end
-	end
-	if game.active_mods["Spider_Control"] then
-		if player.force.technologies["spidertron"].researched == false then
-			player.set_shortcut_available("squad-spidertron-follow", false)
-			player.set_shortcut_available("squad-spidertron-remote", false)
-		end
-	end
-	if game.active_mods["pump"] then
-		if player.force.technologies["oil-processing"].researched == false then
-			player.set_shortcut_available("pump-shortcut", false)
-		end
-	end
-	if game.active_mods["RailSignalPlanner"] then
-		if player.force.technologies["rail-signals"].researched == false then
-			player.set_shortcut_available("give-rail-signal-planner", false)
-		end
-	end
-	if game.active_mods["WellPlanner"] then
-		if settings.startup["autogen-color"].value == "default" or settings.startup["autogen-color"].value == "red" or settings.startup["autogen-color"].value == "green" or settings.startup["autogen-color"].value == "blue" then
-			if player.force.technologies["oil-processing"].researched == false then
-				player.set_shortcut_available("well-planner", false)
-			end
-		end
-	end
-	if game.active_mods["car-finder"] then
-		if player.force.technologies["automobilism"].researched == false and player.force.technologies["spidertron"].researched == false then
-			player.set_shortcut_available("car-finder-button", false)
-		end
-	end
-	if game.active_mods["VehicleSnap"] then
-		if player.force.technologies["automobilism"].researched == false then
+	if player.force.technologies["automobilism"].researched == false then
+		if game.active_mods["VehicleSnap"] then
 			player.set_shortcut_available("VehicleSnap-shortcut", false)
 		end
 	end
-	if game.active_mods["ModuleInserter"] then
-		if player.force.technologies["modules"].researched == false then
+
+	if player.force.technologies["artillery"].researched == false then
+		local artillery_toggle = settings.startup["artillery-toggle"].value
+		if artillery_toggle == "both" or artillery_toggle == "artillery-wagon" or artillery_toggle == "artillery-turret" then
+			player.set_shortcut_available("artillery-jammer-tool", false)
+		end
+		if settings.startup["artillery-targeting-remote"].value == true then
+			player.set_shortcut_available("artillery-targeting-remote", false)
+			if game.active_mods["AdvArtilleryRemotes"] then
+				player.set_shortcut_available("artillery-cluster-remote", false)
+				player.set_shortcut_available("artillery-discovery-remote", false)
+			end
+		end
+	end
+
+	if player.force.technologies["circuit-network"].researched == false then
+		if game.active_mods["circuit-checker"] then
+			player.set_shortcut_available("check-circuit", false)
+		end
+	end
+
+	if player.force.technologies["discharge-defense-equipment"].researched == false then
+		if settings.startup["discharge-defense-remote"].value == true then
+			player.set_shortcut_available("discharge-defense-remote", false)
+		end
+	end
+
+	if player.force.technologies["modules"].researched == false then
+		if game.active_mods["ModuleInserter"] then
 			player.set_shortcut_available("module-inserter", false)
 		end
 	end
 
-	if game.active_mods["PickerInventoryTools"] and game.active_mods["Nanobots"] then
-		if player.force.technologies["personal-roboport-equipment"].researched == false then
+	if player.force.technologies["oil-processing"].researched == false then
+		if game.active_mods["pump"] then
+			player.set_shortcut_available("pump-shortcut", false)
+		end
+		if game.active_mods["WellPlanner"] then
+			local autogen_color = settings.startup["autogen-color"].value
+			if autogen_color == "default" or autogen_color == "red" or autogen_color == "green" or autogen_color == "blue" then
+				player.set_shortcut_available("well-planner", false)
+			end
+		end
+	end
+
+	if player.force.technologies["orbital-ion-cannon"].researched == false then
+		if settings.startup["ion-cannon-targeter"].value == true then
+			player.set_shortcut_available("ion-cannon-targeter", false)
+		end
+	end
+
+	if player.force.technologies["personal-roboport-equipment"].researched == false then
+		if game.active_mods["PickerInventoryTools"] and game.active_mods["Nanobots"] then
 			player.set_shortcut_available("toggle-equipment-bot-chip-feeder", false)
 			player.set_shortcut_available("toggle-equipment-bot-chip-items", false)
 			player.set_shortcut_available("toggle-equipment-bot-chip-launcher", false)
@@ -649,114 +865,119 @@ script.on_event(defines.events.on_player_created, function(event)
 		end
 	end
 
+	if player.force.technologies["rail-signals"].researched == false then
+		if game.active_mods["RailSignalPlanner"] then
+			player.set_shortcut_available("give-rail-signal-planner", false)
+		end
+	end
+
+	if player.force.technologies["railway"].researched == false then
+		if settings.startup["rail-block-visualization-toggle"].value == true then
+			player.set_shortcut_toggled("rail-block-visualization-toggle", false)
+		end
+		if game.active_mods["QoL-TempStations"] then
+			player.set_shortcut_available("shortcut-temporarystations", false)
+		end
+	end
+
+	if player.force.technologies["spidertron"].researched == false then
+		local spidertron_remote = settings.startup["spidertron-remote"].value
+		if spidertron_remote == "enabled" or spidertron_remote == "enabled-hidden" then
+			player.set_shortcut_available("spidertron-remote", false)
+		end
+		if game.active_mods["Spider_Control"] then
+			player.set_shortcut_available("squad-spidertron-follow", false)
+			player.set_shortcut_available("squad-spidertron-remote", false)
+		end
+		if player.force.technologies["automobilism"].researched == false then
+			if settings.startup["aai-remote-controls"].value == true then
+				player.set_shortcut_available("path-remote-control", false)
+				player.set_shortcut_available("unit-remote-control", false)
+			end
+			if game.active_mods["car-finder"] then
+				player.set_shortcut_available("car-finder-button", false)
+			end
+		end
+	end
+
+	if player.force.technologies["vehicle-wagons"].researched == false then
+		if settings.startup["winch"].value == true then
+			player.set_shortcut_available("winch", false)
+		end
+	end
+
 end)
 
-script.on_event(defines.events.on_player_selected_area, jam_artillery)
-
-script.on_init(initialize)
-script.on_configuration_changed(initialize)
-commands.add_command("shortcuts_initialize_variables", "debug: ensure that all global tables are not nil (should not happen in a normal game)", initialize)
-
+---------------------------------------------------------------------------------------------------
+-- ON RESEARCH FINISHED
+---------------------------------------------------------------------------------------------------
 script.on_event(defines.events.on_research_finished, function(event)
 	for _,player in pairs(event.research.force.players) do
-		
-		if event.research and event.research.name == "artillery" then
-			if settings.startup["artillery-toggle"].value == "both" or settings.startup["artillery-toggle"].value == "Artillery wagon" or settings.startup["artillery-toggle"].value == "Artillery turret" then
-				player.set_shortcut_available("artillery-jammer-remote", true)
+		local research = event.research.name
+
+		if research == "automobilism" then
+			if game.active_mods["VehicleSnap"] then
+				player.set_shortcut_available("VehicleSnap-shortcut", true)
+			end
+		end
+
+		if research == "automobilism" or research == "spidertron" then
+			if settings.startup["aai-remote-controls"].value == true then
+				player.set_shortcut_available("path-remote-control", true)
+				player.set_shortcut_available("unit-remote-control", true)
+			end
+			if game.active_mods["car-finder"] then
+				player.set_shortcut_available("car-finder-button", true)
+			end
+		end
+
+		if research == "artillery" then
+			local artillery_toggle = settings.startup["artillery-toggle"].value
+			if artillery_toggle == "both" or artillery_toggle == "artillery-wagon" or artillery_toggle == "artillery-turret" then
+				player.set_shortcut_available("artillery-jammer-tool", true)
 			end
 			if settings.startup["artillery-targeting-remote"].value == true then
 				player.set_shortcut_available("artillery-targeting-remote", true)
-			end
-			if settings.startup["artillery-targeting-remote"].value == true and game.active_mods["AdvArtilleryRemotes"] then
-				player.set_shortcut_available("artillery-cluster-remote", true)
-			end
-			if settings.startup["artillery-targeting-remote"].value == true and game.active_mods["AdvArtilleryRemotes"] then
-				player.set_shortcut_available("artillery-discovery-remote", true)
+				if game.active_mods["AdvArtilleryRemotes"] then
+					player.set_shortcut_available("artillery-cluster-remote", true)
+					player.set_shortcut_available("artillery-discovery-remote", true)
+				end
 			end
 		end
-		if event.research and event.research.name == "discharge-defense-equipment" then
+
+		if research == "circuit-network" then
+			if game.active_mods["circuit-checker"] then
+				player.set_shortcut_available("check-circuit", true)
+			end
+		end
+
+		if research == "discharge-defense-equipment" then
 			if settings.startup["discharge-defense-remote"].value == true then
 				player.set_shortcut_available("discharge-defense-remote", true)
 			end
 		end
 
-		if settings.startup["aai-remote-controls"] then
-			if event.research and (event.research.name == "automobilism" or "spidertron") and settings.startup["aai-remote-controls"].value == true then
-				player.set_shortcut_available("path-remote-control", true)
-				player.set_shortcut_available("unit-remote-control", true)
-			end
-		end
-		if settings.startup["ion-cannon-targeter"] then
-			if event.research and event.research.name == "orbital-ion-cannon" and settings.startup["ion-cannon-targeter"].value == true then
-				player.set_shortcut_available("ion-cannon-targeter", true)
-			end
-		end
-		if event.research and event.research.name == "railway" then
-			if settings.startup["rail-block-visualization-toggle"].value == true then
-				player.set_shortcut_available("rail-block-visualization-toggle", true)
-			end
-		end
-		if event.research and event.research.name == "spidertron" then
-			if settings.startup["spidertron-remote"].value == "enabled" or "enabled (hide remote from inventory)" then
-				player.set_shortcut_available("spidertron-remote", true)
-			end
-		end
-		if settings.startup["vehicle-wagon-2-winch"] then
-			if event.research and event.research.name == "vehicle-wagons" and settings.startup["vehicle-wagon-2-winch"].value == true then
-				player.set_shortcut_available("vehicle-wagon-2-winch", true)
-			end
+		if research == "modules" and game.active_mods["ModuleInserter"] then
+			player.set_shortcut_available("module-inserter", true)
 		end
 
-		if event.research and event.research.name == "circuit-network" then
-			if game.active_mods["circuit-checker"] then
-				player.set_shortcut_available("check-circuit", true)
-			end
-		end
-		if event.research and event.research.name == "railway" then
-			if game.active_mods["QoL-TempStations"] then
-				player.set_shortcut_available("shortcut-temporarystations", true)
-			end
-		end
-		if event.research and event.research.name == "spidertron" then
-			if game.active_mods["Spider_Control"] then
-				player.set_shortcut_available("squad-spidertron-follow", true)
-				player.set_shortcut_available("squad-spidertron-remote", true)
-			end
-		end
-		if event.research and event.research.name == "oil-processing" then
+		if research == "oil-processing" then
 			if game.active_mods["pump"] then
 				player.set_shortcut_available("pump-shortcut", true)
 			end
-		end
-		if event.research and event.research.name == "rail-signals" then
-			if game.active_mods["RailSignalPlanner"] then
-				player.set_shortcut_available("give-rail-signal-planner", true)
-			end
-		end
-		if event.research and event.research.name == "oil-processing" then
 			if game.active_mods["WellPlanner"] then
-				if settings.startup["autogen-color"].value == "default" or settings.startup["autogen-color"].value == "red" or settings.startup["autogen-color"].value == "green" or settings.startup["autogen-color"].value == "blue" then
+				local autogen_color = settings.startup["autogen-color"].value
+				if autogen_color == "default" or autogen_color == "red" or autogen_color == "green" or autogen_color == "blue" then
 						player.set_shortcut_available("well-planner", true)
 				end
 			end
 		end
-		if event.research and event.research.name == "automobilism" or "spidertron" then
-			if game.active_mods["car-finder"] then
-				player.set_shortcut_available("car-finder-button", true)
-			end
-		end
-		if event.research and event.research.name == "automobilism" then
-			if game.active_mods["VehicleSnap"] then
-				player.set_shortcut_available("VehicleSnap-shortcut", true)
-			end
-		end
-		if event.research and event.research.name == "modules" then
-			if game.active_mods["ModuleInserter"] then
-				player.set_shortcut_available("module-inserter", true)
-			end
+
+		if research == "orbital-ion-cannon" and settings.startup["ion-cannon-targeter"].value == true then
+			player.set_shortcut_available("ion-cannon-targeter", true)
 		end
 
-		if event.research and event.research.name == "personal-roboport-equipment" then
+		if research == "personal-roboport-equipment" then
 			if game.active_mods["PickerInventoryTools"] and game.active_mods["Nanobots"] then
 				player.set_shortcut_available("toggle-equipment-bot-chip-feeder", true)
 				player.set_shortcut_available("toggle-equipment-bot-chip-items", true)
@@ -764,6 +985,34 @@ script.on_event(defines.events.on_research_finished, function(event)
 				player.set_shortcut_available("toggle-equipment-bot-chip-nanointerface", true)
 				player.set_shortcut_available("toggle-equipment-bot-chip-trees", true)
 			end
+		end
+
+		if research == "rail-signals" and game.active_mods["RailSignalPlanner"] then
+			player.set_shortcut_available("give-rail-signal-planner", true)
+		end
+
+		if research == "railway" then
+			if settings.startup["rail-block-visualization-toggle"].value == true then
+				player.set_shortcut_available("rail-block-visualization-toggle", true)
+			end
+			if game.active_mods["QoL-TempStations"] then
+				player.set_shortcut_available("shortcut-temporarystations", true)
+			end
+		end
+
+		if research == "spidertron" then
+			local spidertron_remote = settings.startup["spidertron-remote"].value
+			if spidertron_remote == "enabled" or spidertron_remote == "enabled-hidden" then
+				player.set_shortcut_available("spidertron-remote", true)
+			end
+			if game.active_mods["Spider_Control"] then
+				player.set_shortcut_available("squad-spidertron-follow", true)
+				player.set_shortcut_available("squad-spidertron-remote", true)
+			end
+		end
+
+		if research == "vehicle-wagons" and settings.startup["winch"].value == true then
+			player.set_shortcut_available("winch", true)
 		end
 
 	end

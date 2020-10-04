@@ -116,3 +116,28 @@ Version: 1.0.9
 Date: 2020-09-10
   Bugfixes:
     - Hotfix: Fixed error when researching and AAI Programmable vehicles were not installed.
+
+---------------------------------------------------------------------------------------------------
+Version: 1.0.10
+Date: 2020-10-04
+  Features:
+    - Every shortcut can now be assigned a keyboard input.
+    - New shortcut "Blueprint: Deconstruction planner (Cliff/Fish/Item on ground)".
+    - New shortcut "Spidertron: Enable/disable logistics while mowing".
+    - New shortcut "Spidertron: Auto targeting without gunner".
+    - New shortcut "Spidertron: Auto targeting with gunner".
+    - New shortcut "Well Planner" (was previously generated automatically).
+    - Disabled artillery wagons and turrets can now be properly blueprinted.
+    - Added German (native) and French (third language) translation. Check out the mod portal discussion page or the forum post if you want to help translating (shouldn't take longer than 5 minutes).
+    - The prefixes from the settings are now applied everywhere (please give feedback).
+  Changes:
+    - Complete overhaul of the localisations.
+    - Lots of internal changes to the control.lua stage.
+    - Some changes to the order of the shortcuts and settings.
+    - Disabled equipment and artillery turrets are now hidden from GUIs.
+    - Changed internal name of "toggle artillery cannon fire" shortcut and setting strings. Check your settings!
+    - Changed internal name of "winch" shortcut and setting.
+    - Changed internal name of "spidertron-remote" setting string. Check your settings!
+    - Changed internal name of "Deconstrcution planner (only trees/rocks)".
+  Bugfixes:
+    - Fixed that setting the startup setting spidertron remote to disabled had no effect.

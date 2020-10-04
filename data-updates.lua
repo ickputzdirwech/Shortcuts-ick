@@ -1,20 +1,21 @@
 --[[ Copyright (c) 2019 npc_strider
  * For direct use of code or graphics, credit is appreciated and encouraged. See LICENSE.txt for more information.
- * This mod may contain modified code sourced from base/core Factorio
- *
- * data-updates.lua
- * Remote hiding, generation of disabled artillery and equipment, and autogeneration of unsupported modded shortcuts
---]]
+ * This mod may contain modified code sourced from base/core Factorio.
+ * This mod has been modified by ickputzdirwech.
+]]
 
--- This code has been modified by ickputzdirwech.
+--[[ Overview of data-updates.lua:
+	* Remote hiding
+	* Generation of disabled artillery and equipment
+	* Autogeneration of modded shortcuts
+]]
 
-require("prototypes.shortcuts-mods-updates")
+require("prototypes.shortcuts-artillery-updates")
 
 local function hide_the_remote(recipe, technology, item)
 	if item then
 		if item.flags then
 			table.insert(item.flags, "only-in-cursor")
-			--item.flags[#item.flags+1] = "only-in-cursor"
 		else
 			item.flags = {"only-in-cursor"}
 		end
@@ -49,7 +50,7 @@ end
 if settings.startup["spidertron-remote"].value == "enabled" then
 	hide_the_remote("spidertron-remote", "spidertron")
 end
-if settings.startup["spidertron-remote"].value == "enabled (hide remote from inventory)" then
+if settings.startup["spidertron-remote"].value == "enabled-hidden" then
 	hide_the_remote("spidertron-remote", "spidertron", data.raw["spidertron-remote"]["spidertron-remote"])
 end
 
@@ -80,7 +81,7 @@ if mods["OutpostPlanner"] and mods["PlannerCore"] and data.raw["selection-tool"]
 	hide_the_remote("outpost-builder", nil, data.raw["selection-tool"]["outpost-builder"])
 end
 
-if mods["VehicleWagon2"] and settings.startup["vehicle-wagon-2-winch"].value == true then
+if mods["VehicleWagon2"] and settings.startup["winch"].value == true then
 	hide_the_remote("winch", "vehicle-wagons", data.raw["capsule"]["winch"])
 end
 
@@ -194,7 +195,12 @@ for i, e in pairs(equipment_list) do
 				if not data.raw["item"][equipment_list[i]] then --for mods which have a different item name compared to equipment name
 					disabled_equipment_item[i] = util.table.deepcopy(data.raw["item"][name])
 					disabled_equipment_item[i].name = "disabled-" .. name
-					disabled_equipment_item[i].flags = {"hidden"}
+					if disabled_equipment_item[i].flags then
+						table.insert(disabled_equipment_item[i].flags, "hidden")
+						table.insert(disabled_equipment_item[i].flags, "hide-from-bonus-gui")
+					else
+						disabled_equipment_item[i].flags = {"hidden", "hide-from-bonus-gui"}
+					end
 					disabled_equipment_item[i].placed_as_equipment_result = name
 				end
 
@@ -225,9 +231,8 @@ for i=1,(#disabled_equipment),1 do
 	end
 end
 
-
-if settings.startup["artillery-toggle"].value == "both" or settings.startup["artillery-toggle"].value == "Artillery wagon" or settings.startup["artillery-toggle"].value == "Artillery turret" then
-
+local artillery_toggle = settings.startup["artillery-toggle"].value
+if artillery_toggle == "both" or artillery_toggle == "artillery-wagon" or artillery_toggle == "artillery-turret" then
 	local disabled_turret = {}
 	local disabled_turret_item = {}
 	local disabled_gun = {}
@@ -235,10 +240,8 @@ if settings.startup["artillery-toggle"].value == "both" or settings.startup["art
 
 	if settings.startup["artillery-toggle"].value == "both" then
 		disable_turret_list = {"artillery-wagon", "artillery-turret",}
-	elseif settings.startup["artillery-toggle"].value == "Artillery wagon" then
-		disable_turret_list = {"artillery-wagon"}
-	elseif settings.startup["artillery-toggle"].value == "Artillery turret" then
-		disable_turret_list = {"artillery-turret"}
+	else
+		disable_turret_list = {settings.startup["artillery-toggle"].value}
 	end
 
 	for i=1,(#disable_turret_list) do
@@ -264,8 +267,9 @@ if settings.startup["artillery-toggle"].value == "both" or settings.startup["art
 			end
 
 			disabled_turret[i].name = "disabled-" .. name
-			--disabled_turret[i].flags = {"hidden"} --Turns out flagging an entity (Not ITEM!) as hidden makes it immune to selection-tools...
+			table.insert(disabled_turret[i].flags, "hidden")
 			disabled_turret[i].localised_name = {"", {"entity-name." .. entity.name}, " (", {"gui-constant.off"}, ")"}
+			disabled_turret[i].placeable_by = {item = name, count = 1}
 			if disabled_turret[i].icon then
 				disabled_turret[i].icons = {{icon = disabled_turret[i].icon, tint = {0.5, 0.5, 0.5}}}
 				disabled_turret[i].icon = nil
@@ -298,32 +302,34 @@ if settings.startup["artillery-toggle"].value == "both" or settings.startup["art
 
 end
 
-if settings.startup["tree-killer"].value == true then
+--[[if settings.startup["tree-killer"].value == true then
 	local decon_spec = util.table.deepcopy(data.raw["deconstruction-item"]["deconstruction-planner"])
-	decon_spec.name = "shortcuts-deconstruction-planner"
+	decon_spec.name = "tree-killer"
 	decon_spec.localised_name = {"item-name.deconstruction-planner"}
 	decon_spec.flags = {"only-in-cursor"}
 	data:extend({decon_spec})
-end
+end]]
 
 
-if settings.startup["autogen-color"].value == "default" or settings.startup["autogen-color"].value == "red" or settings.startup["autogen-color"].value == "green" or settings.startup["autogen-color"].value == "blue" then
+local autogen_color = settings.startup["autogen-color"].value
+if autogen_color == "default" or autogen_color == "red" or autogen_color == "green" or autogen_color == "blue" then
 
 	--	create a post on the discussion page if you want your shortcut to be added to this blacklist.
 	local shortcut_blacklist = {
-		"selection-tool",
+		"artillery-jammer-tool",
+		"circuit-checker",
+		"fp_beacon_selector",
 		"max-rate-calculator",
 		"module-inserter",
+		"merge-chest-selector",
 		"path-remote-control",
-		"unit-remote-control",
-		"fp_beacon_selector",
-		"artillery-jammer-tool",
 		"pump-selection-tool",
 		"rail-signal-planner",
-		"circuit-checker",
+		"selection-tool",
 		"squad-spidertron-remote-sel",
-		"merge-chest-selector",
 		"trainbuilder-manual",
+		"unit-remote-control",
+		"well-planner",
 	}
 
 	for _, tool in pairs(data.raw["selection-tool"]) do
@@ -401,10 +407,4 @@ if settings.startup["autogen-color"].value == "default" or settings.startup["aut
 		end
 	end
 
-end
-
---Remove technology_to_unlock and/or change action for mod shortcuts in order to make them available based in researched in a specific game.
-if mods["WellPlanner"] and data.raw.shortcut["well-planner"] then
-	data.raw.shortcut["well-planner"].action = "lua"
-	data.raw.shortcut["well-planner"].item_to_create = nil
 end

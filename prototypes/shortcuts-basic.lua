@@ -1,12 +1,18 @@
 --[[ Copyright (c) 2019 npc_strider
  * For direct use of code or graphics, credit is appreciated and encouraged. See LICENSE.txt for more information.
- * This mod may contain modified code sourced from base/core Factorio
- *
- * shortcuts.lua
- * Shortcuts and mod compatibility
---]]
+ * This mod may contain modified code sourced from base/core Factorio.
+ * This mod has been modified by ickputzdirwech.
+]]
 
--- This code has been modified by ickputzdirwech.
+
+--[[ Overview of shortcuts-basic.lua:
+	* Character Lamp shortcut and custom input
+	* Emergency locator beacon shortcut and custom input
+	* Grid shortcut and custom input
+	* Show rail block visualization shortcut and custom input
+	* Zoom out of world shortcut and custom input
+	* MaxRateCalculator shortcut
+]]
 
 if settings.startup["flashlight-toggle"].value == true then
 	data:extend(
@@ -14,9 +20,10 @@ if settings.startup["flashlight-toggle"].value == true then
 		{
 			type = "shortcut",
 			name = "flashlight-toggle",
+			localised_name = {"", {"Shortcuts-ick.basic"}, {"Shortcuts-ick.flashlight-toggle"}, {"Shortcuts-ick.control-flashlight-toggle"}},
 			order = "a[basic]-b[flashlight-toggle]",
+			--associated_control_input = "flashlight-toggle",
 			action = "lua",
-			localised_name = {"", {"entity-name.character"}, " ", {"entity-name.small-lamp"}},
 			toggleable = true,
 			icon =
 			{
@@ -43,6 +50,13 @@ if settings.startup["flashlight-toggle"].value == true then
 				flags = {"icon"}
 			},
 		},
+	  {
+			type = "custom-input",
+	    name = "flashlight-toggle",
+			localised_name = {"", {"Shortcuts-ick.basic"}, {"Shortcuts-ick.flashlight-toggle"}},
+			order = "a[basic]-b[flashlight-toggle]",
+	    key_sequence = "",
+	  },
 	})
 end
 
@@ -52,9 +66,10 @@ if settings.startup["signal-flare"].value == true then
 		{
 			type = "shortcut",
 			name = "signal-flare",
+			localised_name = {"", {"Shortcuts-ick.basic"}, {"Shortcuts-ick.signal-flare"}, {"Shortcuts-ick.control-signal-flare"}},
 			order = "a[basic]-c[signal-flare]",
+			--associated_control_input = "signal-flare",
 			action = "lua",
-			localised_name = "Emergency locator beacon",
 			toggleable = true,
 			style = "red",
 			icon =
@@ -82,6 +97,13 @@ if settings.startup["signal-flare"].value == true then
 				flags = {"icon"}
 			},
 		},
+	  {
+			type = "custom-input",
+	    name = "signal-flare",
+			localised_name = {"", {"Shortcuts-ick.basic"}, {"Shortcuts-ick.signal-flare"}},
+			order = "a[basic]-c[signal-flare]",
+	    key_sequence = "",
+	  },
 	})
 end
 
@@ -91,11 +113,12 @@ if settings.startup["draw-grid"].value == true then
 		{
 			type = "shortcut",
 			name = "draw-grid",
+			localised_name = {"", {"Shortcuts-ick.basic"}, {"gui.grid"}, {"Shortcuts-ick.control-draw-grid"}},
 			order = "a[basic]-d[draw-grid]",
+			--associated_control_input = "draw-grid",
 			action = "lua",
-			localised_name = {"gui.grid"},
-			style = "blue",
 			toggleable = true,
+			style = "blue",
 			icon =
 			{
 				filename = "__Shortcuts-ick__/graphics/grid-x32-white.png",
@@ -121,6 +144,13 @@ if settings.startup["draw-grid"].value == true then
 				flags = {"icon"}
 			},
 		},
+	  {
+			type = "custom-input",
+	    name = "draw-grid",
+			localised_name = {"", {"Shortcuts-ick.basic"}, {"gui.grid"}},
+			order = "a[basic]-d[draw-grid]",
+	    key_sequence = "",
+	  },
 	})
 end
 
@@ -130,44 +160,43 @@ if settings.startup["rail-block-visualization-toggle"].value == true then
 		{
 			type = "shortcut",
 			name = "rail-block-visualization-toggle",
+			localised_name = {"", {"Shortcuts-ick.basic"}, {"gui-interface-settings.show-rail-block-visualization"}, {"Shortcuts-ick.control-rail-block-visualization-toggle"}},
 			order = "a[basic]-e[rail-block-visualization-toggle]",
+			--associated_control_input = "rail-block-visualization-toggle",
 			action = "lua",
-			localised_name = {"gui-interface-settings.show-rail-block-visualization"},
-			style = "default",
 			toggleable = true,
 			icon =
 			{
-				filename = "__Shortcuts-ick__/graphics/rail-block-visualization-toggle-x32.png",
+				filename = "__Shortcuts-ick__/graphics/rail-block-visualization-toggle-x32-2.png",
 				priority = "extra-high-no-scale",
 				size = 32,
-				scale = 1,
-				flags = {"icon"}
-			},
-			small_icon =
-			{
-				filename = "__Shortcuts-ick__/graphics/rail-block-visualization-toggle-x24.png",
-				priority = "extra-high-no-scale",
-				size = 24,
-				scale = 1,
+	      mipmap_count = 2,
 				flags = {"icon"}
 			},
 			disabled_icon =
 			{
-				filename = "__Shortcuts-ick__/graphics/rail-block-visualization-toggle-x32-white.png",
+				filename = "__Shortcuts-ick__/graphics/rail-block-visualization-toggle-x32-2-white.png",
 				priority = "extra-high-no-scale",
 				size = 32,
-				scale = 1,
+	      mipmap_count = 2,
 				flags = {"icon"}
 			},
 			disabled_small_icon =
 			{
-				filename = "__Shortcuts-ick__/graphics/rail-block-visualization-toggle-x24-white.png",
+				filename = "__Shortcuts-ick__/graphics/rail-block-visualization-toggle-x32-2-white.png",
 				priority = "extra-high-no-scale",
-				size = 24,
-				scale = 1,
+				size = 32,
+	      mipmap_count = 2,
 				flags = {"icon"}
 			},
 		},
+	  {
+			type = "custom-input",
+	    name = "rail-block-visualization-toggle",
+			localised_name = {"", {"Shortcuts-ick.basic"}, {"gui-interface-settings.show-rail-block-visualization"}},
+			order = "a[basic]-e[rail-block-visualization-toggle]",
+	    key_sequence = "",
+	  },
 	})
 end
 
@@ -177,9 +206,10 @@ if settings.startup["big-zoom"].value == true then
 		{
 			type = "shortcut",
 			name = "big-zoom",
+			localised_name = {"", {"Shortcuts-ick.basic"}, {"controls.alt-zoom-out"}, {"Shortcuts-ick.control-big-zoom"}},
 			order = "a[basic]-f[big-zoom]",
+			--associated_control_input = "big-zoom",
 			action = "lua",
-			localised_name = {"controls.alt-zoom-out"},
 			toggleable = true,
 			style = "blue",
 			icon =
@@ -201,6 +231,58 @@ if settings.startup["big-zoom"].value == true then
 			disabled_small_icon =
 			{
 				filename = "__Shortcuts-ick__/graphics/big-zoom-x24-white.png",
+				priority = "extra-high-no-scale",
+				size = 24,
+				scale = 1,
+				flags = {"icon"}
+			},
+		},
+	  {
+			type = "custom-input",
+	    name = "big-zoom",
+			localised_name = {"", {"Shortcuts-ick.basic"}, {"controls.alt-zoom-out"}},
+			order = "a[basic]-f[big-zoom]",
+	    key_sequence = "",
+	  },
+	})
+end
+
+
+if mods["MaxRateCalculator"] and data.raw["selection-tool"]["max-rate-calculator"] and settings.startup["max-rate-calculator"].value == true then
+
+	data.raw["selection-tool"]["max-rate-calculator"].icon = "__MaxRateCalculator__/graphics/calculator.png"
+	data.raw["selection-tool"]["max-rate-calculator"].icon_size = 64
+
+	data:extend(
+	{
+		{
+			type = "shortcut",
+			name = "max-rate-shortcut",
+			localised_name = {"", {"Shortcuts-ick.basic"}, {"item-name.max-rate-calculator"}, {"Shortcuts-ick.control-max-rate-shortcut"}},
+			order = "a[basic]-g[max-rate-shortcut]",
+			--associated_control_input = "marc_hotkey",
+			action = "create-blueprint-item",
+			item_to_create = "max-rate-calculator",
+			style = "blue",
+			icon =
+			{
+				filename = "__Shortcuts-ick__/graphics/max-rate-calculator-x32-white.png",
+				priority = "extra-high-no-scale",
+				size = 32,
+				scale = 1,
+				flags = {"icon"}
+			},
+			small_icon =
+			{
+				filename = "__Shortcuts-ick__/graphics/max-rate-calculator-x24.png",
+				priority = "extra-high-no-scale",
+				size = 24,
+				scale = 1,
+				flags = {"icon"}
+			},
+			disabled_small_icon =
+			{
+				filename = "__Shortcuts-ick__/graphics/max-rate-calculator-x24-white.png",
 				priority = "extra-high-no-scale",
 				size = 24,
 				scale = 1,

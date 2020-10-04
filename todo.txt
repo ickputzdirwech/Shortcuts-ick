@@ -21,16 +21,18 @@ OWN MOD:
 ---------------------------------------------------------------------------------------------------
 BUGS:
 - hide initial technology_to_unlock for path remote controls
-- exoskeleton and personal roboport not greyed out
+- cant enable/disable ghost artillery turrets
 
 NEW SHORTCUTS:
-- auto targeting with gunner
-- auto targeting without gunner
-- enable logistics while moving
+- Car: driver is gunner
 
 OTHER:
-- locales
-- move as much as possible into data stage
+- locale for runtime settings
+
+KNOWN ISSUES:
+- Disabled artillery/equipment is lost when settings change or mod is removed
+- Restart needed for custom inputs to update [workaround: all localisation in .cfg]
+- Spidertron GUI doesn't update. Needs to be closed and opened again.
 
 ---------------------------------------------------------------------------------------------------
 MOD PORTAL:
@@ -41,10 +43,7 @@ OTHER:
 ---------------------------------------------------------------------------------------------------
 MORLEY376:
 ---------------------------------------------------------------------------------------------------
-TODO: ( For next release - Next update with content may be some weeks away )
-- keyboard binds (customizable if possible)
-
-Ideas for future releases ( On hold - working on nuclear ICBM mod )
+TODO:
 - Stuff for GameViewSettings
 - Custom screenshot (zoom level, resolution, etc. customizable)
 - Autosave button for singleplayer worlds
