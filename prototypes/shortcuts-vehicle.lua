@@ -23,34 +23,27 @@ if settings.startup["spidertron-remote"].value == "enabled" or settings.startup[
 			order = "e[vehicle]-a[spidertron-remote]",
 			--associated_control_input = "spidertron-remote",
 			action = "lua",
-			style = "red",
+			style = "green",
 			icon =
 			{
-				filename = "__Shortcuts-ick__/graphics/spidertron-remote-x40-2-white.png",
+				filename = "__Shortcuts-ick__/graphics/path-remote-control-x32-white.png",
 				priority = "extra-high-no-scale",
-				size = 40,
-				scale = 1,
-	      mipmap_count = 2,
-				flags = {"icon"},
+				size = 32,
+				flags = {"icon"}
 			},
 			small_icon =
 			{
-				filename = "__Shortcuts-ick__/graphics/spidertron-remote-x40-2-white.png",
+				filename = "__Shortcuts-ick__/graphics/path-remote-control-x24.png",
 				priority = "extra-high-no-scale",
-				size = 40,
-				scale = 1,
-	      mipmap_count = 2,
-				flags = {"icon"},
-				tint = {},
+				size = 24,
+				flags = {"icon"}
 			},
 			disabled_small_icon =
 			{
-				filename = "__Shortcuts-ick__/graphics/spidertron-remote-x40-2-white.png",
+				filename = "__Shortcuts-ick__/graphics/path-remote-control-x24-white.png",
 				priority = "extra-high-no-scale",
-				size = 40,
-				scale = 1,
-	      mipmap_count = 2,
-				flags = {"icon"},
+				size = 24,
+				flags = {"icon"}
 			},
 		},
 		{

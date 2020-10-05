@@ -28,6 +28,7 @@ NEW SHORTCUTS:
 
 OTHER:
 - locale for runtime settings
+- new thumbnail and description
 
 KNOWN ISSUES:
 - Disabled artillery/equipment is lost when settings change or mod is removed

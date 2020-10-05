@@ -245,3 +245,48 @@ if settings.startup["artillery-toggle"].value == "both" or settings.startup["art
 		},
 	})
 end
+
+if mods["MIRV"] and data.raw.capsule["mirv-targeting-remote"] and settings.startup["mirv-targeting-remote"].value == true then
+	data:extend(
+	{
+		{
+			type = "shortcut",
+			name = "mirv-targeting-remote",
+			localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.mirv-targeting-remote"}, {"Shortcuts-ick.control-mirv-targeting-remote"}},
+			order = "d[artillery]-f[mirv-targeting-remote]",
+			--associated_control_input = "mirv-targeting-remote",
+			action = "lua",
+			style = "red",
+			icon =
+			{
+				filename = "__Shortcuts-ick__/graphics/mirv-targeting-remote-x32-white.png",
+				priority = "extra-high-no-scale",
+				size = 32,
+				flags = {"icon"}
+			},
+			small_icon =
+			{
+				filename = "__Shortcuts-ick__/graphics/mirv-targeting-remote-x24.png",
+				priority = "extra-high-no-scale",
+				size = 24,
+				flags = {"icon"}
+			},
+			disabled_small_icon =
+			{
+				filename = "__Shortcuts-ick__/graphics/mirv-targeting-remote-x24-white.png",
+				priority = "extra-high-no-scale",
+				size = 24,
+				flags = {"icon"}
+			},
+		},
+	  {
+			type = "custom-input",
+	    name = "mirv-targeting-remote",
+			localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.mirv-targeting-remote"}},
+			order = "d[artillery]-f[mirv-targeting-remote]",
+			action = "create-blueprint-item",
+			item_to_create = "mirv-targeting-remote",
+	    key_sequence = "",
+	  },
+	})
+end

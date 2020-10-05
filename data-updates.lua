@@ -40,11 +40,11 @@ local function hide_the_remote(recipe, technology, item)
 end
 
 if settings.startup["artillery-targeting-remote"].value == true then
-	hide_the_remote("artillery-targeting-remote", "artillery", data.raw["capsule"]["artillery-targeting-remote"])
+	hide_the_remote("artillery-targeting-remote", "artillery", data.raw.capsule["artillery-targeting-remote"])
 end
 
 if settings.startup["discharge-defense-remote"].value == true then
-	hide_the_remote("discharge-defense-remote", "discharge-defense-equipment", data.raw["capsule"]["discharge-defense-remote"])
+	hide_the_remote("discharge-defense-remote", "discharge-defense-equipment", data.raw.capsule["discharge-defense-remote"])
 end
 
 if settings.startup["spidertron-remote"].value == "enabled" then
@@ -73,16 +73,21 @@ if mods["AdvArtilleryRemotes"] then
 	end
 end
 
-if mods["Orbital Ion Cannon"] and data.raw["item"]["ion-cannon-targeter"] and data.raw["technology"]["orbital-ion-cannon"] and settings.startup["ion-cannon-targeter"].value == true then
-	hide_the_remote("ion-cannon-targeter", "orbital-ion-cannon", data.raw["item"]["ion-cannon-targeter"])
+if mods["Orbital Ion Cannon"] and data.raw.item["ion-cannon-targeter"] and data.raw.technology["orbital-ion-cannon"] and settings.startup["ion-cannon-targeter"].value == true then
+	hide_the_remote("ion-cannon-targeter", "orbital-ion-cannon", data.raw.item["ion-cannon-targeter"])
 end
+
+if mods["MIRV"] and data.raw.capsule["mirv-targeting-remote"] and data.raw.technology["mirv-technology"] and settings.startup["mirv-targeting-remote"].value == true then
+	hide_the_remote("mirv-targeting-remote", "mirv-technology", data.raw.capsule["mirv-targeting-remote"])
+end
+
 
 if mods["OutpostPlanner"] and mods["PlannerCore"] and data.raw["selection-tool"]["outpost-builder"] and settings.startup["outpost-builder"].value == true then
 	hide_the_remote("outpost-builder", nil, data.raw["selection-tool"]["outpost-builder"])
 end
 
 if mods["VehicleWagon2"] and settings.startup["winch"].value == true then
-	hide_the_remote("winch", "vehicle-wagons", data.raw["capsule"]["winch"])
+	hide_the_remote("winch", "vehicle-wagons", data.raw.capsule["winch"])
 end
 
 -- OTHER MODS
@@ -269,7 +274,9 @@ if artillery_toggle == "both" or artillery_toggle == "artillery-wagon" or artill
 			disabled_turret[i].name = "disabled-" .. name
 			table.insert(disabled_turret[i].flags, "hidden")
 			disabled_turret[i].localised_name = {"", {"entity-name." .. entity.name}, " (", {"gui-constant.off"}, ")"}
-			disabled_turret[i].placeable_by = {item = name, count = 1}
+			if data.raw.item[name] then
+				disabled_turret[i].placeable_by = {item = name, count = 1}
+			end
 			if disabled_turret[i].icon then
 				disabled_turret[i].icons = {{icon = disabled_turret[i].icon, tint = {0.5, 0.5, 0.5}}}
 				disabled_turret[i].icon = nil

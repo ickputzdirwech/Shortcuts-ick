@@ -147,3 +147,13 @@ Version: 1.0.11
 Date: 2020-10-04
   Bugfixes:
     - Hotfix: Fixed error when "Zoom out of world" shortcut was used.
+
+---------------------------------------------------------------------------------------------------
+Version: 1.0.12
+Date: 2020-10-05
+  Features:
+    - New shortcut "MIRV targeting remote".
+  Changes:
+    - Changed icon of "Spidertron remote" shortcut.
+  Bugfixes:
+    - Fixed incompatibility with M.I.R.V. mod.

@@ -252,6 +252,17 @@ if mods["Orbital Ion Cannon"] then
   	}})
 end
 
+if mods["MIRV"] then
+  data:extend({{
+      setting_type = "startup",
+  		name = "mirv-targeting-remote",
+			localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.mirv-targeting-remote"}},
+			order = "d[artillery]-f[mirv-targeting-remote]",
+      type = "bool-setting",
+  		default_value = true,
+  	}})
+end
+
 ---------------------------------------------------------------------------------------------------
 -- STARTUP: VEHICLES
 ---------------------------------------------------------------------------------------------------
