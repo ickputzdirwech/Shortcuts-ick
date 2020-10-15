@@ -468,6 +468,24 @@ end
 ---------------------------------------------------------------------------------------------------
 -- GIVE ITEM
 ---------------------------------------------------------------------------------------------------
+local allowed_items = {
+	"artillery-cluster-remote",
+	"artillery-discovery-remote",
+	"artillery-jammer-tool",
+	"artillery-targeting-remote",
+	"check-circuit",
+	"discharge-defense-remote",
+	"ion-cannon-targeter",
+	"mirv-targeting-remote",
+	"module-inserter",
+	"path-remote-control",
+	"unit-remote-control",
+	"spidertron-remote",
+	"squad-spidertron-remote",
+	"tree-killer",
+	"well-planner",
+	"winch"}
+
 local function give_shortcut_item(player, prototype_name)
 	if game.item_prototypes[prototype_name] and player.clean_cursor() then
 		player.cursor_stack.set_stack({name = prototype_name})
@@ -518,16 +536,8 @@ end)
 script.on_event(defines.events.on_gui_closed, function(event)
 	local player = game.players[event.player_index]
 	if event.gui_type == 1 and event.entity.type == "spider-vehicle" and event.entity.get_driver() ~= nil then
-		if player.character ~= nil and event.entity.get_driver().player.index == event.player_index then
-			if settings.startup["spidertron-logistics"].value == true then
-				spidertron_shortcuts(player, event.entity.enable_logistics_while_moving, "spidertron-logistics")
-			end
-			if settings.startup["spidertron-automatic-targeting"].value == true then
-				spidertron_shortcuts(player, event.entity.vehicle_automatic_targeting_parameters.auto_target_without_gunner, "targeting-without-gunner")
-				spidertron_shortcuts(player, event.entity.vehicle_automatic_targeting_parameters.auto_target_with_gunner, "targeting-with-gunner")
-			end
-		end
-		if player.character == nil and event.entity.get_driver().index == event.player_index then
+		local driver = event.entity.get_driver()
+		if (driver.help() == player.help() and driver.index == event.player_index) or driver.player.index == event.player_index then
 			if settings.startup["spidertron-logistics"].value == true then
 				spidertron_shortcuts(player, event.entity.enable_logistics_while_moving, "spidertron-logistics")
 			end
@@ -604,7 +614,7 @@ script.on_event(defines.events.on_lua_shortcut, function(event)
 			end
 		end
 
--- TOGGLES
+-- EQUIPMENT
 	elseif prototype_name == "night-vision-equipment" then
 		update_state(event, "night-vision-equipment")
 		return
@@ -617,29 +627,21 @@ script.on_event(defines.events.on_lua_shortcut, function(event)
 
 -- GIVE ITEM
 	elseif prototype_name == "pump-shortcut" then
-		if game.item_prototypes["pump-selection-tool"] then
-			if player.clean_cursor() then
-				player.cursor_stack.set_stack({name = "pump-selection-tool"})
-			end
-		end
+		give_shortcut_item(player, "pump-selection-tool")
 	elseif prototype_name == "give-rail-signal-planner" then
-		if game.item_prototypes["rail-signal-planner"] then
-			if player.clean_cursor() then
-				player.cursor_stack.set_stack({name = "rail-signal-planner"})
-			end
-		end
+		give_shortcut_item(player, "rail-signal-planner")
 	elseif prototype_name == "cliff-fish-item-on-ground" then
-		if game.item_prototypes["tree-killer"] then
-			if player.clean_cursor() then
-				player.cursor_stack.set_stack({name = "tree-killer"})
-				player.cursor_stack.entity_filters = {game.entity_prototypes["cliff"].name, game.entity_prototypes["fish"].name, game.entity_prototypes["item-on-ground"].name}
-			end
+		 give_shortcut_item(player, "tree-killer")
+		 if	player.cursor_stack.name == "tree-killer" then
+			player.cursor_stack.trees_and_rocks_only = false
+			player.cursor_stack.entity_filters = {game.entity_prototypes["cliff"].name, game.entity_prototypes["fish"].name, game.entity_prototypes["item-on-ground"].name}
 		end
 	elseif game.shortcut_prototypes[prototype_name] then
-		give_shortcut_item(player, prototype_name) --[[ "artillery-targeting-remote", "winch",
-		"discharge-defense-remote", "spidertron-remote", "path-remote-control", "unit-remote-control",
-		"artillery-cluster-remote", "artillery-discovery-remote", "ion-cannon-targeter", "check-circuit",
-		"squad-spidertron-remote", "well-planner" and "module-inserter", "artillery-jammer-tool", "tree-killer", "mirv-targeting-remote" ]]
+		for _, item_name in pairs(allowed_items) do
+			if item_name == prototype_name then
+				give_shortcut_item(player, prototype_name)
+			end
+		end
 	end
 end)
 
@@ -679,21 +681,62 @@ if settings.startup["tree-killer"].value == true then
 		give_shortcut_item(game.players[event.player_index], "tree-killer")
 	end)
 	script.on_event("cliff-fish-item-on-ground", function(event)
-		player = game.players[event.player_index]
-		if game.item_prototypes["tree-killer"] then
-			if player.clean_cursor() then
-				player.cursor_stack.set_stack({name = "tree-killer"})
-				player.cursor_stack.entity_filters = {game.entity_prototypes["cliff"].name, game.entity_prototypes["fish"].name, game.entity_prototypes["item-on-ground"].name}
-			end
+		local player = game.players[event.player_index]
+		give_shortcut_item(player, "tree-killer")
+		if player.cursor_stack.name == "tree-killer" then
+			player.cursor_stack.trees_and_rocks_only = false
+			player.cursor_stack.entity_filters = {game.entity_prototypes["cliff"].name, game.entity_prototypes["fish"].name, game.entity_prototypes["item-on-ground"].name}
+		end
+	end)
+end
+if settings.startup["well-planner"] and settings.startup["well-planner"].value == true then
+	script.on_event("well-planner", function(event)
+		if game.players[event.player_index].force.technologies["oil-processing"].researched == true then
+			give_shortcut_item(game.players[event.player_index], "well-planner")
 		end
 	end)
 end
 
--- TOGGLES
+-- ARTILLERY
+if settings.startup["artillery-targeting-remote"].value == true then
+	script.on_event("artillery-targeting-remote", function(event)
+		if game.players[event.player_index].force.technologies["artillery"].researched == true then
+			give_shortcut_item(game.players[event.player_index], "artillery-targeting-remote")
+		end
+	end)
+	script.on_event("artillery-jammer-tool", function(event)
+		if game.players[event.player_index].force.technologies["artillery"].researched == true then
+			give_shortcut_item(game.players[event.player_index], "artillery-jammer-tool")
+		end
+	end)
+end
+if settings.startup["mirv-targeting-remote"] and settings.startup["mirv-targeting-remote"].value == true then
+	script.on_event("mirv-targeting-remote", function(event)
+		if game.players[event.player_index].force.technologies["mirv-technology"].researched == true then
+			give_shortcut_item(game.players[event.player_index], "mirv-targeting-remote")
+		end
+	end)
+end
+if settings.startup["ion-cannon-targeter"] and settings.startup["ion-cannon-targeter"].value == true then
+	script.on_event("ion-cannon-targeter", function(event)
+		if game.players[event.player_index].force.technologies["orbital-ion-cannon"].researched == true then
+			give_shortcut_item(game.players[event.player_index], "ion-cannon-targeter")
+		end
+	end)
+end
+
+-- EQUIPMENT
 if settings.startup["belt-immunity-equipment"].value == true then
 	script.on_event("belt-immunity-equipment", function(event)
 		update_state(event, "belt-immunity-equipment")
 		return
+	end)
+end
+if settings.startup["discharge-defense-remote"].value == true then
+	script.on_event("discharge-defense-remote", function(event)
+		if game.players[event.player_index].force.technologies["discharge-defense-equipment"].researched == true then
+			give_shortcut_item(game.players[event.player_index], "discharge-defense-remote")
+		end
 	end)
 end
 if settings.startup["night-vision-equipment"].value == true then
@@ -710,6 +753,13 @@ if settings.startup["active-defense-equipment"].value == true then
 end
 
 -- VEHICLES
+if settings.startup["spidertron-remote"].value == "enabled" or settings.startup["spidertron-remote"].value == "enabled-hidden" then
+	script.on_event("spidertron-remote", function(event)
+		if game.players[event.player_index].force.technologies["spidertron"].researched == true then
+			give_shortcut_item(game.players[event.player_index], "spidertron-remote")
+		end
+	end)
+end
 if settings.startup["spidertron-logistics"].value == true then
 	script.on_event("spidertron-logistics", function(event)
 		local player = game.players[event.player_index]
@@ -757,6 +807,13 @@ if settings.startup["spidertron-automatic-targeting"].value == true then
 				player.vehicle.vehicle_automatic_targeting_parameters = params
 				player.set_shortcut_toggled("targeting-with-gunner", true)
 			end
+		end
+	end)
+end
+if settings.startup["winch"] and settings.startup["winch"].value == true then
+	script.on_event("winch", function(event)
+		if game.players[event.player_index].force.technologies["vehicle-wagons"].researched == true then
+			give_shortcut_item(game.players[event.player_index], "winch")
 		end
 	end)
 end
@@ -866,6 +923,10 @@ script.on_event(defines.events.on_player_created, function(event)
 		if mod["Spider_Control"] then
 			player.set_shortcut_available("squad-spidertron-follow", false)
 			player.set_shortcut_available("squad-spidertron-remote", false)
+		end
+		if mod["SpidertronWaypoints"] then
+			player.set_shortcut_available("spidertron-remote-waypoint", false)
+			player.set_shortcut_available("spidertron-remote-patrol", false)
 		end
 		if tech["automobilism"].researched == false then
 			if mod["aai-programmable-vehicles"] and setting["aai-remote-controls"].value == true then
@@ -979,6 +1040,10 @@ script.on_event(defines.events.on_research_finished, function(event)
 			if mod["Spider_Control"] then
 				player.set_shortcut_available("squad-spidertron-follow", true)
 				player.set_shortcut_available("squad-spidertron-remote", true)
+			end
+			if mod["SpidertronWaypoints"] then
+				player.set_shortcut_available("spidertron-remote-waypoint", true)
+				player.set_shortcut_available("spidertron-remote-patrol", true)
 			end
 		end
 

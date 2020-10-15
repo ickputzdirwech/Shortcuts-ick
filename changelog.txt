@@ -157,3 +157,13 @@ Date: 2020-10-05
     - Changed icon of "Spidertron remote" shortcut.
   Bugfixes:
     - Fixed incompatibility with M.I.R.V. mod.
+
+---------------------------------------------------------------------------------------------------
+Version: 1.0.13
+Date: 2020-10-15
+  Changes:
+    - Keyboard inputs will only work now if the corresponding shortcut is available.
+  Bugfixes:
+    - Fixed that "Well Planner" wasn't hidden from inventory.
+    - Fixed that shortcuts from "Spidertron Waypoints" would create extra spidertron remotes.
+    - Fixed error in multiplayer when closing spidertron gui.

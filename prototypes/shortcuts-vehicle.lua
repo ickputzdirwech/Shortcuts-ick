@@ -51,8 +51,6 @@ if settings.startup["spidertron-remote"].value == "enabled" or settings.startup[
 			name = "spidertron-remote",
 			localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"item-name.spidertron-remote"}},
 			order = "e[vehicle]-a[spidertron-remote]",
-			action = "create-blueprint-item",
-			item_to_create = "spidertron-remote",
 			key_sequence = "",
 		},
 	})
@@ -104,7 +102,6 @@ if settings.startup["spidertron-logistics"].value == true then
 	    name = "spidertron-logistics",
 			localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"entity-name.spidertron"}, " ", {"gui.enable-logistics-while-moving"}},
 			order = "e[vehicle]-b[spidertron-logistics]",
-			action = "lua",
 	    key_sequence = "",
 	  },
 	})
@@ -154,7 +151,6 @@ if settings.startup["spidertron-automatic-targeting"].value == true then
 	    name = "targeting-without-gunner",
 			localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"entity-name.spidertron"}, " ", {"gui-car.automatic-targeting"}, " ", {"gui-car.without-gunner"}},
 			order = "e[vehicle]-c[targeting-without-gunner]",
-			action = "lua",
 	    key_sequence = "",
 	  },
 		{
@@ -197,7 +193,6 @@ if settings.startup["spidertron-automatic-targeting"].value == true then
 	    name = "targeting-with-gunner",
 			localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"entity-name.spidertron"}, " ", {"gui-car.automatic-targeting"}, " ", {"gui-car.with-gunner"}},
 			order = "e[vehicle]-d[targeting-with-gunner]",
-			action = "lua",
 	    key_sequence = "",
 	  },
 	})
@@ -205,7 +200,7 @@ end
 
 
 if mods["aai-programmable-vehicles"] and settings.startup["aai-remote-controls"].value == true then
-	if data.raw["selection-tool"]["unit-remote-control"] then
+	--if data.raw["selection-tool"]["unit-remote-control"] then
 		data:extend(
 		{
 			{
@@ -242,9 +237,9 @@ if mods["aai-programmable-vehicles"] and settings.startup["aai-remote-controls"]
 				},
 			},
 		})
-	end
+	--end
 
-	if data.raw["selection-tool"]["path-remote-control"] then
+	--if data.raw["selection-tool"]["path-remote-control"] then
 		data:extend(
 		{
 			{
@@ -281,7 +276,7 @@ if mods["aai-programmable-vehicles"] and settings.startup["aai-remote-controls"]
 				},
 			},
 		})
-	end
+	--end
 end
 
 
@@ -336,8 +331,6 @@ if mods["VehicleWagon2"] and settings.startup["winch"].value == true then
 			name = "winch",
 			localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"item-name.winch"}},
       order = "e[vehicle]-g[winch]",
-			action = "create-blueprint-item",
-			item_to_create = "winch",
 			key_sequence = "",
 		},
   })

@@ -86,6 +86,10 @@ if mods["OutpostPlanner"] and mods["PlannerCore"] and data.raw["selection-tool"]
 	hide_the_remote("outpost-builder", nil, data.raw["selection-tool"]["outpost-builder"])
 end
 
+if mods["WellPlanner"] and data.raw["selection-tool"]["well-planner"] and settings.startup["well-planner"].value == true then
+	hide_the_remote("well-planner", nil, data.raw["selection-tool"]["well-planner"])
+end
+
 if mods["VehicleWagon2"] and settings.startup["winch"].value == true then
 	hide_the_remote("winch", "vehicle-wagons", data.raw.capsule["winch"])
 end
@@ -321,8 +325,8 @@ end]]
 local autogen_color = settings.startup["autogen-color"].value
 if autogen_color == "default" or autogen_color == "red" or autogen_color == "green" or autogen_color == "blue" then
 
-	--	create a post on the discussion page if you want your shortcut to be added to this blacklist.
-	local shortcut_blacklist = {
+	--	create a post on the discussion page if you want your shortcut to be added to this ignore_list.
+	local shortcut_ignore_list = {
 		"artillery-jammer-tool",
 		"circuit-checker",
 		"fp_beacon_selector",
@@ -342,8 +346,8 @@ if autogen_color == "default" or autogen_color == "red" or autogen_color == "gre
 	for _, tool in pairs(data.raw["selection-tool"]) do
 		local name = tool.name
 		local continue = true
-		for j, blacklist in pairs(shortcut_blacklist) do
-			if name == blacklist then
+		for j, ignore_list in pairs(shortcut_ignore_list) do
+			if name == ignore_list then
 				continue = false
 				break
 			end

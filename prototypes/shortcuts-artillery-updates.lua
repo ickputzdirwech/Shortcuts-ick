@@ -49,8 +49,6 @@ if mods["Orbital Ion Cannon"] and data.raw.item["ion-cannon-targeter"] and setti
 	    name = "ion-cannon-targeter",
 			localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.ion-cannon-targeter"}},
 			order = "d[artillery]-e[ion-cannon-targeter]",
-			action = "create-blueprint-item",
-			item_to_create = "ion-cannon-targeter",
 	    key_sequence = "",
 	  },
 	})

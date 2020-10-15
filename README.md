@@ -44,6 +44,7 @@ You can download the mod on the [mod portal](https://mods.factorio.com/mod/Short
 * MOD: AdvArtilleryRemotes
 * Artillery cannon toggle
 * MOD: Orbital ion cannon targeter
+* MOD: M.I.R.V. targeting remote
 
 
 **Vehicle**
@@ -72,5 +73,6 @@ You can download the mod on the [mod portal](https://mods.factorio.com/mod/Short
 * P.U.M.P
 * Rail Signal Planner
 * Spidertron squad control
+* Spidertron Waypoints
 * Temporary Stations
 * VehicleSnap

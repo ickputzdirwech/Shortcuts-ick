@@ -107,8 +107,6 @@ if settings.startup["discharge-defense-remote"].value == true then
 			name = "discharge-defense-remote",
 			localised_name = {"", {"Shortcuts-ick.equipment"}, {"item-name.discharge-defense-remote"}},
 			order = "c[equipment]-d[discharge-defense-remote]",
-			action = "create-blueprint-item",
-			item_to_create = "discharge-defense-remote",
 			key_sequence = "",
 		},
 	})

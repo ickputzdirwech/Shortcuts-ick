@@ -6,7 +6,9 @@
 
 --[[ Overview of shortcuts-blueprint.lua:
 	* Trees/rocks only item, shortcut and custom input
+	* Cliff/Fish/Item on ground shortcut and custom input
 	* OutpostPlanner shortcut and custom input
+	* WellPlanner shortcut and custom input
 ]]
 
 if settings.startup["tree-killer"].value == true then
@@ -184,8 +186,6 @@ if mods["WellPlanner"] and data.raw["selection-tool"]["well-planner"] and settin
 			name = "well-planner",
 			localised_name = {"", "[color=blue]", {"item-name.blueprint"}, ": [/color]", {"item-name.well-planner"}},
 			order = "b[blueprint]-j[well-planner]",
-			action = "create-blueprint-item",
-			item_to_create = "well-planner",
 			key_sequence = "",
 		},
 	})

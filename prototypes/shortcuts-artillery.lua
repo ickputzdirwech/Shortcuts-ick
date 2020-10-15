@@ -55,8 +55,6 @@ if settings.startup["artillery-targeting-remote"].value == true then
 			name = "artillery-targeting-remote",
 			localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.artillery-targeting-remote"}},
 			order = "d[artillery]-a[artillery-targeting-remote]",
-			action = "create-blueprint-item",
-			item_to_create = "artillery-targeting-remote",
 			key_sequence = "",
 		},
 	})
@@ -214,8 +212,6 @@ if settings.startup["artillery-toggle"].value == "both" or settings.startup["art
 			name = "artillery-jammer-tool",
 			localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.artillery-jammer-tool"}},
 			order = "d[artillery]-d[artillery-jammer-tool]",
-			action = "create-blueprint-item",
-			item_to_create = "artillery-jammer-tool",
 			key_sequence = "",
 		},
 		{
@@ -284,8 +280,6 @@ if mods["MIRV"] and data.raw.capsule["mirv-targeting-remote"] and settings.start
 	    name = "mirv-targeting-remote",
 			localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.mirv-targeting-remote"}},
 			order = "d[artillery]-f[mirv-targeting-remote]",
-			action = "create-blueprint-item",
-			item_to_create = "mirv-targeting-remote",
 	    key_sequence = "",
 	  },
 	})

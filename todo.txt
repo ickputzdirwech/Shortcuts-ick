@@ -20,8 +20,10 @@ NEW SHORTCUTS:
 OWN MOD:
 ---------------------------------------------------------------------------------------------------
 BUGS:
-- hide initial technology_to_unlock for path remote controls
 - cant enable/disable ghost artillery turrets
+- shortcuts are available through keyboard inputs regardless of research
+- discharge defense remote is available even if none equipped
+- Advanced artillery remotes hotkeys are available before tech
 
 NEW SHORTCUTS:
 - Car: driver is gunner
@@ -29,10 +31,11 @@ NEW SHORTCUTS:
 OTHER:
 - locale for runtime settings
 - new thumbnail and description
+- check for strange inter mod dependencies!
 
 KNOWN ISSUES:
 - Disabled artillery/equipment is lost when settings change or mod is removed
-- Restart needed for custom inputs to update [workaround: all localisation in .cfg]
+- Restart/reload needed for custom inputs to update [workaround: all localisation in .cfg]
 - Spidertron GUI doesn't update. Needs to be closed and opened again.
 
 ---------------------------------------------------------------------------------------------------
