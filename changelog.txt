@@ -167,3 +167,13 @@ Date: 2020-10-15
     - Fixed that "Well Planner" wasn't hidden from inventory.
     - Fixed that shortcuts from "Spidertron Waypoints" would create extra spidertron remotes.
     - Fixed error in multiplayer when closing spidertron gui.
+
+---------------------------------------------------------------------------------------------------
+Version: 1.0.14
+Date: 2020-10-17
+  Features:
+    - Now supports the mod "Outpost Planner (Updated for 1.0)"
+    - Added mod "Personal logistics Shortcut" as an optional dependency. Just as an advertisement.
+  Bugfixes:
+    - Fixed that spidertron shortcuts wouldn't be updated if the settings were changed by another player.
+    - Fixed error when disabling startup setting "Artillery cannon fire toggle". 

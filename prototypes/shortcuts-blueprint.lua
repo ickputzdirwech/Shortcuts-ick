@@ -114,7 +114,7 @@ if settings.startup["tree-killer"].value == true then
 	})
 end
 
-if mods["OutpostPlanner"] and mods["PlannerCore"] and data.raw["selection-tool"]["outpost-builder"] and settings.startup["outpost-builder"].value == true then
+if (mods["OutpostPlanner"] or mods["OutpostPlannerUpdated"]) and mods["PlannerCore"] and data.raw["selection-tool"]["outpost-builder"] and settings.startup["outpost-builder"].value == true then
 	data:extend(
 	{
 		{

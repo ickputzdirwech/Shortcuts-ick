@@ -534,16 +534,23 @@ script.on_event(defines.events.on_player_driving_changed_state, function(event)
 end)
 
 script.on_event(defines.events.on_gui_closed, function(event)
-	local player = game.players[event.player_index]
 	if event.gui_type == 1 and event.entity.type == "spider-vehicle" and event.entity.get_driver() ~= nil then
 		local driver = event.entity.get_driver()
-		if (driver.help() == player.help() and driver.index == event.player_index) or driver.player.index == event.player_index then
+		if driver.is_player() then
 			if settings.startup["spidertron-logistics"].value == true then
-				spidertron_shortcuts(player, event.entity.enable_logistics_while_moving, "spidertron-logistics")
+				spidertron_shortcuts(driver, event.entity.enable_logistics_while_moving, "spidertron-logistics")
 			end
 			if settings.startup["spidertron-automatic-targeting"].value == true then
-				spidertron_shortcuts(player, event.entity.vehicle_automatic_targeting_parameters.auto_target_without_gunner, "targeting-without-gunner")
-				spidertron_shortcuts(player, event.entity.vehicle_automatic_targeting_parameters.auto_target_with_gunner, "targeting-with-gunner")
+				spidertron_shortcuts(driver, event.entity.vehicle_automatic_targeting_parameters.auto_target_without_gunner, "targeting-without-gunner")
+				spidertron_shortcuts(driver, event.entity.vehicle_automatic_targeting_parameters.auto_target_with_gunner, "targeting-with-gunner")
+			end
+		else --If driver is a character
+			if settings.startup["spidertron-logistics"].value == true then
+				spidertron_shortcuts(driver.player, event.entity.enable_logistics_while_moving, "spidertron-logistics")
+			end
+			if settings.startup["spidertron-automatic-targeting"].value == true then
+				spidertron_shortcuts(driver.player, event.entity.vehicle_automatic_targeting_parameters.auto_target_without_gunner, "targeting-without-gunner")
+				spidertron_shortcuts(driver.player, event.entity.vehicle_automatic_targeting_parameters.auto_target_with_gunner, "targeting-with-gunner")
 			end
 		end
 	end
@@ -704,6 +711,9 @@ if settings.startup["artillery-targeting-remote"].value == true then
 			give_shortcut_item(game.players[event.player_index], "artillery-targeting-remote")
 		end
 	end)
+end
+local artillery_toggle = settings.startup["artillery-toggle"].value
+if artillery_toggle == "both" or artillery_toggle == "artillery-wagon" or artillery_toggle == "artillery-turret" then
 	script.on_event("artillery-jammer-tool", function(event)
 		if game.players[event.player_index].force.technologies["artillery"].researched == true then
 			give_shortcut_item(game.players[event.player_index], "artillery-jammer-tool")

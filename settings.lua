@@ -158,7 +158,7 @@ data:extend(
 	},
 })
 
-if mods["OutpostPlanner"] then
+if mods["OutpostPlanner"] or mods["OutpostPlannerUpdated"] then
   data:extend({{
       setting_type = "startup",
   		name = "outpost-builder",

@@ -82,7 +82,7 @@ if mods["MIRV"] and data.raw.capsule["mirv-targeting-remote"] and data.raw.techn
 end
 
 
-if mods["OutpostPlanner"] and mods["PlannerCore"] and data.raw["selection-tool"]["outpost-builder"] and settings.startup["outpost-builder"].value == true then
+if (mods["OutpostPlanner"] or mods["OutpostPlannerUpdated"]) and mods["PlannerCore"] and data.raw["selection-tool"]["outpost-builder"] and settings.startup["outpost-builder"].value == true then
 	hide_the_remote("outpost-builder", nil, data.raw["selection-tool"]["outpost-builder"])
 end
 
