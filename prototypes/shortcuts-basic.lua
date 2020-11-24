@@ -30,24 +30,32 @@ if settings.startup["flashlight-toggle"].value == true then
 				filename = "__Shortcuts-ick__/graphics/flashlight-toggle-x32.png",
 				priority = "extra-high-no-scale",
 				size = 32,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 			small_icon =
 			{
 				filename = "__Shortcuts-ick__/graphics/flashlight-toggle-x24.png",
 				priority = "extra-high-no-scale",
 				size = 24,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
+			},
+			disabled_icon =
+			{
+				filename = "__Shortcuts-ick__/graphics/flashlight-toggle-x32-white.png",
+				priority = "extra-high-no-scale",
+				size = 32,
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 			disabled_small_icon =
 			{
 				filename = "__Shortcuts-ick__/graphics/flashlight-toggle-x24-white.png",
 				priority = "extra-high-no-scale",
 				size = 24,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 		},
 	  {
@@ -77,24 +85,16 @@ if settings.startup["signal-flare"].value == true then
 				filename = "__Shortcuts-ick__/graphics/signal-flare-x32-white.png",
 				priority = "extra-high-no-scale",
 				size = 32,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 			small_icon =
-			{
-				filename = "__Shortcuts-ick__/graphics/signal-flare-x24.png",
-				priority = "extra-high-no-scale",
-				size = 24,
-				scale = 1,
-				flags = {"icon"}
-			},
-			disabled_small_icon =
 			{
 				filename = "__Shortcuts-ick__/graphics/signal-flare-x24-white.png",
 				priority = "extra-high-no-scale",
 				size = 24,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 		},
 	  {
@@ -124,24 +124,16 @@ if settings.startup["draw-grid"].value == true then
 				filename = "__Shortcuts-ick__/graphics/grid-x32-white.png",
 				priority = "extra-high-no-scale",
 				size = 32,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 			small_icon =
-			{
-				filename = "__Shortcuts-ick__/graphics/grid-x24.png",
-				priority = "extra-high-no-scale",
-				size = 24,
-				scale = 1,
-				flags = {"icon"}
-			},
-			disabled_small_icon =
 			{
 				filename = "__Shortcuts-ick__/graphics/grid-x24-white.png",
 				priority = "extra-high-no-scale",
 				size = 24,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 		},
 	  {
@@ -171,7 +163,17 @@ if settings.startup["rail-block-visualization-toggle"].value == true then
 				priority = "extra-high-no-scale",
 				size = 32,
 	      mipmap_count = 2,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
+			},
+			smal_icon =
+			{
+				filename = "__Shortcuts-ick__/graphics/rail-block-visualization-toggle-x32-2.png",
+				priority = "extra-high-no-scale",
+				size = 32,
+	      mipmap_count = 2,
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 			disabled_icon =
 			{
@@ -179,7 +181,8 @@ if settings.startup["rail-block-visualization-toggle"].value == true then
 				priority = "extra-high-no-scale",
 				size = 32,
 	      mipmap_count = 2,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 			disabled_small_icon =
 			{
@@ -187,7 +190,8 @@ if settings.startup["rail-block-visualization-toggle"].value == true then
 				priority = "extra-high-no-scale",
 				size = 32,
 	      mipmap_count = 2,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 		},
 	  {
@@ -217,24 +221,16 @@ if settings.startup["big-zoom"].value == true then
 				filename = "__Shortcuts-ick__/graphics/big-zoom-x32-white.png",
 				priority = "extra-high-no-scale",
 				size = 32,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 			small_icon =
-			{
-				filename = "__Shortcuts-ick__/graphics/big-zoom-x24.png",
-				priority = "extra-high-no-scale",
-				size = 24,
-				scale = 1,
-				flags = {"icon"}
-			},
-			disabled_small_icon =
 			{
 				filename = "__Shortcuts-ick__/graphics/big-zoom-x24-white.png",
 				priority = "extra-high-no-scale",
 				size = 24,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 		},
 	  {
@@ -261,32 +257,24 @@ if mods["MaxRateCalculator"] and data.raw["selection-tool"]["max-rate-calculator
 			localised_name = {"", {"Shortcuts-ick.basic"}, {"item-name.max-rate-calculator"}, {"Shortcuts-ick.control-max-rate-shortcut"}},
 			order = "a[basic]-g[max-rate-shortcut]",
 			--associated_control_input = "marc_hotkey",
-			action = "create-blueprint-item",
-			item_to_create = "max-rate-calculator",
+			action = "spawn-item",
+			item_to_spawn = "max-rate-calculator",
 			style = "blue",
 			icon =
 			{
 				filename = "__Shortcuts-ick__/graphics/max-rate-calculator-x32-white.png",
 				priority = "extra-high-no-scale",
 				size = 32,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 			small_icon =
-			{
-				filename = "__Shortcuts-ick__/graphics/max-rate-calculator-x24.png",
-				priority = "extra-high-no-scale",
-				size = 24,
-				scale = 1,
-				flags = {"icon"}
-			},
-			disabled_small_icon =
 			{
 				filename = "__Shortcuts-ick__/graphics/max-rate-calculator-x24-white.png",
 				priority = "extra-high-no-scale",
 				size = 24,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 		},
 	})

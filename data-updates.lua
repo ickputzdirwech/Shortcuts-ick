@@ -120,7 +120,7 @@ end
 --Remove technology_to_unlock and/or change action for mod shortcuts in order to make them available based in researched in a specific game.
 if mods["circuit-checker"] and data.raw.shortcut["check-circuit"] then
 	data.raw.shortcut["check-circuit"].action = "lua"
-	data.raw.shortcut["check-circuit"].item_to_create = nil
+	data.raw.shortcut["check-circuit"].item_to_spawn = nil
 	data.raw.shortcut["check-circuit"].technology_to_unlock = nil
 end
 if mods["Spider_Control"] and data.raw.shortcut["squad-spidertron-follow"] then
@@ -128,21 +128,21 @@ if mods["Spider_Control"] and data.raw.shortcut["squad-spidertron-follow"] then
 end
 if mods["Spider_Control"] and data.raw.shortcut["squad-spidertron-remote"] then
 	data.raw.shortcut["squad-spidertron-remote"].action = "lua"
-	data.raw.shortcut["squad-spidertron-remote"].item_to_create = nil
+	data.raw.shortcut["squad-spidertron-remote"].item_to_spawn = nil
 	data.raw.shortcut["squad-spidertron-remote"].technology_to_unlock = nil
 end
 if mods["pump"] and data.raw.shortcut["pump-shortcut"] then
 	data.raw.shortcut["pump-shortcut"].action = "lua"
-	data.raw.shortcut["pump-shortcut"].item_to_create = nil
+	data.raw.shortcut["pump-shortcut"].item_to_spawn = nil
 	data.raw.shortcut["pump-shortcut"].technology_to_unlock = nil
 end
 if mods["RailSignalPlanner"] and data.raw.shortcut["give-rail-signal-planner"] then
 	data.raw.shortcut["give-rail-signal-planner"].action = "lua"
-	data.raw.shortcut["give-rail-signal-planner"].item_to_create = nil
+	data.raw.shortcut["give-rail-signal-planner"].item_to_spawn = nil
 end
 if mods["ModuleInserter"] and data.raw.shortcut["module-inserter"] then
 	data.raw.shortcut["module-inserter"].action = "lua"
-	data.raw.shortcut["module-inserter"].item_to_create = nil
+	data.raw.shortcut["module-inserter"].item_to_spawn = nil
 end
 
 local disabled_equipment = {}
@@ -203,14 +203,6 @@ for i, e in pairs(equipment_list) do
 
 				if not data.raw["item"][equipment_list[i]] then --for mods which have a different item name compared to equipment name
 					disabled_equipment_item[i] = util.table.deepcopy(data.raw["item"][name])
-					disabled_equipment_item[i].name = "disabled-" .. name
-					if disabled_equipment_item[i].flags then
-						table.insert(disabled_equipment_item[i].flags, "hidden")
-						table.insert(disabled_equipment_item[i].flags, "hide-from-bonus-gui")
-					else
-						disabled_equipment_item[i].flags = {"hidden", "hide-from-bonus-gui"}
-					end
-					disabled_equipment_item[i].placed_as_equipment_result = name
 				end
 
 				--disabled_equipment_item[i] = util.table.deepcopy(data.raw["item"][equipment_list[i]]) -- LEGACY ITEM (Disable for release)
@@ -221,6 +213,7 @@ for i, e in pairs(equipment_list) do
 				disabled_equipment_item[i].name = "disabled-" .. name
 				disabled_equipment_item[i].localised_name = {"", {"equipment-name." .. name}, " (", {"gui-constant.off"}, ")"}
 				disabled_equipment_item[i].localised_description = {"item-description." .. name}
+				disabled_equipment_item[i].flags = {"hidden", "hide-from-bonus-gui"}
 				disabled_equipment_item[i].placed_as_equipment_result = name
 				disabled_equipment_item[i].order = disabled_equipment_item[i].order .. "-z"
 				if disabled_equipment_item[i].icon then
@@ -355,7 +348,7 @@ if autogen_color == "default" or autogen_color == "red" or autogen_color == "gre
 		if continue == true then
 			local create = true
 			for i, shortcut in pairs(data.raw["shortcut"]) do
-				if shortcut.action == "create-blueprint-item" and shortcut.item_to_create == name then
+				if shortcut.action == "spawn-item" and shortcut.item_to_spawn == name then
 					create = false
 					break
 				end
@@ -382,32 +375,15 @@ if autogen_color == "default" or autogen_color == "red" or autogen_color == "gre
 					type = "shortcut",
 					name = name,
 					order = tool.order,
-					action = "create-blueprint-item",
+					action = "spawn-item",
 					localised_name = {"item-name." .. name},
-					item_to_create = name,
+					item_to_spawn = name,
 					style = settings.startup["autogen-color"].value,
 					icon =
 					{
 						filename = icon,
 						priority = "extra-high-no-scale",
 						size = icon_size,
-						scale = 1,
-						flags = {"icon"}
-					},
-					small_icon =
-					{
-						filename = icon,
-						priority = "extra-high-no-scale",
-						size = icon_size,
-						scale = 1,
-						flags = {"icon"}
-					},
-					disabled_small_icon =
-					{
-						filename = icon,
-						priority = "extra-high-no-scale",
-						size = icon_size,
-						scale = 1,
 						flags = {"icon"}
 					},
 				}

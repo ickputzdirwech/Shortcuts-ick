@@ -487,7 +487,7 @@ local allowed_items = {
 	"winch"}
 
 local function give_shortcut_item(player, prototype_name)
-	if game.item_prototypes[prototype_name] and player.clean_cursor() then
+	if game.item_prototypes[prototype_name] and player.clear_cursor() then
 		player.cursor_stack.set_stack({name = prototype_name})
 		if prototype_name == "tree-killer" then
 			player.cursor_stack.trees_and_rocks_only = true

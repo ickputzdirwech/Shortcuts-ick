@@ -27,32 +27,32 @@ if settings.startup["belt-immunity-equipment"].value == true then
 				filename = "__Shortcuts-ick__/graphics/belt-immunity-toggle-x32.png",
 				priority = "extra-high-no-scale",
 				size = 32,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 			small_icon =
 			{
 				filename = "__Shortcuts-ick__/graphics/belt-immunity-toggle-x24.png",
 				priority = "extra-high-no-scale",
 				size = 24,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 			disabled_icon =
 			{
 				filename = "__Shortcuts-ick__/graphics/belt-immunity-toggle-x32-white.png",
 				priority = "extra-high-no-scale",
 				size = 32,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 			disabled_small_icon =
 			{
 				filename = "__Shortcuts-ick__/graphics/belt-immunity-toggle-x24-white.png",
 				priority = "extra-high-no-scale",
 				size = 24,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 		},
 		{
@@ -82,24 +82,16 @@ if settings.startup["discharge-defense-remote"].value == true then
 				filename = "__Shortcuts-ick__/graphics/discharge-defense-remote-x32-white.png",
 				priority = "extra-high-no-scale",
 				size = 32,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 			small_icon =
-			{
-				filename = "__Shortcuts-ick__/graphics/discharge-defense-remote-x24.png",
-				priority = "extra-high-no-scale",
-				size = 24,
-				scale = 1,
-				flags = {"icon"}
-			},
-			disabled_small_icon =
 			{
 				filename = "__Shortcuts-ick__/graphics/discharge-defense-remote-x24-white.png",
 				priority = "extra-high-no-scale",
 				size = 24,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 		},
 		{
@@ -129,32 +121,32 @@ if settings.startup["night-vision-equipment"].value == true then
 				filename = "__Shortcuts-ick__/graphics/night-vision-toggle-x32.png",
 				priority = "extra-high-no-scale",
 				size = 32,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 			small_icon =
 			{
 				filename = "__Shortcuts-ick__/graphics/night-vision-toggle-x24.png",
 				priority = "extra-high-no-scale",
 				size = 24,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 			disabled_icon =
 			{
 				filename = "__Shortcuts-ick__/graphics/night-vision-toggle-x32-white.png",
 				priority = "extra-high-no-scale",
 				size = 32,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 			disabled_small_icon =
 			{
 				filename = "__Shortcuts-ick__/graphics/night-vision-toggle-x24-white.png",
 				priority = "extra-high-no-scale",
 				size = 24,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 		},
 		{
@@ -184,32 +176,32 @@ if settings.startup["active-defense-equipment"].value == true then
 				filename = "__Shortcuts-ick__/graphics/active-defense-equipment-x32.png",
 				priority = "extra-high-no-scale",
 				size = 32,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 			small_icon =
 			{
 				filename = "__Shortcuts-ick__/graphics/active-defense-equipment-x24.png",
 				priority = "extra-high-no-scale",
 				size = 24,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 			disabled_icon =
 			{
 				filename = "__Shortcuts-ick__/graphics/active-defense-equipment-x32-white.png",
 				priority = "extra-high-no-scale",
 				size = 32,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 			disabled_small_icon =
 			{
 				filename = "__Shortcuts-ick__/graphics/active-defense-equipment-x24-white.png",
 				priority = "extra-high-no-scale",
 				size = 24,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 		},
 		{

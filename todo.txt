@@ -21,10 +21,8 @@ OWN MOD:
 ---------------------------------------------------------------------------------------------------
 BUGS:
 - cant enable/disable ghost artillery turrets
-- shortcuts are available through keyboard inputs regardless of research
 - discharge defense remote is available even if none equipped
 - Advanced artillery remotes hotkeys are available before tech
-- Shortcuts are not updated if other player changes spidertron settings.
 
 NEW SHORTCUTS:
 - Car: driver is gunner

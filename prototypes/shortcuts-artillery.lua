@@ -30,24 +30,16 @@ if settings.startup["artillery-targeting-remote"].value == true then
 				filename = "__Shortcuts-ick__/graphics/artillery-targeting-remote-x32-white.png",
 				priority = "extra-high-no-scale",
 				size = 32,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 			small_icon =
-			{
-				filename = "__Shortcuts-ick__/graphics/artillery-targeting-remote-x24.png",
-				priority = "extra-high-no-scale",
-				size = 24,
-				scale = 1,
-				flags = {"icon"}
-			},
-			disabled_small_icon =
 			{
 				filename = "__Shortcuts-ick__/graphics/artillery-targeting-remote-x24-white.png",
 				priority = "extra-high-no-scale",
 				size = 24,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 		},
 		{
@@ -77,25 +69,8 @@ if mods["AdvArtilleryRemotes"] and settings.startup["artillery-targeting-remote"
 					filename = "__Shortcuts-ick__/graphics/artillery-cluster-remote-x32-white.png",
 					priority = "extra-high-no-scale",
 					size = 32,
-					scale = 1,
-					flags = {"icon"}
-				},
-				small_icon =
-				{
-					filename = "__Shortcuts-ick__/graphics/artillery-cluster-remote-x32-white.png",
-					priority = "extra-high-no-scale",
-					size = 32,
-					scale = 1,
-					flags = {"icon"},
-					tint = {}
-				},
-				disabled_small_icon =
-				{
-					filename = "__Shortcuts-ick__/graphics/artillery-cluster-remote-x32-white.png",
-					priority = "extra-high-no-scale",
-					size = 32,
-					scale = 1,
-					flags = {"icon"}
+					scale = 0.5,
+					flags = {"gui-icon"}
 				},
 			},
 		  {
@@ -126,25 +101,8 @@ if mods["AdvArtilleryRemotes"] and settings.startup["artillery-targeting-remote"
 					filename = "__Shortcuts-ick__/graphics/artillery-discovery-remote-x32-white.png",
 					priority = "extra-high-no-scale",
 					size = 32,
-					scale = 1,
-					flags = {"icon"}
-				},
-				small_icon =
-				{
-					filename = "__Shortcuts-ick__/graphics/artillery-discovery-remote-x32-white.png",
-					priority = "extra-high-no-scale",
-					size = 32,
-					scale = 1,
-					flags = {"icon"},
-					tint = {}
-				},
-				disabled_small_icon =
-				{
-					filename = "__Shortcuts-ick__/graphics/artillery-discovery-remote-x32-white.png",
-					priority = "extra-high-no-scale",
-					size = 32,
-					scale = 1,
-					flags = {"icon"}
+					scale = 0.5,
+					flags = {"gui-icon"}
 				},
 			},
 		  {
@@ -187,24 +145,16 @@ if settings.startup["artillery-toggle"].value == "both" or settings.startup["art
 				filename = "__Shortcuts-ick__/graphics/artillery-jammer-tool-x32-white.png",
 				priority = "extra-high-no-scale",
 				size = 32,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 			small_icon =
-			{
-				filename = "__Shortcuts-ick__/graphics/artillery-jammer-tool-x24.png",
-				priority = "extra-high-no-scale",
-				size = 24,
-				scale = 1,
-				flags = {"icon"}
-			},
-			disabled_small_icon =
 			{
 				filename = "__Shortcuts-ick__/graphics/artillery-jammer-tool-x24-white.png",
 				priority = "extra-high-no-scale",
 				size = 24,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 		},
 		{
@@ -258,21 +208,16 @@ if mods["MIRV"] and data.raw.capsule["mirv-targeting-remote"] and settings.start
 				filename = "__Shortcuts-ick__/graphics/mirv-targeting-remote-x32-white.png",
 				priority = "extra-high-no-scale",
 				size = 32,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 			small_icon =
-			{
-				filename = "__Shortcuts-ick__/graphics/mirv-targeting-remote-x24.png",
-				priority = "extra-high-no-scale",
-				size = 24,
-				flags = {"icon"}
-			},
-			disabled_small_icon =
 			{
 				filename = "__Shortcuts-ick__/graphics/mirv-targeting-remote-x24-white.png",
 				priority = "extra-high-no-scale",
 				size = 24,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 		},
 	  {

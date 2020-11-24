@@ -35,24 +35,16 @@ if settings.startup["tree-killer"].value == true then
 				filename = "__Shortcuts-ick__/graphics/tree-killer-x32-white.png",
 				priority = "extra-high-no-scale",
 				size = 32,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 			small_icon =
-			{
-				filename = "__Shortcuts-ick__/graphics/tree-killer-x24.png",
-				priority = "extra-high-no-scale",
-				size = 24,
-				scale = 1,
-				flags = {"icon"}
-			},
-			disabled_small_icon =
 			{
 				filename = "__Shortcuts-ick__/graphics/tree-killer-x24-white.png",
 				priority = "extra-high-no-scale",
 				size = 24,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 		},
 	  {
@@ -76,32 +68,8 @@ if settings.startup["tree-killer"].value == true then
 				filename = "__Shortcuts-ick__/graphics/cliff-fish-item-on-ground-x32-white.png",
 				priority = "extra-high-no-scale",
 				size = 32,
-				scale = 1,
-				flags = {"icon"}
-			},
-			disabled_icon =
-			{
-				filename = "__Shortcuts-ick__/graphics/cliff-fish-item-on-ground-x32.png",
-				priority = "extra-high-no-scale",
-				size = 32,
-				scale = 1,
-				flags = {"icon"}
-			},
-			small_icon =
-			{
-				filename = "__Shortcuts-ick__/graphics/cliff-fish-item-on-ground-x32.png",
-				priority = "extra-high-no-scale",
-				size = 32,
-				scale = 1,
-				flags = {"icon"}
-			},
-			disabled_small_icon =
-			{
-				filename = "__Shortcuts-ick__/graphics/cliff-fish-item-on-ground-x32-white.png",
-				priority = "extra-high-no-scale",
-				size = 32,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 		},
 	  {
@@ -123,32 +91,24 @@ if (mods["OutpostPlanner"] or mods["OutpostPlannerUpdated"]) and mods["PlannerCo
 			localised_name = {"", "[color=blue]", {"item-name.blueprint"}, ": [/color]", {"item-name.outpost-builder"}, {"Shortcuts-ick.control-outpost-builder"}},
 			order = "b[blueprint]-i[outpost-builder]",
 			--associated_control_input = "outpost-builder",
-			action = "create-blueprint-item",
-			item_to_create = "outpost-builder",
+			action = "spawn-item",
+			item_to_spawn = "outpost-builder",
 			style = "blue",
 			icon =
 			{
 				filename = "__Shortcuts-ick__/graphics/outpost-builder-x32-white.png",
 				priority = "extra-high-no-scale",
 				size = 32,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 			small_icon =
-			{
-				filename = "__Shortcuts-ick__/graphics/outpost-builder-x24.png",
-				priority = "extra-high-no-scale",
-				size = 24,
-				scale = 1,
-				flags = {"icon"}
-			},
-			disabled_small_icon =
 			{
 				filename = "__Shortcuts-ick__/graphics/outpost-builder-x24-white.png",
 				priority = "extra-high-no-scale",
 				size = 24,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 		},
 		{
@@ -178,7 +138,8 @@ if mods["WellPlanner"] and data.raw["selection-tool"]["well-planner"] and settin
 				filename = "__WellPlanner__/graphics/well-planner.png",
 				priority = "extra-high-no-scale",
 				size = 64,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 		},
 		{

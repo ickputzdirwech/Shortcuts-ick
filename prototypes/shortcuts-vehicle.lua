@@ -29,21 +29,16 @@ if settings.startup["spidertron-remote"].value == "enabled" or settings.startup[
 				filename = "__Shortcuts-ick__/graphics/path-remote-control-x32-white.png",
 				priority = "extra-high-no-scale",
 				size = 32,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 			small_icon =
-			{
-				filename = "__Shortcuts-ick__/graphics/path-remote-control-x24.png",
-				priority = "extra-high-no-scale",
-				size = 24,
-				flags = {"icon"}
-			},
-			disabled_small_icon =
 			{
 				filename = "__Shortcuts-ick__/graphics/path-remote-control-x24-white.png",
 				priority = "extra-high-no-scale",
 				size = 24,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 		},
 		{
@@ -79,15 +74,6 @@ if settings.startup["spidertron-logistics"].value == true then
 	      flags = {"gui-icon"}
 	    },
 	    small_icon =
-	    {
-	      filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-roboport-x24.png",
-	      priority = "extra-high-no-scale",
-	      size = 24,
-	      scale = 0.5,
-	      mipmap_count = 2,
-	      flags = {"gui-icon"}
-	    },
-	    small_disabled_icon =
 	    {
 	      filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-roboport-x24-white.png",
 	      priority = "extra-high-no-scale",
@@ -126,24 +112,17 @@ if settings.startup["spidertron-automatic-targeting"].value == true then
 				priority = "extra-high-no-scale",
 				size = 40,
 	      mipmap_count = 2,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 			small_icon =
 			{
 				filename = "__Shortcuts-ick__/graphics/spidertron-targeting-without-gunner-x40-2-white.png",
 				priority = "extra-high-no-scale",
-				tint = {},
 				size = 40,
 	      mipmap_count = 2,
-				flags = {"icon"}
-			},
-			small_disabled_icon =
-			{
-				filename = "__Shortcuts-ick__/graphics/spidertron-targeting-without-gunner-x40-2-white.png",
-				priority = "extra-high-no-scale",
-				size = 40,
-	      mipmap_count = 2,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 		},
 	  {
@@ -168,24 +147,17 @@ if settings.startup["spidertron-automatic-targeting"].value == true then
 				priority = "extra-high-no-scale",
 				size = 40,
 	      mipmap_count = 2,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 			small_icon =
 			{
 				filename = "__Shortcuts-ick__/graphics/spidertron-targeting-with-gunner-x40-2-white.png",
 				priority = "extra-high-no-scale",
-				tint = {},
 				size = 40,
 	      mipmap_count = 2,
-				flags = {"icon"}
-			},
-			small_disabled_icon =
-			{
-				filename = "__Shortcuts-ick__/graphics/spidertron-targeting-with-gunner-x40-2-white.png",
-				priority = "extra-high-no-scale",
-				size = 40,
-	      mipmap_count = 2,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 		},
 	  {
@@ -216,24 +188,16 @@ if mods["aai-programmable-vehicles"] and settings.startup["aai-remote-controls"]
 					filename = "__Shortcuts-ick__/graphics/unit-remote-control-x32-white.png",
 					priority = "extra-high-no-scale",
 					size = 32,
-					scale = 1,
-					flags = {"icon"}
+					scale = 0.5,
+					flags = {"gui-icon"}
 				},
 				small_icon =
-				{
-					filename = "__Shortcuts-ick__/graphics/unit-remote-control-x24.png",
-					priority = "extra-high-no-scale",
-					size = 24,
-					scale = 1,
-					flags = {"icon"}
-				},
-				disabled_small_icon =
 				{
 					filename = "__Shortcuts-ick__/graphics/unit-remote-control-x24-white.png",
 					priority = "extra-high-no-scale",
 					size = 24,
-					scale = 1,
-					flags = {"icon"}
+					scale = 0.5,
+					flags = {"gui-icon"}
 				},
 			},
 		})
@@ -255,24 +219,16 @@ if mods["aai-programmable-vehicles"] and settings.startup["aai-remote-controls"]
 					filename = "__Shortcuts-ick__/graphics/path-remote-control-x32-white.png",
 					priority = "extra-high-no-scale",
 					size = 32,
-					scale = 1,
-					flags = {"icon"}
+					scale = 0.5,
+					flags = {"gui-icon"}
 				},
 				small_icon =
-				{
-					filename = "__Shortcuts-ick__/graphics/path-remote-control-x24.png",
-					priority = "extra-high-no-scale",
-					size = 24,
-					scale = 1,
-					flags = {"icon"}
-				},
-				disabled_small_icon =
 				{
 					filename = "__Shortcuts-ick__/graphics/path-remote-control-x24-white.png",
 					priority = "extra-high-no-scale",
 					size = 24,
-					scale = 1,
-					flags = {"icon"}
+					scale = 0.5,
+					flags = {"gui-icon"}
 				},
 			},
 		})
@@ -298,32 +254,32 @@ if mods["VehicleWagon2"] and settings.startup["winch"].value == true then
 				filename = "__Shortcuts-ick__/graphics/module-inserter-x32.png",
 				priority = "extra-high-no-scale",
 				size = 32,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 			small_icon =
 			{
 				filename = "__Shortcuts-ick__/graphics/module-inserter-x24.png",
 				priority = "extra-high-no-scale",
 				size = 24,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 			disabled_icon =
 			{
 				filename = "__Shortcuts-ick__/graphics/module-inserter-x32-white.png",
 				priority = "extra-high-no-scale",
 				size = 32,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
 			disabled_small_icon =
 			{
 				filename = "__Shortcuts-ick__/graphics/module-inserter-x24-white.png",
 				priority = "extra-high-no-scale",
 				size = 24,
-				scale = 1,
-				flags = {"icon"}
+				scale = 0.5,
+				flags = {"gui-icon"}
 			},
     },
 		{
