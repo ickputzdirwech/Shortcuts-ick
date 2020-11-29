@@ -237,9 +237,6 @@ end
 
 
 if mods["VehicleWagon2"] and settings.startup["winch"].value == true then
-
-	data.raw.technology["vehicle-wagons"].localised_description = "Vehicle wagons allow you to carry equipped and loaded vehicles on trains, so they are ready to deploy immediately upon arrival."
-
 	data:extend(
   {
     {

@@ -16,8 +16,9 @@ local function hide_the_remote(recipe, technology, item)
 	if item then
 		if item.flags then
 			table.insert(item.flags, "only-in-cursor")
+			table.insert(item.flags, "spawnable")
 		else
-			item.flags = {"only-in-cursor"}
+			item.flags = {"only-in-cursor", "spawnable"}
 		end
 	end
 	local recipe_prototype = data.raw.recipe[recipe]
@@ -321,6 +322,7 @@ if autogen_color == "default" or autogen_color == "red" or autogen_color == "gre
 	--	create a post on the discussion page if you want your shortcut to be added to this ignore_list.
 	local shortcut_ignore_list = {
 		"artillery-jammer-tool",
+		"autotrash-network-selection",
 		"circuit-checker",
 		"fp_beacon_selector",
 		"max-rate-calculator",
@@ -345,6 +347,7 @@ if autogen_color == "default" or autogen_color == "red" or autogen_color == "gre
 				break
 			end
 		end
+
 		if continue == true then
 			local create = true
 			for i, shortcut in pairs(data.raw["shortcut"]) do
@@ -353,6 +356,7 @@ if autogen_color == "default" or autogen_color == "red" or autogen_color == "gre
 					break
 				end
 			end
+
 			if create == true then
 				local icon
 				local icon_size
@@ -371,6 +375,7 @@ if autogen_color == "default" or autogen_color == "red" or autogen_color == "gre
 				else
 					icon_size = 32
 				end
+
 				local shortcut = {
 					type = "shortcut",
 					name = name,

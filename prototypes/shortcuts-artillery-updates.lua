@@ -9,11 +9,11 @@
 ]]
 
 if mods["Orbital Ion Cannon"] and data.raw.item["ion-cannon-targeter"] and settings.startup["ion-cannon-targeter"].value == true then
-	if data.raw.item["ion-cannon-targeter"].has_flag("only-in-cursor") == false then
-		data.raw.item["ion-cannon-targeter"].flags = {"only-in-cursor"}
-	end
-	if data.raw.item["ion-cannon-targeter"].has_flag("spawnable") == false then
-		data.raw.item["ion-cannon-targeter"].flags = {"spawnable"}
+	if data.raw.item["ion-cannon-targeter"].flags then
+		table.insert(data.raw.item["ion-cannon-targeter"].flags, "only-in-cursor")
+		table.insert(data.raw.item["ion-cannon-targeter"].flags, "spawnable")
+	else
+		data.raw.item["ion-cannon-targeter"].flags = {"only-in-cursor", "spawnable"}
 	end
 	data:extend(
 	{
