@@ -17,10 +17,11 @@
 		- Rail block visualisation
 		- Zoom
 	* Script for shortcuts that give an item
-	* Scripts for spidertron shortcuts
+	* Scripts for vehicle shortcuts
 		- Enable/disable logistics while moving
 		- Auto targeting without gunner
 		- Auto targeting with gunner
+		- Train Mode toggle
 	* Scripts for on_lua_shortcut
 	* Scripts for custom inputs
 	* Scripts to enable and disable shortcuts on_player_created and on_research_finished
@@ -496,9 +497,9 @@ local function give_shortcut_item(player, prototype_name)
 end
 
 ---------------------------------------------------------------------------------------------------
--- SPIDERTRON
+-- VEHICLE UPDATES
 ---------------------------------------------------------------------------------------------------
-local function spidertron_shortcuts(player, player_vehicle, prototype_name)
+local function update_shortcuts(player, player_vehicle, prototype_name)
 	player.set_shortcut_available(prototype_name, true)
 	if player_vehicle == true then
 		player.set_shortcut_toggled(prototype_name, true)
@@ -512,7 +513,7 @@ script.on_event(defines.events.on_player_driving_changed_state, function(event)
 	if settings.startup["spidertron-logistics"].value == true then
 		if player.driving == true then
 			if player.vehicle.type == "spider-vehicle" then
-				spidertron_shortcuts(player, player.vehicle.enable_logistics_while_moving, "spidertron-logistics")
+				update_shortcuts(player, player.vehicle.enable_logistics_while_moving, "spidertron-logistics")
 			end
 		end
 		if player.driving == false then
@@ -522,8 +523,8 @@ script.on_event(defines.events.on_player_driving_changed_state, function(event)
 	if settings.startup["spidertron-automatic-targeting"].value == true then
 		if player.driving == true then
 			if player.vehicle.type == "spider-vehicle" then
-				spidertron_shortcuts(player, player.vehicle.vehicle_automatic_targeting_parameters.auto_target_without_gunner, "targeting-without-gunner")
-				spidertron_shortcuts(player, player.vehicle.vehicle_automatic_targeting_parameters.auto_target_with_gunner, "targeting-with-gunner")
+				update_shortcuts(player, player.vehicle.vehicle_automatic_targeting_parameters.auto_target_without_gunner, "targeting-without-gunner")
+				update_shortcuts(player, player.vehicle.vehicle_automatic_targeting_parameters.auto_target_with_gunner, "targeting-with-gunner")
 			end
 		end
 		if player.driving == false then
@@ -531,26 +532,50 @@ script.on_event(defines.events.on_player_driving_changed_state, function(event)
 			player.set_shortcut_available("targeting-with-gunner", false)
 		end
 	end
+	if settings.startup["train-mode-toggle"].value == true then
+		if player.driving == true then
+			if player.vehicle.type == "locomotive" or player.vehicle.type == "cargo-wagon"  or player.vehicle.type == "fluid-wagon" or player.vehicle.type == "artillery-wagon" then
+				update_shortcuts(player, player.vehicle.train.manual_mode, "train-mode-toggle")
+			end
+		end
+		if player.driving == false then
+			player.set_shortcut_available("train-mode-toggle", false)
+		end
+	end
 end)
 
 script.on_event(defines.events.on_gui_closed, function(event)
-	if event.gui_type == 1 and event.entity.type == "spider-vehicle" and event.entity.get_driver() ~= nil then
-		local driver = event.entity.get_driver()
-		if driver.is_player() then
-			if settings.startup["spidertron-logistics"].value == true then
-				spidertron_shortcuts(driver, event.entity.enable_logistics_while_moving, "spidertron-logistics")
+	if event.gui_type == 1 then
+		if event.entity.type == "spider-vehicle" and event.entity.get_driver() ~= nil then
+			local driver = event.entity.get_driver()
+			if driver.is_player() then --If driver is a player without character
+				if settings.startup["spidertron-logistics"].value == true then
+					update_shortcuts(driver, event.entity.enable_logistics_while_moving, "spidertron-logistics")
+				end
+				if settings.startup["spidertron-automatic-targeting"].value == true then
+					update_shortcuts(driver, event.entity.vehicle_automatic_targeting_parameters.auto_target_without_gunner, "targeting-without-gunner")
+					update_shortcuts(driver, event.entity.vehicle_automatic_targeting_parameters.auto_target_with_gunner, "targeting-with-gunner")
+				end
+			elseif driver.player then --If driver is a character with player
+				if settings.startup["spidertron-logistics"].value == true then
+					update_shortcuts(driver.player, event.entity.enable_logistics_while_moving, "spidertron-logistics")
+				end
+				if settings.startup["spidertron-automatic-targeting"].value == true then
+					update_shortcuts(driver.player, event.entity.vehicle_automatic_targeting_parameters.auto_target_without_gunner, "targeting-without-gunner")
+					update_shortcuts(driver.player, event.entity.vehicle_automatic_targeting_parameters.auto_target_with_gunner, "targeting-with-gunner")
+				end
 			end
-			if settings.startup["spidertron-automatic-targeting"].value == true then
-				spidertron_shortcuts(driver, event.entity.vehicle_automatic_targeting_parameters.auto_target_without_gunner, "targeting-without-gunner")
-				spidertron_shortcuts(driver, event.entity.vehicle_automatic_targeting_parameters.auto_target_with_gunner, "targeting-with-gunner")
-			end
-		else --If driver is a character
-			if settings.startup["spidertron-logistics"].value == true then
-				spidertron_shortcuts(driver.player, event.entity.enable_logistics_while_moving, "spidertron-logistics")
-			end
-			if settings.startup["spidertron-automatic-targeting"].value == true then
-				spidertron_shortcuts(driver.player, event.entity.vehicle_automatic_targeting_parameters.auto_target_without_gunner, "targeting-without-gunner")
-				spidertron_shortcuts(driver.player, event.entity.vehicle_automatic_targeting_parameters.auto_target_with_gunner, "targeting-with-gunner")
+		end
+		if (event.entity.type == "locomotive" or event.entity.type == "cargo-wagon"  or event.entity.type == "fluid-wagon" or event.entity.type == "artillery-wagon") and event.entity.get_driver() ~= nil then
+			local driver = event.entity.get_driver()
+			if driver.is_player() then --If driver is a player without character
+				if settings.startup["train-mode-toggle"].value == true then
+					update_shortcuts(driver, event.entity.train.manual_mode, "train-mode-toggle")
+				end
+			elseif driver.player then --If driver is a character with player
+				if settings.startup["train-mode-toggle"].value == true then
+					update_shortcuts(driver.player, event.entity.train.manual_mode, "train-mode-toggle")
+				end
 			end
 		end
 	end
@@ -616,6 +641,18 @@ script.on_event(defines.events.on_lua_shortcut, function(event)
 					local params = player.vehicle.vehicle_automatic_targeting_parameters
 					params.auto_target_with_gunner = true
 					player.vehicle.vehicle_automatic_targeting_parameters = params
+					player.set_shortcut_toggled(prototype_name, true)
+				end
+			end
+		end
+	elseif prototype_name == "train-mode-toggle" then
+		if player.driving == true then
+			if player.vehicle.type == "locomotive" or player.vehicle.type == "cargo-wagon"  or player.vehicle.type == "fluid-wagon" or player.vehicle.type == "artillery-wagon" then
+				if player.vehicle.train.manual_mode == true then
+					player.vehicle.train.manual_mode = false
+					player.set_shortcut_toggled(prototype_name, false)
+				else
+					player.vehicle.train.manual_mode = true
 					player.set_shortcut_toggled(prototype_name, true)
 				end
 			end
@@ -820,6 +857,22 @@ if settings.startup["spidertron-automatic-targeting"].value == true then
 		end
 	end)
 end
+if settings.startup["train-mode-toggle"].value == true then
+		script.on_event("train-mode-toggle", function(event)
+			local player = game.players[event.player_index]
+			if player.driving == true then
+				if player.vehicle.type == "locomotive" or player.vehicle.type == "cargo-wagon"  or player.vehicle.type == "fluid-wagon" or player.vehicle.type == "artillery-wagon" then
+					if player.vehicle.train.manual_mode == true then
+						player.vehicle.train.manual_mode = false
+						player.set_shortcut_toggled("train-mode-toggle", false)
+					else
+						player.vehicle.train.manual_mode = true
+						player.set_shortcut_toggled("train-mode-toggle", true)
+					end
+				end
+			end
+		end)
+end
 if settings.startup["winch"] and settings.startup["winch"].value == true then
 	script.on_event("winch", function(event)
 		if game.players[event.player_index].force.technologies["vehicle-wagons"].researched == true then
@@ -855,6 +908,9 @@ script.on_event(defines.events.on_player_created, function(event)
 	if setting["spidertron-automatic-targeting"].value == true then
 		player.set_shortcut_available("targeting-without-gunner", false)
 		player.set_shortcut_available("targeting-with-gunner", false)
+	end
+	if setting["train-mode-toggle"].value == true then
+		player.set_shortcut_available("train-mode-toggle", false)
 	end
 
 	if tech["automobilism"].researched == false and mod["VehicleSnap"] then
@@ -902,6 +958,10 @@ script.on_event(defines.events.on_player_created, function(event)
 
 	if mod["Orbital Ion Cannon"] and tech["orbital-ion-cannon"].researched == false and setting["ion-cannon-targeter"].value == true then
 		player.set_shortcut_available("ion-cannon-targeter", false)
+	end
+
+	if tech["logistic-robotics"].researched == false and setting["toggle-personal-logistic-requests"].value == true then
+		player.set_shortcut_available("toggle-personal-logistic-requests", false)
 	end
 
 	if tech["personal-roboport-equipment"].researched == false and mod["PickerInventoryTools"] and mod["Nanobots"] then
@@ -1019,6 +1079,11 @@ script.on_event(defines.events.on_research_finished, function(event)
 
 		if research == "orbital-ion-cannon" and mod["Orbital Ion Cannon"] and setting["ion-cannon-targeter"].value == true then
 			player.set_shortcut_available("ion-cannon-targeter", true)
+		end
+
+
+		if research == "logistic-robotics" and setting["toggle-personal-logistic-requests"].value == true then
+			player.set_shortcut_available("toggle-personal-logistic-requests", true)
 		end
 
 		if research == "personal-roboport-equipment" and mod["PickerInventoryTools"] and mod["Nanobots"] then

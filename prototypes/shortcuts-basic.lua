@@ -2,6 +2,7 @@
  * For direct use of code or graphics, credit is appreciated and encouraged. See LICENSE.txt for more information.
  * This mod may contain modified code sourced from base/core Factorio.
  * This mod has been modified by ickputzdirwech.
+ * Toggle Personal logistics requests shortcut by Haxtorio.
 ]]
 
 
@@ -10,6 +11,7 @@
 	* Emergency locator beacon shortcut and custom input
 	* Grid shortcut and custom input
 	* Show rail block visualization shortcut and custom input
+	* Toggle Personal logistics requests shortcut
 	* Zoom out of world shortcut and custom input
 	* MaxRateCalculator shortcut
 ]]
@@ -204,6 +206,58 @@ if settings.startup["rail-block-visualization-toggle"].value == true then
 	})
 end
 
+if settings.startup["toggle-personal-logistic-requests"].value == true then
+	-- taken from mods.factorio.com/mod/PersonalLogisticsShortcut from Haxtorio, modified by ickputzdirwech
+	data:extend(
+	{
+	  {
+	    type = "shortcut",
+	    name = "toggle-personal-logistic-requests",
+	    order = "a[basic]-f[toggle-personal-logistic-requests]",
+	    action = "toggle-personal-logistic-requests",
+	    localised_name = {"", {"Shortcuts-ick.basic"}, {"shortcut.toggle-personal-logistic-requests"}},
+	    associated_control_input = "toggle-personal-logistic-requests",
+	    icon =
+	    {
+	      filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x32.png",
+	      priority = "extra-high-no-scale",
+	      size = 32,
+	      scale = 0.5,
+	      mipmap_count = 2,
+	      flags = {"gui-icon"}
+	    },
+	    small_icon =
+	    {
+	      filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x24.png",
+	      priority = "extra-high-no-scale",
+	      size = 24,
+	      scale = 0.5,
+	      mipmap_count = 2,
+	      flags = {"gui-icon"}
+	    },
+	    disabled_icon =
+	    {
+	      filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x32-white.png",
+	      priority = "extra-high-no-scale",
+	      size = 32,
+	      scale = 0.5,
+	      mipmap_count = 2,
+	      flags = {"gui-icon"}
+	    },
+	    disabled_small_icon =
+	    {
+	      filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x24-white.png",
+	      priority = "extra-high-no-scale",
+	      size = 24,
+	      scale = 0.5,
+	      mipmap_count = 2,
+	      flags = {"gui-icon"}
+	    },
+	  },
+	})
+	-- end Haxtorio
+end
+
 if settings.startup["big-zoom"].value == true then
 	data:extend(
 	{
@@ -211,7 +265,7 @@ if settings.startup["big-zoom"].value == true then
 			type = "shortcut",
 			name = "big-zoom",
 			localised_name = {"", {"Shortcuts-ick.basic"}, {"controls.alt-zoom-out"}, {"Shortcuts-ick.control-big-zoom"}},
-			order = "a[basic]-f[big-zoom]",
+			order = "a[basic]-g[big-zoom]",
 			--associated_control_input = "big-zoom",
 			action = "lua",
 			toggleable = true,
@@ -237,7 +291,7 @@ if settings.startup["big-zoom"].value == true then
 			type = "custom-input",
 	    name = "big-zoom",
 			localised_name = {"", {"Shortcuts-ick.basic"}, {"controls.alt-zoom-out"}},
-			order = "a[basic]-f[big-zoom]",
+			order = "a[basic]-g[big-zoom]",
 	    key_sequence = "",
 	  },
 	})
@@ -255,7 +309,7 @@ if mods["MaxRateCalculator"] and data.raw["selection-tool"]["max-rate-calculator
 			type = "shortcut",
 			name = "max-rate-shortcut",
 			localised_name = {"", {"Shortcuts-ick.basic"}, {"item-name.max-rate-calculator"}, {"Shortcuts-ick.control-max-rate-shortcut"}},
-			order = "a[basic]-g[max-rate-shortcut]",
+			order = "a[basic]-h[max-rate-shortcut]",
 			--associated_control_input = "marc_hotkey",
 			action = "spawn-item",
 			item_to_spawn = "max-rate-calculator",

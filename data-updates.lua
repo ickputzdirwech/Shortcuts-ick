@@ -183,44 +183,27 @@ for i, e in pairs(equipment_list) do
 		--make it compatible with NightvisionToggles, GunEquipment and Nanobots
 		if disabled_equipment[i].name ~= "nvt-night-vision-equipment" and string.sub(disabled_equipment[i].name,1,16) ~= "personal-turret-" then
 			if string.sub(disabled_equipment[i].name,1,7) ~= "picker-" then
+				local name = equipment.name
 
-				local name = disabled_equipment[i].name
 				if (equipment.type == "active-defense-equipment" and equipment.automatic == true) or equipment.type ~= "active-defense-equipment" then
 					disabled_equipment[i].name = "disabled-" .. name
 					disabled_equipment[i].localised_name = {"", {"equipment-name." .. name}, " (", {"gui-constant.off"}, ")"}
-					disabled_equipment[i].sprite.tint = {0.5, 0.5, 0.5}
 				elseif (equipment.type == "active-defense-equipment" and equipment.automatic == false) then
 					disabled_equipment[i].name = "disabledinactive-" .. name
 					disabled_equipment[i].localised_name = {"equipment-name." .. name}
 				end
+
 				disabled_equipment[i].energy_input = "0kW"
 				disabled_equipment[i].take_result = name
 				disabled_equipment[i].flags = {"hidden"}
+				disabled_equipment[i].sprite.tint = {0.5, 0.5, 0.5}
+
 				if equipment_list[i] == "belt-immunity-equipment" or (equipment.type == "active-defense-equipment" and equipment.automatic == true) then
 					disabled_equipment[i].energy_source.input_flow_limit = "0kW"
 					disabled_equipment[i].energy_source.buffer_capacity = "0kJ"
 					disabled_equipment[i].energy_source.drain = "1kW"
 				end
-
-				if not data.raw["item"][equipment_list[i]] then --for mods which have a different item name compared to equipment name
-					disabled_equipment_item[i] = util.table.deepcopy(data.raw["item"][name])
-				end
-
-				--disabled_equipment_item[i] = util.table.deepcopy(data.raw["item"][equipment_list[i]]) -- LEGACY ITEM (Disable for release)
-				if not disabled_equipment_item[i] then
-					disabled_equipment_item[i] = util.table.deepcopy(data.raw["item"][name])
-				end
-
-				disabled_equipment_item[i].name = "disabled-" .. name
-				disabled_equipment_item[i].localised_name = {"", {"equipment-name." .. name}, " (", {"gui-constant.off"}, ")"}
-				disabled_equipment_item[i].localised_description = {"item-description." .. name}
-				disabled_equipment_item[i].flags = {"hidden", "hide-from-bonus-gui"}
-				disabled_equipment_item[i].placed_as_equipment_result = name
-				disabled_equipment_item[i].order = disabled_equipment_item[i].order .. "-z"
-				if disabled_equipment_item[i].icon then
-					disabled_equipment_item[i].icons = {{icon = disabled_equipment_item[i].icon, tint = {0.5, 0.5, 0.5}}}
-					disabled_equipment_item[i].icon = nil
-				end
+				
 			end
 		end
 	end
@@ -336,6 +319,11 @@ if autogen_color == "default" or autogen_color == "red" or autogen_color == "gre
 		"trainbuilder-manual",
 		"unit-remote-control",
 		"well-planner",
+		"winch",
+		"wire-cutter-copper",
+		"wire-cutter-green",
+		"wire-cutter-red",
+		"wire-cutter-universal"
 	}
 
 	for _, tool in pairs(data.raw["selection-tool"]) do

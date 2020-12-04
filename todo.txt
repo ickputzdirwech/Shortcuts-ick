@@ -36,6 +36,7 @@ KNOWN ISSUES:
 - Disabled artillery/equipment is lost when settings change or mod is removed
 - Restart/reload needed for custom inputs to update [workaround: all localisation in .cfg]
 - Spidertron GUI doesn't update. Needs to be closed and opened again.
+- Closing train GUI doesn't update shortcut if the player doesn't sit in that specific locomotive or wagon.
 
 ---------------------------------------------------------------------------------------------------
 MOD PORTAL:

@@ -124,9 +124,17 @@ data:extend(
 	},
 	{
     setting_type = "startup",
+		name = "toggle-personal-logistic-requests",
+    localised_name = {"", {"Shortcuts-ick.basic"}, {"shortcut.toggle-personal-logistic-requests"}},
+    order = "a[basic]-f[toggle-personal-logistic-requests]",
+		type = "bool-setting",
+		default_value = true,
+	},
+	{
+    setting_type = "startup",
 		name = "big-zoom",
     localised_name = {"", {"Shortcuts-ick.basic"}, {"controls.alt-zoom-out"}},
-    order = "a[basic]-f[big-zoom]",
+    order = "a[basic]-g[big-zoom]",
 		type = "bool-setting",
 		default_value = true,
 	},
@@ -137,7 +145,7 @@ if mods["MaxRateCalculator"] then
       setting_type = "startup",
   		name = "max-rate-calculator",
 			localised_name = {"", {"Shortcuts-ick.basic"}, {"item-name.max-rate-calculator"}},
-      order = "a[basic]-g[max-rate-calculator]",
+      order = "a[basic]-h[max-rate-calculator]",
       type = "bool-setting",
   		default_value = true,
   	}})
@@ -293,6 +301,14 @@ data:extend(
     type = "bool-setting",
     default_value = true,
   },
+  {
+    setting_type = "startup",
+    name = "train-mode-toggle",
+    localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"tooltip-category.train"}, " ", {"gui-trains.manual-mode"}},
+    order = "e[vehicle]-d[spidertron-automatic-targeting]",
+    type = "bool-setting",
+    default_value = true,
+  },
 })
 
 if mods["aai-programmable-vehicles"] then
@@ -300,7 +316,7 @@ if mods["aai-programmable-vehicles"] then
       setting_type = "startup",
       name = "aai-remote-controls",
       localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color] AAI Programmable Vehicles ", {"item-name.unit-remote-control"}},
-      order = "e[vehicle]-e[aai-remote-controls]",
+      order = "e[vehicle]-f[aai-remote-controls]",
       type = "bool-setting",
       default_value = true,
   	}})
@@ -311,7 +327,7 @@ if mods["VehicleWagon2"] then
       setting_type = "startup",
   		name = "winch",
 			localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color] Vehicle Wagon 2 ", {"item-name.winch"}},
-      order = "e[vehicle]-g[winch]",
+      order = "e[vehicle]-h[winch]",
   		type = "bool-setting",
   		default_value = true,
   	}})

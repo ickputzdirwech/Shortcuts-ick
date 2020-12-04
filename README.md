@@ -1,6 +1,6 @@
 # Info
 
-This is a 1.0 version of the [Shortcuts](https://mods.factorio.com/mod/Shortcuts) mod by [morley376](https://mods.factorio.com/user/morley376). This will be maintained as long as the original mod isn't updated. Please report any bugs and send in ideas. Some of the things in the mod go beyond my skill (yet), but I like figuring out new things.
+This is a 1.1 version of the [Shortcuts](https://mods.factorio.com/mod/Shortcuts) mod by [morley376](https://mods.factorio.com/user/morley376). This will be maintained as long as the original mod isn't updated. Please report any bugs and send in ideas. Some of the things in the mod go beyond my skill (yet), but I like figuring out new things.
 
 You can download the mod on the [mod portal](https://mods.factorio.com/mod/Shortcuts-ick). There is also a [forum post](https://forums.factorio.com/viewtopic.php?f=190&t=88439) about this mod.
 
@@ -18,6 +18,7 @@ You can download the mod on the [mod portal](https://mods.factorio.com/mod/Short
 * Emergency locator beacon
 * Grid
 * Show rail block visualization
+* Toggle personal logistic requests
 * Zoom out of world
 * MOD: Max rate calculator
 
@@ -53,6 +54,7 @@ You can download the mod on the [mod portal](https://mods.factorio.com/mod/Short
 * Spidertron Enable/disable logistics while moving
 * Spidertron Auto targeting without gunner
 * Spidertron Auto targeting with gunner
+* Train Manual mode
 * MOD: AAI programmable vehicles remote controls
 * MOD: Vehicle waggon 2 winch
 

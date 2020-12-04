@@ -108,18 +108,9 @@ if settings.startup["spidertron-automatic-targeting"].value == true then
 			style = "green",
 			icon =
 			{
-				filename = "__Shortcuts-ick__/graphics/spidertron-targeting-without-gunner-x40-2-white.png",
+				filename = "__Shortcuts-ick__/graphics/spidertron-targeting-without-gunner-x32-2-white.png",
 				priority = "extra-high-no-scale",
-				size = 40,
-	      mipmap_count = 2,
-				scale = 0.5,
-				flags = {"gui-icon"}
-			},
-			small_icon =
-			{
-				filename = "__Shortcuts-ick__/graphics/spidertron-targeting-without-gunner-x40-2-white.png",
-				priority = "extra-high-no-scale",
-				size = 40,
+				size = 32,
 	      mipmap_count = 2,
 				scale = 0.5,
 				flags = {"gui-icon"}
@@ -143,18 +134,9 @@ if settings.startup["spidertron-automatic-targeting"].value == true then
 			style = "green",
 			icon =
 			{
-				filename = "__Shortcuts-ick__/graphics/spidertron-targeting-with-gunner-x40-2-white.png",
+				filename = "__Shortcuts-ick__/graphics/spidertron-targeting-with-gunner-x32-2-white.png",
 				priority = "extra-high-no-scale",
-				size = 40,
-	      mipmap_count = 2,
-				scale = 0.5,
-				flags = {"gui-icon"}
-			},
-			small_icon =
-			{
-				filename = "__Shortcuts-ick__/graphics/spidertron-targeting-with-gunner-x40-2-white.png",
-				priority = "extra-high-no-scale",
-				size = 40,
+				size = 32,
 	      mipmap_count = 2,
 				scale = 0.5,
 				flags = {"gui-icon"}
@@ -171,6 +153,47 @@ if settings.startup["spidertron-automatic-targeting"].value == true then
 end
 
 
+if settings.startup["train-mode-toggle"].value == true then
+	data:extend(
+	{
+		{
+			type = "shortcut",
+			name = "train-mode-toggle",
+			localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"tooltip-category.train"}, " ", {"gui-trains.manual-mode"}, {"Shortcuts-ick.control-train-mode-toggle"}},
+			order = "e[vehicle]-e[train-mode-toggle]",
+			--associated_control_input = "train-mode-toggle",
+			action = "lua",
+			toggleable = true,
+			icon =
+			{
+				filename = "__Shortcuts-ick__/graphics/train-mode-toggle-x32-2.png",
+				priority = "extra-high-no-scale",
+				size = 32,
+				scale = 0.5,
+				mipmap_count = 2,
+				flags = {"gui-icon"}
+			},
+			disabled_small_icon =
+			{
+				filename = "__Shortcuts-ick__/graphics/train-mode-toggle-x32-2-white.png",
+				priority = "extra-high-no-scale",
+				size = 32,
+				scale = 0.5,
+				mipmap_count = 2,
+				flags = {"gui-icon"}
+			},
+		},
+		{
+			type = "custom-input",
+			name = "train-mode-toggle",
+			localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"tooltip-category.train"}, " ", {"gui-trains.manual-mode"}},
+			order = "e[vehicle]-e[train-mode-toggle]",
+			key_sequence = "",
+		},
+	})
+end
+
+
 if mods["aai-programmable-vehicles"] and settings.startup["aai-remote-controls"].value == true then
 	--if data.raw["selection-tool"]["unit-remote-control"] then
 		data:extend(
@@ -179,7 +202,7 @@ if mods["aai-programmable-vehicles"] and settings.startup["aai-remote-controls"]
 				type = "shortcut",
 				name = "unit-remote-control",
 				localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"item-name.unit-remote-control"}, {"Shortcuts-ick.control-unit-remote-control"}},
-				order = "e[vehicle]-e[unit-remote-control]",
+				order = "e[vehicle]-f[unit-remote-control]",
 				--associated_control_input = "create-toggle-controller",
 				action = "lua",
 				style = "blue",
@@ -210,7 +233,7 @@ if mods["aai-programmable-vehicles"] and settings.startup["aai-remote-controls"]
 				type = "shortcut",
 				name = "path-remote-control",
 				localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"item-name.path-remote-control"}, {"Shortcuts-ick.control-unit-remote-control"}},
-				order = "e[vehicle]-f[path-remote-control]",
+				order = "e[vehicle]-g[path-remote-control]",
 				--associated_control_input = "create-toggle-controller",
 				action = "lua",
 				style = "blue",
@@ -243,7 +266,7 @@ if mods["VehicleWagon2"] and settings.startup["winch"].value == true then
       type = "shortcut",
       name = "winch",
 			localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"item-name.winch"}, {"Shortcuts-ick.control-winch"}},
-      order = "e[vehicle]-g[winch]",
+      order = "e[vehicle]-h[winch]",
 			--associated_control_input = "winch",
       action = "lua",
 			icon =
@@ -283,7 +306,7 @@ if mods["VehicleWagon2"] and settings.startup["winch"].value == true then
 			type = "custom-input",
 			name = "winch",
 			localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"item-name.winch"}},
-      order = "e[vehicle]-g[winch]",
+      order = "e[vehicle]-h[winch]",
 			key_sequence = "",
 		},
   })
