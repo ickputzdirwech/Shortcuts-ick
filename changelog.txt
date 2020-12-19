@@ -207,3 +207,16 @@ Date: 2020-12-04
     - No shortcuts will be generated for the selection tools from the "WireShortcuts" mod anymore.
   Bugfixes:
     - Fixed wrong icon for "winch" shortcut from "Vehicle Wagons 2" mod.
+
+---------------------------------------------------------------------------------------------------
+Version: 1.1.3
+Date: 2020-12-18
+  Changes:
+    - Lots of internal changes regarding the generation of disabled artillery turrets. Moved it to data-final-fixes.
+    - Removed the disabled artillery turret items since they had no use.
+    - Internal changes to the control behaviour of the "toggle artillery cannon fire" selection tool.
+  Bugfixes:
+    - Fixed that "Max Rate Calculator" wouldn't give an item
+    - Fixed that shortcuts were generated for the hidden selection tools from "Rate Calculator"
+    - Fixed incompatibility issue with "Hero Turrets"
+    - Fixed issue with "Outpost Planner" shortcut

@@ -242,102 +242,122 @@ commands.add_command("shortcuts_initialize_variables", "debug: ensure that all g
 ---------------------------------------------------------------------------------------------------
 -- TOGGLE ARTILLERY CANNON FIRE SELECTION TOOL
 ---------------------------------------------------------------------------------------------------
-local function artillery_swap(wagon,new_name)
-	local shellname = {}
-	local shellcount = {}
-	local inventory
-	if wagon.type == "artillery-wagon" then
-		inventory = wagon.get_inventory(defines.inventory.artillery_wagon_ammo)
-	elseif wagon.type == "artillery-turret" then
-		inventory = wagon.get_inventory(defines.inventory.artillery_turret_ammo)
-	end
+local artillery_toggle = settings.startup["artillery-toggle"].value
+if artillery_toggle == "both" or artillery_toggle == "artillery-turret" or artillery_toggle == "artillery-wagon" then
 
-	for i=1,(#inventory) do
-		if inventory[i].valid_for_read then
-			shellname[#shellname+1] = inventory[i].name
-			shellcount[#shellcount+1] = inventory[i].count
-		end
-	end
+	local entity_type_filter = {}
 
-	local name = wagon.name
-	local surface = wagon.surface.name
-	local position = wagon.position
-	local direction = wagon.direction
-	local force = wagon.force
-	local kills = wagon.kills
-	local damage = wagon.damage_dealt
-	local health = wagon.health
-	wagon.destroy()
-	local new_wagon = game.surfaces[surface].create_entity{name=new_name, position=position, direction=direction, force=force, create_build_effect_smoke=false}
-	if new_wagon then
-		new_wagon.kills = kills
-		new_wagon.damage_dealt = damage
-		new_wagon.health = health
-		for i=1,(#shellcount) do
-			if new_wagon.can_insert({name=shellname[i],count=shellcount[i]}) == true then
-				new_wagon.insert({name=shellname[i],count=shellcount[i]})
-			end
-		end
+	if artillery_toggle == "both" then
+		entity_type_filter = {{filter="type", type = "artillery-turret"}, {filter="type", type = "artillery-wagon"}}
 	else
-		game.print("ERROR: Artillery wagon failed to convert (this is not supposed to occur)")
+		entity_type_filter = {{filter="type", type = artillery_toggle}}
 	end
-	return new_wagon
-end
 
-script.on_event(defines.events.on_player_selected_area, function(event)
-	if event.item == "artillery-jammer-tool" and event.entities ~= nil then
-		local player = game.players[event.player_index]
-		local i = 0
-		local j = 0
-		for _, wagon in pairs(event.entities) do
-			local name = wagon.name
-			local type = wagon.type
-			if wagon.valid and (type == "artillery-wagon" or type == "artillery-turret") and not (string.sub(name,1,9) == "disabled-") then
-				i=i+1
-				local new_name = ("disabled-" .. name)
-				local new_wagon = artillery_swap(wagon,new_name)
-				rendering.draw_sprite{
-					sprite = "utility.warning_icon",
-					x_scale = 1, y_scale = 1,
-					target_offset = {0.0,-0.25},
-					render_layer = "entity-info-icon-above",
-					target = new_wagon,
-					surface = new_wagon.surface,
-					forces = {new_wagon.force}
-				}
-			elseif wagon.valid and (type == "artillery-wagon" or type == "artillery-turret") and (string.sub(name,1,9) == "disabled-") then
-				j=j+1
-				local new_name = (string.sub(name,10,#name))
-				artillery_swap(wagon,new_name)
+	local function draw_warning_icon(entity)
+		rendering.draw_sprite{
+			sprite = "utility.warning_icon",
+			x_scale = 1, y_scale = 1,
+			target_offset = {0.0,-0.25},
+			render_layer = "entity-info-icon-above",
+			target = entity,
+			surface = entity.surface,
+			forces = {entity.force}
+		}
+	end
+
+	local function artillery_swap(entity,new_name)
+		local shellname = {}
+		local shellcount = {}
+		local inventory
+		if entity.type == "artillery-wagon" then
+			inventory = entity.get_inventory(defines.inventory.artillery_wagon_ammo)
+		elseif entity.type == "artillery-turret" then
+			inventory = entity.get_inventory(defines.inventory.artillery_turret_ammo)
+		end
+
+		for i=1,(#inventory) do
+			if inventory[i].valid_for_read then
+				shellname[#shellname+1] = inventory[i].name
+				shellcount[#shellcount+1] = inventory[i].count
 			end
 		end
-		if game.is_multiplayer() == true then
-			if i ~= 0 and j == 0 then
-				player.force.print("Player " .. player.name .. " on surface " .. player.surface.name .. " has disabled " .. i .. " artillery")
-			elseif i == 0 and j ~= 0 then
-				player.force.print("Player " .. player.name .. " on surface " .. player.surface.name .. " has enabled " .. j .. " artillery")
-			elseif i ~= 0 and j ~= 0 then
-				player.force.print("Player " .. player.name .. " on surface " .. player.surface.name .. " has enabled " .. j .. " and disabled " .. i .. " artillery")
-			end
-		end
-	end
-end)
 
-if settings.startup["artillery-toggle"].value == "both" or settings.startup["artillery-toggle"].value == "artillery-turret" or settings.startup["artillery-toggle"].value == "artillery-wagon" then
-	script.on_event(defines.events.on_robot_built_entity, function(event)
-		local entity = event.created_entity
-		if (entity.type == "artillery-turret" or entity.type == "artillery-wagon") and string.sub(entity.name,1,9) == "disabled-" then
-			rendering.draw_sprite{
-				sprite = "utility.warning_icon",
-				x_scale = 1, y_scale = 1,
-				target_offset = {0.0,-0.25},
-				render_layer = "entity-info-icon-above",
-				target = entity,
-				surface = entity.surface,
-				forces = {entity.force}
-			}
+		local name = entity.name
+		local surface = entity.surface.name
+		local position = entity.position
+		local direction = entity.direction
+		local force = entity.force
+		local kills = entity.kills
+		local damage = entity.damage_dealt
+		local health = entity.health
+		entity.destroy()
+		local new_entity = game.surfaces[surface].create_entity{
+			name = new_name,
+			position = position,
+			direction = direction,
+			force = force,
+			create_build_effect_smoke = false
+		}
+		if new_entity then
+			new_entity.kills = kills
+			new_entity.damage_dealt = damage
+			new_entity.health = health
+			for i=1,(#shellcount) do
+				if new_entity.can_insert({name=shellname[i],count=shellcount[i]}) == true then
+					new_entity.insert({name=shellname[i],count=shellcount[i]})
+				end
+			end
+		else
+			game.print("[img=utility.danger_icon] ERROR: Artillery wagon failed to convert. Please report this to the author of the Shortcuts mod")
+		end
+		return new_entity
+	end
+
+	script.on_event(defines.events.on_player_selected_area, function(event)
+		if event.item == "artillery-jammer-tool" and event.entities ~= nil then
+			local i = 0
+			local j = 0
+			for _, entity in pairs(event.entities) do
+				local name = entity.name
+				local type = entity.type
+				if entity.valid then
+					if string.sub(name,1,9) ~= "disabled-" then
+						local new_name = "disabled-" .. name
+						if game.entity_prototypes[new_name] then
+							i=i+1
+							local new_entity = artillery_swap(entity,new_name)
+							draw_warning_icon(new_entity)
+						else
+							game.print("[img=utility.danger_icon] ERROR: Artillery wagon failed to convert. Please report this to the author of the Shortcuts mod")
+						end
+					else
+						j=j+1
+						local new_name = string.sub(name,10,#name)
+						artillery_swap(entity,new_name)
+					end
+				end
+			end
+			if game.is_multiplayer() == true then
+				local player = game.players[event.player_index]
+				local message = ("Player " .. player.name .. " on surface " .. player.surface.name .. " has ")
+				if i ~= 0 and j == 0 then
+					player.force.print(message .. "disabled " .. i .. " artillery")
+				elseif i == 0 and j ~= 0 then
+					player.force.print(message .. "enabled " .. j .. " artillery")
+				elseif i ~= 0 and j ~= 0 then
+					player.force.print(message .. "enabled " .. j .. " and disabled " .. i .. " artillery")
+				end
+			end
 		end
 	end)
+
+	script.on_event(defines.events.on_robot_built_entity, function(event)
+		local entity = event.created_entity
+		if string.sub(entity.name,1,9) == "disabled-" then
+			draw_warning_icon(entity)
+		end
+	end, entity_type_filter)
+
 end
 
 ---------------------------------------------------------------------------------------------------

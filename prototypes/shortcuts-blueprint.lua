@@ -83,6 +83,14 @@ if settings.startup["tree-killer"].value == true then
 end
 
 if (mods["OutpostPlanner"] or mods["OutpostPlannerUpdated"]) and mods["PlannerCore"] and data.raw["selection-tool"]["outpost-builder"] and settings.startup["outpost-builder"].value == true then
+
+	local planner = data.raw["selection-tool"]["outpost-builder"]
+	if planner.flags then
+		table.insert(planner.flags, "spawnable")
+	else
+		planner.flags = {"spawnable"}
+	end
+
 	data:extend(
 	{
 		{
@@ -116,8 +124,8 @@ if (mods["OutpostPlanner"] or mods["OutpostPlannerUpdated"]) and mods["PlannerCo
 			name = "outpost-builder",
 			localised_name = {"", "[color=blue]", {"item-name.blueprint"}, ": [/color]", {"item-name.outpost-builder"}},
 			order = "b[blueprint]-i[outpost-builder]",
-			action = "create-blueprint-item",
-			item_to_create = "outpost-builder",
+			action = "spawn-item",
+			item_to_spawn = "outpost-builder",
 			key_sequence = "",
 		},
 	})

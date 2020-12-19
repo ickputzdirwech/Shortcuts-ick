@@ -302,6 +302,7 @@ if mods["MaxRateCalculator"] and data.raw["selection-tool"]["max-rate-calculator
 
 	data.raw["selection-tool"]["max-rate-calculator"].icon = "__MaxRateCalculator__/graphics/calculator.png"
 	data.raw["selection-tool"]["max-rate-calculator"].icon_size = 64
+	table.insert(data.raw["selection-tool"]["max-rate-calculator"].flags, "spawnable")
 
 	data:extend(
 	{

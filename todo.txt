@@ -13,8 +13,11 @@ NEW ICONS:
 -
 
 NEW SHORTCUTS:
-- trainbuilder-manual
 - Proper integration of GunEquipment
+
+UPDATE OTHER MODS:
+- Max rate calculator
+- Outpost Planner + Planner Core
 
 ---------------------------------------------------------------------------------------------------
 OWN MOD:
@@ -53,7 +56,6 @@ TODO:
 - Autosave button for singleplayer worlds
 - Combat drone full deploy? (Uses as many drone capsules as required to fill the cap to max)
 - Bloodbelt/lamp autowire builder toggle?
-- Personal logistics jammer? (unsure if this is moddable) OTHER MOD EXISTS ALREADY
 - Safety lock for weapons (prevent the ability to nuke/shotgun/flame your base) (unsure if this is moddable)
 - Polar grid
 - Clock/time played statistics (see player.online_time and game.tick)

@@ -6,7 +6,7 @@
 
 --[[ Overview of data-updates.lua:
 	* Remote hiding
-	* Generation of disabled artillery and equipment
+	* Generation of disabled equipment
 	* Autogeneration of modded shortcuts
 ]]
 
@@ -203,7 +203,7 @@ for i, e in pairs(equipment_list) do
 					disabled_equipment[i].energy_source.buffer_capacity = "0kJ"
 					disabled_equipment[i].energy_source.drain = "1kW"
 				end
-				
+
 			end
 		end
 	end
@@ -212,83 +212,8 @@ end
 
 for i=1,(#disabled_equipment),1 do
 	data:extend({disabled_equipment[i]})
-	if disabled_equipment_item[i] then
-		data:extend({disabled_equipment_item[i]})
-	end
 end
 
-local artillery_toggle = settings.startup["artillery-toggle"].value
-if artillery_toggle == "both" or artillery_toggle == "artillery-wagon" or artillery_toggle == "artillery-turret" then
-	local disabled_turret = {}
-	local disabled_turret_item = {}
-	local disabled_gun = {}
-	local disable_turret_list = {}
-
-	if settings.startup["artillery-toggle"].value == "both" then
-		disable_turret_list = {"artillery-wagon", "artillery-turret",}
-	else
-		disable_turret_list = {settings.startup["artillery-toggle"].value}
-	end
-
-	for i=1,(#disable_turret_list) do
-		for _, entity in pairs(data.raw[disable_turret_list[i]]) do
-			local i = #disabled_turret+1
-			disabled_turret[i] = util.table.deepcopy(entity)
-			local name = disabled_turret[i].name
-			local gun = disabled_turret[i].gun
-
-			disabled_turret_item[i] = util.table.deepcopy(data.raw["item-with-entity-data"][name])
-			if disabled_turret_item[i] == nil then
-				disabled_turret_item[i] = util.table.deepcopy(data.raw["item"][name])
-			end
-			if disabled_turret_item[i] == nil then
-				disabled_turret_item[i] =  util.table.deepcopy(data.raw["item-with-entity-data"]["artillery-wagon"])
-			end
-			disabled_turret_item[i].name = "disabled-" .. name
-			disabled_turret_item[i].place_result = "disabled-" .. name
-			disabled_turret_item[i].flags = {"hidden"}
-			if disabled_turret_item[i].icon then
-				disabled_turret_item[i].icons = {{icon = disabled_turret_item[i].icon, tint = {0.5, 0.5, 0.5}}}
-				disabled_turret_item[i].icon = nil
-			end
-
-			disabled_turret[i].name = "disabled-" .. name
-			table.insert(disabled_turret[i].flags, "hidden")
-			disabled_turret[i].localised_name = {"", {"entity-name." .. entity.name}, " (", {"gui-constant.off"}, ")"}
-			if data.raw.item[name] then
-				disabled_turret[i].placeable_by = {item = name, count = 1}
-			end
-			if disabled_turret[i].icon then
-				disabled_turret[i].icons = {{icon = disabled_turret[i].icon, tint = {0.5, 0.5, 0.5}}}
-				disabled_turret[i].icon = nil
-			end
-
-			disabled_gun[i] = util.table.deepcopy(data.raw["gun"][gun])
-			disabled_gun[i].name = "disabled-" .. gun
-			disabled_gun[i].localised_name = {"", {"item-name." .. entity.name}, " (", {"gui-constant.off"}, ")"}
-			disabled_gun[i].flags = {"hidden"}
-			disabled_gun[i].attack_parameters.range = 0
-			disabled_gun[i].attack_parameters.min_range = 0
-			if disabled_gun[i].icon then
-				disabled_gun[i].icons = {{icon = disabled_gun[i].icon, tint = {0.5, 0.5, 0.5}}}
-				disabled_gun[i].icon = nil
-			end
-
-			disabled_turret[i].gun = disabled_gun[i].name
-		end
-	end
-
-	for i=1,(#disabled_turret),1 do
-		data:extend({disabled_turret[i]})
-		if disabled_gun[i] then
-			data:extend({disabled_gun[i]})
-		end
-		if disabled_turret_item[i] then
-			data:extend({disabled_turret_item[i]})
-		end
-	end
-
-end
 
 --[[if settings.startup["tree-killer"].value == true then
 	local decon_spec = util.table.deepcopy(data.raw["deconstruction-item"]["deconstruction-planner"])
@@ -314,6 +239,11 @@ if autogen_color == "default" or autogen_color == "red" or autogen_color == "gre
 		"path-remote-control",
 		"pump-selection-tool",
 		"rail-signal-planner",
+		"rcalc-all-selection-tool",
+		"rcalc-electricity-selection-tool",
+		"rcalc-heat-selection-tool",
+		"rcalc-materials-selection-tool",
+		"rcalc-pollution-selection-tool",
 		"selection-tool",
 		"squad-spidertron-remote-sel",
 		"trainbuilder-manual",

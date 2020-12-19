@@ -118,16 +118,15 @@ if mods["AdvArtilleryRemotes"] and settings.startup["artillery-targeting-remote"
 	end
 end
 
-if settings.startup["artillery-toggle"].value == "both" or settings.startup["artillery-toggle"].value == "artillery-wagon" or settings.startup["artillery-toggle"].value == "artillery-turret" then
+local artillery_toggle = settings.startup["artillery-toggle"].value
+if artillery_toggle == "both" or artillery_toggle == "artillery-wagon" or artillery_toggle == "artillery-turret" then
 
 	local disable_turret_list = {}
 
-	if settings.startup["artillery-toggle"].value == "both" then
+	if artillery_toggle == "both" then
 		disable_turret_list = {"artillery-wagon", "artillery-turret"}
-	elseif settings.startup["artillery-toggle"].value == "artillery-wagon" then
-		disable_turret_list = {"artillery-wagon"}
-	elseif settings.startup["artillery-toggle"].value == "artillery-turret" then
-		disable_turret_list = {"artillery-turret"}
+	else
+		disable_turret_list = {artillery_toggle}
 	end
 
 	data:extend(
