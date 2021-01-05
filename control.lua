@@ -530,33 +530,45 @@ end
 
 script.on_event(defines.events.on_player_driving_changed_state, function(event)
 	local player = game.players[event.player_index]
-	if settings.startup["spidertron-logistics"].value == true then
-		if player.driving == true then
-			if player.vehicle.type == "spider-vehicle" then
-				update_shortcuts(player, player.vehicle.enable_logistics_while_moving, "spidertron-logistics")
-			end
+	local mods = game.active_mods
+	local setting = settings.startup
+
+	if setting["spidertron-remote"] and player.driving == true and player.vehicle.type == "spider-vehicle" then
+		local spidertron_remote = setting["spidertron-remote"].value
+		if spidertron_remote == "enabled" or spidertron_remote == "enabled-hidden" then
+			player.set_shortcut_available("spidertron-remote", true)
+		end
+		if mods["Spider_Control"] then
+			player.set_shortcut_available("squad-spidertron-follow", true)
+			player.set_shortcut_available("squad-spidertron-remote", true)
+		end
+		if mods["SpidertronWaypoints"] then
+			player.set_shortcut_available("spidertron-remote-waypoint", true)
+			player.set_shortcut_available("spidertron-remote-patrol", true)
+		end
+	end
+	if setting["spidertron-logistics"].value == true then
+		if player.driving == true and player.vehicle.type == "spider-vehicle" then
+			update_shortcuts(player, player.vehicle.enable_logistics_while_moving, "spidertron-logistics")
 		end
 		if player.driving == false then
 			player.set_shortcut_available("spidertron-logistics", false)
 		end
 	end
-	if settings.startup["spidertron-automatic-targeting"].value == true then
-		if player.driving == true then
-			if player.vehicle.type == "spider-vehicle" then
-				update_shortcuts(player, player.vehicle.vehicle_automatic_targeting_parameters.auto_target_without_gunner, "targeting-without-gunner")
-				update_shortcuts(player, player.vehicle.vehicle_automatic_targeting_parameters.auto_target_with_gunner, "targeting-with-gunner")
-			end
+	if setting["spidertron-automatic-targeting"].value == true then
+		if player.driving == true and vehicle == "spider-vehicle" then
+			update_shortcuts(player, player.vehicle.vehicle_automatic_targeting_parameters.auto_target_without_gunner, "targeting-without-gunner")
+			update_shortcuts(player, player.vehicle.vehicle_automatic_targeting_parameters.auto_target_with_gunner, "targeting-with-gunner")
 		end
 		if player.driving == false then
 			player.set_shortcut_available("targeting-without-gunner", false)
 			player.set_shortcut_available("targeting-with-gunner", false)
 		end
 	end
-	if settings.startup["train-mode-toggle"].value == true then
-		if player.driving == true then
-			if player.vehicle.type == "locomotive" or player.vehicle.type == "cargo-wagon"  or player.vehicle.type == "fluid-wagon" or player.vehicle.type == "artillery-wagon" then
-				update_shortcuts(player, player.vehicle.train.manual_mode, "train-mode-toggle")
-			end
+
+	if setting["train-mode-toggle"].value == true then
+		if player.driving == true and (player.vehicle.type == "locomotive" or player.vehicle.type == "cargo-wagon"  or player.vehicle.type == "fluid-wagon" or player.vehicle.type == "artillery-wagon") then
+			update_shortcuts(player, player.vehicle.train.manual_mode, "train-mode-toggle")
 		end
 		if player.driving == false then
 			player.set_shortcut_available("train-mode-toggle", false)
@@ -822,9 +834,9 @@ end
 -- VEHICLES
 if settings.startup["spidertron-remote"].value == "enabled" or settings.startup["spidertron-remote"].value == "enabled-hidden" then
 	script.on_event("spidertron-remote", function(event)
-		if game.players[event.player_index].force.technologies["spidertron"].researched == true then
+		--if game.players[event.player_index].force.technologies["spidertron"].researched == true then
 			give_shortcut_item(game.players[event.player_index], "spidertron-remote")
-		end
+		--end
 	end)
 end
 if settings.startup["spidertron-logistics"].value == true then
@@ -908,7 +920,7 @@ script.on_event(defines.events.on_player_created, function(event)
 	local player = game.players[event.player_index]
 	local tech = player.force.technologies
 	local setting = settings.startup
-	local mod = game.active_mods
+	local mods = game.active_mods
 
 	if setting["flashlight-toggle"].value == true then
 		player.set_shortcut_toggled("flashlight-toggle", true)
@@ -933,7 +945,7 @@ script.on_event(defines.events.on_player_created, function(event)
 		player.set_shortcut_available("train-mode-toggle", false)
 	end
 
-	if tech["automobilism"].researched == false and mod["VehicleSnap"] then
+	if tech["automobilism"].researched == false and mods["VehicleSnap"] then
 		player.set_shortcut_available("VehicleSnap-shortcut", false)
 	end
 
@@ -944,14 +956,14 @@ script.on_event(defines.events.on_player_created, function(event)
 		end
 		if setting["artillery-targeting-remote"].value == true then
 			player.set_shortcut_available("artillery-targeting-remote", false)
-			if mod["AdvArtilleryRemotes"] then
+			if mods["AdvArtilleryRemotes"] then
 				player.set_shortcut_available("artillery-cluster-remote", false)
 				player.set_shortcut_available("artillery-discovery-remote", false)
 			end
 		end
 	end
 
-	if mod["circuit-checker"] and tech["circuit-network"].researched == false then
+	if mods["circuit-checker"] and tech["circuit-network"].researched == false then
 		player.set_shortcut_available("check-circuit", false)
 	end
 
@@ -959,24 +971,24 @@ script.on_event(defines.events.on_player_created, function(event)
 		player.set_shortcut_available("discharge-defense-remote", false)
 	end
 
-	if mod["MIRV"] and tech["mirv-technology"].researched == false and setting["mirv-targeting-remote"].value == true then
+	if mods["MIRV"] and tech["mirv-technology"].researched == false and setting["mirv-targeting-remote"].value == true then
 		player.set_shortcut_available("mirv-targeting-remote", false)
 	end
 
-	if tech["modules"].researched == false and mod["ModuleInserter"] then
+	if tech["modules"].researched == false and mods["ModuleInserter"] then
 		player.set_shortcut_available("module-inserter", false)
 	end
 
 	if tech["oil-processing"].researched == false then
-		if mod["pump"] then
+		if mods["pump"] then
 			player.set_shortcut_available("pump-shortcut", false)
 		end
-		if mod["WellPlanner"] and setting["well-planner"].value == true then
+		if mods["WellPlanner"] and setting["well-planner"].value == true then
 			player.set_shortcut_available("well-planner", false)
 		end
 	end
 
-	if mod["Orbital Ion Cannon"] and tech["orbital-ion-cannon"].researched == false and setting["ion-cannon-targeter"].value == true then
+	if (mods["Orbital Ion Cannon"] or mods["Kux-OrbitalIonCannon"]) and tech["orbital-ion-cannon"].researched == false and setting["ion-cannon-targeter"].value == true then
 		player.set_shortcut_available("ion-cannon-targeter", false)
 	end
 
@@ -984,7 +996,7 @@ script.on_event(defines.events.on_player_created, function(event)
 		player.set_shortcut_available("toggle-personal-logistic-requests", false)
 	end
 
-	if tech["personal-roboport-equipment"].researched == false and mod["PickerInventoryTools"] and mod["Nanobots"] then
+	if tech["personal-roboport-equipment"].researched == false and mods["PickerInventoryTools"] and mods["Nanobots"] then
 		player.set_shortcut_available("toggle-equipment-bot-chip-feeder", false)
 		player.set_shortcut_available("toggle-equipment-bot-chip-items", false)
 		player.set_shortcut_available("toggle-equipment-bot-chip-launcher", false)
@@ -992,7 +1004,7 @@ script.on_event(defines.events.on_player_created, function(event)
 		player.set_shortcut_available("toggle-equipment-bot-chip-trees", false)
 	end
 
-	if tech["rail-signals"].researched == false and mod["RailSignalPlanner"] then
+	if tech["rail-signals"].researched == false and mods["RailSignalPlanner"] then
 		player.set_shortcut_available("give-rail-signal-planner", false)
 	end
 
@@ -1000,7 +1012,7 @@ script.on_event(defines.events.on_player_created, function(event)
 		if setting["rail-block-visualization-toggle"].value == true then
 			player.set_shortcut_toggled("rail-block-visualization-toggle", false)
 		end
-		if mod["QoL-TempStations"] then
+		if mods["QoL-TempStations"] then
 			player.set_shortcut_available("shortcut-temporarystations", false)
 		end
 	end
@@ -1010,26 +1022,26 @@ script.on_event(defines.events.on_player_created, function(event)
 		if spidertron_remote == "enabled" or spidertron_remote == "enabled-hidden" then
 			player.set_shortcut_available("spidertron-remote", false)
 		end
-		if mod["Spider_Control"] then
+		if mods["Spider_Control"] then
 			player.set_shortcut_available("squad-spidertron-follow", false)
 			player.set_shortcut_available("squad-spidertron-remote", false)
 		end
-		if mod["SpidertronWaypoints"] then
+		if mods["SpidertronWaypoints"] then
 			player.set_shortcut_available("spidertron-remote-waypoint", false)
 			player.set_shortcut_available("spidertron-remote-patrol", false)
 		end
 		if tech["automobilism"].researched == false then
-			if mod["aai-programmable-vehicles"] and setting["aai-remote-controls"].value == true then
+			if mods["aai-programmable-vehicles"] and setting["aai-remote-controls"].value == true then
 				player.set_shortcut_available("path-remote-control", false)
 				player.set_shortcut_available("unit-remote-control", false)
 			end
-			if mod["car-finder"] then
+			if mods["car-finder"] then
 				player.set_shortcut_available("car-finder-button", false)
 			end
 		end
 	end
 
-	if mod["VehicleWagon2"] and tech["vehicle-wagons"].researched == false and setting["winch"].value == true then
+	if mods["VehicleWagon2"] and tech["vehicle-wagons"].researched == false and setting["winch"].value == true then
 		player.set_shortcut_available("winch", false)
 	end
 
@@ -1042,18 +1054,18 @@ script.on_event(defines.events.on_research_finished, function(event)
 	for _,player in pairs(event.research.force.players) do
 		local research = event.research.name
 		local setting = settings.startup
-		local mod = game.active_mods
+		local mods = game.active_mods
 
-		if research == "automobilism" and mod["VehicleSnap"] then
+		if research == "automobilism" and mods["VehicleSnap"] then
 			player.set_shortcut_available("VehicleSnap-shortcut", true)
 		end
 
 		if research == "automobilism" or research == "spidertron" then
-			if mod["aai-programmable-vehicles"] and setting["aai-remote-controls"].value == true then
+			if mods["aai-programmable-vehicles"] and setting["aai-remote-controls"].value == true then
 				player.set_shortcut_available("path-remote-control", true)
 				player.set_shortcut_available("unit-remote-control", true)
 			end
-			if mod["car-finder"] then
+			if mods["car-finder"] then
 				player.set_shortcut_available("car-finder-button", true)
 			end
 		end
@@ -1065,14 +1077,14 @@ script.on_event(defines.events.on_research_finished, function(event)
 			end
 			if setting["artillery-targeting-remote"].value == true then
 				player.set_shortcut_available("artillery-targeting-remote", true)
-				if mod["AdvArtilleryRemotes"] then
+				if mods["AdvArtilleryRemotes"] then
 					player.set_shortcut_available("artillery-cluster-remote", true)
 					player.set_shortcut_available("artillery-discovery-remote", true)
 				end
 			end
 		end
 
-		if research == "circuit-network" and mod["circuit-checker"] then
+		if research == "circuit-network" and mods["circuit-checker"] then
 			player.set_shortcut_available("check-circuit", true)
 		end
 
@@ -1080,24 +1092,24 @@ script.on_event(defines.events.on_research_finished, function(event)
 			player.set_shortcut_available("discharge-defense-remote", true)
 		end
 
-		if research == "mirv-technology" and mod["MIRV"] and setting["mirv-targeting-remote"].value == true then
+		if research == "mirv-technology" and mods["MIRV"] and setting["mirv-targeting-remote"].value == true then
 			player.set_shortcut_available("mirv-targeting-remote", true)
 		end
 
-		if research == "modules" and mod["ModuleInserter"] then
+		if research == "modules" and mods["ModuleInserter"] then
 			player.set_shortcut_available("module-inserter", true)
 		end
 
 		if research == "oil-processing" then
-			if mod["pump"] then
+			if mods["pump"] then
 				player.set_shortcut_available("pump-shortcut", true)
 			end
-			if mod["WellPlanner"] and setting["well-planner"].value == true then
+			if mods["WellPlanner"] and setting["well-planner"].value == true then
 				player.set_shortcut_available("well-planner", true)
 			end
 		end
 
-		if research == "orbital-ion-cannon" and mod["Orbital Ion Cannon"] and setting["ion-cannon-targeter"].value == true then
+		if research == "orbital-ion-cannon" and (mods["Orbital Ion Cannon"]or mods["Kux-OrbitalIonCannon"]) and setting["ion-cannon-targeter"].value == true then
 			player.set_shortcut_available("ion-cannon-targeter", true)
 		end
 
@@ -1106,7 +1118,7 @@ script.on_event(defines.events.on_research_finished, function(event)
 			player.set_shortcut_available("toggle-personal-logistic-requests", true)
 		end
 
-		if research == "personal-roboport-equipment" and mod["PickerInventoryTools"] and mod["Nanobots"] then
+		if research == "personal-roboport-equipment" and mods["PickerInventoryTools"] and mods["Nanobots"] then
 			player.set_shortcut_available("toggle-equipment-bot-chip-feeder", true)
 			player.set_shortcut_available("toggle-equipment-bot-chip-items", true)
 			player.set_shortcut_available("toggle-equipment-bot-chip-launcher", true)
@@ -1114,7 +1126,7 @@ script.on_event(defines.events.on_research_finished, function(event)
 			player.set_shortcut_available("toggle-equipment-bot-chip-trees", true)
 		end
 
-		if research == "rail-signals" and mod["RailSignalPlanner"] then
+		if research == "rail-signals" and mods["RailSignalPlanner"] then
 			player.set_shortcut_available("give-rail-signal-planner", true)
 		end
 
@@ -1122,7 +1134,7 @@ script.on_event(defines.events.on_research_finished, function(event)
 			if setting["rail-block-visualization-toggle"].value == true then
 				player.set_shortcut_available("rail-block-visualization-toggle", true)
 			end
-			if mod["QoL-TempStations"] then
+			if mods["QoL-TempStations"] then
 				player.set_shortcut_available("shortcut-temporarystations", true)
 			end
 		end
@@ -1132,17 +1144,17 @@ script.on_event(defines.events.on_research_finished, function(event)
 			if spidertron_remote == "enabled" or spidertron_remote == "enabled-hidden" then
 				player.set_shortcut_available("spidertron-remote", true)
 			end
-			if mod["Spider_Control"] then
+			if mods["Spider_Control"] then
 				player.set_shortcut_available("squad-spidertron-follow", true)
 				player.set_shortcut_available("squad-spidertron-remote", true)
 			end
-			if mod["SpidertronWaypoints"] then
+			if mods["SpidertronWaypoints"] then
 				player.set_shortcut_available("spidertron-remote-waypoint", true)
 				player.set_shortcut_available("spidertron-remote-patrol", true)
 			end
 		end
 
-		if research == "vehicle-wagons" and mod["VehicleWagon2"] and setting["winch"].value == true then
+		if research == "vehicle-wagons" and mods["VehicleWagon2"] and setting["winch"].value == true then
 			player.set_shortcut_available("winch", true)
 		end
 

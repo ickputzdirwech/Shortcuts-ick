@@ -16,7 +16,7 @@ if settings.startup["tree-killer"].value == true then
 	local decon_tree = util.table.deepcopy(data.raw["deconstruction-item"]["deconstruction-planner"])
 	decon_tree.name = "tree-killer"
 	decon_tree.localised_name =  {"", {"item-name.deconstruction-planner"}, " (", {"gui-deconstruction.trees-and-rocks-only"}, ")"}
-	decon_tree.flags = {"only-in-cursor"}
+	decon_tree.flags = {"only-in-cursor", "hidden"}
 	data:extend({decon_tree})
 
 	data:extend(
@@ -82,7 +82,7 @@ if settings.startup["tree-killer"].value == true then
 	})
 end
 
-if (mods["OutpostPlanner"] or mods["OutpostPlannerUpdated"]) and mods["PlannerCore"] and data.raw["selection-tool"]["outpost-builder"] and settings.startup["outpost-builder"].value == true then
+if (mods["OutpostPlanner"] or mods["OutpostPlannerUpdated"] or mods["OutpostPlanner1-1"]) and (mods["PlannerCore"] or mods["PlannerCore1-1"]) and data.raw["selection-tool"]["outpost-builder"] and settings.startup["outpost-builder"].value == true then
 
 	local planner = data.raw["selection-tool"]["outpost-builder"]
 	if planner.flags then

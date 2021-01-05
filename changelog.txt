@@ -220,3 +220,14 @@ Date: 2020-12-18
     - Fixed that shortcuts were generated for the hidden selection tools from "Rate Calculator"
     - Fixed incompatibility issue with "Hero Turrets"
     - Fixed issue with "Outpost Planner" shortcut
+
+---------------------------------------------------------------------------------------------------
+Version: 1.1.4
+Date: 2021-01-05
+  Features:
+    - Added support for "Orbital Ion Cannon" updated for 1.1 by kuxynator.
+    - Added support for "Outpost Planner for 1.1" by ChucklesTheBeard.
+  Changes:
+    - The "Spidertron remote" shortcut will now be unlocked by entering any spider vehicle for the first time.
+  Bugfixes:
+    - Fixed that you could select tiles with the "Toggle artillery cannon fire" selection tool.

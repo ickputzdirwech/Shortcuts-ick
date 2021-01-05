@@ -166,7 +166,7 @@ data:extend(
 	},
 })
 
-if mods["OutpostPlanner"] or mods["OutpostPlannerUpdated"] then
+if mods["OutpostPlanner"] or mods["OutpostPlannerUpdated"] or mods["OutpostPlanner1-1"] then
   data:extend({{
       setting_type = "startup",
   		name = "outpost-builder",
@@ -249,26 +249,26 @@ data:extend(
   },
 })
 
-if mods["Orbital Ion Cannon"] then
+if mods["Orbital Ion Cannon"] or mods["Kux-OrbitalIonCannon"] then
   data:extend({{
-      setting_type = "startup",
-  		name = "ion-cannon-targeter",
-			localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.ion-cannon-targeter"}},
-			order = "d[artillery]-e[ion-cannon-targeter]",
-      type = "bool-setting",
-  		default_value = true,
-  	}})
+    setting_type = "startup",
+		name = "ion-cannon-targeter",
+		localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.ion-cannon-targeter"}},
+		order = "d[artillery]-e[ion-cannon-targeter]",
+    type = "bool-setting",
+		default_value = true,
+  }})
 end
 
 if mods["MIRV"] then
   data:extend({{
-      setting_type = "startup",
-  		name = "mirv-targeting-remote",
-			localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.mirv-targeting-remote"}},
-			order = "d[artillery]-f[mirv-targeting-remote]",
-      type = "bool-setting",
-  		default_value = true,
-  	}})
+    setting_type = "startup",
+		name = "mirv-targeting-remote",
+		localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.mirv-targeting-remote"}},
+		order = "d[artillery]-f[mirv-targeting-remote]",
+    type = "bool-setting",
+		default_value = true,
+  }})
 end
 
 ---------------------------------------------------------------------------------------------------

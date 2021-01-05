@@ -1,4 +1,3 @@
----------------------------------------------------------------------------------------------------
 OTHER MODS:
 ---------------------------------------------------------------------------------------------------
 OTHER:
@@ -16,10 +15,9 @@ NEW SHORTCUTS:
 - Proper integration of GunEquipment
 
 UPDATE OTHER MODS:
-- Max rate calculator
-- Outpost Planner + Planner Core
+- Max rate calculator (make pull request with icon fix)
 
----------------------------------------------------------------------------------------------------
+
 OWN MOD:
 ---------------------------------------------------------------------------------------------------
 BUGS:
@@ -45,17 +43,17 @@ KNOWN ISSUES:
 MOD PORTAL:
 ---------------------------------------------------------------------------------------------------
 OTHER:
--
 
----------------------------------------------------------------------------------------------------
-MORLEY376:
----------------------------------------------------------------------------------------------------
-TODO:
-- Stuff for GameViewSettings
-- Custom screenshot (zoom level, resolution, etc. customizable)
-- Autosave button for singleplayer worlds
-- Combat drone full deploy? (Uses as many drone capsules as required to fill the cap to max)
-- Bloodbelt/lamp autowire builder toggle?
-- Safety lock for weapons (prevent the ability to nuke/shotgun/flame your base) (unsure if this is moddable)
-- Polar grid
-- Clock/time played statistics (see player.online_time and game.tick)
+*
+
+
+# TODO from morley376
+
+* Stuff for GameViewSettings
+* Custom screenshot (zoom level, resolution, etc. customizable)
+* Autosave button for singleplayer worlds
+* Combat drone full deploy? (Uses as many drone capsules as required to fill the cap to max)
+* Bloodbelt/lamp autowire builder toggle?
+* Safety lock for weapons (prevent the ability to nuke/shotgun/flame your base) (unsure if this is moddable)
+* Polar grid
+* Clock/time played statistics (see player.online_time and game.tick)

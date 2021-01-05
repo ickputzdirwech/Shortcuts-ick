@@ -49,7 +49,7 @@ if settings.startup["discharge-defense-remote"].value == true then
 end
 
 if settings.startup["spidertron-remote"].value == "enabled" then
-	hide_the_remote("spidertron-remote", "spidertron")
+	--hide_the_remote("spidertron-remote", "spidertron")
 end
 if settings.startup["spidertron-remote"].value == "enabled-hidden" then
 	hide_the_remote("spidertron-remote", "spidertron", data.raw["spidertron-remote"]["spidertron-remote"])
@@ -74,7 +74,7 @@ if mods["AdvArtilleryRemotes"] then
 	end
 end
 
-if mods["Orbital Ion Cannon"] and data.raw.item["ion-cannon-targeter"] and data.raw.technology["orbital-ion-cannon"] and settings.startup["ion-cannon-targeter"].value == true then
+if (mods["Orbital Ion Cannon"] or mods["Kux-OrbitalIonCannon"]) and data.raw.item["ion-cannon-targeter"] and data.raw.technology["orbital-ion-cannon"] and settings.startup["ion-cannon-targeter"].value == true then
 	hide_the_remote("ion-cannon-targeter", "orbital-ion-cannon", data.raw.item["ion-cannon-targeter"])
 end
 
@@ -83,7 +83,7 @@ if mods["MIRV"] and data.raw.capsule["mirv-targeting-remote"] and data.raw.techn
 end
 
 
-if (mods["OutpostPlanner"] or mods["OutpostPlannerUpdated"]) and mods["PlannerCore"] and data.raw["selection-tool"]["outpost-builder"] and settings.startup["outpost-builder"].value == true then
+if (mods["OutpostPlanner"] or mods["OutpostPlannerUpdated"] or mods["OutpostPlanner1-1"]) and (mods["PlannerCore"] or mods["PlannerCore1-1"]) and data.raw["selection-tool"]["outpost-builder"] and settings.startup["outpost-builder"].value == true then
 	hide_the_remote("outpost-builder", nil, data.raw["selection-tool"]["outpost-builder"])
 end
 
@@ -236,6 +236,7 @@ if autogen_color == "default" or autogen_color == "red" or autogen_color == "gre
 		"max-rate-calculator",
 		"module-inserter",
 		"merge-chest-selector",
+		"outpost-builder",
 		"path-remote-control",
 		"pump-selection-tool",
 		"rail-signal-planner",
