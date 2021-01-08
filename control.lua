@@ -992,9 +992,9 @@ script.on_event(defines.events.on_player_created, function(event)
 		player.set_shortcut_available("ion-cannon-targeter", false)
 	end
 
-	if tech["logistic-robotics"].researched == false and setting["toggle-personal-logistic-requests"].value == true then
+	--[[if tech["logistic-robotics"].researched == false and setting["toggle-personal-logistic-requests"].value == true then
 		player.set_shortcut_available("toggle-personal-logistic-requests", false)
-	end
+	end]]
 
 	if tech["personal-roboport-equipment"].researched == false and mods["PickerInventoryTools"] and mods["Nanobots"] then
 		player.set_shortcut_available("toggle-equipment-bot-chip-feeder", false)
@@ -1114,9 +1114,9 @@ script.on_event(defines.events.on_research_finished, function(event)
 		end
 
 
-		if research == "logistic-robotics" and setting["toggle-personal-logistic-requests"].value == true then
+		--[[if research == "logistic-robotics" and setting["toggle-personal-logistic-requests"].value == true then
 			player.set_shortcut_available("toggle-personal-logistic-requests", true)
-		end
+		end]]
 
 		if research == "personal-roboport-equipment" and mods["PickerInventoryTools"] and mods["Nanobots"] then
 			player.set_shortcut_available("toggle-equipment-bot-chip-feeder", true)

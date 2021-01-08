@@ -217,6 +217,7 @@ if settings.startup["toggle-personal-logistic-requests"].value == true then
 	    action = "toggle-personal-logistic-requests",
 	    localised_name = {"", {"Shortcuts-ick.basic"}, {"shortcut.toggle-personal-logistic-requests"}},
 	    associated_control_input = "toggle-personal-logistic-requests",
+			technology_to_unlock = "logistic-robotics",
 	    icon =
 	    {
 	      filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x32.png",
