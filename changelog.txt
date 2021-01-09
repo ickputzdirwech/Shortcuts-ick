@@ -237,3 +237,9 @@ Version: 1.1.5
 Date: 2021-01-08
   Bugfixes:
     - Fixed error when starting a new game or finishing a researching. The "Toggle personal logistics requests" shortcut is now available as soon as you researched "Logistic robotics" on any map (previously you had to research it in that specific map).
+
+---------------------------------------------------------------------------------------------------
+Version: 1.1.6
+Date: 2021-01-09
+  Bugfixes:
+    - Fixed that auto generating shortcuts for modded selection tools wouldn't work if the selection tools were created in data-final-fixes.

@@ -7,11 +7,14 @@
 --[[ Overview of data-updates.lua:
 	* Remote hiding
 	* Generation of disabled equipment
-	* Autogeneration of modded shortcuts
 ]]
 
 require("prototypes.shortcuts-artillery-updates")
 
+
+---------------------------------------------------------------------------------------------------
+-- REMOTE HIDING
+---------------------------------------------------------------------------------------------------
 local function hide_the_remote(recipe, technology, item)
 	if item then
 		if item.flags then
@@ -48,9 +51,9 @@ if settings.startup["discharge-defense-remote"].value == true then
 	hide_the_remote("discharge-defense-remote", "discharge-defense-equipment", data.raw.capsule["discharge-defense-remote"])
 end
 
-if settings.startup["spidertron-remote"].value == "enabled" then
-	--hide_the_remote("spidertron-remote", "spidertron")
-end
+--[[if settings.startup["spidertron-remote"].value == "enabled" then
+	hide_the_remote("spidertron-remote", "spidertron")
+end]]
 if settings.startup["spidertron-remote"].value == "enabled-hidden" then
 	hide_the_remote("spidertron-remote", "spidertron", data.raw["spidertron-remote"]["spidertron-remote"])
 end
@@ -146,6 +149,11 @@ if mods["ModuleInserter"] and data.raw.shortcut["module-inserter"] then
 	data.raw.shortcut["module-inserter"].item_to_spawn = nil
 end
 
+
+---------------------------------------------------------------------------------------------------
+-- GENERATION OF DISABLED EQUIPMENT
+---------------------------------------------------------------------------------------------------
+
 local disabled_equipment = {}
 local disabled_equipment_item = {}
 local equipment_list = {}
@@ -212,110 +220,4 @@ end
 
 for i=1,(#disabled_equipment),1 do
 	data:extend({disabled_equipment[i]})
-end
-
-
---[[if settings.startup["tree-killer"].value == true then
-	local decon_spec = util.table.deepcopy(data.raw["deconstruction-item"]["deconstruction-planner"])
-	decon_spec.name = "tree-killer"
-	decon_spec.localised_name = {"item-name.deconstruction-planner"}
-	decon_spec.flags = {"only-in-cursor"}
-	data:extend({decon_spec})
-end]]
-
-
-local autogen_color = settings.startup["autogen-color"].value
-if autogen_color == "default" or autogen_color == "red" or autogen_color == "green" or autogen_color == "blue" then
-
-	--	create a post on the discussion page if you want your shortcut to be added to this ignore_list.
-	local shortcut_ignore_list = {
-		"artillery-jammer-tool",
-		"autotrash-network-selection",
-		"circuit-checker",
-		"fp_beacon_selector",
-		"max-rate-calculator",
-		"module-inserter",
-		"merge-chest-selector",
-		"outpost-builder",
-		"path-remote-control",
-		"pump-selection-tool",
-		"rail-signal-planner",
-		"rcalc-all-selection-tool",
-		"rcalc-electricity-selection-tool",
-		"rcalc-heat-selection-tool",
-		"rcalc-materials-selection-tool",
-		"rcalc-pollution-selection-tool",
-		"selection-tool",
-		"squad-spidertron-remote-sel",
-		"trainbuilder-manual",
-		"unit-remote-control",
-		"well-planner",
-		"winch",
-		"wire-cutter-copper",
-		"wire-cutter-green",
-		"wire-cutter-red",
-		"wire-cutter-universal"
-	}
-
-	for _, tool in pairs(data.raw["selection-tool"]) do
-		local name = tool.name
-		local continue = true
-		for j, ignore_list in pairs(shortcut_ignore_list) do
-			if name == ignore_list then
-				continue = false
-				break
-			end
-		end
-
-		if continue == true then
-			local create = true
-			for i, shortcut in pairs(data.raw["shortcut"]) do
-				if shortcut.action == "spawn-item" and shortcut.item_to_spawn == name then
-					create = false
-					break
-				end
-			end
-
-			if create == true then
-				local icon
-				local icon_size
-				if tool.icon then
-					icon = tool.icon
-				elseif tool.icons then
-					icon = tool.icons[1].icon
-				else
-					icon = "__core__/graphics/shoot.png"
-				end
-
-				if tool.icons and tool.icons[1].icon_size then
-					icon_size = tool.icons[1].icon_size
-				elseif tool.icon_size then
-					icon_size = tool.icon_size
-				else
-					icon_size = 32
-				end
-
-				local shortcut = {
-					type = "shortcut",
-					name = name,
-					order = tool.order,
-					action = "spawn-item",
-					localised_name = {"item-name." .. name},
-					item_to_spawn = name,
-					style = settings.startup["autogen-color"].value,
-					icon =
-					{
-						filename = icon,
-						priority = "extra-high-no-scale",
-						size = icon_size,
-						flags = {"icon"}
-					},
-				}
-
-				data:extend({shortcut})
-				hide_the_remote(name, name, tool) 	--	only attempts to hide the selection-tool if the recipe/tech name matches the tool name - does not search all recipes for mention of the tool.
-			end
-		end
-	end
-
 end
