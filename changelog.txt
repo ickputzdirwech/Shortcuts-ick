@@ -248,8 +248,4 @@ Date: 2021-01-09
 Version: 1.1.7
 Date: 2021-01-14
   Bugfixes:
-<<<<<<< HEAD
     - Fixed that "winch" from "Vehicle Wagon 2" wasn't hidden from inventory.
-=======
-    - Fixed that "winch" from "Vehicle Wagons 2" wasn't hidden from inventory.
->>>>>>> b8d58a86f8338487d50d419c053892ff13d7b3e5
