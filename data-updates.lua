@@ -90,7 +90,7 @@ if (mods["OutpostPlanner"] or mods["OutpostPlannerUpdated"] or mods["OutpostPlan
 	hide_the_remote("outpost-builder", nil, data.raw["selection-tool"]["outpost-builder"])
 end
 
-if settings.startup["well-planner"].value == true then
+if settings.startup["well-planner"] and settings.startup["well-planner"].value == true then
 	hide_the_remote("well-planner")
 end
 

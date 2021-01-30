@@ -258,3 +258,9 @@ Date: 2021-01-30
   Bugfixes:
     - Fixed that it was impossible to access the well planner settings.
     - Fixed that you would get a new module inserter in your inventory if you clicked the shortcut.
+
+---------------------------------------------------------------------------------------------------
+Version: 1.1.9
+Date: 2021-01-30
+  Bugfixes:
+    - Hotfix: Fixed that game wouldn't load if "Well Planner" mod wasn't active.
