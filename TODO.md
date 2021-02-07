@@ -1,3 +1,4 @@
+---------------------------------------------------------------------------------------------------
 OTHER MODS:
 ---------------------------------------------------------------------------------------------------
 OTHER:
@@ -18,11 +19,10 @@ UPDATE OTHER MODS:
 - Max rate calculator (make pull request with icon fix)
 
 
+---------------------------------------------------------------------------------------------------
 OWN MOD:
 ---------------------------------------------------------------------------------------------------
 BUGS:
-- cant enable/disable ghost artillery turrets
-- discharge defense remote is available even if none equipped
 - Advanced artillery remotes hotkeys are available before tech
 
 NEW SHORTCUTS:
