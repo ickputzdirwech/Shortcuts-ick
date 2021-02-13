@@ -283,3 +283,10 @@ Date: 2021-02-07
     - Fixed that ghosts of disabled artillery turrets and waggons didn't have an alert icon.
     - Fixed that disabled artillery wagons couldn't be blueprinted and build by robots.
     - Fixed that disabled artillery turrets and wagons weren't ordered properly.
+
+---------------------------------------------------------------------------------------------------
+Version: 1.1.12
+Date: 2021-02-13
+  Bugfixes:
+    - Fixed that "Circuit Checker" shortcut didn't work.
+    - Fixed some legacy code in case "Advanced Artillery Remotes" ever gets updated to 1.1.

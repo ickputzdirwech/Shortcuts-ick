@@ -78,8 +78,8 @@ if mods["AdvArtilleryRemotes"] and settings.startup["artillery-targeting-remote"
 		    name = "artillery-cluster-remote",
 				localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.artillery-cluster-remote"}},
 				order = "d[artillery]-b[artillery-cluster-remote]",
-				action = "create-blueprint-item",
-				item_to_create = "artillery-cluster-remote",
+				action = "spawn-item",
+				item_to_spawn = "artillery-cluster-remote",
 		    key_sequence = "",
 		  },
 		})
@@ -110,8 +110,8 @@ if mods["AdvArtilleryRemotes"] and settings.startup["artillery-targeting-remote"
 		    name = "artillery-discovery-remote",
 				localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.artillery-discovery-remote"}},
 				order = "d[artillery]-c[artillery-discovery-remote]",
-				action = "create-blueprint-item",
-				item_to_create = "artillery-discovery-remote",
+				action = "spawn-item",
+				item_to_spawn = "artillery-discovery-remote",
 		    key_sequence = "",
 		  },
 		})

@@ -301,7 +301,7 @@ if artillery_toggle == "both" or artillery_toggle == "artillery-turret" or artil
 		local damage = entity.damage_dealt
 		local health = entity.health
 		local new_entity = {}
-		
+
 		if entity.name == "entity-ghost" then
 			local ghost = string.sub(entity.ghost_name,10)
 			if string.sub(entity.ghost_name,1,9) ~= "disabled-" then
@@ -524,7 +524,6 @@ local allowed_items = {
 	"artillery-discovery-remote",
 	"artillery-jammer-tool",
 	"artillery-targeting-remote",
-	"check-circuit",
 	"discharge-defense-remote",
 	"ion-cannon-targeter",
 	"mirv-targeting-remote",
@@ -738,6 +737,8 @@ script.on_event(defines.events.on_lua_shortcut, function(event)
 		give_shortcut_item(player, "pump-selection-tool")
 	elseif prototype_name == "give-rail-signal-planner" then
 		give_shortcut_item(player, "rail-signal-planner")
+	elseif prototype_name == "check-circuit" then
+		give_shortcut_item(player, "circuit-checker")
 	elseif prototype_name == "cliff-fish-item-on-ground" then
 		 give_shortcut_item(player, "tree-killer")
 		 if	player.cursor_stack.name == "tree-killer" then
