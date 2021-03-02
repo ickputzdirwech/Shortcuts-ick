@@ -82,7 +82,7 @@ if settings.startup["tree-killer"].value == true then
 	})
 end
 
-if (mods["OutpostPlanner"] or mods["OutpostPlannerUpdated"] or mods["OutpostPlanner1-1"]) and (mods["PlannerCore"] or mods["PlannerCore1-1"]) and data.raw["selection-tool"]["outpost-builder"] and settings.startup["outpost-builder"].value == true then
+if (mods["OutpostPlanner"] or mods["OutpostPlannerUpdated"]) and mods["PlannerCore"] and data.raw["selection-tool"]["outpost-builder"] and settings.startup["outpost-builder"].value == true then
 
 	local planner = data.raw["selection-tool"]["outpost-builder"]
 	if planner.flags then
