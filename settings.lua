@@ -74,15 +74,15 @@ data:extend(
 ---------------------------------------------------------------------------------------------------
   {
     type = "bool-setting",
-    name = "disable-zoom",
-    localised_name = {"", {"gui-control-behavior-modes.enable-disable"}, " ", {"controls.alt-zoom-out"}},
+    name = "disable-flare",
+    localised_name = {"", {"gui-sync-mods-with-save.enable"}, " ", {"Shortcuts-ick.signal-flare"}},
     setting_type = "runtime-global",
     default_value = true,
   },
   {
     type = "bool-setting",
-    name = "disable-flare",
-    localised_name = {"", {"gui-control-behavior-modes.enable-disable"}, " ", {"Shortcuts-ick.signal-flare"}},
+    name = "disable-zoom",
+    localised_name = {"", {"gui-sync-mods-with-save.enable"}, " ", {"controls.alt-zoom-out"}},
     setting_type = "runtime-global",
     default_value = true,
   },
@@ -124,14 +124,6 @@ data:extend(
 	},
 	{
     setting_type = "startup",
-		name = "toggle-personal-logistic-requests",
-    localised_name = {"", {"Shortcuts-ick.basic"}, {"shortcut.toggle-personal-logistic-requests"}},
-    order = "a[basic]-f[toggle-personal-logistic-requests]",
-		type = "bool-setting",
-		default_value = true,
-	},
-	{
-    setting_type = "startup",
 		name = "big-zoom",
     localised_name = {"", {"Shortcuts-ick.basic"}, {"controls.alt-zoom-out"}},
     order = "a[basic]-g[big-zoom]",
@@ -140,14 +132,26 @@ data:extend(
 	},
 })
 
+if mods["PersonalLogisticsShortcut"] then
+else
+  data:extend({{
+    setting_type = "startup",
+    name = "toggle-personal-logistic-requests",
+    localised_name = {"", {"Shortcuts-ick.basic"}, {"shortcut.toggle-personal-logistic-requests"}},
+    order = "a[basic]-f[toggle-personal-logistic-requests]",
+    type = "bool-setting",
+    default_value = true,
+  }})
+end
+
 if mods["MaxRateCalculator"] then
   data:extend({{
-      setting_type = "startup",
-  		name = "max-rate-calculator",
-			localised_name = {"", {"Shortcuts-ick.basic"}, {"item-name.max-rate-calculator"}},
-      order = "a[basic]-h[max-rate-calculator]",
-      type = "bool-setting",
-  		default_value = true,
+    setting_type = "startup",
+		name = "max-rate-calculator",
+		localised_name = {"", {"Shortcuts-ick.basic"}, {"item-name.max-rate-calculator"}},
+    order = "a[basic]-h[max-rate-calculator]",
+    type = "bool-setting",
+		default_value = true,
   	}})
 end
 
@@ -166,26 +170,26 @@ data:extend(
 	},
 })
 
-if mods["OutpostPlanner"] or mods["OutpostPlannerUpdated"] or mods["OutpostPlanner1-1"] then
+if mods["OutpostPlanner"] or mods["OutpostPlannerUpdated"] then
   data:extend({{
-      setting_type = "startup",
-  		name = "outpost-builder",
-			localised_name = {"", "[color=blue]", {"item-name.blueprint"}, ": [/color]", {"item-name.outpost-builder"}},
-			order = "b[blueprint]-i[outpost-builder]",
-      type = "bool-setting",
-  		default_value = true,
-  	}})
+    setting_type = "startup",
+		name = "outpost-builder",
+		localised_name = {"", "[color=blue]", {"item-name.blueprint"}, ": [/color]", {"item-name.outpost-builder"}},
+		order = "b[blueprint]-i[outpost-builder]",
+    type = "bool-setting",
+		default_value = true,
+	}})
 end
 
 if mods["WellPlanner"] then
   data:extend({{
-      setting_type = "startup",
-  		name = "well-planner",
-			localised_name = {"", "[color=blue]", {"item-name.blueprint"}, ": [/color]", {"item-name.well-planner"}},
-			order = "b[blueprint]-j[well-planner]",
-      type = "bool-setting",
-  		default_value = true,
-  	}})
+    setting_type = "startup",
+		name = "well-planner",
+		localised_name = {"", "[color=blue]", {"item-name.blueprint"}, ": [/color]", {"item-name.well-planner"}},
+		order = "b[blueprint]-j[well-planner]",
+    type = "bool-setting",
+		default_value = true,
+	}})
 end
 
 

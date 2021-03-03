@@ -1,18 +1,18 @@
 ### DUCUMENTATION
 * new thumbnail and description
-* document known issues
 * releases on GitHub
 * picture on GitHub
+* Marc legacy code
 *
 
 ### GENERAL
-* categorise all shortcuts
-* add control info to all shortcuts
+* Option to categorise all shortcuts
+* Option to add control info to all shortcuts
+* Option for spidertron remote shortcut to generate an already assigned remote. (nearest spidertron or the spidertron the player is riding)
+* Overhaul control.lua
 *
 
 ### COMPATIBILITY
-* compatibility with updated personal logistics shortcut (seems to work fine)
-* Max rate calculator: make pull request with icon fix
 *
 
 ### BUGS:
@@ -27,7 +27,7 @@
 *
 
 ### LOCALE
-* locale for runtime settings
+* locale for runtime player settings
 * rework how localisations work
 * translation via factorio-mods-localization
 *
@@ -39,12 +39,11 @@
 *
 
 ### KNOWN ISSUES:
-* Disabled artillery/equipment is lost when settings change or mod is removed
-* Restart/reload needed for custom inputs to update [workaround: all localisation in .cfg]
-* Spidertron GUI doesn't update. Needs to be closed and opened again.
-* Closing train GUI doesn't update shortcut if the player doesn't sit in that specific locomotive or wagon.
+* Disabled artillery and equipment is lost when settings change or the mod is removed. Make sure to enable all artillery and equipment before you uninstall this mod or change related settings.
+* Custom input references in shortcut names only update when a map is loaded.
+* The spidertron and train setting shortcuts don't update immediately if you tick the checkboxes in the GUIs. Close the GUI and the shortcut will be in the correct state.
 * [Disabled equipment turns on when using jetpack](https://mods.factorio.com/mod/Shortcuts-ick/discussion/5fde6b8e5658c168553b8220)
-* Order of shortcuts is changed when the mod got disabled
+* The order of shortcuts will change if the mod was temporarily disabled.
 *
 
 ### IMPOSSIBLE REQUESTS

@@ -290,3 +290,17 @@ Date: 2021-02-13
   Bugfixes:
     - Fixed that "Circuit Checker" shortcut didn't work.
     - Fixed some legacy code in case "Advanced Artillery Remotes" ever gets updated to 1.1.
+
+---------------------------------------------------------------------------------------------------
+Version: 1.1.13
+Date: 2021-03-03
+  Changes:
+    - Not connected spidertron remotes will now be removed from the player inventory if you use the shortcut.
+    - If you connect a spidertron remote, spidertron remotes in the player inventory that are either connected with the same spidertron or are not connected will be removed.
+    - Improved wording of the map setting names.
+    - Shortcut for Outpost Planner selection tool is now directly implemented in Outpost Planner 1.1.
+    - Improved compatibility with Personal Logistics Shortcut mod.
+  Bugfixes:
+    - Fixed that the emergency locator beacon map setting didn't work properly.
+    - Fixed that spidertron shortcuts were not enabled after entering a spidertron.
+    - Fixed that train manual mode shortcut wasn't updated properly if mode was changed via the GUI.

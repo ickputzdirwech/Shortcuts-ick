@@ -417,7 +417,7 @@ local function toggle_light(player)
 end
 
 local function signal_flare(player)
-	if settings.global["disable-zoom"].value == true then
+	if settings.global["disable-flare"].value == true then
 		player.force.print({"", "[img=utility.danger_icon] [color=1,0.1,0.1]", {"entity-name.character"}, " " ..  player.name .. " [gps=" .. math.floor(player.position.x+0.5) .. "," .. math.floor(player.position.y+0.5) ..  "][/color] [img=utility.danger_icon]"})
 	else
 		player.print({"", {"error.error-message-box-title"}, ": ", {"technology-name.military"}, " ", {"entity-name.beacon"}, " ", {"gui-mod-info.status-disabled"}})
@@ -539,6 +539,12 @@ local function give_shortcut_item(player, prototype_name)
 	if game.item_prototypes[prototype_name] and player.clear_cursor() then
 		if prototype_name == "well-planner" and player.get_main_inventory().find_item_stack("well-planner") then
 			player.get_main_inventory().find_item_stack("well-planner").clear()
+		elseif prototype_name == "spidertron-remote" then
+			for i=1, #player.get_main_inventory() do
+				if player.get_main_inventory()[i].valid_for_read and player.get_main_inventory()[i].name == "spidertron-remote" and player.get_main_inventory()[i].connected_entity == nil then
+					player.get_main_inventory()[i].clear()
+				end
+			end
 		end
 		player.cursor_stack.set_stack({name = prototype_name})
 		if prototype_name == "tree-killer" then
@@ -547,15 +553,27 @@ local function give_shortcut_item(player, prototype_name)
 	end
 end
 
+-- CLEAR DUPLICATE SPIDERTRON REMOTES
+script.on_event(defines.events.on_player_configured_spider_remote, function(event)
+	local player = game.players[event.player_index]
+	local inventory = player.get_main_inventory()
+	for i=1, #inventory do
+		if inventory[i].valid_for_read and inventory[i].name == "spidertron-remote" and (inventory[i].connected_entity == event.vehicle or inventory[i].connected_entity == nil) then
+			inventory[i].clear()
+		end
+	end
+end)
+
 ---------------------------------------------------------------------------------------------------
 -- VEHICLE UPDATES
 ---------------------------------------------------------------------------------------------------
-local function update_shortcuts(player, player_vehicle, prototype_name)
-	player.set_shortcut_available(prototype_name, true)
-	if player_vehicle == true then
-		player.set_shortcut_toggled(prototype_name, true)
-	elseif player_vehicle == false then
-		player.set_shortcut_toggled(prototype_name, false)
+local function update_shortcuts(driver, vehicle_setting, prototype_name)
+	if driver.is_player() then --If driver is a player without character
+		driver.set_shortcut_available(prototype_name, true)
+		driver.set_shortcut_toggled(prototype_name, vehicle_setting)
+	elseif driver.player then --If driver is a character with player
+		driver.player.set_shortcut_available(prototype_name, true)
+		driver.player.set_shortcut_toggled(prototype_name, vehicle_setting)
 	end
 end
 
@@ -587,7 +605,7 @@ script.on_event(defines.events.on_player_driving_changed_state, function(event)
 		end
 	end
 	if setting["spidertron-automatic-targeting"].value == true then
-		if player.driving == true and vehicle == "spider-vehicle" then
+		if player.driving == true and player.vehicle.type == "spider-vehicle" then
 			update_shortcuts(player, player.vehicle.vehicle_automatic_targeting_parameters.auto_target_without_gunner, "targeting-without-gunner")
 			update_shortcuts(player, player.vehicle.vehicle_automatic_targeting_parameters.auto_target_with_gunner, "targeting-with-gunner")
 		end
@@ -609,40 +627,27 @@ end)
 
 script.on_event(defines.events.on_gui_closed, function(event)
 	if event.gui_type == 1 then
-		if event.entity.type == "spider-vehicle" and event.entity.get_driver() ~= nil then
-			local driver = event.entity.get_driver()
-			if driver.is_player() then --If driver is a player without character
-				if settings.startup["spidertron-logistics"].value == true then
-					update_shortcuts(driver, event.entity.enable_logistics_while_moving, "spidertron-logistics")
-				end
-				if settings.startup["spidertron-automatic-targeting"].value == true then
-					update_shortcuts(driver, event.entity.vehicle_automatic_targeting_parameters.auto_target_without_gunner, "targeting-without-gunner")
-					update_shortcuts(driver, event.entity.vehicle_automatic_targeting_parameters.auto_target_with_gunner, "targeting-with-gunner")
-				end
-			elseif driver.player then --If driver is a character with player
-				if settings.startup["spidertron-logistics"].value == true then
-					update_shortcuts(driver.player, event.entity.enable_logistics_while_moving, "spidertron-logistics")
-				end
-				if settings.startup["spidertron-automatic-targeting"].value == true then
-					update_shortcuts(driver.player, event.entity.vehicle_automatic_targeting_parameters.auto_target_without_gunner, "targeting-without-gunner")
-					update_shortcuts(driver.player, event.entity.vehicle_automatic_targeting_parameters.auto_target_with_gunner, "targeting-with-gunner")
-				end
+		local entity = event.entity
+		local type = entity.type
+		local setting = settings.startup
+		if type == "spider-vehicle" and entity.get_driver() then
+			local driver = entity.get_driver()
+			if setting["spidertron-logistics"].value then
+				update_shortcuts(driver, entity.enable_logistics_while_moving, "spidertron-logistics")
+			end
+			if setting["spidertron-automatic-targeting"].value then
+				update_shortcuts(driver, entity.vehicle_automatic_targeting_parameters.auto_target_without_gunner, "targeting-without-gunner")
+				update_shortcuts(driver, entity.vehicle_automatic_targeting_parameters.auto_target_with_gunner, "targeting-with-gunner")
 			end
 		end
-		if (event.entity.type == "locomotive" or event.entity.type == "cargo-wagon"  or event.entity.type == "fluid-wagon" or event.entity.type == "artillery-wagon") and event.entity.get_driver() ~= nil then
-			local driver = event.entity.get_driver()
-			if driver.is_player() then --If driver is a player without character
-				if settings.startup["train-mode-toggle"].value == true then
-					update_shortcuts(driver, event.entity.train.manual_mode, "train-mode-toggle")
-				end
-			elseif driver.player then --If driver is a character with player
-				if settings.startup["train-mode-toggle"].value == true then
-					update_shortcuts(driver.player, event.entity.train.manual_mode, "train-mode-toggle")
-				end
+		if setting["train-mode-toggle"].value and (type == "locomotive" or type == "cargo-wagon" or type == "fluid-wagon" or type == "artillery-wagon") and entity.train.passengers then
+			for _, driver in pairs(entity.train.passengers) do
+				update_shortcuts(driver, entity.train.manual_mode, "train-mode-toggle")
 			end
 		end
 	end
 end)
+
 
 ---------------------------------------------------------------------------------------------------
 -- ON LUA SHORTCUT
@@ -867,9 +872,10 @@ end
 -- VEHICLES
 if settings.startup["spidertron-remote"].value == "enabled" or settings.startup["spidertron-remote"].value == "enabled-hidden" then
 	script.on_event("spidertron-remote", function(event)
-		--if game.players[event.player_index].force.technologies["spidertron"].researched == true then
-			give_shortcut_item(game.players[event.player_index], "spidertron-remote")
-		--end
+		local player = game.players[event.player_index]
+		if player.is_shortcut_available("spidertron-remote") then
+			give_shortcut_item(player, "spidertron-remote")
+		end
 	end)
 end
 if settings.startup["spidertron-logistics"].value == true then
@@ -1028,10 +1034,6 @@ script.on_event(defines.events.on_player_created, function(event)
 		player.set_shortcut_available("ion-cannon-targeter", false)
 	end]]
 
-	--[[if tech["logistic-robotics"].researched == false and setting["toggle-personal-logistic-requests"].value == true then
-		player.set_shortcut_available("toggle-personal-logistic-requests", false)
-	end]]
-
 	if tech["personal-roboport-equipment"].researched == false and mods["PickerInventoryTools"] and mods["Nanobots"] then
 		player.set_shortcut_available("toggle-equipment-bot-chip-feeder", false)
 		player.set_shortcut_available("toggle-equipment-bot-chip-items", false)
@@ -1147,11 +1149,6 @@ script.on_event(defines.events.on_research_finished, function(event)
 
 		--[[if research == "orbital-ion-cannon" and (mods["Orbital Ion Cannon"]or mods["Kux-OrbitalIonCannon"]) and setting["ion-cannon-targeter"].value == true then
 			player.set_shortcut_available("ion-cannon-targeter", true)
-		end]]
-
-
-		--[[if research == "logistic-robotics" and setting["toggle-personal-logistic-requests"].value == true then
-			player.set_shortcut_available("toggle-personal-logistic-requests", true)
 		end]]
 
 		if research == "personal-roboport-equipment" and mods["PickerInventoryTools"] and mods["Nanobots"] then

@@ -22,7 +22,7 @@ if settings.startup["flashlight-toggle"].value == true then
 		{
 			type = "shortcut",
 			name = "flashlight-toggle",
-			localised_name = {"", {"Shortcuts-ick.basic"}, {"Shortcuts-ick.flashlight-toggle"}, {"Shortcuts-ick.control-flashlight-toggle"}},
+			localised_name = {"", {"Shortcuts-ick.basic"}, {"Shortcuts-ick.flashlight-toggle"}, {"Shortcuts-ick.control", "flashlight-toggle"}},
 			order = "a[basic]-b[flashlight-toggle]",
 			--associated_control_input = "flashlight-toggle",
 			action = "lua",
@@ -76,7 +76,7 @@ if settings.startup["signal-flare"].value == true then
 		{
 			type = "shortcut",
 			name = "signal-flare",
-			localised_name = {"", {"Shortcuts-ick.basic"}, {"Shortcuts-ick.signal-flare"}, {"Shortcuts-ick.control-signal-flare"}},
+			localised_name = {"", {"Shortcuts-ick.basic"}, {"Shortcuts-ick.signal-flare"}, {"Shortcuts-ick.control", "signal-flare"}},
 			order = "a[basic]-c[signal-flare]",
 			--associated_control_input = "signal-flare",
 			action = "lua",
@@ -115,7 +115,7 @@ if settings.startup["draw-grid"].value == true then
 		{
 			type = "shortcut",
 			name = "draw-grid",
-			localised_name = {"", {"Shortcuts-ick.basic"}, {"gui.grid"}, {"Shortcuts-ick.control-draw-grid"}},
+			localised_name = {"", {"Shortcuts-ick.basic"}, {"gui.grid"}, {"Shortcuts-ick.control", "draw-grid"}},
 			order = "a[basic]-d[draw-grid]",
 			--associated_control_input = "draw-grid",
 			action = "lua",
@@ -154,7 +154,7 @@ if settings.startup["rail-block-visualization-toggle"].value == true then
 		{
 			type = "shortcut",
 			name = "rail-block-visualization-toggle",
-			localised_name = {"", {"Shortcuts-ick.basic"}, {"gui-interface-settings.show-rail-block-visualization"}, {"Shortcuts-ick.control-rail-block-visualization-toggle"}},
+			localised_name = {"", {"Shortcuts-ick.basic"}, {"gui-interface-settings.show-rail-block-visualization"}, {"Shortcuts-ick.control", "rail-block-visualization-toggle"}},
 			order = "a[basic]-e[rail-block-visualization-toggle]",
 			--associated_control_input = "rail-block-visualization-toggle",
 			action = "lua",
@@ -206,7 +206,7 @@ if settings.startup["rail-block-visualization-toggle"].value == true then
 	})
 end
 
-if settings.startup["toggle-personal-logistic-requests"].value == true then
+if settings.startup["toggle-personal-logistic-requests"] and settings.startup["toggle-personal-logistic-requests"].value == true then
 	-- taken from mods.factorio.com/mod/PersonalLogisticsShortcut from Haxtorio, modified by ickputzdirwech
 	data:extend(
 	{
@@ -215,7 +215,6 @@ if settings.startup["toggle-personal-logistic-requests"].value == true then
 	    name = "toggle-personal-logistic-requests",
 	    order = "a[basic]-f[toggle-personal-logistic-requests]",
 	    action = "toggle-personal-logistic-requests",
-	    localised_name = {"", {"Shortcuts-ick.basic"}, {"shortcut.toggle-personal-logistic-requests"}},
 	    associated_control_input = "toggle-personal-logistic-requests",
 			technology_to_unlock = "logistic-robotics",
 	    icon =
@@ -265,7 +264,7 @@ if settings.startup["big-zoom"].value == true then
 		{
 			type = "shortcut",
 			name = "big-zoom",
-			localised_name = {"", {"Shortcuts-ick.basic"}, {"controls.alt-zoom-out"}, {"Shortcuts-ick.control-big-zoom"}},
+			localised_name = {"", {"Shortcuts-ick.basic"}, {"controls.alt-zoom-out"}, {"Shortcuts-ick.control", "big-zoom"}},
 			order = "a[basic]-g[big-zoom]",
 			--associated_control_input = "big-zoom",
 			action = "lua",
@@ -310,7 +309,7 @@ if mods["MaxRateCalculator"] and data.raw["selection-tool"]["max-rate-calculator
 		{
 			type = "shortcut",
 			name = "max-rate-shortcut",
-			localised_name = {"", {"Shortcuts-ick.basic"}, {"item-name.max-rate-calculator"}, {"Shortcuts-ick.control-max-rate-shortcut"}},
+			localised_name = {"", {"Shortcuts-ick.basic"}, {"item-name.max-rate-calculator"}, {"Shortcuts-ick.control", "marc_hotkey"}},
 			order = "a[basic]-h[max-rate-shortcut]",
 			--associated_control_input = "marc_hotkey",
 			action = "spawn-item",

@@ -13,6 +13,14 @@ require("prototypes.shortcuts-artillery-updates")
 
 
 ---------------------------------------------------------------------------------------------------
+-- NICE LOCALISATION
+---------------------------------------------------------------------------------------------------
+if data.raw.shortcut["toggle-personal-logistic-requests"] then
+	data.raw.shortcut["toggle-personal-logistic-requests"].localised_name = {"", {"Shortcuts-ick.basic"}, {"shortcut.toggle-personal-logistic-requests"}}
+end
+
+
+---------------------------------------------------------------------------------------------------
 -- REMOTE HIDING
 ---------------------------------------------------------------------------------------------------
 local function hide_the_remote(recipe, technology, item)
@@ -86,7 +94,7 @@ if mods["MIRV"] and data.raw.capsule["mirv-targeting-remote"] and data.raw.techn
 end
 
 
-if (mods["OutpostPlanner"] or mods["OutpostPlannerUpdated"] or mods["OutpostPlanner1-1"]) and (mods["PlannerCore"] or mods["PlannerCore1-1"]) and data.raw["selection-tool"]["outpost-builder"] and settings.startup["outpost-builder"].value == true then
+if (mods["OutpostPlanner"] or mods["OutpostPlannerUpdated"]) and mods["PlannerCore"] and data.raw["selection-tool"]["outpost-builder"] and settings.startup["outpost-builder"].value == true then
 	hide_the_remote("outpost-builder", nil, data.raw["selection-tool"]["outpost-builder"])
 end
 

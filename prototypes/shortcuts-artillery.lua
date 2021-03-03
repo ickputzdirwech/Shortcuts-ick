@@ -20,7 +20,7 @@ if settings.startup["artillery-targeting-remote"].value == true then
 		{
 			type = "shortcut",
 			name = "artillery-targeting-remote",
-			localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.artillery-targeting-remote"}, {"Shortcuts-ick.control-artillery-targeting-remote"}},
+			localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.artillery-targeting-remote"}, {"Shortcuts-ick.control", "artillery-targeting-remote"}},
 			order = "d[artillery]-a[artillery-targeting-remote]",
 			--associated_control_input = "artillery-targeting-remote",
 			action = "lua",
@@ -59,7 +59,7 @@ if mods["AdvArtilleryRemotes"] and settings.startup["artillery-targeting-remote"
 			{
 				type = "shortcut",
 				name = "artillery-cluster-remote",
-				localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.artillery-cluster-remote"}, {"Shortcuts-ick.control-artillery-cluster-remote"}},
+				localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.artillery-cluster-remote"}, {"Shortcuts-ick.control", "artillery-cluster-remote"}},
 				order = "d[artillery]-b[artillery-cluster-remote]",
 				--associated_control_input = "artillery-cluster-remote",
 				action = "lua",
@@ -91,7 +91,7 @@ if mods["AdvArtilleryRemotes"] and settings.startup["artillery-targeting-remote"
 			{
 				type = "shortcut",
 				name = "artillery-discovery-remote",
-				localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.artillery-discovery-remote"}, {"Shortcuts-ick.control-artillery-discovery-remote"}},
+				localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.artillery-discovery-remote"}, {"Shortcuts-ick.control", "artillery-discovery-remote"}},
 				order = "d[artillery]-c[artillery-discovery-remote]",
 				--associated_control_input = "artillery-discovery-remote",
 				action = "lua",
@@ -134,7 +134,7 @@ if artillery_toggle == "both" or artillery_toggle == "artillery-wagon" or artill
 		{
 			type = "shortcut",
 			name = "artillery-jammer-tool",
-			localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.artillery-jammer-tool"}, {"Shortcuts-ick.control-artillery-jammer-tool"}},
+			localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.artillery-jammer-tool"}, {"Shortcuts-ick.control", "artillery-jammer-tool"}},
 			order = "d[artillery]-d[artillery-jammer-tool]",
 			--associated_control_input = "artillery-jammer-tool",
 			action = "lua",
@@ -193,7 +193,7 @@ if mods["MIRV"] and data.raw.capsule["mirv-targeting-remote"] and settings.start
 		{
 			type = "shortcut",
 			name = "mirv-targeting-remote",
-			localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.mirv-targeting-remote"}, {"Shortcuts-ick.control-mirv-targeting-remote"}},
+			localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.mirv-targeting-remote"}, {"Shortcuts-ick.control", "mirv-targeting-remote"}},
 			order = "d[artillery]-f[mirv-targeting-remote]",
 			--associated_control_input = "mirv-targeting-remote",
 			action = "lua",
