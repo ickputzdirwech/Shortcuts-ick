@@ -27,7 +27,6 @@
 *
 
 ### LOCALE
-* locale for runtime player settings
 * rework how localisations work
 * translation via factorio-mods-localization
 *

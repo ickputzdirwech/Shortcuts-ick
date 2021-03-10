@@ -304,3 +304,13 @@ Date: 2021-03-03
     - Fixed that the emergency locator beacon map setting didn't work properly.
     - Fixed that spidertron shortcuts were not enabled after entering a spidertron.
     - Fixed that train manual mode shortcut wasn't updated properly if mode was changed via the GUI.
+
+---------------------------------------------------------------------------------------------------
+Version: 1.1.14
+Date: 2021-03-10
+  Changes:
+    - Added a setting for the primary grid size, default 32 (size of a chunk).
+    - Reworked the per player settings regarding the grid.
+  Bugfixes:
+    - Fixed that the primary grid couldn't be centred around the player.
+    - Fixed that setting the grid line width to 0 would still draw a grid.

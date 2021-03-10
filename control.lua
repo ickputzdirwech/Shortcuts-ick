@@ -435,53 +435,58 @@ local function draw_grid(player_index)
 		-- Opts
 		local settings = settings.get_player_settings(player)
 		local radius = settings["grid-radius"].value
+		local chunk_size = settings["grid-chunk-size"].value
 		local step = settings["grid-step"].value
 		local thinn_width = settings["grid-line-width"].value
 		local thicc_width = settings["grid-chunk-line-width"].value
-		local chunk_align = settings["grid-chunk-align"].value
-		local ground_grid = settings["grid-ground"].value
+
+		local ground_grid = false
+		if settings["grid-ground"].value == "ground" then
+			ground_grid = true
+		end
 
 		local center_x = math.floor(player.position.x)
 		local center_y = math.floor(player.position.y)
-		if chunk_align == true then
-			center_x = math.floor(player.position.x/32)*32
-			center_y = math.floor(player.position.y/32)*32
+		if settings["grid-chunk-align"].value == "chunk" then
+			center_x = math.floor(player.position.x/chunk_size)*chunk_size
+			center_y = math.floor(player.position.y/chunk_size)*chunk_size
 		end
-		-- game.print(center_x .. ", " .. center_y)
-		for i=-radius,(radius),step do
-			if (center_x+i) % 32 == 0 then
+		for i = -radius, radius, step do
+			local width = thinn_width
+			if i % chunk_size == 0 then
 				width = thicc_width
-			else
-				width = thinn_width
 			end
-			local line = rendering.draw_line{
-				color = {r = 0, g = 0, b = 0, a = 1},
-				width = width,
-				from = {center_x+i,center_y+radius},
-				to = {center_x+i,center_y-radius},
-				surface = player.surface,
-				players = {player},
-				draw_on_ground = ground_grid
-			}
-			global.shortcuts_grid[player_index][#global.shortcuts_grid[player_index]+1] = line
+			if width > 0 then
+				local line = rendering.draw_line{
+					color = {r = 0, g = 0, b = 0, a = 1},
+					width = width,
+					from = {center_x+i,center_y+radius},
+					to = {center_x+i,center_y-radius},
+					surface = player.surface,
+					players = {player},
+					draw_on_ground = ground_grid
+				}
+				global.shortcuts_grid[player_index][#global.shortcuts_grid[player_index]+1] = line
+			end
 
-			if (center_y+i) % 32 == 0 then
+			local width = thinn_width
+			if i % chunk_size == 0 then
 				width = thicc_width
-			else
-				width = thinn_width
 			end
-			local line = rendering.draw_line{
-				color = {r = 0, g = 0, b = 0, a = 1},
-				width = width,
-				from = {center_x+radius,center_y+i},
-				to = {center_x-radius,center_y+i},
-				-- from = {center_x+radius,center_y+i}, -- 	this looks pretty cool (although not a grid)
-				-- to = {center_x-i,center_y+radius},
-				surface = player.surface,
-				players = {player},
-				draw_on_ground = ground_grid
-			}
-			global.shortcuts_grid[player_index][#global.shortcuts_grid[player_index]+1] = line
+			if width > 0 then
+				local line = rendering.draw_line{
+					color = {r = 0, g = 0, b = 0, a = 1},
+					width = width,
+					from = {center_x+radius,center_y+i},
+					to = {center_x-radius,center_y+i},
+					-- from = {center_x+radius,center_y+i}, -- 	this looks pretty cool (although not a grid)
+					-- to = {center_x-i,center_y+radius},
+					surface = player.surface,
+					players = {player},
+					draw_on_ground = ground_grid
+				}
+				global.shortcuts_grid[player_index][#global.shortcuts_grid[player_index]+1] = line
+			end
 		end
 	else
 		player.set_shortcut_toggled("draw-grid", false)

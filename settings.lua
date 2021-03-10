@@ -14,59 +14,72 @@ data:extend(
 -- PER PLAYER
 ---------------------------------------------------------------------------------------------------
   {
-    type = "double-setting",
-    name = "zoom-level",
-	  localised_name = {"", {"controls.alt-zoom-out"}, " ", {"description.module-bonus-limit"}},
-    setting_type = "runtime-per-user",
-    default_value = 0.1,
-	  minimum_value = 0.0,
-	  maximum_value = 16.0,
-  },
-  {
-    type = "double-setting",
-    name = "grid-chunk-line-width",
-	  localised_name = {"", {"gui.grid"}, " Chunk ", {"gui-map-editor-tool.line-selection"}, " ", {"gui-map-generator.map-width"}},
-    setting_type = "runtime-per-user",
-    default_value = 5,
-	  minimum_value = 0.0
-  },
-  {
-    type = "double-setting",
-    name = "grid-line-width",
-	  localised_name = {"", {"gui.grid"}, " ", {"gui-map-editor-tool.line-selection"}, " ", {"gui-map-generator.map-width"}},
-    setting_type = "runtime-per-user",
-    default_value = 0.25,
-	  minimum_value = 0.0
-  },
-  {
-    type = "bool-setting",
+    type = "string-setting",
     name = "grid-chunk-align",
-	  localised_name = {"", {"gui.grid"}, " ", {"gui-map-editor-clone-editor.snap-to-chunk"}},
+    order = "a[grid]-a[chunk-align]",
     setting_type = "runtime-per-user",
-    default_value = true
-  },
-  {
-    type = "bool-setting",
-    name = "grid-ground",
-    localised_name = {"", {"gui-graphics-settings.graphics-quality-low"}, " ", {"gui.grid"}},
-    setting_type = "runtime-per-user",
-    default_value = true
+    allowed_values = {"chunk", "player"},
+    default_value = "chunk"
   },
   {
     type = "int-setting",
     name = "grid-radius",
-    localised_name = {"", {"gui.grid"}, " ", {"description.range"}},
+    order = "a[grid]-b[radius]",
     setting_type = "runtime-per-user",
     default_value = 128,
-    minimum_value = 0
+    minimum_value = 1
+  },
+  {
+    type = "string-setting",
+    name = "grid-ground",
+    order = "a[grid]-c[ground]",
+    setting_type = "runtime-per-user",
+    allowed_values = {"ground", "above"},
+    default_value = "ground"
+  },
+  {
+    type = "int-setting",
+    name = "grid-chunk-size",
+    order = "a[grid]-d[chunk-size]",
+    setting_type = "runtime-per-user",
+    default_value = 32,
+    minimum_value = 1
+  },
+  {
+    type = "double-setting",
+    name = "grid-chunk-line-width",
+    order = "a[grid]-e[chunk-line-width]",
+    setting_type = "runtime-per-user",
+    default_value = 5,
+	  minimum_value = 0.0,
+	  maximum_value = 32.0
   },
   {
     type = "int-setting",
     name = "grid-step",
-    localised_name = {"", {"gui.grid"}, " ", {"gui-map-generator.scale"}},
+    order = "a[grid]-f[step]",
     setting_type = "runtime-per-user",
     default_value = 1,
-    minimum_value = 0
+    minimum_value = 1
+  },
+  {
+    type = "double-setting",
+    name = "grid-line-width",
+    order = "a[grid]-g[line-width]",
+    setting_type = "runtime-per-user",
+    default_value = 0.25,
+	  minimum_value = 0.0,
+	  maximum_value = 32.0
+  },
+  {
+    type = "double-setting",
+    name = "zoom-level",
+    order = "b[zoom]",
+	  localised_name = {"", {"controls.alt-zoom-out"}, " ", {"description.module-bonus-limit"}},
+    setting_type = "runtime-per-user",
+    default_value = 0.1,
+	  minimum_value = 0.0,
+	  maximum_value = 20.0
   },
 
 ---------------------------------------------------------------------------------------------------
