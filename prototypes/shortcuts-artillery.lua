@@ -224,3 +224,33 @@ if mods["MIRV"] and data.raw.capsule["mirv-targeting-remote"] and settings.start
 	  },
 	})
 end
+
+if mods["landmine-thrower"] and data.raw.capsule["landmine-thrower-remote"] and settings.startup["landmine-thrower-remote"].value == true then
+	data:extend(
+	{
+		{
+			type = "shortcut",
+			name = "landmine-thrower-remote",
+			localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.landmine-thrower-remote"}, {"Shortcuts-ick.control", "landmine-thrower-remote"}},
+			order = "d[artillery]-g[landmine-thrower-remote]",
+			--associated_control_input = "landmine-thrower-remote",
+			action = "lua",
+			style = "red",
+			icon =
+			{
+				filename = "__Shortcuts-ick__/graphics/landmine-thrower-remote-x24-white.png",
+				priority = "extra-high-no-scale",
+				size = 24,
+				scale = 0.5,
+				flags = {"gui-icon"}
+			},
+		},
+	  {
+			type = "custom-input",
+	    name = "landmine-thrower-remote",
+			localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.landmine-thrower-remote"}},
+			order = "d[artillery]-g[landmine-thrower-remote]",
+	    key_sequence = "",
+	  },
+	})
+end

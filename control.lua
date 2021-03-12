@@ -531,6 +531,7 @@ local allowed_items = {
 	"artillery-targeting-remote",
 	"discharge-defense-remote",
 	"ion-cannon-targeter",
+	"landmine-thrower-remote",
 	"mirv-targeting-remote",
 	"path-remote-control",
 	"unit-remote-control",
@@ -1018,6 +1019,10 @@ script.on_event(defines.events.on_player_created, function(event)
 	--	player.set_shortcut_available("discharge-defense-remote", false)
 	--end
 
+	if mods["landmine-thrower"] and tech["landmine-thrower"] and setting["landmine-thrower-remote"].value == true then
+		player.set_shortcut_available("landmine-thrower-remote", false)
+	end
+
 	if mods["MIRV"] and tech["mirv-technology"].researched == false and setting["mirv-targeting-remote"].value == true then
 		player.set_shortcut_available("mirv-targeting-remote", false)
 	end
@@ -1134,6 +1139,11 @@ script.on_event(defines.events.on_research_finished, function(event)
 		--if research == "discharge-defense-equipment" and setting["discharge-defense-remote"].value == true then
 		--	player.set_shortcut_available("discharge-defense-remote", true)
 		--end
+
+
+		if research == "landmine-thrower" and mods["landmine-thrower"] and setting["landmine-thrower-remote"].value == true then
+			player.set_shortcut_available("landmine-thrower-remote", true)
+		end
 
 		if research == "mirv-technology" and mods["MIRV"] and setting["mirv-targeting-remote"].value == true then
 			player.set_shortcut_available("mirv-targeting-remote", true)

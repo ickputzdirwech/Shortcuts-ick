@@ -288,6 +288,17 @@ if mods["MIRV"] then
   }})
 end
 
+if mods["landmine-thrower"] then
+  data:extend({{
+    setting_type = "startup",
+		name = "landmine-thrower-remote",
+		localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.landmine-thrower-remote"}},
+		order = "d[artillery]-g[landmine-thrower-remote]",
+    type = "bool-setting",
+		default_value = true,
+  }})
+end
+
 ---------------------------------------------------------------------------------------------------
 -- STARTUP: VEHICLES
 ---------------------------------------------------------------------------------------------------

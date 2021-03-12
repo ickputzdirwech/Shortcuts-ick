@@ -46,6 +46,7 @@ You can download the mod on the [mod portal](https://mods.factorio.com/mod/Short
 * Artillery cannon toggle
 * MOD: Orbital ion cannon targeter
 * MOD: M.I.R.V. targeting remote
+* MOD: Landmine thrower
 
 
 **Vehicle**

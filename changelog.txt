@@ -314,3 +314,11 @@ Date: 2021-03-10
   Bugfixes:
     - Fixed that the primary grid couldn't be centred around the player.
     - Fixed that setting the grid line width to 0 would still draw a grid.
+
+---------------------------------------------------------------------------------------------------
+Version: 1.1.15
+Date: 2021-03-12
+  Features:
+    - New shortcut: "Artillery: Land mine thrower targeting remote" from "Land Mine Thrower" mod.
+  Bugfixes:
+    - Fixed that the spidertron remote recipe wasn't hidden.

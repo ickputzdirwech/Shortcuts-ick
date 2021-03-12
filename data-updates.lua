@@ -59,9 +59,9 @@ if settings.startup["discharge-defense-remote"].value == true then
 	hide_the_remote("discharge-defense-remote", "discharge-defense-equipment", data.raw.capsule["discharge-defense-remote"])
 end
 
---[[if settings.startup["spidertron-remote"].value == "enabled" then
+if settings.startup["spidertron-remote"].value == "enabled" then
 	hide_the_remote("spidertron-remote", "spidertron")
-end]]
+end
 if settings.startup["spidertron-remote"].value == "enabled-hidden" then
 	hide_the_remote("spidertron-remote", "spidertron", data.raw["spidertron-remote"]["spidertron-remote"])
 end
@@ -91,6 +91,10 @@ end
 
 if mods["MIRV"] and data.raw.capsule["mirv-targeting-remote"] and data.raw.technology["mirv-technology"] and settings.startup["mirv-targeting-remote"].value == true then
 	hide_the_remote("mirv-targeting-remote", "mirv-technology", data.raw.capsule["mirv-targeting-remote"])
+end
+
+if mods["landmine-thrower"] and data.raw.capsule["landmine-thrower-remote"] and data.raw.technology["landmine-thrower"] and settings.startup["landmine-thrower-remote"].value == true then
+	hide_the_remote("landmine-thrower-remote", "landmine-thrower", data.raw.capsule["landmine-thrower-remote"])
 end
 
 
