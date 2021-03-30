@@ -17,7 +17,7 @@ if settings.startup["belt-immunity-equipment"].value == true then
 		{
 			type = "shortcut",
 			name = "belt-immunity-equipment",
-			localised_name = {"", {"Shortcuts-ick.equipment"}, {"item-name.belt-immunity-equipment"}, {"Shortcuts-ick.control", "belt-immunity-equipment"}},
+			localised_name = {"", {"Shortcuts-ick.equipment"}, {"item-name.belt-immunity-equipment"}, " ", {"Shortcuts-ick.control", "belt-immunity-equipment"}},
 			order = "c[equipment-c[belt-immunity-equipment]",
 			--associated_control_input = "belt-immunity-equipment",
 			action = "lua",
@@ -72,7 +72,7 @@ if settings.startup["discharge-defense-remote"].value == true then
 		{
 			type = "shortcut",
 			name = "discharge-defense-remote",
-			localised_name = {"", {"Shortcuts-ick.equipment"}, {"item-name.discharge-defense-remote"}, {"Shortcuts-ick.control", "discharge-defense-remote"}},
+			localised_name = {"", {"Shortcuts-ick.equipment"}, {"item-name.discharge-defense-remote"}, " ", {"Shortcuts-ick.control", "discharge-defense-remote"}},
 			order = "c[equipment]-d[discharge-defense-remote]",
 			--associated_control_input = "discharge-defense-remote",
 			action = "lua",
@@ -111,7 +111,7 @@ if settings.startup["night-vision-equipment"].value == true then
 		{
 			type = "shortcut",
 			name = "night-vision-equipment",
-			localised_name = {"", {"Shortcuts-ick.equipment"}, {"technology-name.night-vision-equipment"}, {"Shortcuts-ick.control", "night-vision-equipment"}},
+			localised_name = {"", {"Shortcuts-ick.equipment"}, {"technology-name.night-vision-equipment"}, " ", {"Shortcuts-ick.control", "night-vision-equipment"}},
 			order = "c[equipment]-e[night-vision-equipment]",
 			--associated_control_input = "night-vision-equipment",
 			action = "lua",
@@ -166,7 +166,7 @@ if settings.startup["active-defense-equipment"].value == true then
 		{
 			type = "shortcut",
 			name = "active-defense-equipment",
-			localised_name = {"", {"Shortcuts-ick.equipment"}, {"equipment-name.personal-laser-defense-equipment"}, {"Shortcuts-ick.control", "active-defense-equipment"}},
+			localised_name = {"", {"Shortcuts-ick.equipment"}, {"equipment-name.personal-laser-defense-equipment"}, " ", {"Shortcuts-ick.control", "active-defense-equipment"}},
 			order = "c[equipment]-f[active-defense-equipment]",
 			--associated_control_input = "active-defense-equipment",
 			action = "lua",

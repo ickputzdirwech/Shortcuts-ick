@@ -96,7 +96,7 @@ if (mods["OutpostPlanner"] or mods["OutpostPlannerUpdated"]) and mods["PlannerCo
 		{
 			type = "shortcut",
 			name = "outpost-builder",
-			localised_name = {"", "[color=blue]", {"item-name.blueprint"}, ": [/color]", {"item-name.outpost-builder"}, {"Shortcuts-ick.control", "outpost-builder"}},
+			localised_name = {"", "[color=blue]", {"item-name.blueprint"}, ": [/color]", {"item-name.outpost-builder"}, " ", {"Shortcuts-ick.control", "outpost-builder"}},
 			order = "b[blueprint]-i[outpost-builder]",
 			--associated_control_input = "outpost-builder",
 			action = "spawn-item",
@@ -137,7 +137,7 @@ if mods["WellPlanner"] and data.raw["selection-tool"]["well-planner"] and settin
 		{
 			type = "shortcut",
 			name = "well-planner",
-			localised_name = {"", "[color=blue]", {"item-name.blueprint"}, ": [/color]", {"item-name.well-planner"}, {"Shortcuts-ick.control", "well-planner"}},
+			localised_name = {"", "[color=blue]", {"item-name.blueprint"}, ": [/color]", {"item-name.well-planner"}, " ", {"Shortcuts-ick.control", "well-planner"}},
 			order = "b[blueprint]-j[well-planner]",
 			--associated_control_input = "well-planner",
 			action = "lua",

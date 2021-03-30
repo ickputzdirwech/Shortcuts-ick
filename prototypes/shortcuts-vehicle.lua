@@ -19,7 +19,7 @@ if settings.startup["spidertron-remote"].value == "enabled" or settings.startup[
 		{
 			type = "shortcut",
 			name = "spidertron-remote",
-			localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"item-name.spidertron-remote"}, {"Shortcuts-ick.control", "spidertron-remote"}},
+			localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"item-name.spidertron-remote"}, " ", {"Shortcuts-ick.control", "spidertron-remote"}},
 			order = "e[vehicle]-a[spidertron-remote]",
 			--associated_control_input = "spidertron-remote",
 			action = "lua",
@@ -58,7 +58,7 @@ if settings.startup["spidertron-logistics"].value == true then
 		{
 			type = "shortcut",
 			name = "spidertron-logistics",
-			localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"entity-name.spidertron"}, " ", {"gui.enable-logistics-while-moving"}, {"Shortcuts-ick.control", "spidertron-logistics"}},
+			localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"entity-name.spidertron"}, " ", {"gui.enable-logistics-while-moving"}, " ", {"Shortcuts-ick.control", "spidertron-logistics"}},
 			order = "e[vehicle]-b[spidertron-logistics]",
 			--associated_control_input = "spidertron-logistics",
 			action = "lua",
@@ -100,7 +100,7 @@ if settings.startup["spidertron-automatic-targeting"].value == true then
 		{
 			type = "shortcut",
 			name = "targeting-without-gunner",
-			localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"entity-name.spidertron"}, " ", {"gui-car.automatic-targeting"}, " ", {"gui-car.without-gunner"}, {"Shortcuts-ick.control", "targeting-without-gunner"}},
+			localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"entity-name.spidertron"}, " ", {"gui-car.automatic-targeting"}, " ", {"gui-car.without-gunner"}, " ", {"Shortcuts-ick.control", "targeting-without-gunner"}},
 			order = "e[vehicle]-c[targeting-without-gunner]",
 			--associated_control_input = "targeting-without-gunner",
 			action = "lua",
@@ -126,7 +126,7 @@ if settings.startup["spidertron-automatic-targeting"].value == true then
 		{
 			type = "shortcut",
 			name = "targeting-with-gunner",
-			localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"entity-name.spidertron"}, " ", {"gui-car.automatic-targeting"}, " ", {"gui-car.with-gunner"}, {"Shortcuts-ick.control", "targeting-with-gunner"}},
+			localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"entity-name.spidertron"}, " ", {"gui-car.automatic-targeting"}, " ", {"gui-car.with-gunner"}, " ", {"Shortcuts-ick.control", "targeting-with-gunner"}},
 			order = "e[vehicle]-d[targeting-with-gunner]",
 			--associated_control_input = "targeting-with-gunner",
 			action = "lua",
@@ -159,7 +159,7 @@ if settings.startup["train-mode-toggle"].value == true then
 		{
 			type = "shortcut",
 			name = "train-mode-toggle",
-			localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"tooltip-category.train"}, " ", {"gui-trains.manual-mode"}, {"Shortcuts-ick.control", "train-mode-toggle"}},
+			localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"tooltip-category.train"}, " ", {"gui-trains.manual-mode"}, " ", {"Shortcuts-ick.control", "train-mode-toggle"}},
 			order = "e[vehicle]-e[train-mode-toggle]",
 			--associated_control_input = "train-mode-toggle",
 			action = "lua",
@@ -201,7 +201,7 @@ if mods["aai-programmable-vehicles"] and settings.startup["aai-remote-controls"]
 			{
 				type = "shortcut",
 				name = "unit-remote-control",
-				localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"item-name.unit-remote-control"}, {"Shortcuts-ick.control", "unit-remote-control"}},
+				localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"item-name.unit-remote-control"}, " ", {"Shortcuts-ick.control", "unit-remote-control"}},
 				order = "e[vehicle]-f[unit-remote-control]",
 				--associated_control_input = "create-toggle-controller",
 				action = "lua",
@@ -232,7 +232,7 @@ if mods["aai-programmable-vehicles"] and settings.startup["aai-remote-controls"]
 			{
 				type = "shortcut",
 				name = "path-remote-control",
-				localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"item-name.path-remote-control"}, {"Shortcuts-ick.control", "unit-remote-control"}},
+				localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"item-name.path-remote-control"}, " ", {"Shortcuts-ick.control", "unit-remote-control"}},
 				order = "e[vehicle]-g[path-remote-control]",
 				--associated_control_input = "create-toggle-controller",
 				action = "lua",
@@ -265,7 +265,7 @@ if mods["VehicleWagon2"] and settings.startup["winch"].value == true then
     {
       type = "shortcut",
       name = "winch",
-			localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"item-name.winch"}, {"Shortcuts-ick.control", "winch"}},
+			localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"item-name.winch"}, " ", {"Shortcuts-ick.control", "winch"}},
       order = "e[vehicle]-h[winch]",
 			--associated_control_input = "winch",
       action = "lua",

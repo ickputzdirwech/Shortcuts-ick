@@ -1,9 +1,10 @@
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.16
-Date: 2021-03-21
+Date: 2021-03-30
   Changes:
     - The cliff/fish/item on ground deconstruction planner now picks up modded entities.
     - New icon for the cliff/fish/item on ground deconstruction planner.
+    - Translations are now made on Crowdin (https://crowdin.com/project/factorio-mods-localization).
     - Changed the order of the changelog.
 
 ---------------------------------------------------------------------------------------------------

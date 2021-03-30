@@ -20,7 +20,7 @@ if mods["Orbital Ion Cannon"] and data.raw.item["ion-cannon-targeter"] and setti
 		{
 			type = "shortcut",
 			name = "ion-cannon-targeter",
-			localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.ion-cannon-targeter"}, {"Shortcuts-ick.control", "ion-cannon-targeter"}},
+			localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.ion-cannon-targeter"}, " ", {"Shortcuts-ick.control", "ion-cannon-targeter"}},
 			order = "d[artillery]-e[ion-cannon-targeter]",
 			--associated_control_input = "ion-cannon-targeter",
 			action = "lua",
