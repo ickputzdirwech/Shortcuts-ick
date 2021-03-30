@@ -65,7 +65,7 @@ if settings.startup["tree-killer"].value == true then
 			style = "red",
 			icon =
 			{
-				filename = "__Shortcuts-ick__/graphics/cliff-fish-item-on-ground-x32-white.png",
+				filename = "__Shortcuts-ick__/graphics/cliff-fish-item-on-ground-x32-white-new.png",
 				priority = "extra-high-no-scale",
 				size = 32,
 				scale = 0.5,

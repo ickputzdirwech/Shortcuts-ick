@@ -754,7 +754,13 @@ script.on_event(defines.events.on_lua_shortcut, function(event)
 		 give_shortcut_item(player, "tree-killer")
 		 if	player.cursor_stack.name == "tree-killer" then
 			player.cursor_stack.trees_and_rocks_only = false
-			player.cursor_stack.entity_filters = {game.entity_prototypes["cliff"].name, game.entity_prototypes["fish"].name, game.entity_prototypes["item-on-ground"].name}
+			local filters = {}
+			for _, type in pairs({"cliff", "fish", "item-on-ground"}) do
+				for _, entity in pairs(game.get_filtered_entity_prototypes({{filter = "type", type = type}})) do
+					table.insert(filters, entity.name)
+				end
+			end
+			player.cursor_stack.entity_filters = filters
 		end
 	elseif game.shortcut_prototypes[prototype_name] then
 		for _, item_name in pairs(allowed_items) do
@@ -805,7 +811,13 @@ if settings.startup["tree-killer"].value == true then
 		give_shortcut_item(player, "tree-killer")
 		if player.cursor_stack.name == "tree-killer" then
 			player.cursor_stack.trees_and_rocks_only = false
-			player.cursor_stack.entity_filters = {game.entity_prototypes["cliff"].name, game.entity_prototypes["fish"].name, game.entity_prototypes["item-on-ground"].name}
+			local filters = {}
+			for _, type in pairs({"cliff", "fish", "item-on-ground"}) do
+				for _, entity in pairs(game.get_filtered_entity_prototypes({{filter = "type", type = type}})) do
+					table.insert(filters, entity.name)
+				end
+			end
+			player.cursor_stack.entity_filters = filters
 		end
 	end)
 end

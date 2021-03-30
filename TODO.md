@@ -27,8 +27,6 @@
 *
 
 ### LOCALE
-* rework how localisations work
-* translation via factorio-mods-localization
 *
 
 ### GRAPHICS
