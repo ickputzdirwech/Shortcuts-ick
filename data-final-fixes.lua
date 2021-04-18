@@ -1,7 +1,8 @@
---[[ Copyright (c) 2020 npc_strider
- * For direct use of code or graphics, credit is appreciated and encouraged. See LICENSE.txt for more information.
- * This mod may contain modified code sourced from base/core Factorio.
- * This mod has been modified by ickputzdirwech.
+--[[ Copyright (c) 2021 npc_strider, ickputzdirwech
+	* Original mod by npc_strider.
+	* For direct use of code or graphics, credit is appreciated and encouraged. See LICENSE.txt for more information.
+	* This mod may contain modified code sourced from base/core Factorio.
+	* This mod has been modified by ickputzdirwech.
 ]]
 
 --[[ Overview of data-updates.lua:
@@ -134,6 +135,7 @@ if autogen_color == "default" or autogen_color == "red" or autogen_color == "gre
 		"rcalc-pollution-selection-tool",
 		"selection-tool",
 		"squad-spidertron-remote-sel",
+		"squad-spidertron-unlink-tool",
 		"trainbuilder-manual",
 		"unit-remote-control",
 		"well-planner",

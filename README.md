@@ -25,9 +25,7 @@ You can download the mod on the [mod portal](https://mods.factorio.com/mod/Short
 
 **Blueprint**
 
-* Deconstruction planner (Trees/rocks only)
-* Deconstruction planner (Cliff/Fish/Item on ground)
-* MOD: Outpost planner
+* Deconstruction planner "Environment" or "Trees/rocks only" and "Cliff/Fish/Item on ground" 
 * MOD: Well Planner
 
 
@@ -42,18 +40,18 @@ You can download the mod on the [mod portal](https://mods.factorio.com/mod/Short
 **Artillery**
 
 * Artillery targeting remote
-* MOD: AdvArtilleryRemotes
+* MOD: Advanced Artillery Remotes Continued
 * Artillery cannon toggle
-* MOD: Orbital ion cannon targeter
 * MOD: M.I.R.V. targeting remote
 * MOD: Landmine thrower
 
 
 **Vehicle**
 
+* Driver is gunner
 * Spidertron remote
 * Spidertron Enable/disable logistics while moving
-* Spidertron Auto targeting without gunner
+* Spidertron Logistic request
 * Spidertron Auto targeting with gunner
 * Train Manual mode
 * MOD: AAI programmable vehicles remote controls
@@ -61,9 +59,10 @@ You can download the mod on the [mod portal](https://mods.factorio.com/mod/Short
 
 
 # Compatible mods
-**Shortcuts from these mods are hidden from the inventory.**
+**Selection tools from these mods are hidden from the inventory.**
 
 * Circuit Checker
+* Orbital Ion Cannon (SE Edition)
 * Ore Eraser (continued)
 * Rail Signal Planner
 
@@ -72,12 +71,12 @@ You can download the mod on the [mod portal](https://mods.factorio.com/mod/Short
 
 * Car/Tank/Spidertron Locator Button
 * Circuit Checker
+* Orbital Ion Cannon (SE Edition)
 * Module Inserter
 * P.U.M.P
 * Rail Signal Planner
 * Spidertron squad control
 * Spidertron Waypoints
-* Temporary Stations
 * VehicleSnap
 
 

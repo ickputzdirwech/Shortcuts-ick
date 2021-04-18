@@ -1,12 +1,22 @@
---[[ Copyright (c) 2019 npc_strider
- * For direct use of code or graphics, credit is appreciated and encouraged. See LICENSE.txt for more information.
- * This mod may contain modified code sourced from base/core Factorio
- * This mod has been modified by ickputzdirwech.
+--[[ Copyright (c) 2021 npc_strider, ickputzdirwech
+	* Original mod by npc_strider.
+	* For direct use of code or graphics, credit is appreciated and encouraged. See LICENSE.txt for more information.
+	* This mod may contain modified code sourced from base/core Factorio.
+	* This mod has been modified by ickputzdirwech.
 ]]
 
 --[[ Overview of settings.lua
- * Mod settings
+  * Per player
+  * Map
+  * Startup
+    - Basic
+    - Blueprint
+    - Equipment
+    - Artillery
+    - Vehicle
+    - Other
 ]]
+
 
 data:extend(
 {
@@ -90,14 +100,14 @@ data:extend(
     name = "disable-flare",
     localised_name = {"", {"gui-sync-mods-with-save.enable"}, " ", {"Shortcuts-ick.signal-flare"}},
     setting_type = "runtime-global",
-    default_value = true,
+    default_value = true
   },
   {
     type = "bool-setting",
     name = "disable-zoom",
     localised_name = {"", {"gui-sync-mods-with-save.enable"}, " ", {"controls.alt-zoom-out"}},
     setting_type = "runtime-global",
-    default_value = true,
+    default_value = true
   },
 
 ---------------------------------------------------------------------------------------------------
@@ -109,7 +119,7 @@ data:extend(
     localised_name = {"", {"Shortcuts-ick.basic"}, {"Shortcuts-ick.flashlight-toggle"}},
     order = "a[basic]-b[flashlight-toggle]",
 		type = "bool-setting",
-		default_value = true,
+		default_value = true
 	},
 	{
     setting_type = "startup",
@@ -117,7 +127,7 @@ data:extend(
     localised_name = {"", {"Shortcuts-ick.basic"}, {"Shortcuts-ick.signal-flare"}},
     order = "a[basic]-c[signal-flare]",
 		type = "bool-setting",
-		default_value = true,
+		default_value = true
 	},
 	{
     setting_type = "startup",
@@ -125,7 +135,7 @@ data:extend(
     localised_name = {"", {"Shortcuts-ick.basic"}, {"gui.grid"}},
     order = "a[basic]-d[draw-grid]",
 		type = "bool-setting",
-		default_value = true,
+		default_value = true
 	},
 	{
     setting_type = "startup",
@@ -133,7 +143,7 @@ data:extend(
     localised_name = {"", {"Shortcuts-ick.basic"}, {"gui-interface-settings.show-rail-block-visualization"}},
     order = "a[basic]-e[rail-block-visualization-toggle]",
 		type = "bool-setting",
-		default_value = true,
+		default_value = true
 	},
 	{
     setting_type = "startup",
@@ -141,7 +151,7 @@ data:extend(
     localised_name = {"", {"Shortcuts-ick.basic"}, {"controls.alt-zoom-out"}},
     order = "a[basic]-g[big-zoom]",
 		type = "bool-setting",
-		default_value = true,
+		default_value = true
 	},
 })
 
@@ -153,7 +163,7 @@ else
     localised_name = {"", {"Shortcuts-ick.basic"}, {"shortcut.toggle-personal-logistic-requests"}},
     order = "a[basic]-f[toggle-personal-logistic-requests]",
     type = "bool-setting",
-    default_value = true,
+    default_value = true
   }})
 end
 
@@ -164,7 +174,7 @@ if mods["MaxRateCalculator"] then
 		localised_name = {"", {"Shortcuts-ick.basic"}, {"item-name.max-rate-calculator"}},
     order = "a[basic]-h[max-rate-calculator]",
     type = "bool-setting",
-		default_value = true,
+		default_value = true
   	}})
 end
 
@@ -173,26 +183,16 @@ end
 ---------------------------------------------------------------------------------------------------
 data:extend(
 {
-	{
+  {
     setting_type = "startup",
 		name = "tree-killer",
-    localised_name = {"", "[color=blue]", {"item-name.blueprint"}, ": [/color]", {"item-name.deconstruction-planner"}, " (", {"gui-deconstruction.trees-and-rocks-only"}, ")"},
+    localised_name = {"", "[color=blue]", {"item-name.blueprint"}, ": [/color]", {"item-name.deconstruction-planner"}, " ", {"item-group-name.environment"}},
     order = "b[blueprint]-g[tree-killer]",
-		type = "bool-setting",
-		default_value = true,
-	},
+    type = "string-setting",
+    allowed_values = {"disabled", "all-in-one", "both", "trees-rocks", "cliff-fish"},
+    default_value = "all-in-one"
+	}
 })
-
-if mods["OutpostPlanner"] or mods["OutpostPlannerUpdated"] then
-  data:extend({{
-    setting_type = "startup",
-		name = "outpost-builder",
-		localised_name = {"", "[color=blue]", {"item-name.blueprint"}, ": [/color]", {"item-name.outpost-builder"}},
-		order = "b[blueprint]-i[outpost-builder]",
-    type = "bool-setting",
-		default_value = true,
-	}})
-end
 
 if mods["WellPlanner"] then
   data:extend({{
@@ -201,7 +201,7 @@ if mods["WellPlanner"] then
 		localised_name = {"", "[color=blue]", {"item-name.blueprint"}, ": [/color]", {"item-name.well-planner"}},
 		order = "b[blueprint]-j[well-planner]",
     type = "bool-setting",
-		default_value = true,
+		default_value = true
 	}})
 end
 
@@ -217,7 +217,7 @@ data:extend(
     localised_name = {"", {"Shortcuts-ick.equipment"}, {"item-name.belt-immunity-equipment"}},
     order = "c[equipment]-c[belt-immunity-equipment]",
     type = "bool-setting",
-    default_value = true,
+    default_value = true
   },
 	{
     setting_type = "startup",
@@ -225,7 +225,7 @@ data:extend(
     localised_name = {"", {"Shortcuts-ick.equipment"}, {"item-name.discharge-defense-remote"}},
     order = "c[equipment]-d[discharge-defense-remote]",
 		type = "bool-setting",
-		default_value = true,
+		default_value = true
 	},
 	{
     setting_type = "startup",
@@ -233,7 +233,7 @@ data:extend(
     localised_name = {"", {"Shortcuts-ick.equipment"}, {"technology-name.night-vision-equipment"}},
     order = "c[equipment]-e[night-vision-equipment]",
 		type = "bool-setting",
-		default_value = true,
+		default_value = true
 	},
 	{
     setting_type = "startup",
@@ -241,7 +241,7 @@ data:extend(
     localised_name = {"", {"Shortcuts-ick.equipment"}, {"equipment-name.personal-laser-defense-equipment"}},
     order = "c[equipment]-f[active-defense-equipment]",
 		type = "bool-setting",
-		default_value = true,
+		default_value = true
 	},
 
 ---------------------------------------------------------------------------------------------------
@@ -253,7 +253,7 @@ data:extend(
     localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.artillery-targeting-remote"}},
     order = "d[artillery]-a[artillery-targeting-remote]",
 		type = "bool-setting",
-		default_value = true,
+		default_value = true
 	},
   {
     setting_type = "startup",
@@ -262,18 +262,18 @@ data:extend(
     order = "d[artillery]-d[artillery-jammer-tool]",
     type = "string-setting",
     allowed_values = {"disabled", "both", "artillery-wagon", "artillery-turret"},
-    default_value = "both",
-  },
+    default_value = "both"
+  }
 })
 
-if mods["Orbital Ion Cannon"] then
+if mods["AdvancedArtilleryRemotesContinued"] then -- only here to allow checks in control.lua
   data:extend({{
     setting_type = "startup",
-		name = "ion-cannon-targeter",
-		localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.ion-cannon-targeter"}},
-		order = "d[artillery]-e[ion-cannon-targeter]",
+		name = "advanced-artillery-remote",
+    hidden = true,
     type = "bool-setting",
 		default_value = true,
+    forced_value = true
   }})
 end
 
@@ -284,7 +284,7 @@ if mods["MIRV"] then
 		localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.mirv-targeting-remote"}},
 		order = "d[artillery]-f[mirv-targeting-remote]",
     type = "bool-setting",
-		default_value = true,
+		default_value = true
   }})
 end
 
@@ -295,48 +295,64 @@ if mods["landmine-thrower"] then
 		localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.landmine-thrower-remote"}},
 		order = "d[artillery]-g[landmine-thrower-remote]",
     type = "bool-setting",
-		default_value = true,
+		default_value = true
   }})
 end
 
 ---------------------------------------------------------------------------------------------------
--- STARTUP: VEHICLES
+-- STARTUP: VEHICLE
 ---------------------------------------------------------------------------------------------------
 data:extend(
 {
   {
     setting_type = "startup",
+    name = "driver-is-gunner",
+    localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"Shortcuts-ick.driver-is-gunner"}},
+    order = "e[vehicle]-a[driver-is-gunner]",
+    type = "bool-setting",
+    default_value = true
+  },
+  {
+    setting_type = "startup",
     name = "spidertron-remote",
     localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"item-name.spidertron-remote"}},
-    order = "e[vehicle]-a[spidertron-remote]",
+    order = "e[vehicle]-b[spidertron-remote]",
     type = "string-setting",
     allowed_values = {"disabled", "enabled", "enabled-hidden"},
-    default_value = "enabled",
+    default_value = "enabled"
   },
   {
     setting_type = "startup",
     name = "spidertron-logistics",
     localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"entity-name.spidertron"}, " ", {"gui.enable-logistics-while-moving"}},
-    order = "e[vehicle]-b[spidertron-logistics]",
+    order = "e[vehicle]-c[spidertron-logistics]",
     type = "bool-setting",
-    default_value = true,
+    default_value = true
   },
   {
     setting_type = "startup",
-    name = "spidertron-automatic-targeting",
-    localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"entity-name.spidertron"}, " ", {"gui-car.automatic-targeting"}},
-    order = "e[vehicle]-c[spidertron-automatic-targeting]",
+    name = "spidertron-logistic-requests",
+    localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"entity-name.spidertron"}, " ", {"gui-logistic.title-request"}},
+    order = "e[vehicle]-d[spidertron-logistics]",
     type = "bool-setting",
-    default_value = true,
+    default_value = true
+  },
+  {
+    setting_type = "startup",
+    name = "targeting-with-gunner",
+    localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"entity-name.spidertron"}, " ", {"gui-car.automatic-targeting"}},
+    order = "e[vehicle]-e[targeting-with-gunner]",
+    type = "bool-setting",
+    default_value = true
   },
   {
     setting_type = "startup",
     name = "train-mode-toggle",
     localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"tooltip-category.train"}, " ", {"gui-trains.manual-mode"}},
-    order = "e[vehicle]-d[spidertron-automatic-targeting]",
+    order = "e[vehicle]-f[targeting-with-gunner]",
     type = "bool-setting",
-    default_value = true,
-  },
+    default_value = true
+  }
 })
 
 if mods["aai-programmable-vehicles"] then
@@ -344,9 +360,9 @@ if mods["aai-programmable-vehicles"] then
       setting_type = "startup",
       name = "aai-remote-controls",
       localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color] AAI Programmable Vehicles ", {"item-name.unit-remote-control"}},
-      order = "e[vehicle]-f[aai-remote-controls]",
+      order = "e[vehicle]-g[aai-remote-controls]",
       type = "bool-setting",
-      default_value = true,
+      default_value = true
   	}})
 end
 
@@ -355,9 +371,9 @@ if mods["VehicleWagon2"] then
       setting_type = "startup",
   		name = "winch",
 			localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color] Vehicle Wagon 2 ", {"item-name.winch"}},
-      order = "e[vehicle]-h[winch]",
+      order = "e[vehicle]-i[winch]",
   		type = "bool-setting",
-  		default_value = true,
+  		default_value = true
   	}})
 end
 
@@ -373,6 +389,6 @@ data:extend(
     order = "f[other]-b[autogen-color]",
     type = "string-setting",
     allowed_values = {"disabled", "default", "red", "green", "blue"},
-    default_value = "default",
-  },
+    default_value = "default"
+  }
 })

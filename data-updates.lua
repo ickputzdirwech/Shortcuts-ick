@@ -1,7 +1,8 @@
---[[ Copyright (c) 2019 npc_strider
- * For direct use of code or graphics, credit is appreciated and encouraged. See LICENSE.txt for more information.
- * This mod may contain modified code sourced from base/core Factorio.
- * This mod has been modified by ickputzdirwech.
+--[[ Copyright (c) 2021 npc_strider, ickputzdirwech
+	* Original mod by npc_strider.
+	* For direct use of code or graphics, credit is appreciated and encouraged. See LICENSE.txt for more information.
+	* This mod may contain modified code sourced from base/core Factorio.
+	* This mod has been modified by ickputzdirwech.
 ]]
 
 --[[ Overview of data-updates.lua:
@@ -9,15 +10,8 @@
 	* Generation of disabled equipment
 ]]
 
-require("prototypes.shortcuts-artillery-updates")
 
-
----------------------------------------------------------------------------------------------------
--- NICE LOCALISATION
----------------------------------------------------------------------------------------------------
-if data.raw.shortcut["toggle-personal-logistic-requests"] then
-	data.raw.shortcut["toggle-personal-logistic-requests"].localised_name = {"", {"Shortcuts-ick.basic"}, {"shortcut.toggle-personal-logistic-requests"}}
-end
+require("prototypes.custom-inputs-updates")
 
 
 ---------------------------------------------------------------------------------------------------
@@ -36,7 +30,6 @@ local function hide_the_remote(recipe, technology, item)
 	local tech_prototype = data.raw.technology[technology]
 	if recipe_prototype then
 		recipe_prototype.hidden = true
-		recipe_prototype.ingredients = {{"iron-plate", 1}}
 		if technology ~= nil and tech_prototype then
 			local effect = tech_prototype.effects
 			for i, e in pairs(effect) do
@@ -76,7 +69,7 @@ if mods["aai-programmable-vehicles"] then
 	end
 end
 
-if mods["AdvArtilleryRemotes"] then
+if mods["AdvancedArtilleryRemotesContinued"] then
 	if data.raw.capsule["artillery-cluster-remote"] then
 		hide_the_remote("artillery-cluster-remote", "artillery", data.raw.capsule["artillery-cluster-remote"])
 	end
@@ -85,21 +78,12 @@ if mods["AdvArtilleryRemotes"] then
 	end
 end
 
-if mods["Orbital Ion Cannon"] and data.raw.item["ion-cannon-targeter"] and data.raw.technology["orbital-ion-cannon"] and settings.startup["ion-cannon-targeter"].value == true then
-	hide_the_remote("ion-cannon-targeter", "orbital-ion-cannon", data.raw.item["ion-cannon-targeter"])
-end
-
 if mods["MIRV"] and data.raw.capsule["mirv-targeting-remote"] and data.raw.technology["mirv-technology"] and settings.startup["mirv-targeting-remote"].value == true then
 	hide_the_remote("mirv-targeting-remote", "mirv-technology", data.raw.capsule["mirv-targeting-remote"])
 end
 
 if mods["landmine-thrower"] and data.raw.capsule["landmine-thrower-remote"] and data.raw.technology["landmine-thrower"] and settings.startup["landmine-thrower-remote"].value == true then
 	hide_the_remote("landmine-thrower-remote", "landmine-thrower", data.raw.capsule["landmine-thrower-remote"])
-end
-
-
-if (mods["OutpostPlanner"] or mods["OutpostPlannerUpdated"]) and mods["PlannerCore"] and data.raw["selection-tool"]["outpost-builder"] and settings.startup["outpost-builder"].value == true then
-	hide_the_remote("outpost-builder", nil, data.raw["selection-tool"]["outpost-builder"])
 end
 
 if settings.startup["well-planner"] and settings.startup["well-planner"].value == true then
@@ -113,6 +97,10 @@ end
 -- OTHER MODS
 if mods["circuit-checker"] and data.raw["selection-tool"]["circuit-checker"] then
 	hide_the_remote(nil, nil, data.raw["selection-tool"]["circuit-checker"])
+end
+
+if mods["Kux-OrbitalIonCannon"] and data.raw.item["ion-cannon-targeter"] and data.raw.technology["orbital-ion-cannon"] then
+	hide_the_remote("ion-cannon-targeter", "orbital-ion-cannon", data.raw.item["ion-cannon-targeter"])
 end
 
 if mods["RailSignalPlanner"] and data.raw["selection-tool"]["rail-signal-planner"] then
@@ -143,9 +131,13 @@ if mods["Spider_Control"] and data.raw.shortcut["squad-spidertron-follow"] then
 	data.raw.shortcut["squad-spidertron-follow"].technology_to_unlock = nil
 end
 if mods["Spider_Control"] and data.raw.shortcut["squad-spidertron-remote"] then
-	data.raw.shortcut["squad-spidertron-remote"].action = "lua"
-	data.raw.shortcut["squad-spidertron-remote"].item_to_spawn = nil
 	data.raw.shortcut["squad-spidertron-remote"].technology_to_unlock = nil
+end
+if mods["Spider_Control"] and data.raw.shortcut["squad-spidertron-list"] then
+	data.raw.shortcut["squad-spidertron-list"].technology_to_unlock = nil
+end
+if mods["Spider_Control"] and data.raw.shortcut["squad-spidertron-link-tool"] then
+	data.raw.shortcut["squad-spidertron-link-tool"].technology_to_unlock = nil
 end
 if mods["pump"] and data.raw.shortcut["pump-shortcut"] then
 	data.raw.shortcut["pump-shortcut"].action = "lua"
@@ -172,20 +164,6 @@ end
 if settings.startup["active-defense-equipment"].value == true then
 	table.insert(equipment_list, "active-defense-equipment")
 end
-
---[[if mods["GunEquipment"] then
-	local NoMagazine = table.deepcopy(data.raw["item"]["personal-turret-equipment"])
-	NoMagazine.name = "personal-turret-no-magazine-equipment"
-	NoMagazine.localised_name = {"", {"equipment-name.personal-turret-no-magazine-equipment"}, " (", {"gui-constant.off"}, ")"}
-	local FirearmMagazine = table.deepcopy(data.raw["item"]["personal-turret-equipment"])
-	FirearmMagazine.name = "personal-turret-firearm-magazine-equipment"
-	local PiercingRoundsMagazine = table.deepcopy(data.raw["item"]["personal-turret-equipment"])
-	PiercingRoundsMagazine.name = "personal-turret-piercing-rounds-magazine-equipment"
-	local UraniumRoundsMagazine = table.deepcopy(data.raw["item"]["personal-turret-equipment"])
-	UraniumRoundsMagazine.name = "personal-turret-uranium-rounds-magazine-equipment"
-	data:extend{NoMagazine, FirearmMagazine, PiercingRoundsMagazine, UraniumRoundsMagazine}
-end]]
-
 
 for i, type in pairs(equipment_list) do
 	for _, equipment in pairs(data.raw[type]) do

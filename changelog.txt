@@ -1,11 +1,24 @@
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.16
-Date: 2021-03-30
+Date: 2021-04-18
+  Features:
+    - New shortcut: "Vehicle: Driver is gunner".
+    - New shortcut: "Spidertron: Logistic request".
+    - Added option for an all-in-one deconstruction planner for all environment entities (new default).
+    - Added support for "Advanced Artillery Remotes Continued" by azaghal.
   Changes:
+    - Removed shortcut "Spidertron: Auto targeting without gunner" since it doesn't make sense if you have to sit in a spidertron in order to use it.
+    - Removed support for the following mods that weren't updated to 1.1 (if they get updated in the future they will of course be supported again): AdvArtilleryRemotes, Orbital Ion Cannon, OutpostPlanner, OutpostPlannerUpdated and QoL-TempStations.
     - The cliff/fish/item on ground deconstruction planner now picks up modded entities.
     - New icon for the cliff/fish/item on ground deconstruction planner.
     - Translations are now made on Crowdin (https://crowdin.com/project/factorio-mods-localization).
     - Changed the order of the changelog.
+    - Lot's of internal changes.
+  Bugfixes:
+    - Fixed that vehicle shortcuts were not updated for passengers.
+    - Fixed that the rail block custom input was available before railway was researched.
+    - Fixed that the advanced artillery remote custom inputs were available before artillery was researched.
+    - Fixed that Train Manuel mode disabled icon was black and not white.
 
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.15

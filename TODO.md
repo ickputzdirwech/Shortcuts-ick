@@ -1,28 +1,23 @@
 ### DUCUMENTATION
 * new thumbnail and description
-* releases on GitHub
 * picture on GitHub
-* Marc legacy code
+* Make table with overview of all shortcuts
 *
 
 ### GENERAL
-* Option to categorise all shortcuts
+* Option to categorise all shortcuts (new labels "Spidertron", "GUI")
 * Option to add control info to all shortcuts
 * Option for spidertron remote shortcut to generate an already assigned remote. (nearest spidertron or the spidertron the player is riding)
-* Overhaul control.lua
 *
 
 ### COMPATIBILITY
 *
 
 ### BUGS:
-* Advanced artillery remotes hotkeys are available before tech
 * Make chest merge tool from Merging Chests mod available dependant on research.
 *
 
 ### NEW SHORTCUTS:
-* Car: driver is gunner
-* Proper integration of GunEquipment (outdated)
 * Proper integration of PickerInventoryTools
 *
 
@@ -30,7 +25,6 @@
 *
 
 ### GRAPHICS
-* Merging chest disabled icons
 * car finder disabled icons
 * marc_calc_4func disabled icons from MaxRateCalculator
 *
@@ -50,10 +44,10 @@
 
 ### TODO from morley376
 * Stuff for GameViewSettings
-* Custom screenshot (zoom level, resolution, etc. customizable)
+* Custom screenshot (zoom level, resolution, etc. customizable) (ALREADY EXISTS)
 * Autosave button for singleplayer worlds
 * Combat drone full deploy? (Uses as many drone capsules as required to fill the cap to max)
-* Bloodbelt/lamp autowire builder toggle?
+* Bloodbelt/lamp autowire builder toggle? (OUTDATED)
 * Safety lock for weapons (prevent the ability to nuke/shotgun/flame your base) (unsure if this is moddable)
 * Polar grid
 * Clock/time played statistics (see player.online_time and game.tick)

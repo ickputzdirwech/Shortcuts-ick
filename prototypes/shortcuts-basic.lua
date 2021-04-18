@@ -1,28 +1,28 @@
---[[ Copyright (c) 2019 npc_strider
- * For direct use of code or graphics, credit is appreciated and encouraged. See LICENSE.txt for more information.
- * This mod may contain modified code sourced from base/core Factorio.
- * This mod has been modified by ickputzdirwech.
- * Toggle Personal logistics requests shortcut by Haxtorio.
+--[[ Copyright (c) 2021 npc_strider, ickputzdirwech
+	* Original mod by npc_strider.
+	* For direct use of code or graphics, credit is appreciated and encouraged. See LICENSE.txt for more information.
+	* This mod may contain modified code sourced from base/core Factorio.
+	* This mod has been modified by ickputzdirwech.
 ]]
 
 
 --[[ Overview of shortcuts-basic.lua:
-	* Character Lamp shortcut and custom input
-	* Emergency locator beacon shortcut and custom input
-	* Grid shortcut and custom input
-	* Show rail block visualization shortcut and custom input
-	* Toggle Personal logistics requests shortcut
-	* Zoom out of world shortcut and custom input
-	* MaxRateCalculator shortcut
+	* Character Lamp shortcut.
+	* Emergency locator beacon shortcut.
+	* Grid shortcut.
+	* Show rail block visualization shortcut.
+	* Toggle Personal logistics requests shortcut.
+	* Zoom out of world shortcut.
+	* MaxRateCalculator shortcut.
 ]]
 
-if settings.startup["flashlight-toggle"].value == true then
+if settings.startup["flashlight-toggle"].value then
 	data:extend(
 	{
 		{
 			type = "shortcut",
 			name = "flashlight-toggle",
-			localised_name = {"", {"Shortcuts-ick.basic"}, {"Shortcuts-ick.flashlight-toggle"}, " ", {"Shortcuts-ick.control", "flashlight-toggle"}},
+			localised_name = {"", {"Shortcuts-ick.basic"}, {"Shortcuts-ick.flashlight-toggle"}},
 			order = "a[basic]-b[flashlight-toggle]",
 			--associated_control_input = "flashlight-toggle",
 			action = "lua",
@@ -58,25 +58,18 @@ if settings.startup["flashlight-toggle"].value == true then
 				size = 24,
 				scale = 0.5,
 				flags = {"gui-icon"}
-			},
-		},
-	  {
-			type = "custom-input",
-	    name = "flashlight-toggle",
-			localised_name = {"", {"Shortcuts-ick.basic"}, {"Shortcuts-ick.flashlight-toggle"}},
-			order = "a[basic]-b[flashlight-toggle]",
-	    key_sequence = "",
-	  },
+			}
+		}
 	})
 end
 
-if settings.startup["signal-flare"].value == true then
+if settings.startup["signal-flare"].value then
 	data:extend(
 	{
 		{
 			type = "shortcut",
 			name = "signal-flare",
-			localised_name = {"", {"Shortcuts-ick.basic"}, {"Shortcuts-ick.signal-flare"}, " ", {"Shortcuts-ick.control", "signal-flare"}},
+			localised_name = {"", {"Shortcuts-ick.basic"}, {"Shortcuts-ick.signal-flare"}},
 			order = "a[basic]-c[signal-flare]",
 			--associated_control_input = "signal-flare",
 			action = "lua",
@@ -97,25 +90,18 @@ if settings.startup["signal-flare"].value == true then
 				size = 24,
 				scale = 0.5,
 				flags = {"gui-icon"}
-			},
-		},
-	  {
-			type = "custom-input",
-	    name = "signal-flare",
-			localised_name = {"", {"Shortcuts-ick.basic"}, {"Shortcuts-ick.signal-flare"}},
-			order = "a[basic]-c[signal-flare]",
-	    key_sequence = "",
-	  },
+			}
+		}
 	})
 end
 
-if settings.startup["draw-grid"].value == true then
+if settings.startup["draw-grid"].value then
 	data:extend(
 	{
 		{
 			type = "shortcut",
 			name = "draw-grid",
-			localised_name = {"", {"Shortcuts-ick.basic"}, {"gui.grid"}, " ", {"Shortcuts-ick.control", "draw-grid"}},
+			localised_name = {"", {"Shortcuts-ick.basic"}, {"gui.grid"}},
 			order = "a[basic]-d[draw-grid]",
 			--associated_control_input = "draw-grid",
 			action = "lua",
@@ -136,25 +122,18 @@ if settings.startup["draw-grid"].value == true then
 				size = 24,
 				scale = 0.5,
 				flags = {"gui-icon"}
-			},
-		},
-	  {
-			type = "custom-input",
-	    name = "draw-grid",
-			localised_name = {"", {"Shortcuts-ick.basic"}, {"gui.grid"}},
-			order = "a[basic]-d[draw-grid]",
-	    key_sequence = "",
-	  },
+			}
+		}
 	})
 end
 
-if settings.startup["rail-block-visualization-toggle"].value == true then
+if settings.startup["rail-block-visualization-toggle"].value then
 	data:extend(
 	{
 		{
 			type = "shortcut",
 			name = "rail-block-visualization-toggle",
-			localised_name = {"", {"Shortcuts-ick.basic"}, {"gui-interface-settings.show-rail-block-visualization"}, " ", {"Shortcuts-ick.control", "rail-block-visualization-toggle"}},
+			localised_name = {"", {"Shortcuts-ick.basic"}, {"gui-interface-settings.show-rail-block-visualization"}},
 			order = "a[basic]-e[rail-block-visualization-toggle]",
 			--associated_control_input = "rail-block-visualization-toggle",
 			action = "lua",
@@ -194,25 +173,19 @@ if settings.startup["rail-block-visualization-toggle"].value == true then
 	      mipmap_count = 2,
 				scale = 0.5,
 				flags = {"gui-icon"}
-			},
-		},
-	  {
-			type = "custom-input",
-	    name = "rail-block-visualization-toggle",
-			localised_name = {"", {"Shortcuts-ick.basic"}, {"gui-interface-settings.show-rail-block-visualization"}},
-			order = "a[basic]-e[rail-block-visualization-toggle]",
-	    key_sequence = "",
-	  },
+			}
+		}
 	})
 end
 
-if settings.startup["toggle-personal-logistic-requests"] and settings.startup["toggle-personal-logistic-requests"].value == true then
+if settings.startup["toggle-personal-logistic-requests"].value then
 	-- taken from mods.factorio.com/mod/PersonalLogisticsShortcut from Haxtorio, modified by ickputzdirwech
 	data:extend(
 	{
 	  {
 	    type = "shortcut",
 	    name = "toggle-personal-logistic-requests",
+			localised_name = {"", {"Shortcuts-ick.basic"}, {"shortcut.toggle-personal-logistic-requests"}},
 	    order = "a[basic]-f[toggle-personal-logistic-requests]",
 	    action = "toggle-personal-logistic-requests",
 	    associated_control_input = "toggle-personal-logistic-requests",
@@ -252,19 +225,19 @@ if settings.startup["toggle-personal-logistic-requests"] and settings.startup["t
 	      scale = 0.5,
 	      mipmap_count = 2,
 	      flags = {"gui-icon"}
-	    },
-	  },
+	    }
+	  }
 	})
 	-- end Haxtorio
 end
 
-if settings.startup["big-zoom"].value == true then
+if settings.startup["big-zoom"].value then
 	data:extend(
 	{
 		{
 			type = "shortcut",
 			name = "big-zoom",
-			localised_name = {"", {"Shortcuts-ick.basic"}, {"controls.alt-zoom-out"}, " ", {"Shortcuts-ick.control", "big-zoom"}},
+			localised_name = {"", {"Shortcuts-ick.basic"}, {"controls.alt-zoom-out"}},
 			order = "a[basic]-g[big-zoom]",
 			--associated_control_input = "big-zoom",
 			action = "lua",
@@ -285,20 +258,13 @@ if settings.startup["big-zoom"].value == true then
 				size = 24,
 				scale = 0.5,
 				flags = {"gui-icon"}
-			},
-		},
-	  {
-			type = "custom-input",
-	    name = "big-zoom",
-			localised_name = {"", {"Shortcuts-ick.basic"}, {"controls.alt-zoom-out"}},
-			order = "a[basic]-g[big-zoom]",
-	    key_sequence = "",
-	  },
+			}
+		}
 	})
 end
 
 
-if mods["MaxRateCalculator"] and data.raw["selection-tool"]["max-rate-calculator"] and settings.startup["max-rate-calculator"].value == true then
+if mods["MaxRateCalculator"] and data.raw["selection-tool"]["max-rate-calculator"] and settings.startup["max-rate-calculator"].value then
 
 	data.raw["selection-tool"]["max-rate-calculator"].icon = "__MaxRateCalculator__/graphics/calculator.png"
 	data.raw["selection-tool"]["max-rate-calculator"].icon_size = 64
@@ -330,7 +296,7 @@ if mods["MaxRateCalculator"] and data.raw["selection-tool"]["max-rate-calculator
 				size = 24,
 				scale = 0.5,
 				flags = {"gui-icon"}
-			},
-		},
+			}
+		}
 	})
 end
