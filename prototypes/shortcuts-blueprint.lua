@@ -7,7 +7,7 @@
 
 --[[ Overview of shortcuts-blueprint.lua:
 	* Tree killer
-		- Deconstruction planner.
+		- Tree killer deconstruction planner.
 		- Environment shortcut.
 		- Trees/rocks shortcut.
 		- Cliff/Fish/Item on ground shortcut.

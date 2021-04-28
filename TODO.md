@@ -19,6 +19,7 @@
 
 ### NEW SHORTCUTS:
 * Proper integration of PickerInventoryTools
+* Proper integration of GunEquipment
 *
 
 ### LOCALE

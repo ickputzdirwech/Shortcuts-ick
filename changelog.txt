@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.1.17
+Date: 2021-04-28
+  Bugfixes:
+    - Fixed that item-on-ground entities were not included in the deconstruction planners.
+    - Fixed error when using the custom inputs for the environment deconstruction planners.
+
+---------------------------------------------------------------------------------------------------
 Version: 1.1.16
 Date: 2021-04-18
   Features:
