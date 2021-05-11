@@ -4,12 +4,15 @@ This is a 1.1 version of the [Shortcuts](https://mods.factorio.com/mod/Shortcuts
 
 You can download the mod on the [mod portal](https://mods.factorio.com/mod/Shortcuts-ick). There is also a [forum post](https://forums.factorio.com/viewtopic.php?f=190&t=88439) about this mod.
 
+
 # General
 * A keyboard input can be assigned to every shortcut.
 * Most items given to the player by a shortcut can not be placed inside any inventory.
 * Most shortcuts are only available if a specific technology has been researched.
 * There are startup settings to disable individual shortcuts.
 * There is a setting to automatically generate shortcuts for selection tools from other mods.
+* There is a setting to disble all changes done to technology requirements for shortcuts in case there is a conflict with an overhaul mod.
+
 
 # Shortcuts
 **Basic**
@@ -53,6 +56,7 @@ You can download the mod on the [mod portal](https://mods.factorio.com/mod/Short
 * Spidertron Enable/disable logistics while moving
 * Spidertron Logistic request
 * Spidertron Auto targeting with gunner
+* Spidertron Auto targeting without gunner
 * Train Manual mode
 * MOD: AAI programmable vehicles remote controls
 * MOD: Vehicle waggon 2 winch
