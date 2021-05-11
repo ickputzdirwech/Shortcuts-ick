@@ -143,16 +143,16 @@ if settings.startup["rail-block-visualization-toggle"].value then
 				filename = "__Shortcuts-ick__/graphics/rail-block-visualization-toggle-x32-2.png",
 				priority = "extra-high-no-scale",
 				size = 32,
-	      mipmap_count = 2,
+	      		mipmap_count = 2,
 				scale = 0.5,
 				flags = {"gui-icon"}
 			},
-			smal_icon =
+			small_icon =
 			{
 				filename = "__Shortcuts-ick__/graphics/rail-block-visualization-toggle-x32-2.png",
 				priority = "extra-high-no-scale",
 				size = 32,
-	      mipmap_count = 2,
+	      		mipmap_count = 2,
 				scale = 0.5,
 				flags = {"gui-icon"}
 			},
@@ -161,7 +161,7 @@ if settings.startup["rail-block-visualization-toggle"].value then
 				filename = "__Shortcuts-ick__/graphics/rail-block-visualization-toggle-x32-2-white.png",
 				priority = "extra-high-no-scale",
 				size = 32,
-	      mipmap_count = 2,
+	      		mipmap_count = 2,
 				scale = 0.5,
 				flags = {"gui-icon"}
 			},
@@ -170,7 +170,7 @@ if settings.startup["rail-block-visualization-toggle"].value then
 				filename = "__Shortcuts-ick__/graphics/rail-block-visualization-toggle-x32-2-white.png",
 				priority = "extra-high-no-scale",
 				size = 32,
-	      mipmap_count = 2,
+	     	 	mipmap_count = 2,
 				scale = 0.5,
 				flags = {"gui-icon"}
 			}
@@ -185,46 +185,46 @@ if settings.startup["toggle-personal-logistic-requests"].value then
 	  {
 	    type = "shortcut",
 	    name = "toggle-personal-logistic-requests",
-			localised_name = {"", {"Shortcuts-ick.basic"}, {"shortcut.toggle-personal-logistic-requests"}},
+		localised_name = {"", {"Shortcuts-ick.basic"}, {"shortcut.toggle-personal-logistic-requests"}},
 	    order = "a[basic]-f[toggle-personal-logistic-requests]",
 	    action = "toggle-personal-logistic-requests",
 	    associated_control_input = "toggle-personal-logistic-requests",
-			technology_to_unlock = "logistic-robotics",
+		technology_to_unlock = "logistic-robotics",
 	    icon =
 	    {
-	      filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x32.png",
-	      priority = "extra-high-no-scale",
-	      size = 32,
-	      scale = 0.5,
-	      mipmap_count = 2,
-	      flags = {"gui-icon"}
+			filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x32.png",
+			priority = "extra-high-no-scale",
+			size = 32,
+			scale = 0.5,
+			mipmap_count = 2,
+			flags = {"gui-icon"}
 	    },
 	    small_icon =
 	    {
-	      filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x24.png",
-	      priority = "extra-high-no-scale",
-	      size = 24,
-	      scale = 0.5,
-	      mipmap_count = 2,
-	      flags = {"gui-icon"}
+			filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x24.png",
+			priority = "extra-high-no-scale",
+			size = 24,
+			scale = 0.5,
+			mipmap_count = 2,
+			flags = {"gui-icon"}
 	    },
 	    disabled_icon =
 	    {
-	      filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x32-white.png",
-	      priority = "extra-high-no-scale",
-	      size = 32,
-	      scale = 0.5,
-	      mipmap_count = 2,
-	      flags = {"gui-icon"}
+			filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x32-white.png",
+			priority = "extra-high-no-scale",
+			size = 32,
+			scale = 0.5,
+			mipmap_count = 2,
+			flags = {"gui-icon"}
 	    },
 	    disabled_small_icon =
 	    {
-	      filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x24-white.png",
-	      priority = "extra-high-no-scale",
-	      size = 24,
-	      scale = 0.5,
-	      mipmap_count = 2,
-	      flags = {"gui-icon"}
+			filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x24-white.png",
+			priority = "extra-high-no-scale",
+			size = 24,
+			scale = 0.5,
+			mipmap_count = 2,
+			flags = {"gui-icon"}
 	    }
 	  }
 	})

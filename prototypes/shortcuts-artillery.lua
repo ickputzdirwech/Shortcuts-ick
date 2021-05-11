@@ -133,7 +133,6 @@ if artillery_toggle == "both" or artillery_toggle == "artillery-wagon" or artill
 			icon_size = 32,
 			flags = {"hidden", "only-in-cursor", "not-stackable"},
 			stack_size = 1,
-			stackable = false,
 			selection_color = { r = 1, g = 0, b = 0 },
 			alt_selection_color = { r = 1, g = 0, b = 0 },
 			selection_mode = {"blueprint"},

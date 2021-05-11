@@ -85,23 +85,23 @@ if settings.startup["spidertron-logistics"].value then
 			toggleable = true,
 			style = "green",
 			icon =
-	    {
-	      filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-roboport-x32-white.png",
-	      priority = "extra-high-no-scale",
-	      size = 32,
-	      scale = 0.5,
-	      mipmap_count = 2,
-	      flags = {"gui-icon"}
-	    },
-	    small_icon =
-	    {
-	      filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-roboport-x24-white.png",
-	      priority = "extra-high-no-scale",
-	      size = 24,
-	      scale = 0.5,
-	      mipmap_count = 2,
-	      flags = {"gui-icon"}
-	    }
+			{
+				filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-roboport-x32-white.png",
+				priority = "extra-high-no-scale",
+				size = 32,
+				scale = 0.5,
+				mipmap_count = 2,
+				flags = {"gui-icon"}
+			},
+			small_icon =
+			{
+				filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-roboport-x24-white.png",
+				priority = "extra-high-no-scale",
+				size = 24,
+				scale = 0.5,
+				mipmap_count = 2,
+				flags = {"gui-icon"}
+			}
 		}
 	})
 end
@@ -120,23 +120,23 @@ if settings.startup["spidertron-logistic-requests"].value then
 			toggleable = true,
 			style = "green",
 	    icon =
-	    {
-	      filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x32-white.png",
-	      priority = "extra-high-no-scale",
-	      size = 32,
-	      scale = 0.5,
-	      mipmap_count = 2,
-	      flags = {"gui-icon"}
-	    },
-	    small_icon =
-	    {
-	      filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x24-white.png",
-	      priority = "extra-high-no-scale",
-	      size = 24,
-	      scale = 0.5,
-	      mipmap_count = 2,
-	      flags = {"gui-icon"}
-	    }
+			{
+				filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x32-white.png",
+				priority = "extra-high-no-scale",
+				size = 32,
+				scale = 0.5,
+				mipmap_count = 2,
+				flags = {"gui-icon"}
+			},
+			small_icon =
+			{
+				filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x24-white.png",
+				priority = "extra-high-no-scale",
+				size = 24,
+				scale = 0.5,
+				mipmap_count = 2,
+				flags = {"gui-icon"}
+			}
 		}
 	})
 end
@@ -159,7 +159,31 @@ if settings.startup["targeting-with-gunner"].value then
 				filename = "__Shortcuts-ick__/graphics/spidertron-targeting-with-gunner-x32-2-white.png",
 				priority = "extra-high-no-scale",
 				size = 32,
-	      mipmap_count = 2,
+	      		mipmap_count = 2,
+				scale = 0.5,
+				flags = {"gui-icon"}
+			}
+		}
+	})
+end
+if settings.startup["targeting-without-gunner"].value then
+	data:extend(
+	{
+		{
+			type = "shortcut",
+			name = "targeting-without-gunner",
+			localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"entity-name.spidertron"}, " ", {"gui-car.automatic-targeting"}, " ", {"gui-car.without-gunner"}},
+			order = "e[vehicle]-f[targeting-with-gunner]",
+			--associated_control_input = "targeting-without-gunner",
+			action = "lua",
+			toggleable = true,
+			style = "green",
+			icon =
+			{
+				filename = "__Shortcuts-ick__/graphics/driver-is-gunner-x32-2-white.png",
+				priority = "extra-high-no-scale",
+				size = 32,
+	      		mipmap_count = 2,
 				scale = 0.5,
 				flags = {"gui-icon"}
 			}
@@ -175,7 +199,7 @@ if settings.startup["train-mode-toggle"].value then
 			type = "shortcut",
 			name = "train-mode-toggle",
 			localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"tooltip-category.train"}, " ", {"gui-trains.manual-mode"}},
-			order = "e[vehicle]-f[train-mode-toggle]",
+			order = "e[vehicle]-g[train-mode-toggle]",
 			--associated_control_input = "train-mode-toggle",
 			action = "lua",
 			toggleable = true,
@@ -209,7 +233,7 @@ if mods["aai-programmable-vehicles"] and settings.startup["aai-remote-controls"]
 			type = "shortcut",
 			name = "unit-remote-control",
 			localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"item-name.unit-remote-control"}, " ", {"Shortcuts-ick.control", "create-toggle-controller"}},
-			order = "e[vehicle]-g[unit-remote-control]",
+			order = "e[vehicle]-h[unit-remote-control]",
 			--associated_control_input = "create-toggle-controller",
 			action = "lua",
 			style = "blue",
@@ -234,7 +258,7 @@ if mods["aai-programmable-vehicles"] and settings.startup["aai-remote-controls"]
 			type = "shortcut",
 			name = "path-remote-control",
 			localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"item-name.path-remote-control"}, " ", {"Shortcuts-ick.control", "create-toggle-controller"}},
-			order = "e[vehicle]-h[path-remote-control]",
+			order = "e[vehicle]-i[path-remote-control]",
 			--associated_control_input = "create-toggle-controller",
 			action = "lua",
 			style = "blue",
@@ -266,7 +290,7 @@ if mods["VehicleWagon2"] and settings.startup["winch"].value then
       type = "shortcut",
       name = "winch",
 			localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"item-name.winch"}},
-      order = "e[vehicle]-i[winch]",
+      order = "e[vehicle]-j[winch]",
 			--associated_control_input = "winch",
       action = "lua",
 			icon =

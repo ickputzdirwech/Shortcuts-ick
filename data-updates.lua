@@ -12,6 +12,7 @@
 
 
 require("prototypes.custom-inputs-updates")
+require("prototypes.research-requirements-updates")
 
 
 ---------------------------------------------------------------------------------------------------
@@ -121,34 +122,6 @@ if mods["PickerInventoryTools"] then
 	end
 end
 
---Remove technology_to_unlock and/or change action for mod shortcuts in order to make them available based in researched in a specific game.
-if mods["circuit-checker"] and data.raw.shortcut["check-circuit"] then
-	data.raw.shortcut["check-circuit"].action = "lua"
-	data.raw.shortcut["check-circuit"].item_to_spawn = nil
-	data.raw.shortcut["check-circuit"].technology_to_unlock = nil
-end
-if mods["Spider_Control"] and data.raw.shortcut["squad-spidertron-follow"] then
-	data.raw.shortcut["squad-spidertron-follow"].technology_to_unlock = nil
-end
-if mods["Spider_Control"] and data.raw.shortcut["squad-spidertron-remote"] then
-	data.raw.shortcut["squad-spidertron-remote"].technology_to_unlock = nil
-end
-if mods["Spider_Control"] and data.raw.shortcut["squad-spidertron-list"] then
-	data.raw.shortcut["squad-spidertron-list"].technology_to_unlock = nil
-end
-if mods["Spider_Control"] and data.raw.shortcut["squad-spidertron-link-tool"] then
-	data.raw.shortcut["squad-spidertron-link-tool"].technology_to_unlock = nil
-end
-if mods["pump"] and data.raw.shortcut["pump-shortcut"] then
-	data.raw.shortcut["pump-shortcut"].action = "lua"
-	data.raw.shortcut["pump-shortcut"].item_to_spawn = nil
-	data.raw.shortcut["pump-shortcut"].technology_to_unlock = nil
-end
-if mods["RailSignalPlanner"] and data.raw.shortcut["give-rail-signal-planner"] then
-	data.raw.shortcut["give-rail-signal-planner"].action = "lua"
-	data.raw.shortcut["give-rail-signal-planner"].item_to_spawn = nil
-end
-
 
 ---------------------------------------------------------------------------------------------------
 -- GENERATION OF DISABLED EQUIPMENT
@@ -181,9 +154,11 @@ for i, type in pairs(equipment_list) do
 				disabled_equipment.localised_name = {"equipment-name." .. name}
 			end
 
-			disabled_equipment.energy_input = "0kW"
+			if type == "night-vision-equipment" then
+				disabled_equipment.energy_input = "0kW"
+			end
+			
 			disabled_equipment.take_result = name
-			disabled_equipment.flags = {"hidden"}
 			disabled_equipment.sprite.tint = {0.5, 0.5, 0.5}
 			if disabled_equipment.sprite.hr_version then
 				disabled_equipment.sprite.hr_version.tint = {0.5, 0.5, 0.5}

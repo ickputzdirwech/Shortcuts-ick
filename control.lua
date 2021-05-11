@@ -681,6 +681,7 @@ script.on_event(defines.events.on_player_driving_changed_state, function(event)
 			enable_shortcuts(player, player.vehicle.enable_logistics_while_moving, "spidertron-logistics")
 			enable_shortcuts(player, player.vehicle.vehicle_logistic_requests_enabled, "spidertron-logistic-requests")
 			enable_shortcuts(player, player.vehicle.vehicle_automatic_targeting_parameters.auto_target_with_gunner, "targeting-with-gunner")
+			enable_shortcuts(player, player.vehicle.vehicle_automatic_targeting_parameters.auto_target_with_gunner, "targeting-without-gunner")
 		end
 		if type == "locomotive" or type == "cargo-wagon"  or type == "fluid-wagon" or type == "artillery-wagon" then
 			enable_shortcuts(player, player.vehicle.train.manual_mode, "train-mode-toggle")
@@ -695,6 +696,7 @@ script.on_event(defines.events.on_player_driving_changed_state, function(event)
 		disable_shortcuts("spidertron-logistics")
 		disable_shortcuts("spidertron-logistic-requests")
 		disable_shortcuts("targeting-with-gunner")
+		disable_shortcuts("targeting-without-gunner")
 		disable_shortcuts("train-mode-toggle")
 	end
 end)
@@ -720,6 +722,7 @@ script.on_event(defines.events.on_gui_closed, function(event)
 			search_vehicle("spidertron-logistics", entity.enable_logistics_while_moving)
 			search_vehicle("spidertron-logistic-requests", entity.vehicle_logistic_requests_enabled)
 			search_vehicle("targeting-with-gunner", entity.vehicle_automatic_targeting_parameters.auto_target_with_gunner)
+			search_vehicle("targeting-without-gunner", entity.vehicle_automatic_targeting_parameters.auto_target_without_gunner)
 		end
 		if setting["train-mode-toggle"].value and type == "locomotive" and entity.train.passengers then
 			for _, driver in pairs(entity.train.passengers) do
@@ -769,6 +772,8 @@ script.on_event(defines.events.on_lua_shortcut, function(event)
 		vehicle_shortcuts(player, "spidertron-logistic-requests", {"spider-vehicle"}, "vehicle_logistic_requests_enabled")
 	elseif prototype_name == "targeting-with-gunner" then
 		vehicle_shortcuts(player, "targeting-with-gunner", {"spider-vehicle"}, "auto_target_with_gunner")
+	elseif prototype_name == "targeting-without-gunner" then
+		vehicle_shortcuts(player, "targeting-without-gunner", {"spider-vehicle"}, "auto_target_without_gunner")
 	elseif prototype_name == "train-mode-toggle" then
 		vehicle_shortcuts(player, "train-mode-toggle", {"locomotive", "cargo-wagon", "fluid-wagon", "artillery-wagon"}, "manual_mode")
 
@@ -888,6 +893,7 @@ custom_input_vehicle("driver-is-gunner", {"car", "spider-vehicle"}, "driver_is_g
 custom_input_vehicle("spidertron-logistics", {"spider-vehicle"}, "enable_logistics_while_moving")
 custom_input_vehicle("spidertron-logistic-requests", {"spider-vehicle"}, "vehicle_logistic_requests_enabled")
 custom_input_vehicle("targeting-with-gunner", {"spider-vehicle"}, "auto_target_with_gunner")
+custom_input_vehicle("targeting-without-gunner", {"spider-vehicle"}, "auto_target_without_gunner")
 custom_input_vehicle("train-mode-toggle", {"locomotive", "cargo-wagon", "fluid-wagon", "artillery-wagon"}, "manual_mode")
 
 

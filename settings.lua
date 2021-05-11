@@ -340,16 +340,24 @@ data:extend(
   {
     setting_type = "startup",
     name = "targeting-with-gunner",
-    localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"entity-name.spidertron"}, " ", {"gui-car.automatic-targeting"}},
+    localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"entity-name.spidertron"}, " ", {"gui-car.automatic-targeting"}, " ", {"gui-car.with-gunner"}},
     order = "e[vehicle]-e[targeting-with-gunner]",
     type = "bool-setting",
     default_value = true
   },
   {
     setting_type = "startup",
+    name = "targeting-without-gunner",
+    localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"entity-name.spidertron"}, " ", {"gui-car.automatic-targeting"}, " ", {"gui-car.without-gunner"}},
+    order = "e[vehicle]-f[targeting-without-gunner]",
+    type = "bool-setting",
+    default_value = false
+  },
+  {
+    setting_type = "startup",
     name = "train-mode-toggle",
     localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"tooltip-category.train"}, " ", {"gui-trains.manual-mode"}},
-    order = "e[vehicle]-f[targeting-with-gunner]",
+    order = "e[vehicle]-g[targeting-with-gunner]",
     type = "bool-setting",
     default_value = true
   }
@@ -360,7 +368,7 @@ if mods["aai-programmable-vehicles"] then
       setting_type = "startup",
       name = "aai-remote-controls",
       localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color] AAI Programmable Vehicles ", {"item-name.unit-remote-control"}},
-      order = "e[vehicle]-g[aai-remote-controls]",
+      order = "e[vehicle]-h[aai-remote-controls]",
       type = "bool-setting",
       default_value = true
   	}})
@@ -371,7 +379,7 @@ if mods["VehicleWagon2"] then
       setting_type = "startup",
   		name = "winch",
 			localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color] Vehicle Wagon 2 ", {"item-name.winch"}},
-      order = "e[vehicle]-i[winch]",
+      order = "e[vehicle]-j[winch]",
   		type = "bool-setting",
   		default_value = true
   	}})
@@ -386,9 +394,17 @@ data:extend(
     setting_type = "startup",
     name = "autogen-color",
     localised_name = {"", "[color=yellow]", {"gui-menu.other"}, ": [/color]", {"Shortcuts-ick.autogen-color"}},
-    order = "f[other]-b[autogen-color]",
+    order = "f[other]-a[autogen-color]",
     type = "string-setting",
     allowed_values = {"disabled", "default", "red", "green", "blue"},
     default_value = "default"
+  },
+  {
+    setting_type = "startup",
+    name = "ick-compatibility-mode",
+    localised_name = {"", "[color=yellow]", {"gui-menu.other"}, ": [/color]", {"Shortcuts-ick.compatibility-mode"}},
+    order = "f[other]-b[compatibility-mode]",
+    type = "bool-setting",
+    default_value = false
   }
 })

@@ -8,6 +8,7 @@
 * Option to categorise all shortcuts (new labels "Spidertron", "GUI")
 * Option to add control info to all shortcuts
 * Option for spidertron remote shortcut to generate an already assigned remote. (nearest spidertron or the spidertron the player is riding)
+* Save uninstall mode
 *
 
 ### COMPATIBILITY
