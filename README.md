@@ -11,7 +11,7 @@ You can download the mod on the [mod portal](https://mods.factorio.com/mod/Short
 * Most shortcuts are only available if a specific technology has been researched.
 * There are startup settings to disable individual shortcuts.
 * There is a setting to automatically generate shortcuts for selection tools from other mods.
-* There is a setting to disble all changes done to technology requirements for shortcuts in case there is a conflict with an overhaul mod.
+* There is a setting to disable all changes done to technology requirements for shortcuts in case there is a conflict with an overhaul mod.
 
 
 # Shortcuts

@@ -178,7 +178,7 @@ if settings.startup["rail-block-visualization-toggle"].value then
 	})
 end
 
-if settings.startup["toggle-personal-logistic-requests"].value then
+if settings.startup["toggle-personal-logistic-requests"] and settings.startup["toggle-personal-logistic-requests"].value then
 	-- taken from mods.factorio.com/mod/PersonalLogisticsShortcut from Haxtorio, modified by ickputzdirwech
 	data:extend(
 	{
