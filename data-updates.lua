@@ -83,6 +83,10 @@ if mods["MIRV"] and data.raw.capsule["mirv-targeting-remote"] and data.raw.techn
 	hide_the_remote("mirv-targeting-remote", "mirv-technology", data.raw.capsule["mirv-targeting-remote"])
 end
 
+if mods["AtomicArtilleryRemote"] and data.raw.capsule["atomic-artillery-targeting-remote"] and data.raw.technology["atomic-artillery"] and settings.startup["atomic-artillery-targeting-remote"].value == true then
+	hide_the_remote("atomic-artillery-targeting-remote", "atomic-artillery", data.raw.capsule["atomic-artillery-targeting-remote"])
+end
+
 if mods["landmine-thrower"] and data.raw.capsule["landmine-thrower-remote"] and data.raw.technology["landmine-thrower"] and settings.startup["landmine-thrower-remote"].value == true then
 	hide_the_remote("landmine-thrower-remote", "landmine-thrower", data.raw.capsule["landmine-thrower-remote"])
 end

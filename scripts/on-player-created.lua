@@ -7,10 +7,10 @@
 
 --[[ Overview of on-player-created.lua:
 	* Functions
-  * Special cases
-  * Equipment and vehicle
-  * Mod
-  * Mod with own shortcut
+	* Special cases
+	* Equipment and vehicle
+	* Mod
+	* Mod with own shortcut
 ]]
 
 if settings.startup["ick-compatibility-mode"].value == false then
@@ -92,6 +92,8 @@ if settings.startup["ick-compatibility-mode"].value == false then
 			player.set_shortcut_available("artillery-discovery-remote", false)
 		end
 
+		disable_shortcuts_1("AtomicArtilleryRemote", "atomic-artillery", "atomic-artillery-targeting-remote")
+		-- disable_shortcuts_1("jetpack", "jetpack-1", "jetpack")
 		disable_shortcuts_1("landmine-thrower", "landmine-thrower", "landmine-thrower-remote")
 		disable_shortcuts_1("MIRV", "mirv-technology", "mirv-targeting-remote")
 		disable_shortcuts_1("VehicleWagon2", "vehicle-wagons", "winch")

@@ -4,6 +4,8 @@ This is a 1.1 version of the [Shortcuts](https://mods.factorio.com/mod/Shortcuts
 
 You can download the mod on the [mod portal](https://mods.factorio.com/mod/Shortcuts-ick). There is also a [forum post](https://forums.factorio.com/viewtopic.php?f=190&t=88439) about this mod.
 
+You can help translate this mod on [Crowdin](https://crowdin.com/project/factorio-mods-localization]).
+
 
 # General
 * A keyboard input can be assigned to every shortcut.
@@ -46,6 +48,7 @@ You can download the mod on the [mod portal](https://mods.factorio.com/mod/Short
 * MOD: Advanced Artillery Remotes Continued
 * Artillery cannon toggle
 * MOD: M.I.R.V. targeting remote
+* MOD: Atomic Artillery Remote
 * MOD: Landmine thrower
 
 
@@ -93,5 +96,4 @@ You can download the mod on the [mod portal](https://mods.factorio.com/mod/Short
 * Disabled artillery and equipment is lost when settings change or the mod is removed. Make sure to enable all artillery and equipment before you uninstall this mod or change related settings.
 * Custom input references in shortcut names only update when a map is loaded.
 * The spidertron and train setting shortcuts don't update immediately if you tick the checkboxes in the GUIs. Close the GUI and the shortcut will be in the correct state.
-* [Disabled equipment turns on when using jetpack](https://mods.factorio.com/mod/Shortcuts-ick/discussion/5fde6b8e5658c168553b8220)
 * The order of shortcuts will change if the mod was temporarily disabled.

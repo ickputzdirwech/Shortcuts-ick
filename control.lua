@@ -57,6 +57,9 @@ local function initialize()
 	if global.shortcuts_grid == nil then
 		global.shortcuts_grid = {}
 	end
+	if global.shortcuts_jetpack == nil then
+		global.shortcuts_jetpack = {}
+	end
 end
 
 script.on_init(initialize)
@@ -220,15 +223,30 @@ local function reset_state(event, toggle) -- verifies placement of equipment and
 	end
 end
 
+
+remote.add_interface("Shortcuts-ick", { -- Checks if the armor inventory change was caused by the jetpack mod.
+	on_character_swapped = function(data)
+		if data.new_character.get_inventory(defines.inventory.character_armor).is_empty() == false then
+			global.shortcuts_jetpack[data.new_character.player.index] = true
+		end
+	end
+})
+
+
 script.on_event(defines.events.on_player_armor_inventory_changed, function(event)
-		reset_state(event, 0)
+	if global.shortcuts_jetpack[event.player_index] == nil then
+		reset_state(event, 0) -- If no change by the jetpack mod was detected the equipment gets reset.
+	else
+		global.shortcuts_jetpack[event.player_index] = nil -- Otherwise clear the global again.
+	end
 end)
 script.on_event(defines.events.on_player_placed_equipment, function(event)
-		reset_state(event, 1)
+	reset_state(event, 1)
 end)
 script.on_event(defines.events.on_player_removed_equipment, function(event)
-		reset_state(event, 2)
+	reset_state(event, 2)
 end)
+-- Not using on_equipment_inserted and on_equipment_removed because the changes would trigger them again.
 
 
 ---------------------------------------------------------------------------------------------------
@@ -515,6 +533,7 @@ local allowed_items = {
 	"artillery-discovery-remote",
 	"artillery-jammer-tool",
 	"artillery-targeting-remote",
+	"atomic-artillery-targeting-remote",
 	"discharge-defense-remote",
 	"ion-cannon-targeter",
 	"landmine-thrower-remote",
@@ -564,7 +583,7 @@ local function give_tree_killer(player, entity_types)
 		local filters = {}
 		for _, type in pairs(entity_types) do
 			for _, entity in pairs(game.get_filtered_entity_prototypes({{filter = "type", type = type}})) do
-				if entity.has_flag("not-deconstructable") == false then
+				if entity.has_flag("not-deconstructable") == false and (type == "cliff" or entity.mineable_properties.minable) then
 					if #filters < 255 then
 						if type == "simple-entity" then
 							if game.entity_prototypes[entity.name].count_as_rock_for_filtered_deconstruction then
@@ -772,6 +791,7 @@ script.on_event(defines.events.on_lua_shortcut, function(event)
 	elseif prototype_name == "active-defense-equipment" then
 		update_state(event, "active-defense-equipment")
 		return
+	-- elseif prototype_name == "jetpack" then
 
 	-- VEHICLE
 	elseif prototype_name == "driver-is-gunner" then
@@ -918,6 +938,7 @@ if artillery_setting == "both" or artillery_setting == "artillery-wagon" or arti
 end
 
 custom_input_give_item_1("artillery-targeting-remote")
+custom_input_give_item_1("atomic-artillery-targeting-remote")
 custom_input_give_item_1("discharge-defense-remote")
 custom_input_give_item_1("ion-cannon-targeter")
 custom_input_give_item_1("landmine-thrower-remote")

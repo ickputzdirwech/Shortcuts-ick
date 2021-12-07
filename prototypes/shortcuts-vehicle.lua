@@ -6,10 +6,13 @@
 ]]
 
 --[[ Overview of shortcuts-vehicle.lua:
-	* Driver is gunner.
+	* Driver is gunner shortcut.
 	* Spidertron remote shortcut.
 	* Spidertron Enable/disable logistics while moving shortcut.
+	* Spidertron logistic request shortcut.
 	* Spidertron Auto targeting with gunner shortcut.
+	* Spidertron Auto targeting without gunner shortcut.
+	* Train mode toggle shortcut.
 	* AAI remote control shortcuts.
 	* VehicleWagon2 winch shortcut.
 ]]
@@ -285,14 +288,14 @@ end
 
 if mods["VehicleWagon2"] and settings.startup["winch"].value then
 	data:extend(
-  {
-    {
-      type = "shortcut",
-      name = "winch",
+	{
+		{
+			type = "shortcut",
+			name = "winch",
 			localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"item-name.winch"}},
-      order = "e[vehicle]-j[winch]",
+			order = "e[vehicle]-j[winch]",
 			--associated_control_input = "winch",
-      action = "lua",
+			action = "lua",
 			icon =
 			{
 				filename = "__Shortcuts-ick__/graphics/module-inserter-x32.png",
@@ -325,6 +328,6 @@ if mods["VehicleWagon2"] and settings.startup["winch"].value then
 				scale = 0.5,
 				flags = {"gui-icon"}
 			}
-    }
-  })
+		}
+	})
 end

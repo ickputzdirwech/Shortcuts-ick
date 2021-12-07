@@ -7,11 +7,13 @@
 
 --[[ Overview of shortcuts-artillery.lua:
 	* Artillery targeting remote shortcut.
-	* AdvancedArtilleryRemotesContinued shortcuts and custom inputs.
+	* AdvancedArtilleryRemotesContinued shortcuts.
 	* Toggle artillery cannon fire
 		- configuration
 		- shortcut
 		- selection tool
+	* MIRV targeting remote shortcut.
+	* AtomicArtilleryRemote shortcut.
 	* Landmine thrower shortcut.
 ]]
 
@@ -153,9 +155,40 @@ if mods["MIRV"] and data.raw.capsule["mirv-targeting-remote"] and settings.start
 		{
 			type = "shortcut",
 			name = "mirv-targeting-remote",
-			localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.mirv-targeting-remote"}, " ", {"Shortcuts-ick.control", "mirv-targeting-remote"}},
+			localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.mirv-targeting-remote"}},
 			order = "d[artillery]-f[mirv-targeting-remote]",
 			--associated_control_input = "mirv-targeting-remote",
+			action = "lua",
+			style = "red",
+			icon =
+			{
+				filename = "__Shortcuts-ick__/graphics/mirv-targeting-remote-x32-white.png",
+				priority = "extra-high-no-scale",
+				size = 32,
+				scale = 0.5,
+				flags = {"gui-icon"}
+			},
+			small_icon =
+			{
+				filename = "__Shortcuts-ick__/graphics/mirv-targeting-remote-x24-white.png",
+				priority = "extra-high-no-scale",
+				size = 24,
+				scale = 0.5,
+				flags = {"gui-icon"}
+			}
+		}
+	})
+end
+
+if mods["AtomicArtilleryRemote"] and settings.startup["atomic-artillery-targeting-remote"].value then
+	data:extend(
+	{
+		{
+			type = "shortcut",
+			name = "atomic-artillery-targeting-remote",
+			localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.atomic-artillery-targeting-remote"}},
+			order = "d[artillery]-g[atomic-artillery-targeting-remote]",
+			--associated_control_input = "atomic-artillery-targeting-remote",
 			action = "lua",
 			style = "red",
 			icon =
@@ -185,7 +218,7 @@ if mods["landmine-thrower"] and data.raw.capsule["landmine-thrower-remote"] and 
 			type = "shortcut",
 			name = "landmine-thrower-remote",
 			localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.landmine-thrower-remote"}},
-			order = "d[artillery]-g[landmine-thrower-remote]",
+			order = "d[artillery]-h[landmine-thrower-remote]",
 			--associated_control_input = "landmine-thrower-remote",
 			action = "lua",
 			style = "red",

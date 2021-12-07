@@ -12,7 +12,7 @@
 
 
 ---------------------------------------------------------------------------------------------------
---Compatibility with IR2
+-- Compatibility with IR2
 ---------------------------------------------------------------------------------------------------
 local function change_technology_to_unlock(shortcut, tech)
     if data.raw.shortcut[shortcut] then
@@ -34,7 +34,7 @@ end
 
 
 ---------------------------------------------------------------------------------------------------
---Remove technology_to_unlock and/or change action for mod shortcuts in order to make them available based in researched in a specific game.
+-- Remove technology_to_unlock and/or change action for mod shortcuts in order to make them available based in researched in a specific game.
 ---------------------------------------------------------------------------------------------------
 if settings.startup["ick-compatibility-mode"].value == false then
 	if mods["circuit-checker"] and data.raw.shortcut["check-circuit"] then

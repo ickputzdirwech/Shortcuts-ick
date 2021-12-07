@@ -15,6 +15,7 @@ local shortcuts = {
     "artillery-cluster-remote",
     "artillery-discovery-remote",
     "mirv-targeting-remote",
+	"atomic-artillery-targeting-remote",
     "landmine-thrower-remote",
     "ion-cannon-targeter",
 
@@ -49,11 +50,11 @@ for _, name in pairs(shortcuts) do
         data:extend(
         {
             {
-            type = "custom-input",
-            name = data.raw.shortcut[name].name,
-            localised_name = data.raw.shortcut[name].localised_name,
-            order = data.raw.shortcut[name].order,
-            key_sequence = ""
+				type = "custom-input",
+				name = data.raw.shortcut[name].name,
+				localised_name = data.raw.shortcut[name].localised_name,
+				order = data.raw.shortcut[name].order,
+				key_sequence = ""
             }
         })
         table.insert(data.raw.shortcut[name].localised_name, " ")

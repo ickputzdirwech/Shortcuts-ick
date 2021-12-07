@@ -136,6 +136,7 @@ if autogen_color == "default" or autogen_color == "red" or autogen_color == "gre
 		"selection-tool",
 		"squad-spidertron-remote-sel",
 		"squad-spidertron-unlink-tool",
+		"tms-switcher",
 		"trainbuilder-manual",
 		"unit-remote-control",
 		"well-planner",

@@ -10,6 +10,7 @@
 	* Discharge defense remote shortcut.
 	* Night vision equipment shortcut.
 	* Personal laser defense shortcut.
+	* (Jetpack shortcut.)
 ]]
 
 if settings.startup["belt-immunity-equipment"].value then
@@ -186,3 +187,56 @@ if settings.startup["active-defense-equipment"].value then
 		}
 	})
 end
+
+
+--[[
+if mods["jetpack"] and settings.startup["jetpack"].value then
+	if settings.startup["jetpack"].value then
+		data:extend(
+		{
+			{
+				type = "shortcut",
+				name = "jetpack",
+				localised_name = {"", {"Shortcuts-ick.equipment"}, {"mod-name.jetpack"}},
+				order = "c[equipment]-g[jetpack]",
+				associated_control_input = "jetpack",
+				action = "lua",
+				toggleable = true,
+				icon =
+				{
+					filename = "__Shortcuts-ick__/graphics/jetpack-x32.png",
+					priority = "extra-high-no-scale",
+					size = 32,
+					scale = 0.5,
+					mipmap_count = 2,
+					flags = {"gui-icon"}
+				},
+				small_icon =
+				{
+					filename = "__Shortcuts-ick__/graphics/jetpack-x24.png",
+					priority = "extra-high-no-scale",
+					size = 24,
+					scale = 0.5,
+					flags = {"gui-icon"}
+				},
+				disabled_icon =
+				{
+					filename = "__Shortcuts-ick__/graphics/jetpack-x32-white.png",
+					priority = "extra-high-no-scale",
+					size = 32,
+					scale = 0.5,
+					flags = {"gui-icon"}
+				},
+				disabled_small_icon =
+				{
+					filename = "__Shortcuts-ick__/graphics/jetpack-x24-white.png",
+					priority = "extra-high-no-scale",
+					size = 24,
+					scale = 0.5,
+					flags = {"gui-icon"}
+				}
+			}
+		})
+	end
+end
+]]
