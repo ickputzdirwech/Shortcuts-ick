@@ -236,7 +236,6 @@ remote.add_interface("Shortcuts-ick", { -- Checks if the armor inventory change 
 
 
 script.on_event(defines.events.on_player_armor_inventory_changed, function(event)
-	game.print("armor invenoty changed")
 	if global.shortcuts_jetpack[event.player_index] == nil then
 		reset_state(event, 0) -- If no change by the jetpack mod was detected the equipment gets reset.
 	else
