@@ -1,4 +1,4 @@
---[[ Copyright (c) 2021 npc_strider, ickputzdirwech
+--[[ Copyright (c) 2022 npc_strider, ickputzdirwech
 	* Original mod by npc_strider.
 	* For direct use of code or graphics, credit is appreciated and encouraged. See LICENSE.txt for more information.
 	* This mod may contain modified code sourced from base/core Factorio.
@@ -69,8 +69,7 @@ script.on_configuration_changed(initialize)
 ---------------------------------------------------------------------------------------------------
 -- EQUIPMENT FUNCTIONS
 ---------------------------------------------------------------------------------------------------
-local function update_armor(event)
-	local player = game.players[event.player_index]
+local function update_armor(event, player)
 	local power_armor = player.get_inventory(defines.inventory.character_armor)
 	if power_armor and power_armor.valid then
 		if power_armor[1].valid_for_read then
@@ -86,38 +85,41 @@ local function update_armor(event)
 end
 
 local function update_state(event, equipment_type) -- toggles the armor
-	update_armor(event)
-	local grid = global.shortcuts_armor[game.players[event.player_index].index]
-	if grid then
-		for _, equipment in pairs(grid.equipment) do
-			if equipment.valid and equipment.type == equipment_type then
-				local name = equipment.name
-				local position = equipment.position
-				local energy = equipment.energy
-				if not (string.sub(equipment.name, 1, 9) == "disabled-" or string.sub(equipment.name, 1, 4) == "nvt-") then
-					if equipment_type ~= "active-defense-equipment" or (equipment_type == "active-defense-equipment" and game.equipment_prototypes["disabled-" .. equipment.name]) then
+	local player = game.players[event.player_index]
+	if player.character then
+		update_armor(event, player)
+		local grid = global.shortcuts_armor[game.players[event.player_index].index]
+		if grid and grid.valid then
+			for _, equipment in pairs(grid.equipment) do
+				if equipment.valid and equipment.type == equipment_type then
+					local name = equipment.name
+					local position = equipment.position
+					local energy = equipment.energy
+					if not (string.sub(equipment.name, 1, 9) == "disabled-" or string.sub(equipment.name, 1, 4) == "nvt-") then
+						if equipment_type ~= "active-defense-equipment" or (equipment_type == "active-defense-equipment" and game.equipment_prototypes["disabled-" .. equipment.name]) then
+							grid.take{name = name, position = position}
+							local new_equipment = grid.put{name = "disabled-" .. name, position = position}
+							if new_equipment and new_equipment.valid then
+								new_equipment.energy = energy
+							end
+							player.set_shortcut_toggled(equipment_type, false)
+						end
+					elseif (string.sub(equipment.name, 1, 9) == "disabled-") then
 						grid.take{name = name, position = position}
-						local new_equipment = grid.put{name = "disabled-" .. name, position = position}
+						local new_equipment = grid.put{name = (string.sub(name, 10, #name)), position = position}
 						if new_equipment and new_equipment.valid then
 							new_equipment.energy = energy
 						end
-						game.players[event.player_index].set_shortcut_toggled(equipment_type, false)
+						player.set_shortcut_toggled(equipment_type, true)
+					-- make it compatible with NightvisionToggles
+					elseif (string.sub(equipment.name, 1, 4) == "nvt-") then
+						grid.take{name = name, position = position}
+						local new_equipment = grid.put{name = (string.sub(name, 5, #name)), position = position}
+						if new_equipment and new_equipment.valid then
+							new_equipment.energy = energy
+						end
+						player.set_shortcut_toggled(equipment_type, true)
 					end
-				elseif (string.sub(equipment.name, 1, 9) == "disabled-") then
-					grid.take{name = name, position = position}
-					local new_equipment = grid.put{name = (string.sub(name, 10, #name)), position = position}
-					if new_equipment and new_equipment.valid then
-						new_equipment.energy = energy
-					end
-					game.players[event.player_index].set_shortcut_toggled(equipment_type, true)
-				-- make it compatible with NightvisionToggles
-				elseif (string.sub(equipment.name, 1, 4) == "nvt-") then
-					grid.take{name = name, position = position}
-					local new_equipment = grid.put{name = (string.sub(name, 5, #name)), position = position}
-					if new_equipment and new_equipment.valid then
-						new_equipment.energy = energy
-					end
-					game.players[event.player_index].set_shortcut_toggled(equipment_type, true)
 				end
 			end
 		end
@@ -160,8 +162,8 @@ end
 -- RESET EQUIPMENT STATE
 ---------------------------------------------------------------------------------------------------
 local function reset_state(event, toggle) -- verifies placement of equipment and armor switching
-	update_armor(event)
 	local player = game.players[event.player_index]
+	update_armor(event, player)
 	local grid = global.shortcuts_armor[event.player_index]
 	if grid and grid.valid then
 		if settings.startup["discharge-defense-remote"].value then
@@ -226,7 +228,7 @@ end
 
 remote.add_interface("Shortcuts-ick", { -- Checks if the armor inventory change was caused by the jetpack mod.
 	on_character_swapped = function(data)
-		if data.new_character.get_inventory(defines.inventory.character_armor).is_empty() == false then
+		if data.new_character.get_inventory(defines.inventory.character_armor).is_empty() == false and data.new_character.player then
 			global.shortcuts_jetpack[data.new_character.player.index] = true
 		end
 	end
@@ -234,6 +236,7 @@ remote.add_interface("Shortcuts-ick", { -- Checks if the armor inventory change 
 
 
 script.on_event(defines.events.on_player_armor_inventory_changed, function(event)
+	game.print("armor invenoty changed")
 	if global.shortcuts_jetpack[event.player_index] == nil then
 		reset_state(event, 0) -- If no change by the jetpack mod was detected the equipment gets reset.
 	else
@@ -275,12 +278,23 @@ if artillery_setting == "both" or artillery_setting == "artillery-turret" or art
 		}
 	end
 
-	local function artillery_swap(entity,new_name)
+	local function artillery_swap(entity, new_name)
 		local shellname = {}
 		local shellcount = {}
 		local inventory = {}
+		local manual_mode = true
+		local speed = 0
+		local old_equipment = false
 		if entity.type == "artillery-wagon" and entity.name ~= "entity-ghost" then
 			inventory = entity.get_inventory(defines.inventory.artillery_wagon_ammo)
+			manual_mode = entity.train.manual_mode
+			speed = entity.train.speed
+			if entity.grid and entity.grid.equipment[1] then
+				old_equipment = {}
+				for _, equipment in pairs(entity.grid.equipment) do
+					table.insert(old_equipment, {name = equipment.name, position = equipment.position, energy = equipment.energy, shield = equipment.shield})
+				end
+			end
 		elseif entity.type == "artillery-turret" and entity.name ~= "entity-ghost" then
 			inventory = entity.get_inventory(defines.inventory.artillery_turret_ammo)
 		end
@@ -295,6 +309,7 @@ if artillery_setting == "both" or artillery_setting == "artillery-turret" or art
 		local surface = entity.surface.name
 		local position = entity.position
 		local direction = entity.direction
+		local orientation = entity.orientation
 		local force = entity.force
 		local kills = entity.kills
 		local damage = entity.damage_dealt
@@ -312,6 +327,7 @@ if artillery_setting == "both" or artillery_setting == "artillery-turret" or art
 				ghost_name = ghost,
 				position = position,
 				direction = direction,
+				orientation = orientation,
 				force = force,
 			}
 		else
@@ -320,6 +336,7 @@ if artillery_setting == "both" or artillery_setting == "artillery-turret" or art
 				name = new_name,
 				position = position,
 				direction = direction,
+				orientation = orientation,
 				force = force,
 				create_build_effect_smoke = false
 			}
@@ -333,8 +350,21 @@ if artillery_setting == "both" or artillery_setting == "artillery-turret" or art
 					new_entity.insert({name = shellname[i], count = shellcount[i]})
 				end
 			end
+			if new_entity.type == "artillery-wagon" then
+				new_entity.train.speed = speed
+				new_entity.train.manual_mode = manual_mode
+			end
+			if old_equipment then
+				for _, old_equipment in pairs(old_equipment) do
+					local new_equipment = new_entity.grid.put{name = old_equipment.name, position = old_equipment.position}
+					new_equipment.energy = old_equipment.energy
+					if new_equipment.max_shield > 0 then
+						new_equipment.shield = old_equipment.shield
+					end
+				end
+			end
 		elseif new_entity.name ~= "entity-ghost" then
-			game.print("[img=utility.danger_icon] ERROR 1: Artillery turret/wagon failed to convert. Please report this to the author of the Shortcuts for 1.1 mod")
+			player.print({"", {"Shortcuts-ick.error-artillery"}, " (ERROR 1)"})
 		end
 		return new_entity
 	end
@@ -347,18 +377,16 @@ if artillery_setting == "both" or artillery_setting == "artillery-turret" or art
 				local name = entity.name
 				local type = entity.type
 				if entity.valid then
-					if string.sub(name,1,9) == "disabled-" or (name == "entity-ghost" and string.sub(entity.ghost_name,1,9) == "disabled-") then
-						j=j+1
-						local new_name = string.sub(name,10,#name)
-						artillery_swap(entity,new_name)
+					if string.sub(name,1,9) == "disabled-" or (name == "entity-ghost" and string.sub(entity.ghost_name, 1, 9) == "disabled-") then
+						j = j+1
+						artillery_swap(entity, string.sub(name, 10, #name))
 					else
 						local new_name = "disabled-" .. name
 						if game.entity_prototypes[new_name] or (name == "entity-ghost" and game.entity_prototypes["disabled-"..entity.ghost_name]) then
-							i=i+1
-							local new_entity = artillery_swap(entity,new_name)
-							draw_warning_icon(new_entity)
+							i = i+1
+							draw_warning_icon(artillery_swap(entity, new_name))
 						else
-							game.print("[img=utility.danger_icon] ERROR 2: Artillery turret/wagon failed to convert. Please report this to the author of the Shortcuts for 1.1 mod")
+							player.print({"", {"Shortcuts-ick.error-artillery"}, " (ERROR 2)"})
 						end
 					end
 				end
@@ -379,14 +407,14 @@ if artillery_setting == "both" or artillery_setting == "artillery-turret" or art
 
 	script.on_event(defines.events.on_robot_built_entity, function(event)
 		local entity = event.created_entity
-		if string.sub(entity.name,1,9) == "disabled-" then
+		if string.sub(entity.name, 1, 9) == "disabled-" then
 			draw_warning_icon(entity)
 		end
 	end, entity_type_filter)
 
 	script.on_event(defines.events.on_built_entity, function(event)
 		local entity = event.created_entity
-		if string.sub(entity.ghost_name,1,9) == "disabled-" then
+		if string.sub(entity.ghost_name, 1, 9) == "disabled-" then
 			draw_warning_icon(entity)
 		end
 	end, {{filter="ghost"}})
@@ -593,7 +621,7 @@ local function give_tree_killer(player, entity_types)
 							table.insert(filters, entity.name)
 						end
 					else
-						game.print("[img=utility.warning_icon] [color=yellow]Shortcuts for 1.1:[/color] Failed to ad a filter for all " .. type .. " prototypes (max. 255).")
+						player.print({"", {"Shortcuts-ick.error-environment", type}, " (ERROR 3)"})
 						break
 					end
 				end
@@ -809,9 +837,9 @@ script.on_event(defines.events.on_lua_shortcut, function(event)
 
 	-- GIVE ITEM
 	elseif prototype_name == "environment-killer" then
-		give_tree_killer(player, {"tree", "simple-entity", "cliff", "fish", "item-entity"})
+		give_tree_killer(player, {"item-entity", "cliff", "fish", "simple-entity", "tree"})
 	elseif prototype_name == "cliff-fish-item-on-ground" then
-		give_tree_killer(player, {"cliff", "fish", "item-entity"})
+		give_tree_killer(player, {"item-entity", "cliff", "fish"})
 	elseif prototype_name == "check-circuit" then
 		give_shortcut_item(player, "circuit-checker")
 	elseif prototype_name == "pump-shortcut" then
@@ -901,13 +929,13 @@ end
 -- BLUEPRINT
 if tree_setting == "all-in-one" then
 	script.on_event("environment-killer", function(event)
-		give_tree_killer(game.players[event.player_index], {"tree", "simple-entity", "cliff", "fish", "item-entity"})
+		give_tree_killer(game.players[event.player_index], {"item-entity", "cliff", "fish", "simple-entity", "tree"})
 	end)
 end
 
 if tree_setting == "both" or tree_setting == "cliff-fish" then
 	script.on_event("cliff-fish-item-on-ground", function(event)
-		give_tree_killer(game.players[event.player_index], {"cliff", "fish", "item-entity"})
+		give_tree_killer(game.players[event.player_index], {"item-entity", "cliff", "fish"})
 	end)
 end
 

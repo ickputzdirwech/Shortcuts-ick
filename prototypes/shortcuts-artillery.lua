@@ -1,4 +1,4 @@
---[[ Copyright (c) 2021 npc_strider, ickputzdirwech
+--[[ Copyright (c) 2022 npc_strider, ickputzdirwech
 	* Original mod by npc_strider.
 	* For direct use of code or graphics, credit is appreciated and encouraged. See LICENSE.txt for more information.
 	* This mod may contain modified code sourced from base/core Factorio.
@@ -17,13 +17,40 @@
 	* Landmine thrower shortcut.
 ]]
 
+local artillery_targeting_remote = ""
+local artillery_cluster_remote = ""
+local artillery_discovery_remote = ""
+local artillery_turret = ""
+local mirv_targeting_remote = ""
+local atomic_artillery_targeting_remote = ""
+local landmine_thrower_remote = ""
+if settings.startup["ick-tags"].value == "tags" then
+	local tag = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]"}
+	artillery_targeting_remote = tag
+	artillery_cluster_remote = tag
+	artillery_discovery_remote = tag
+	artillery_turret = tag
+	mirv_targeting_remote = tag
+	atomic_artillery_targeting_remote = tag
+	landmine_thrower_remote = tag
+elseif settings.startup["ick-tags"].value == "icons" then
+	artillery_targeting_remote = "[img=item/artillery-targeting-remote] "
+	artillery_cluster_remote = "[img=item/artillery-cluster-remote] "
+	artillery_discovery_remote = "[img=item/artillery-discovery-remote] "
+	artillery_turret = "[img=item/artillery-turret] "
+	mirv_targeting_remote = "[img=item/mirv-targeting-remote] "
+	atomic_artillery_targeting_remote = "[img=item/artillery-targeting-remote] "
+	landmine_thrower_remote = "[img=item/landmine-thrower-remote] "
+end
+
+
 if settings.startup["artillery-targeting-remote"].value then
 	data:extend(
 	{
 		{
 			type = "shortcut",
 			name = "artillery-targeting-remote",
-			localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.artillery-targeting-remote"}},
+			localised_name = {"", artillery_targeting_remote, {"item-name.artillery-targeting-remote"}},
 			order = "d[artillery]-a[artillery-targeting-remote]",
 			--associated_control_input = "artillery-targeting-remote",
 			action = "lua",
@@ -48,13 +75,14 @@ if settings.startup["artillery-targeting-remote"].value then
 	})
 end
 
+
 if settings.startup["artillery-targeting-remote"] and settings.startup["artillery-targeting-remote"].value and data.raw.capsule["artillery-cluster-remote"] and data.raw.capsule["artillery-discovery-remote"] then
 	data:extend(
 	{
 		{
 			type = "shortcut",
 			name = "artillery-cluster-remote",
-			localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.artillery-cluster-remote"}},
+			localised_name = {"", artillery_cluster_remote, {"item-name.artillery-cluster-remote"}},
 			order = "d[artillery]-b[artillery-cluster-remote]",
 			--associated_control_input = "artillery-cluster-remote",
 			action = "lua",
@@ -71,7 +99,7 @@ if settings.startup["artillery-targeting-remote"] and settings.startup["artiller
 		{
 			type = "shortcut",
 			name = "artillery-discovery-remote",
-			localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.artillery-discovery-remote"}},
+			localised_name = {"", artillery_discovery_remote, {"item-name.artillery-discovery-remote"}},
 			order = "d[artillery]-c[artillery-discovery-remote]",
 			--associated_control_input = "artillery-discovery-remote",
 			action = "lua",
@@ -87,6 +115,7 @@ if settings.startup["artillery-targeting-remote"] and settings.startup["artiller
 		}
 	})
 end
+
 
 local artillery_toggle = settings.startup["artillery-toggle"].value
 if artillery_toggle == "both" or artillery_toggle == "artillery-wagon" or artillery_toggle == "artillery-turret" then
@@ -104,7 +133,7 @@ if artillery_toggle == "both" or artillery_toggle == "artillery-wagon" or artill
 		{
 			type = "shortcut",
 			name = "artillery-jammer-tool",
-			localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.artillery-jammer-tool"}},
+			localised_name = {"", artillery_turret, {"item-name.artillery-jammer-tool"}},
 			order = "d[artillery]-d[artillery-jammer-tool]",
 			--associated_control_input = "artillery-jammer-tool",
 			action = "lua",
@@ -149,13 +178,14 @@ if artillery_toggle == "both" or artillery_toggle == "artillery-wagon" or artill
 	})
 end
 
+
 if mods["MIRV"] and data.raw.capsule["mirv-targeting-remote"] and settings.startup["mirv-targeting-remote"].value then
 	data:extend(
 	{
 		{
 			type = "shortcut",
 			name = "mirv-targeting-remote",
-			localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.mirv-targeting-remote"}},
+			localised_name = {"", mirv_targeting_remote, ": [/color]", {"item-name.mirv-targeting-remote"}},
 			order = "d[artillery]-f[mirv-targeting-remote]",
 			--associated_control_input = "mirv-targeting-remote",
 			action = "lua",
@@ -180,13 +210,14 @@ if mods["MIRV"] and data.raw.capsule["mirv-targeting-remote"] and settings.start
 	})
 end
 
+
 if mods["AtomicArtilleryRemote"] and settings.startup["atomic-artillery-targeting-remote"].value then
 	data:extend(
 	{
 		{
 			type = "shortcut",
 			name = "atomic-artillery-targeting-remote",
-			localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.atomic-artillery-targeting-remote"}},
+			localised_name = {"", atomic_artillery_targeting_remote, {"item-name.atomic-artillery-targeting-remote"}},
 			order = "d[artillery]-g[atomic-artillery-targeting-remote]",
 			--associated_control_input = "atomic-artillery-targeting-remote",
 			action = "lua",
@@ -211,13 +242,14 @@ if mods["AtomicArtilleryRemote"] and settings.startup["atomic-artillery-targetin
 	})
 end
 
+
 if mods["landmine-thrower"] and data.raw.capsule["landmine-thrower-remote"] and settings.startup["landmine-thrower-remote"].value then
 	data:extend(
 	{
 		{
 			type = "shortcut",
 			name = "landmine-thrower-remote",
-			localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.landmine-thrower-remote"}},
+			localised_name = {"", landmine_thrower_remote, {"item-name.landmine-thrower-remote"}},
 			order = "d[artillery]-h[landmine-thrower-remote]",
 			--associated_control_input = "landmine-thrower-remote",
 			action = "lua",

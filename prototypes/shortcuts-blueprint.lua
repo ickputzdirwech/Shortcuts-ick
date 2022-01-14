@@ -1,4 +1,4 @@
---[[ Copyright (c) 2021 npc_strider, ickputzdirwech
+--[[ Copyright (c) 2022 npc_strider, ickputzdirwech
 	* Original mod by npc_strider.
 	* For direct use of code or graphics, credit is appreciated and encouraged. See LICENSE.txt for more information.
 	* This mod may contain modified code sourced from base/core Factorio.
@@ -13,6 +13,17 @@
 		- Cliff/Fish/Item on ground shortcut.
 	* WellPlanner shortcut.
 ]]
+
+local deconstruction_planner = ""
+local well_planner = ""
+if settings.startup["ick-tags"].value == "tags" then
+	local tag = {"", "[color=blue]", {"item-name.blueprint"}, ": [/color]"}
+	deconstruction_planner = tag
+	well_planner = tag
+elseif settings.startup["ick-tags"].value == "icons" then
+	deconstruction_planner = "[img=entity/tree-01] "
+	well_planner = "[img=item/well-planner] "
+end
 
 
 -- TREE KILLER
@@ -36,7 +47,7 @@ if tree_killer == "all-in-one" then
 		{
 			type = "shortcut",
 			name = "environment-killer",
-			localised_name = {"", "[color=blue]", {"item-name.blueprint"}, ": [/color]", {"item-name.deconstruction-planner"}, " (", {"item-group-name.environment"}, ")"},
+			localised_name = {"", deconstruction_planner, {"item-name.deconstruction-planner"}, " (", {"item-group-name.environment"}, ")"},
 			order = "b[blueprint]-g[environment-killer]",
 			--associated_control_input = "environment-killer",
 			action = "lua",
@@ -69,7 +80,7 @@ if tree_killer == "both" or tree_killer == "trees-rocks" then
 		{
 			type = "shortcut",
 			name = "tree-killer",
-			localised_name = {"", "[color=blue]", {"item-name.blueprint"}, ": [/color]", {"item-name.deconstruction-planner"}, " (", {"gui-deconstruction.trees-and-rocks-only"}, ")"},
+			localised_name = {"", deconstruction_planner, {"item-name.deconstruction-planner"}, " (", {"gui-deconstruction.trees-and-rocks-only"}, ")"},
 			order = "b[blueprint]-g[tree-killer]",
 			--associated_control_input = "tree-killer",
 			action = "lua",
@@ -101,7 +112,7 @@ if tree_killer == "both" or tree_killer == "cliff-fish" then
 			{
 			type = "shortcut",
 			name = "cliff-fish-item-on-ground",
-			localised_name = {"", "[color=blue]", {"item-name.blueprint"}, ": [/color]", {"item-name.deconstruction-planner"}, " (", {"entity-name.cliff"}, "/", {"entity-name.fish"}, "/", {"entity-name.item-on-ground"}, ")"},
+			localised_name = {"", deconstruction_planner, {"item-name.deconstruction-planner"}, " (", {"entity-name.cliff"}, "/", {"entity-name.fish"}, "/", {"entity-name.item-on-ground"}, ")"},
 			order = "b[blueprint]-h[tree-killer]",
 			--associated_control_input = "cliff-fish-item-on-ground",
 			action = "lua",
@@ -127,7 +138,7 @@ if settings.startup["well-planner"] and settings.startup["well-planner"].value a
 		{
 			type = "shortcut",
 			name = "well-planner",
-			localised_name = {"", "[color=blue]", {"item-name.blueprint"}, ": [/color]", {"item-name.well-planner"}},
+			localised_name = {"", well_planner, {"item-name.well-planner"}},
 			order = "b[blueprint]-j[well-planner]",
 			--associated_control_input = "well-planner",
 			action = "lua",

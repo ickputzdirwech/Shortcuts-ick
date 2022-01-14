@@ -1,10 +1,9 @@
 # Info
-
 This is a 1.1 version of the [Shortcuts](https://mods.factorio.com/mod/Shortcuts) mod by [morley376](https://mods.factorio.com/user/morley376). This will be maintained as long as the original mod isn't updated. Please report any bugs and send in ideas. Some of the things in the mod go beyond my skill (yet), but I like figuring out new things.
 
 You can download the mod on the [mod portal](https://mods.factorio.com/mod/Shortcuts-ick). There is also a [forum post](https://forums.factorio.com/viewtopic.php?f=190&t=88439) about this mod.
 
-You can help translate this mod on [Crowdin](https://crowdin.com/project/factorio-mods-localization]).
+You can help translate this mod on [Crowdin](https://crowdin.com/project/factorio-mods-localization).
 
 
 # General

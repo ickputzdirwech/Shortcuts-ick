@@ -1,4 +1,19 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.1.22
+Date: 2022-01-14
+  Features:
+    - Added an option to disable the colored tags or replace them with icons.
+  Changes:
+    - Changed the order in which entity types get assigned to the "Deconstruction planner Environment" in order to reduce the number of error messages if the total number of entity types exceeds 255.
+    - Improved aforementioned the error message.
+    - Made all error messages it localisable.
+  Bugfixes:
+    - Fixed ICC color profile errors (thanks to saulrh).
+    - Fixed that toggling artillery wagons didn't preserve automatic mode, speed, orientation and a potential equipment grid (thanks to ashcanpete and Agrrox for the reports).
+    - Attempt to fix an error related to the Jetpack mod swapping characters with no player attached to them (thanks to Distortions864 for the report).
+    - Fixed an error when using equipment shortcuts when no character is attached to the player.
+
+---------------------------------------------------------------------------------------------------
 Version: 1.1.21
 Date: 2021-12-07
   Features:

@@ -1,4 +1,4 @@
---[[ Copyright (c) 2021 npc_strider, ickputzdirwech
+--[[ Copyright (c) 2022 npc_strider, ickputzdirwech
     * Original mod by npc_strider.
     * For direct use of code or graphics, credit is appreciated and encouraged. See LICENSE.txt for more information.
     * This mod may contain modified code sourced from base/core Factorio.
