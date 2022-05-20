@@ -13,6 +13,7 @@ You can help translate this mod on [Crowdin](https://crowdin.com/project/factori
 * There are startup settings to disable individual shortcuts.
 * There is a setting to automatically generate shortcuts for selection tools from other mods.
 * There is a setting to disable all changes done to technology requirements for shortcuts in case there is a conflict with an overhaul mod.
+* There is a map setting that can be used to prepare certain startup setting changes or uninstallation.
 
 
 # Shortcuts
@@ -24,12 +25,13 @@ You can help translate this mod on [Crowdin](https://crowdin.com/project/factori
 * Show rail block visualization
 * Toggle personal logistic requests
 * Zoom out of world
+* Show minimap
 * MOD: Max rate calculator
 
 
 **Blueprint**
 
-* Deconstruction planner "Environment" or "Trees/rocks only" and "Cliff/Fish/Item on ground" 
+* Environment Deconstruction planner
 * MOD: Well Planner
 
 
@@ -45,6 +47,8 @@ You can help translate this mod on [Crowdin](https://crowdin.com/project/factori
 
 * Artillery targeting remote
 * MOD: Advanced Artillery Remotes Continued
+* MOD: Artillery Bombardment Remote
+* MOD: Artillery Bombardment Remote (Reloaded)
 * Artillery cannon toggle
 * MOD: M.I.R.V. targeting remote
 * MOD: Atomic Artillery Remote
@@ -76,6 +80,8 @@ You can help translate this mod on [Crowdin](https://crowdin.com/project/factori
 * Circuit Checker
 * Orbital Ion Cannon (SE Edition)
 * Ore Eraser (continued)
+* Module Inserter
+* Module Inserter (Non-conflict version)
 
 
 **Shortcuts from these mods are only available if a specific technology has been researched:**
@@ -84,6 +90,7 @@ You can help translate this mod on [Crowdin](https://crowdin.com/project/factori
 * Circuit Checker
 * Orbital Ion Cannon (SE Edition)
 * Module Inserter
+* Module Inserter (Non-conflict version)
 * P.U.M.P
 * Rail Signal Planner
 * Spidertron squad control
@@ -92,7 +99,9 @@ You can help translate this mod on [Crowdin](https://crowdin.com/project/factori
 
 
 # KNOWN ISSUES
-* Disabled artillery and equipment is lost when settings change or the mod is removed. Make sure to enable all artillery and equipment before you uninstall this mod or change related settings.
+* Use the map setting **Prepare a startup setting change or uninstallation** in order to prevent the following issues:
+	* Disabled artillery and equipment is lost when settings change or the mod is removed. Make sure to enable all artillery and equipment before you uninstall this mod or change related settings.
+	* When the mod is disabled items that were previously available via a shortcut might be unavailable. To fix it you can also run this command: <code>/c game.player.force.reset_technology_effects()</code>
 * Custom input references in shortcut names only update when a map is loaded.
 * The spidertron and train setting shortcuts don't update immediately if you tick the checkboxes in the GUIs. Close the GUI and the shortcut will be in the correct state.
 * The order of shortcuts will change if the mod was temporarily disabled.

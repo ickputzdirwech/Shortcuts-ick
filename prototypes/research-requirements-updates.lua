@@ -22,14 +22,10 @@ end
 
 if settings.startup["ick-compatibility-mode"].value == false then
 	change_technology_to_unlock("toggle-personal-logistic-requests", nil)
-	change_technology_to_unlock("environment-killer", nil)
 	change_technology_to_unlock("tree-killer", nil)
-	change_technology_to_unlock("cliff-fish-item-on-ground", nil)
 elseif mods["IndustrialRevolution"] then
 	change_technology_to_unlock("toggle-personal-logistic-requests", "ir2-robotower")
-	change_technology_to_unlock("environment-killer", "personal-roboport-equipment")
 	change_technology_to_unlock("tree-killer", "personal-roboport-equipment")
-	change_technology_to_unlock("cliff-fish-item-on-ground", "personal-roboport-equipment")
 end
 
 

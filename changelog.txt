@@ -1,11 +1,28 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.1.23
+Date: 2022-05-20
+  Features:
+    - Added new shortcut "Show minimap" (thanks to spiral_power for the suggestion).
+    - Added support for "Module Inserter (Non-conflict version)" by Neocult (thanks to Sgamez for the suggestion).
+    - Added support for "Artillery Bombardment Remote" by shanemadden and "Artillery Bombardment Remot(Reloaded)" by Neocult (thanks robot256 for the suggestion.
+    - Added a map setting that can be used to prepare certain startup setting changes or uninstallation.
+  Changes:
+    - The Environment Deconstruction planner can now be configured runtime (thanks to Stargateur for the suggestion).
+    - The "Module Inserter" item is now hidden from the inventory (thanks to Sgamez for the suggestion).
+  Bugfixes:
+    - Fixed that the spidertron remote was unavailable when disabling the corresponding startup setting when it was already researched.
+    - Fixed that duplicate spidertron remotes got deleted even when the setting was disabled (thanks to DoomSquirter for the report).
+    - Fixed that equipment shortcuts were available in map editor.
+    - Fixed that shortcuts that should only be available after a specific technology has been researched would remain available, when "Shortcuts for 1.1" would be added to an existing game.
+
+---------------------------------------------------------------------------------------------------
 Version: 1.1.22
 Date: 2022-01-14
   Features:
     - Added an option to disable the colored tags or replace them with icons.
   Changes:
     - Changed the order in which entity types get assigned to the "Deconstruction planner Environment" in order to reduce the number of error messages if the total number of entity types exceeds 255.
-    - Improved aforementioned the error message.
+    - Improved aforementioned error message.
     - Made all error messages it localisable.
   Bugfixes:
     - Fixed ICC color profile errors (thanks to saulrh).

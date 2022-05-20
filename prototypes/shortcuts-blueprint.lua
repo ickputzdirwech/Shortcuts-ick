@@ -14,6 +14,8 @@
 	* WellPlanner shortcut.
 ]]
 
+
+-- TAGS
 local deconstruction_planner = ""
 local well_planner = ""
 if settings.startup["ick-tags"].value == "tags" then
@@ -29,105 +31,42 @@ end
 -- TREE KILLER
 local tree_killer = settings.startup["tree-killer"].value
 
-if tree_killer == "all-in-one" or tree_killer == "both" or tree_killer == "trees-rocks" or tree_killer == "cliff-fish" then
+if  settings.startup["tree-killer"].value then
 
-	local decon_tree = util.table.deepcopy(data.raw["deconstruction-item"]["deconstruction-planner"])
-		decon_tree.name = "tree-killer"
-		decon_tree.localised_name = {"", {"item-name.deconstruction-planner"}, " (", {"gui-deconstruction.trees-and-rocks-only"}, ")"}
-		decon_tree.flags = {"only-in-cursor", "hidden"}
-		decon_tree.entity_filter_count = 255
-	data:extend({decon_tree})
+	local tree_killer_item = util.table.deepcopy(data.raw["deconstruction-item"]["deconstruction-planner"])
+		tree_killer_item.name = "tree-killer"
+		tree_killer_item.localised_name = {"", {"item-group-name.environment"}, " ", {"item-name.deconstruction-planner"}}
+		tree_killer_item.flags = {"only-in-cursor", "hidden"}
+		tree_killer_item.entity_filter_count = 255
 
-end
-
-
-if tree_killer == "all-in-one" then
-	data:extend(
-	{
+	local tree_killer_shortcut = {
+		type = "shortcut",
+		name = "tree-killer",
+		localised_name = {"", deconstruction_planner, {"item-group-name.environment"}, " ", {"item-name.deconstruction-planner"}},
+		order = "b[blueprint]-g[tree-killer]",
+		--associated_control_input = "tree-killer",
+		action = "lua",
+		technology_to_unlock = "construction-robotics",
+		style = "red",
+		icon =
 		{
-			type = "shortcut",
-			name = "environment-killer",
-			localised_name = {"", deconstruction_planner, {"item-name.deconstruction-planner"}, " (", {"item-group-name.environment"}, ")"},
-			order = "b[blueprint]-g[environment-killer]",
-			--associated_control_input = "environment-killer",
-			action = "lua",
-			technology_to_unlock = "construction-robotics",
-			style = "red",
-			icon =
-			{
-				filename = "__Shortcuts-ick__/graphics/tree-killer-x32-white.png",
-				priority = "extra-high-no-scale",
-				size = 32,
-				scale = 0.5,
-				flags = {"gui-icon"}
-			},
-			small_icon =
-			{
-				filename = "__Shortcuts-ick__/graphics/tree-killer-x24-white.png",
-				priority = "extra-high-no-scale",
-				size = 24,
-				scale = 0.5,
-				flags = {"gui-icon"}
-			}
-		}
-	})
-end
-
-
-if tree_killer == "both" or tree_killer == "trees-rocks" then
-	data:extend(
-	{
+			filename = "__Shortcuts-ick__/graphics/tree-killer-x32-white.png",
+			priority = "extra-high-no-scale",
+			size = 32,
+			scale = 0.5,
+			flags = {"gui-icon"}
+		},
+		small_icon =
 		{
-			type = "shortcut",
-			name = "tree-killer",
-			localised_name = {"", deconstruction_planner, {"item-name.deconstruction-planner"}, " (", {"gui-deconstruction.trees-and-rocks-only"}, ")"},
-			order = "b[blueprint]-g[tree-killer]",
-			--associated_control_input = "tree-killer",
-			action = "lua",
-			technology_to_unlock = "construction-robotics",
-			style = "red",
-			icon =
-			{
-				filename = "__Shortcuts-ick__/graphics/tree-killer-x32-white.png",
-				priority = "extra-high-no-scale",
-				size = 32,
-				scale = 0.5,
-				flags = {"gui-icon"}
-			},
-			small_icon =
-			{
-				filename = "__Shortcuts-ick__/graphics/tree-killer-x24-white.png",
-				priority = "extra-high-no-scale",
-				size = 24,
-				scale = 0.5,
-				flags = {"gui-icon"}
-			}
+			filename = "__Shortcuts-ick__/graphics/tree-killer-x24-white.png",
+			priority = "extra-high-no-scale",
+			size = 24,
+			scale = 0.5,
+			flags = {"gui-icon"}
 		}
-	})
-end
+	}
 
-if tree_killer == "both" or tree_killer == "cliff-fish" then
-	data:extend(
-		{
-			{
-			type = "shortcut",
-			name = "cliff-fish-item-on-ground",
-			localised_name = {"", deconstruction_planner, {"item-name.deconstruction-planner"}, " (", {"entity-name.cliff"}, "/", {"entity-name.fish"}, "/", {"entity-name.item-on-ground"}, ")"},
-			order = "b[blueprint]-h[tree-killer]",
-			--associated_control_input = "cliff-fish-item-on-ground",
-			action = "lua",
-			technology_to_unlock = "construction-robotics",
-			style = "red",
-			icon =
-			{
-				filename = "__Shortcuts-ick__/graphics/cliff-fish-item-on-ground-x32-white-new.png",
-				priority = "extra-high-no-scale",
-				size = 32,
-				scale = 0.5,
-				flags = {"gui-icon"}
-			}
-		}
-	})
+	data:extend({tree_killer_item, tree_killer_shortcut})
 end
 
 

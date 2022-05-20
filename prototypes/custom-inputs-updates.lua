@@ -11,9 +11,12 @@
 
 local shortcuts = {
     "artillery-targeting-remote",
-    "artillery-jammer-tool",
     "artillery-cluster-remote",
     "artillery-discovery-remote",
+	"artillery-bombardment-remote",
+	"smart-artillery-bombardment-remote",
+	"smart-artillery-exploration-remote",
+    "artillery-jammer-tool",
     "mirv-targeting-remote",
 	"atomic-artillery-targeting-remote",
     "landmine-thrower-remote",
@@ -24,10 +27,9 @@ local shortcuts = {
     "draw-grid",
     "rail-block-visualization-toggle",
     "big-zoom",
+	"minimap",
 
-    "environment-killer",
     "tree-killer",
-    "cliff-fish-item-on-ground",
     "well-planner",
 
     "belt-immunity-equipment",

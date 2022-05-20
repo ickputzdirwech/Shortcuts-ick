@@ -79,6 +79,18 @@ if mods["AdvancedArtilleryRemotesContinued"] then
 	end
 end
 
+if mods["artillery-bombardment-remote"] or mods["artillery-bombardment-remote-reloaded"] then
+	if data.raw["selection-tool"]["artillery-bombardment-remote"] then
+		hide_the_remote("artillery-bombardment-remote", "artillery-bombardment-remote", data.raw["selection-tool"]["artillery-bombardment-remote"])
+	end
+	if data.raw["selection-tool"]["smart-artillery-bombardment-remote"] then
+		hide_the_remote("smart-artillery-bombardment-remote", "smart-artillery-bombardment-remote", data.raw["selection-tool"]["smart-artillery-bombardment-remote"])
+	end
+	if data.raw["selection-tool"]["smart-artillery-exploration-remote"] then
+		hide_the_remote("smart-artillery-exploration-remote", "smart-artillery-exploration-remote", data.raw["selection-tool"]["smart-artillery-exploration-remote"])
+	end
+end
+
 if mods["MIRV"] and data.raw.capsule["mirv-targeting-remote"] and data.raw.technology["mirv-technology"] and settings.startup["mirv-targeting-remote"].value == true then
 	hide_the_remote("mirv-targeting-remote", "mirv-technology", data.raw.capsule["mirv-targeting-remote"])
 end
@@ -112,7 +124,11 @@ if mods["OreEraser"] and data.raw["selection-tool"]["Ore Eraser"] then
 	hide_the_remote(nil, nil, data.raw["selection-tool"]["Ore Eraser"])
 end
 
---Remove shortcuts from PickerInventoryTools
+if (mods["ModuleInserter"] or mods["ModuleInserterRE"]) and data.raw["selection-tool"]["module-inserter"] then
+	hide_the_remote(nil, nil, data.raw["selection-tool"]["module-inserter"])
+end
+
+-- Remove shortcuts from PickerInventoryTools
 if mods["PickerInventoryTools"] then
 	if data.raw.shortcut["toggle-active-defense-equipment"] then
 		data.raw.shortcut["toggle-active-defense-equipment"] = nil

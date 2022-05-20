@@ -13,6 +13,7 @@
 	* Show rail block visualization shortcut.
 	* Toggle Personal logistics requests shortcut.
 	* Zoom out of world shortcut.
+	* Minimap shortcut
 	* MaxRateCalculator shortcut.
 ]]
 
@@ -22,6 +23,7 @@ local draw_grid = ""
 local rail_signal = ""
 local logistics_robot = ""
 local big_zoom = ""
+local minimap = ""
 local max_rate_calculator = ""
 if settings.startup["ick-tags"].value == "tags" then
 	local tag = {"Shortcuts-ick.basic"}
@@ -31,6 +33,7 @@ if settings.startup["ick-tags"].value == "tags" then
 	rail_signal = tag
 	logistics_robot = tag
 	big_zoom = tag
+	minimap = tag
 	max_rate_calculator = tag
 elseif settings.startup["ick-tags"].value == "icons" then
 	small_lamp = "[img=item/small-lamp] "
@@ -39,6 +42,7 @@ elseif settings.startup["ick-tags"].value == "icons" then
 	rail_signal = "[img=item/rail-signal] "
 	logistics_robot = "[img=item/logistic-robot] "
 	big_zoom = "[img=utility.search_white] "
+	minimap = "[img=utility.map] "
 	max_rate_calculator = "[img=item/max-rate-calculator] "
 end
 
@@ -290,6 +294,30 @@ if settings.startup["big-zoom"].value then
 	})
 end
 
+if settings.startup["minimap"].value then
+	data:extend(
+	{
+		{
+			type = "shortcut",
+			name = "minimap",
+			localised_name = {"", minimap, {"gui-interface-settings.show-minimap"}},
+			order = "a[basic]-h[minimap]",
+			--associated_control_input = "minimap",
+			action = "lua",
+			toggleable = true,
+			style = "blue",
+			icon =
+			{
+				filename = "__core__/graphics/icons/mip/map.png",
+				priority = "extra-high-no-scale",
+				size = 32,
+				scale = 0.5,
+				flags = {"gui-icon"}
+			},
+		}
+	})
+end
+
 
 if mods["MaxRateCalculator"] and data.raw["selection-tool"]["max-rate-calculator"] and settings.startup["max-rate-calculator"].value then
 
@@ -303,7 +331,7 @@ if mods["MaxRateCalculator"] and data.raw["selection-tool"]["max-rate-calculator
 			type = "shortcut",
 			name = "max-rate-shortcut",
 			localised_name = {"", max_rate_calculator, {"item-name.max-rate-calculator"}, " ", {"Shortcuts-ick.control", "marc_hotkey"}},
-			order = "a[basic]-h[max-rate-shortcut]",
+			order = "a[basic]-i[max-rate-shortcut]",
 			--associated_control_input = "marc_hotkey",
 			action = "spawn-item",
 			item_to_spawn = "max-rate-calculator",

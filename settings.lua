@@ -85,11 +85,50 @@ data:extend(
 		type = "double-setting",
 		name = "zoom-level",
 		order = "b[zoom]",
-		localised_name = {"", {"controls.alt-zoom-out"}, " ", {"description.module-bonus-limit"}},
+		localised_name = {"", "[color=orange]", {"controls.alt-zoom-out"}, ":[/color] ", {"description.module-bonus-limit"}},
 		setting_type = "runtime-per-user",
 		default_value = 0.1,
 		minimum_value = 0.0,
 		maximum_value = 20.0
+	},
+	{
+		type = "bool-setting",
+		name = "environment-killer-trees",
+		localised_name = {"", "[color=blue]", {"item-group-name.environment"}, " ", {"item-name.deconstruction-planner"}, ":[/color] ", {"entity-name.tree-proxy"}},
+		order = "c[environment]-a[trees]",
+		setting_type = "runtime-per-user",
+		default_value = true
+	},
+	{
+		type = "bool-setting",
+		name = "environment-killer-rocks",
+		order = "c[environment]-b[rocks]",
+		setting_type = "runtime-per-user",
+		default_value = true
+	},
+	{
+		type = "bool-setting",
+		name = "environment-killer-cliff",
+		localised_name = {"", "[color=blue]", {"item-group-name.environment"}, " ", {"item-name.deconstruction-planner"}, ":[/color] ", {"entity-name.cliff"}},
+		order = "c[environment]-c[cliff]",
+		setting_type = "runtime-per-user",
+		default_value = true
+	},
+	{
+		type = "bool-setting",
+		name = "environment-killer-fish",
+		localised_name = {"", "[color=blue]", {"item-group-name.environment"}, " ", {"item-name.deconstruction-planner"}, ":[/color] ", {"entity-name.fish"}},
+		order = "c[environment]-d[fish]",
+		setting_type = "runtime-per-user",
+		default_value = true
+	},
+	{
+		type = "bool-setting",
+		name = "environment-killer-item",
+		localised_name = {"", "[color=blue]", {"item-group-name.environment"}, " ", {"item-name.deconstruction-planner"}, ":[/color] ", {"entity-name.item-on-ground"}},
+		order = "c[environment]-e[item]",
+		setting_type = "runtime-per-user",
+		default_value = true
 	},
 
 ---------------------------------------------------------------------------------------------------
@@ -108,6 +147,14 @@ data:extend(
 		localised_name = {"", {"gui-sync-mods-with-save.enable"}, " ", {"controls.alt-zoom-out"}},
 		setting_type = "runtime-global",
 		default_value = true
+	},
+	{
+		type = "string-setting",
+		name = "ick-prepare-uninstall",
+		localised_description = {"mod-setting-description.ick-prepare-uninstall", {"Shortcuts-ick.artillery-toggle"}, {"equipment-name.personal-laser-defense-equipment"}, {"item-name.belt-immunity-equipment"}, {"technology-name.night-vision-equipment"}},
+		setting_type = "runtime-global",
+		allow_blank = true,
+		default_value = ""
 	},
 
 ---------------------------------------------------------------------------------------------------
@@ -153,6 +200,14 @@ data:extend(
 		type = "bool-setting",
 		default_value = true
 	},
+	{
+    	setting_type = "startup",
+		name = "minimap",
+		localised_name = {"", {"Shortcuts-ick.basic"}, {"gui-interface-settings.show-minimap"}},
+		order = "a[basic]-h[minimap]",
+		type = "bool-setting",
+		default_value = true
+	}
 })
 
 if mods["PersonalLogisticsShortcut"] then
@@ -172,7 +227,7 @@ if mods["MaxRateCalculator"] then
 		setting_type = "startup",
 		name = "max-rate-calculator",
 		localised_name = {"", {"Shortcuts-ick.basic"}, {"item-name.max-rate-calculator"}},
-		order = "a[basic]-h[max-rate-calculator]",
+		order = "a[basic]-i[max-rate-calculator]",
 		type = "bool-setting",
 		default_value = true
   	}})
@@ -188,9 +243,8 @@ data:extend(
 		name = "tree-killer",
 		localised_name = {"", "[color=blue]", {"item-name.blueprint"}, ": [/color]", {"item-name.deconstruction-planner"}, " ", {"item-group-name.environment"}},
 		order = "b[blueprint]-g[tree-killer]",
-		type = "string-setting",
-		allowed_values = {"disabled", "all-in-one", "both", "trees-rocks", "cliff-fish"},
-		default_value = "all-in-one"
+		type = "bool-setting",
+		default_value = true
 	}
 })
 
@@ -274,7 +328,7 @@ data:extend(
 	{
 		setting_type = "startup",
 		name = "artillery-toggle",
-		localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"Shortcuts-ick.artillery-toggle"}},
+		localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"Shortcuts-ick.artillery-toggle"}, "[font=default-small] [img=info][/font]"},
 		order = "d[artillery]-d[artillery-jammer-tool]",
 		type = "string-setting",
 		allowed_values = {"disabled", "both", "artillery-wagon", "artillery-turret"},
@@ -293,12 +347,23 @@ if mods["AdvancedArtilleryRemotesContinued"] then -- only here to allow checks i
 	}})
 end
 
+if mods["artillery-bombardment-remote"] or mods["artillery-bombardment-remote-reloaded"] then -- only here to allow checks in control.lua
+	data:extend({{
+		setting_type = "startup",
+		name = "artillery-bombardment-remote",
+		hidden = true,
+		type = "bool-setting",
+		default_value = true,
+		forced_value = true
+	}})
+end
+
 if mods["MIRV"] then
 	data:extend({{
 		setting_type = "startup",
 		name = "mirv-targeting-remote",
 		localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.mirv-targeting-remote"}},
-		order = "d[artillery]-f[mirv-targeting-remote]",
+		order = "d[artillery]-h[mirv-targeting-remote]",
 		type = "bool-setting",
 		default_value = true
 	}})
@@ -309,7 +374,7 @@ if mods["AtomicArtilleryRemote"] then
 		setting_type = "startup",
 		name = "atomic-artillery-targeting-remote",
 		localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.atomic-artillery-targeting-remote"}},
-		order = "d[artillery]-g[atomic-artillery-targeting-remote]",
+		order = "d[artillery]-i[atomic-artillery-targeting-remote]",
 		type = "bool-setting",
 		default_value = true
 	}})
@@ -320,7 +385,7 @@ if mods["landmine-thrower"] then
 		setting_type = "startup",
 		name = "landmine-thrower-remote",
 		localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.landmine-thrower-remote"}},
-		order = "d[artillery]-h[landmine-thrower-remote]",
+		order = "d[artillery]-j[landmine-thrower-remote]",
 		type = "bool-setting",
 		default_value = true
 	}})
@@ -420,7 +485,7 @@ data:extend(
 	{
 		setting_type = "startup",
 		name = "autogen-color",
-		localised_name = {"", "[color=yellow]", {"gui-menu.other"}, ": [/color]", {"Shortcuts-ick.autogen-color"}},
+		localised_name = {"", "[color=yellow]", {"gui-menu.other"}, ": [/color]", {"Shortcuts-ick.autogen-color"}, "[font=default-small] [img=info][/font]"},
 		order = "f[other]-a[autogen-color]",
 		type = "string-setting",
 		allowed_values = {"disabled", "default", "red", "green", "blue"},

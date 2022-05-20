@@ -8,6 +8,7 @@
 --[[ Overview of shortcuts-artillery.lua:
 	* Artillery targeting remote shortcut.
 	* AdvancedArtilleryRemotesContinued shortcuts.
+	* Artillery Bombardment Remote shortcuts
 	* Toggle artillery cannon fire
 		- configuration
 		- shortcut
@@ -20,6 +21,9 @@
 local artillery_targeting_remote = ""
 local artillery_cluster_remote = ""
 local artillery_discovery_remote = ""
+local artillery_bombardment_remote = ""
+local smart_artillery_bombardment_remote = ""
+local smart_artillery_exploration_remote = ""
 local artillery_turret = ""
 local mirv_targeting_remote = ""
 local atomic_artillery_targeting_remote = ""
@@ -29,6 +33,9 @@ if settings.startup["ick-tags"].value == "tags" then
 	artillery_targeting_remote = tag
 	artillery_cluster_remote = tag
 	artillery_discovery_remote = tag
+	artillery_bombardment_remote = tag
+	smart_artillery_bombardment_remote = tag
+	smart_artillery_exploration_remote = tag
 	artillery_turret = tag
 	mirv_targeting_remote = tag
 	atomic_artillery_targeting_remote = tag
@@ -37,6 +44,9 @@ elseif settings.startup["ick-tags"].value == "icons" then
 	artillery_targeting_remote = "[img=item/artillery-targeting-remote] "
 	artillery_cluster_remote = "[img=item/artillery-cluster-remote] "
 	artillery_discovery_remote = "[img=item/artillery-discovery-remote] "
+	artillery_bombardment_remote = "[img=item/artillery-bombardment-remote] "
+	smart_artillery_bombardment_remote = "[img=item/smart-artillery-bombardment-remote] "
+	smart_artillery_exploration_remote = "[img=item/smart-artillery-exploration-remote] "
 	artillery_turret = "[img=item/artillery-turret] "
 	mirv_targeting_remote = "[img=item/mirv-targeting-remote] "
 	atomic_artillery_targeting_remote = "[img=item/artillery-targeting-remote] "
@@ -76,7 +86,7 @@ if settings.startup["artillery-targeting-remote"].value then
 end
 
 
-if settings.startup["artillery-targeting-remote"] and settings.startup["artillery-targeting-remote"].value and data.raw.capsule["artillery-cluster-remote"] and data.raw.capsule["artillery-discovery-remote"] then
+if settings.startup["artillery-targeting-remote"].value and data.raw.capsule["artillery-cluster-remote"] and data.raw.capsule["artillery-discovery-remote"] then
 	data:extend(
 	{
 		{
@@ -117,6 +127,62 @@ if settings.startup["artillery-targeting-remote"] and settings.startup["artiller
 end
 
 
+if settings.startup["artillery-targeting-remote"].value and data.raw["selection-tool"]["artillery-bombardment-remote"] and data.raw["selection-tool"]["smart-artillery-bombardment-remote"] and data.raw["selection-tool"]["smart-artillery-exploration-remote"] then
+	data:extend(
+	{
+		{
+			type = "shortcut",
+			name = "artillery-bombardment-remote",
+			localised_name = {"", artillery_bombardment_remote, {"item-name.artillery-bombardment-remote"}},
+			order = "d[artillery]-e[artillery-bombardment-remote]",
+			--associated_control_input = "artillery-bombardment-remote",
+			action = "lua",
+			icon =
+			{
+				filename = data.raw["selection-tool"]["artillery-bombardment-remote"].icons[1].icon,
+				priority = "extra-high-no-scale",
+				size = 32,
+				scale = 0.5,
+				flags = {"gui-icon"}
+			}
+		},
+		{
+			type = "shortcut",
+			name = "smart-artillery-bombardment-remote",
+			localised_name = {"", smart_artillery_bombardment_remote, {"item-name.smart-artillery-bombardment-remote"}},
+			order = "d[artillery]-e[smart-artillery-bombardment-remote]",
+			--associated_control_input = "smart-artillery-bombardment-remote",
+			action = "lua",
+			icon =
+			{
+				filename = data.raw["selection-tool"]["smart-artillery-bombardment-remote"].icons[1].icon,
+				priority = "extra-high-no-scale",
+				size = 32,
+				scale = 0.5,
+				flags = {"gui-icon"}
+			}
+		},
+		{
+			type = "shortcut",
+			name = "smart-artillery-exploration-remote",
+			localised_name = {"", smart_artillery_exploration_remote, {"item-name.smart-artillery-exploration-remote"}},
+			order = "d[artillery]-f[smart-artillery-exploration-remote]",
+			--associated_control_input = "smart-artillery-exploration-remote",
+			action = "lua",
+			icon =
+			{
+				filename = data.raw["selection-tool"]["smart-artillery-exploration-remote"].icons[1].icon,
+				priority = "extra-high-no-scale",
+				size = 32,
+				scale = 0.5,
+				flags = {"gui-icon"}
+			}
+		}
+	})
+end
+
+
+
 local artillery_toggle = settings.startup["artillery-toggle"].value
 if artillery_toggle == "both" or artillery_toggle == "artillery-wagon" or artillery_toggle == "artillery-turret" then
 
@@ -134,7 +200,7 @@ if artillery_toggle == "both" or artillery_toggle == "artillery-wagon" or artill
 			type = "shortcut",
 			name = "artillery-jammer-tool",
 			localised_name = {"", artillery_turret, {"item-name.artillery-jammer-tool"}},
-			order = "d[artillery]-d[artillery-jammer-tool]",
+			order = "d[artillery]-g[artillery-jammer-tool]",
 			--associated_control_input = "artillery-jammer-tool",
 			action = "lua",
 			style = "red",
@@ -186,7 +252,7 @@ if mods["MIRV"] and data.raw.capsule["mirv-targeting-remote"] and settings.start
 			type = "shortcut",
 			name = "mirv-targeting-remote",
 			localised_name = {"", mirv_targeting_remote, ": [/color]", {"item-name.mirv-targeting-remote"}},
-			order = "d[artillery]-f[mirv-targeting-remote]",
+			order = "d[artillery]-h[mirv-targeting-remote]",
 			--associated_control_input = "mirv-targeting-remote",
 			action = "lua",
 			style = "red",
@@ -218,7 +284,7 @@ if mods["AtomicArtilleryRemote"] and settings.startup["atomic-artillery-targetin
 			type = "shortcut",
 			name = "atomic-artillery-targeting-remote",
 			localised_name = {"", atomic_artillery_targeting_remote, {"item-name.atomic-artillery-targeting-remote"}},
-			order = "d[artillery]-g[atomic-artillery-targeting-remote]",
+			order = "d[artillery]-i[atomic-artillery-targeting-remote]",
 			--associated_control_input = "atomic-artillery-targeting-remote",
 			action = "lua",
 			style = "red",
@@ -250,7 +316,7 @@ if mods["landmine-thrower"] and data.raw.capsule["landmine-thrower-remote"] and 
 			type = "shortcut",
 			name = "landmine-thrower-remote",
 			localised_name = {"", landmine_thrower_remote, {"item-name.landmine-thrower-remote"}},
-			order = "d[artillery]-h[landmine-thrower-remote]",
+			order = "d[artillery]-j[landmine-thrower-remote]",
 			--associated_control_input = "landmine-thrower-remote",
 			action = "lua",
 			style = "red",

@@ -13,11 +13,9 @@
 	* Mod with own shortcut
 ]]
 
-if settings.startup["ick-compatibility-mode"].value == false then
-	script.on_event(defines.events.on_player_created, function(event)
+function ick_reset_available_shortcuts(player)
 
 	-- FUNCTIONS
-		local player = game.players[event.player_index]
 		local tech = player.force.technologies
 		local mods = game.active_mods
 		local setting = settings.startup
@@ -92,6 +90,18 @@ if settings.startup["ick-compatibility-mode"].value == false then
 			player.set_shortcut_available("artillery-discovery-remote", false)
 		end
 
+		if (mods["artillery-bombardment-remote"] or mods["artillery-bombardment-remote-reloaded"]) and setting["artillery-targeting-remote"].value then
+			if tech["artillery-bombardment-remote"].researched == false then
+				player.set_shortcut_available("artillery-bombardment-remote", false)
+			end
+			if tech["smart-artillery-bombardment-remote"].researched == false then
+				player.set_shortcut_available("smart-artillery-bombardment-remote", false)
+			end
+			if tech["smart-artillery-exploration-remote"].researched == false then
+				player.set_shortcut_available("smart-artillery-exploration-remote", false)
+			end
+		end
+
 		disable_shortcuts_1("AtomicArtilleryRemote", "atomic-artillery", "atomic-artillery-targeting-remote")
 		-- disable_shortcuts_1("jetpack", "jetpack-1", "jetpack")
 		disable_shortcuts_1("landmine-thrower", "landmine-thrower", "landmine-thrower-remote")
@@ -108,6 +118,7 @@ if settings.startup["ick-compatibility-mode"].value == false then
 		disable_shortcuts_2("circuit-checker", "circuit-network", "check-circuit")
 		disable_shortcuts_2("Kux-OrbitalIonCannon", "orbital-ion-cannon", "ion-cannon-targeter")
 		disable_shortcuts_2("ModuleInserter", "modules", "module-inserter")
+		disable_shortcuts_2("ModuleInserterRE", "modules", "module-inserter")
 
 		if mods["Nanobots"] then
 			disable_shortcuts_2("PickerInventoryTools", "personal-roboport-equipment", "toggle-equipment-bot-chip-feeder")
@@ -126,6 +137,10 @@ if settings.startup["ick-compatibility-mode"].value == false then
 		disable_shortcuts_2("SpidertronWaypoints", "spidertron", "spidertron-remote-waypoint")
 		disable_shortcuts_2("SpidertronWaypoints", "spidertron", "spidertron-remote-patrol")
 		disable_shortcuts_2("VehicleSnap", "automobilism", "VehicleSnap-shortcut")
+end
 
+if settings.startup["ick-compatibility-mode"].value == false then
+	script.on_event(defines.events.on_player_created, function(event)
+		ick_reset_available_shortcuts(game.players[event.player_index])
 	end)
 end

@@ -117,6 +117,9 @@ if autogen_color == "default" or autogen_color == "red" or autogen_color == "gre
 
 	--	create a post on the discussion page if you want your shortcut to be added to this ignore_list.
 	local shortcut_ignore_list = {
+		"artillery-bombardment-remote",
+		"smart-artillery-bombardment-remote",
+		"smart-artillery-exploration-remote",
 		"artillery-jammer-tool",
 		"autotrash-network-selection",
 		"circuit-checker",
@@ -203,7 +206,7 @@ if autogen_color == "default" or autogen_color == "red" or autogen_color == "gre
 				}
 
 				data:extend({shortcut})
-				hide_the_remote(name, name, tool) 	--	only attempts to hide the selection-tool if the recipe/tech name matches the tool name - does not search all recipes for mention of the tool.
+				hide_the_remote(name, name, tool) -- only attempts to hide the selection-tool if the recipe/tech name matches the tool name - does not search all recipes for mention of the tool.
 			end
 		end
 	end

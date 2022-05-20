@@ -71,6 +71,18 @@ if settings.startup["ick-compatibility-mode"].value == false then
 			player.set_shortcut_available("artillery-discovery-remote", true)
 		end
 
+		if (mods["artillery-bombardment-remote"] or mods["artillery-bombardment-remote-reloaded"]) and setting["artillery-targeting-remote"].value then
+			if research == "artillery-bombardment-remote" then
+				player.set_shortcut_available("artillery-bombardment-remote", true)
+			end
+			if research == "smart-artillery-bombardment-remote" then
+				player.set_shortcut_available("smart-artillery-bombardment-remote", true)
+			end
+			if research == "smart-artillery-exploration-remote" then
+				player.set_shortcut_available("smart-artillery-exploration-remote", true)
+			end
+		end
+
 		enable_shortcut_1("AtomicArtilleryRemote", "atomic-artillery", "atomic-artillery-targeting-remote")
 		-- enable_shortcut_1("jetpack", "jetpack-1", "jetpack")
 		enable_shortcut_1("landmine-thrower", "landmine-thrower", "landmine-thrower-remote")
@@ -87,6 +99,7 @@ if settings.startup["ick-compatibility-mode"].value == false then
 		enable_shortcut_2("circuit-checker", "circuit-network", "check-circuit")
 		enable_shortcut_2("Kux-OrbitalIonCannon", "orbital-ion-cannon", "ion-cannon-targeter")
 		enable_shortcut_2("ModuleInserter", "modules", "module-inserter")
+		enable_shortcut_2("ModuleInserterRE", "modules", "module-inserter")
 
 		if mods["Nanobots"] then
 			enable_shortcut_2("PickerInventoryTools", "personal-roboport-equipment", "toggle-equipment-bot-chip-feeder")
