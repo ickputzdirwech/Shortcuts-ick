@@ -2,7 +2,7 @@
 Version: 1.1.25
 Date: 2022-05-22
   Bugfixes:
-    - Fixed that that entities were assigned in the wrong order to the "Deconstruction planner Environment" more error messages than necessary.
+    - Fixed that entities were assigned in the wrong order to the "Deconstruction planner Environment" resulting in more error messages than necessary.
 
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.24
