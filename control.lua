@@ -436,6 +436,26 @@ if artillery_setting == "both" or artillery_setting == "artillery-turret" or art
 		end
 	end)
 
+	--[[
+	script.on_event(defines.events.on_player_reverse_selected_area, function(event)
+		-- enable selected artillery
+		-- replace above
+	end)
+
+	script.on_event(defines.events.on_player_reverse_selected_area, function(event)
+		-- disable selected artillery
+	end)
+
+	script.on_event(defines.events.on_player_alt_selected_area, function(event)
+		-- enable not selected artillery on that surface
+	end)
+
+	script.on_event(defines.events.on_player_alt_reverse_selected_area, function(event)
+		-- disable not selected artillery on that surface
+		-- this event doen't exist
+	end)
+	]]
+
 	script.on_event(defines.events.on_robot_built_entity, function(event)
 		local entity = event.created_entity
 		if string.sub(entity.name, 1, 9) == "disabled-" then

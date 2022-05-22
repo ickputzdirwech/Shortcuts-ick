@@ -93,6 +93,7 @@ You can help translate this mod on [Crowdin](https://crowdin.com/project/factori
 * Module Inserter (Non-conflict version)
 * P.U.M.P
 * Rail Signal Planner
+* Rail Signal Planner (Fixed sliders)
 * Spidertron squad control
 * Spidertron Waypoints
 * VehicleSnap

@@ -10,7 +10,6 @@
 	* General compatibility
 ]]
 
-
 ---------------------------------------------------------------------------------------------------
 -- Compatibility with IR2
 ---------------------------------------------------------------------------------------------------
@@ -27,7 +26,6 @@ elseif mods["IndustrialRevolution"] then
 	change_technology_to_unlock("toggle-personal-logistic-requests", "ir2-robotower")
 	change_technology_to_unlock("tree-killer", "personal-roboport-equipment")
 end
-
 
 ---------------------------------------------------------------------------------------------------
 -- Remove technology_to_unlock and/or change action for mod shortcuts in order to make them available based in researched in a specific game.
@@ -55,7 +53,7 @@ if settings.startup["ick-compatibility-mode"].value == false then
 		data.raw.shortcut["pump-shortcut"].item_to_spawn = nil
 		data.raw.shortcut["pump-shortcut"].technology_to_unlock = nil
 	end
-	if mods["RailSignalPlanner"] and data.raw.shortcut["give-rail-signal-planner"] then
+	if mods["RailSignalPlanner"] or mods["RailSignalPlannerNeo"] and data.raw.shortcut["give-rail-signal-planner"] then
 		data.raw.shortcut["give-rail-signal-planner"].action = "lua"
 		data.raw.shortcut["give-rail-signal-planner"].item_to_spawn = nil
 	end

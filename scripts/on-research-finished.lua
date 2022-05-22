@@ -99,7 +99,7 @@ if settings.startup["ick-compatibility-mode"].value == false then
 		enable_shortcut_2("circuit-checker", "circuit-network", "check-circuit")
 		enable_shortcut_2("Kux-OrbitalIonCannon", "orbital-ion-cannon", "ion-cannon-targeter")
 		enable_shortcut_2("ModuleInserter", "modules", "module-inserter")
-		enable_shortcut_2("ModuleInserterRE", "modules", "module-inserter")
+		enable_shortcut_2("ModuleInserterER", "modules", "module-inserter")
 
 		if mods["Nanobots"] then
 			enable_shortcut_2("PickerInventoryTools", "personal-roboport-equipment", "toggle-equipment-bot-chip-feeder")
@@ -111,6 +111,7 @@ if settings.startup["ick-compatibility-mode"].value == false then
 
 		enable_shortcut_2("pump", "oil-processing", "pump-shortcut")
 		enable_shortcut_2("RailSignalPlanner", "rail-signals", "give-rail-signal-planner")
+		enable_shortcut_2("RailSignalPlannerNeo", "rail-signals", "give-rail-signal-planner")
 		enable_shortcut_2("Spider_Control", "spidertron", "squad-spidertron-follow")
 		enable_shortcut_2("Spider_Control", "spidertron", "squad-spidertron-remote")
 		enable_shortcut_2("Spider_Control", "spidertron", "squad-spidertron-list")

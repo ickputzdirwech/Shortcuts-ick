@@ -48,18 +48,15 @@ local shortcuts = {
 }
 
 for _, name in pairs(shortcuts) do
-    if data.raw.shortcut[name] then
-        data:extend(
-        {
-            {
-				type = "custom-input",
-				name = data.raw.shortcut[name].name,
-				localised_name = data.raw.shortcut[name].localised_name,
-				order = data.raw.shortcut[name].order,
-				key_sequence = ""
-            }
-        })
-        table.insert(data.raw.shortcut[name].localised_name, " ")
-        table.insert(data.raw.shortcut[name].localised_name, {"Shortcuts-ick.control", name})
-    end
+	if data.raw.shortcut[name] then
+		data:extend({{
+			type = "custom-input",
+			name = data.raw.shortcut[name].name,
+			localised_name = data.raw.shortcut[name].localised_name,
+			order = data.raw.shortcut[name].order,
+			key_sequence = ""
+		}})
+		table.insert(data.raw.shortcut[name].localised_name, " ")
+		table.insert(data.raw.shortcut[name].localised_name, {"Shortcuts-ick.control", name})
+	end
 end

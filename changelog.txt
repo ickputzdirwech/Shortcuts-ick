@@ -1,4 +1,13 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.1.24
+Date: 2022-05-22
+  Features:
+    - Added support for "RailSignalPlannerNeo" by Neocult.
+  Bugfixes:
+    - Fixed that shortcuts were generated for Space Explorations "energy beam targeter" and "delivery cannon targeter" (thankd robot256 for the report).
+    - Fixed that support for "Module Inserter (Non-conflict version)" didn't work (thanks Sgamez for the report).
+
+---------------------------------------------------------------------------------------------------
 Version: 1.1.23
 Date: 2022-05-20
   Features:
