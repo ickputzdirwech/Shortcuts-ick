@@ -745,11 +745,8 @@ end
 local function tree_killer_setup(player)
 	local settings = settings.get_player_settings(player)
 	local entity_types = {}
-	if settings["environment-killer-trees"].value then
-		table.insert(entity_types, "tree")
-	end
-	if settings["environment-killer-rocks"].value then
-		table.insert(entity_types, "simple-entity")
+	if settings["environment-killer-item"].value then
+		table.insert(entity_types, "item-entity")
 	end
 	if settings["environment-killer-cliff"].value then
 		table.insert(entity_types, "cliff")
@@ -757,8 +754,11 @@ local function tree_killer_setup(player)
 	if settings["environment-killer-fish"].value then
 		table.insert(entity_types, "fish")
 	end
-	if settings["environment-killer-item"].value then
-		table.insert(entity_types, "item-entity")
+	if settings["environment-killer-rocks"].value then
+		table.insert(entity_types, "simple-entity")
+	end
+	if settings["environment-killer-trees"].value then
+		table.insert(entity_types, "tree")
 	end
 	if #entity_types == 2 and entity_types[1] == "tree" and entity_types[2] == "simple-entity" then
 		player.cursor_stack.trees_and_rocks_only = true

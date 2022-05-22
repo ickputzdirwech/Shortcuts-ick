@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.1.25
+Date: 2022-05-22
+  Bugfixes:
+    - Fixed that that entities were assigned in the wrong order to the "Deconstruction planner Environment" more error messages than necessary.
+
+---------------------------------------------------------------------------------------------------
 Version: 1.1.24
 Date: 2022-05-22
   Features:
@@ -32,7 +38,7 @@ Date: 2022-01-14
   Changes:
     - Changed the order in which entity types get assigned to the "Deconstruction planner Environment" in order to reduce the number of error messages if the total number of entity types exceeds 255.
     - Improved aforementioned error message.
-    - Made all error messages it localisable.
+    - Made all error messages localisable.
   Bugfixes:
     - Fixed ICC color profile errors (thanks to saulrh).
     - Fixed that toggling artillery wagons didn't preserve automatic mode, speed, orientation and a potential equipment grid (thanks to ashcanpete and Agrrox for the reports).
