@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.1.26
+Date: 2022-05-23
+  Bugfixes:
+    - Fixed that the "trees/rocks only" special case for the "Deconstruction planner Environment" didn't work.
+
+---------------------------------------------------------------------------------------------------
 Version: 1.1.25
 Date: 2022-05-22
   Bugfixes:
