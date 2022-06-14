@@ -70,7 +70,9 @@ script.on_init(initialize)
 local function configuration_changed()
 	initialize()
 	for _, player in pairs(game.players) do
-		ick_reset_available_shortcuts(player)
+		if settings.startup["ick-compatibility-mode"].value == false then
+			ick_reset_available_shortcuts(player)
+		end
 	end
 end
 

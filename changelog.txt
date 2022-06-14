@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.1.27
+Date: 2022-06-14
+  Bugfixes:
+    - Fixed an error on load possibly related to the setting "Disable all technology requirement changes" if the configuration changed.
+
+---------------------------------------------------------------------------------------------------
 Version: 1.1.26
 Date: 2022-05-23
   Bugfixes:
