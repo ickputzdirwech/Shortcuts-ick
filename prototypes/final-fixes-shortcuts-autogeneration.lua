@@ -77,7 +77,7 @@ if autogen_color == "default" or autogen_color == "red" or autogen_color == "gre
 		"wire-cutter-green",
 		"wire-cutter-red",
 		"wire-cutter-universal",
-		"blueprint-align__item_grid-selection-tool"
+		"blueprint-align__item__grid-selection-tool"
 	}
 
 	for _, tool in pairs(data.raw["selection-tool"]) do
