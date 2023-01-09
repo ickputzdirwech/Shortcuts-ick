@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.1.28
+Date: 2023-01-09
+  Bugfixes:
+    - Add Blueprint Sandboxes (https://mods.factorio.com/mod/blueprint-sandboxes) sandbox resources in the autogeneration ignore list
+
+---------------------------------------------------------------------------------------------------
 Version: 1.1.27
 Date: 2022-06-14
   Bugfixes:
