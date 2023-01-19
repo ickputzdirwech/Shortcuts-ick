@@ -67,7 +67,7 @@ if settings.startup["ick-compatibility-mode"].value == false then
 		end
 
 		if mods["AdvancedArtilleryRemotesContinued"] and setting["artillery-targeting-remote"].value and research == "artillery" then
-			player.set_shortcut_available("artillery-cluster-remote", true)
+			player.set_shortcut_available("artillery-cluster-remote-artillery-shell", true)
 			player.set_shortcut_available("artillery-discovery-remote", true)
 		end
 
