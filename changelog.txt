@@ -1,6 +1,8 @@
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.28
 Date: 24.02.2023
+  Features:
+    - Added support for "Artillery Bombardment Remote (DBot's fork)" by DBotThePony (thanks to SBlack).
   Changes:
     - Changed date format in changelog to be inline with the base game changelog.
     - Removed info icons from names of mod settings that have a description.

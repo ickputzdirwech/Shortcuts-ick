@@ -90,7 +90,7 @@ function ick_reset_available_shortcuts(player)
 		player.set_shortcut_available("artillery-discovery-remote", false)
 	end
 
-	if (mods["artillery-bombardment-remote"] or mods["artillery-bombardment-remote-reloaded"]) and setting["artillery-targeting-remote"].value then
+	if (mods["artillery-bombardment-remote"] or mods["artillery-bombardment-remote-reloaded"] or mods["dbots-artillery-bombardment-remote"]) and setting["artillery-targeting-remote"].value then
 		if tech["artillery-bombardment-remote"].researched == false then
 			player.set_shortcut_available("artillery-bombardment-remote", false)
 		end

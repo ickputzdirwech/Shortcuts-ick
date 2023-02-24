@@ -75,7 +75,7 @@ if mods["AdvancedArtilleryRemotesContinued"] then
 	end
 end
 
-if mods["artillery-bombardment-remote"] or mods["artillery-bombardment-remote-reloaded"] then
+if mods["artillery-bombardment-remote"] or mods["artillery-bombardment-remote-reloaded"] or mods["dbots-artillery-bombardment-remote"] then
 	if data.raw["selection-tool"]["artillery-bombardment-remote"] then
 		hide_the_remote("artillery-bombardment-remote", "artillery-bombardment-remote", data.raw["selection-tool"]["artillery-bombardment-remote"])
 	end

@@ -6,7 +6,7 @@
 ]]
 
 --[[ Overview of shortcuts-artillery.lua:
-	* AdvancedArtilleryRemotesContinued artillery-cluster-remote-shell shortcut.
+	* AdvancedArtilleryRemotesContinued artillery-cluster-remote-artillery-shell shortcut.
 ]]
 
 -- TAGS

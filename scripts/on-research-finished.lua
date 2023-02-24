@@ -71,7 +71,7 @@ if settings.startup["ick-compatibility-mode"].value == false then
 			player.set_shortcut_available("artillery-discovery-remote", true)
 		end
 
-		if (mods["artillery-bombardment-remote"] or mods["artillery-bombardment-remote-reloaded"]) and setting["artillery-targeting-remote"].value then
+		if (mods["artillery-bombardment-remote"] or mods["artillery-bombardment-remote-reloaded"] or mods["dbots-artillery-bombardment-remote"]) and setting["artillery-targeting-remote"].value then
 			if research == "artillery-bombardment-remote" then
 				player.set_shortcut_available("artillery-bombardment-remote", true)
 			end
