@@ -11,6 +11,7 @@ Date: 24.02.2023
     - Improved compatibility with "Blueprint Sandboxes" by somethingtohide (thanks to Syt-ha).
   Bugfixes:
     - Fixed crashing with latest versions (>=4.0.0) of "Advanced Artillery Remotes Continued" by azaghal (thanks to azaghal).
+    - Fixed incompatibility with "Nullius" by anachrony (thanks to kuxynator and ExterminatorX)
 
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.27
