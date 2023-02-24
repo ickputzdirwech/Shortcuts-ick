@@ -5,7 +5,7 @@
 	* This mod has been modified by ickputzdirwech.
 ]]
 
---[[ Overview of shortcuts-artillery.lua:
+--[[ Overview of updates-shortcuts-artillery.lua:
 	* AdvancedArtilleryRemotesContinued artillery-cluster-remote-artillery-shell shortcut.
 ]]
 
