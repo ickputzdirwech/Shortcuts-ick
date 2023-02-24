@@ -28,7 +28,7 @@ data:extend(
 	{
 		setting_type = "startup",
 		name = "artillery-toggle",
-		localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"Shortcuts-ick.artillery-toggle"}, "[font=default-small] [img=info][/font]"},
+		localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"Shortcuts-ick.artillery-toggle"}},
 		order = "d[artillery]-d[artillery-jammer-tool]",
 		type = "string-setting",
 		allowed_values = {"disabled", "both", "artillery-wagon", "artillery-turret"},
