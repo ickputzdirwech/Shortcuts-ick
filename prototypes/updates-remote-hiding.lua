@@ -67,8 +67,8 @@ if mods["aai-programmable-vehicles"] then
 end
 
 if mods["AdvancedArtilleryRemotesContinued"] then
-	if data.raw.capsule["artillery-cluster-remote"] then
-		hide_the_remote("artillery-cluster-remote", "artillery", data.raw.capsule["artillery-cluster-remote"])
+	if data.raw.capsule["artillery-cluster-remote-artillery-shell"] then
+		hide_the_remote("artillery-cluster-remote-artillery-shell", "artillery", data.raw.capsule["artillery-cluster-remote-artillery-shell"])
 	end
 	if data.raw.capsule["artillery-discovery-remote"] then
 		hide_the_remote("artillery-discovery-remote", "artillery", data.raw.capsule["artillery-discovery-remote"])

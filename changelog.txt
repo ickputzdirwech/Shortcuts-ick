@@ -7,6 +7,8 @@ Date: 24.02.2023
     - Improved compatibility with "Gizmos Car Keys (improved)" by Pi-C (thanks to Pi-C).
     - Improved compatibility with "Blueprint aligner" by emlun (thanks to Neko14789 and emlun).
     - Improved compatibility with "Blueprint Sandboxes" by somethingtohide (thanks to Syt-ha).
+  Bugfixes:
+    - Fixed crashing with latest versions (>=4.0.0) of "Advanced Artillery Remotes Continued" by azaghal (thanks to azaghal).
 
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.27
