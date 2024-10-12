@@ -50,7 +50,7 @@ for i, type in pairs(equipment_list) do
 			if type == "belt-immunity-equipment" or (type == "active-defense-equipment" and equipment.automatic == true) then
 				disabled_equipment.energy_source.input_flow_limit = "0kW"
 				disabled_equipment.energy_source.buffer_capacity = "0kJ"
-				disabled_equipment.energy_source.drain = "1kW"
+				disabled_equipment.energy_source.drain = "0W"
 			end
 
 			data:extend({disabled_equipment})

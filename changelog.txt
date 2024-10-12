@@ -1,8 +1,11 @@
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.29
 Date: 12.10.2024
+  Changes:
+    - Removed minimal drain from disabled equipment.
   Bugfixes:
     - Fixed that the uninstall-setting enabled only the vanilla night vision and belt immunity equipments.
+
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.28
 Date: 24.02.2023
