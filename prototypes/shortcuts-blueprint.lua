@@ -13,8 +13,8 @@
 ]]
 
 -- TAGS
-local deconstruction_planner = ""
-local well_planner = ""
+local deconstruction_planner
+local well_planner
 if settings.startup["ick-tags"].value == "tags" then
 	local tag = {"", "[color=blue]", {"item-name.blueprint"}, ": [/color]"}
 	deconstruction_planner = tag
@@ -22,6 +22,9 @@ if settings.startup["ick-tags"].value == "tags" then
 elseif settings.startup["ick-tags"].value == "icons" then
 	deconstruction_planner = "[img=entity/tree-01] "
 	well_planner = "[img=item/well-planner] "
+else
+	deconstruction_planner = ""
+	well_planner = ""
 end
 
 -- ENVIRONMENT DECONSTRUCTION PLANNER

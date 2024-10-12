@@ -20,19 +20,20 @@ function ick_reset_available_shortcuts(player)
 	local mods = game.active_mods
 	local setting = settings.startup
 
-	local function disable_shortcuts(name)
+	local function disable_shortcuts(name) -- checks if the setting is active
 		if setting[name].value then
 			player.set_shortcut_available(name, false)
 		end
 	end
 
-	local function disable_shortcuts_1(mod_name, tech_name, name)
+
+	local function disable_shortcuts_1(mod_name, tech_name, name) -- checks if mod and setting is active an tech is researched
 		if mods[mod_name] and setting[name].value and tech[tech_name].researched == false then
 			player.set_shortcut_available(name, false)
 		end
 	end
 
-	local function disable_shortcuts_2(mod_name, tech_name, name)
+	local function disable_shortcuts_2(mod_name, tech_name, name) -- checks if mod is active an tech is researched
 		if mods[mod_name] and tech[tech_name].researched == false then
 			player.set_shortcut_available(name, false)
 		end
@@ -40,17 +41,50 @@ function ick_reset_available_shortcuts(player)
 
 
 	-- EQUIPMENT and VEHICLE
-	disable_shortcuts("active-defense-equipment")
-	disable_shortcuts("belt-immunity-equipment")
-	disable_shortcuts("night-vision-equipment")
-	disable_shortcuts("discharge-defense-remote")
+	local function disable_shortcuts_equipment(type) -- checks if the setting is active and if the player has the equipment equiped
+		if setting[type].value then
+			local equiped = false
+			local power_armor = player.get_inventory(defines.inventory.character_armor)
+			if power_armor and power_armor.valid then
+				if power_armor[1].valid_for_read then
+					if power_armor[1].grid and power_armor[1].grid.valid and power_armor[1].grid.width > 0 then
+						for _, equipment in pairs(power_armor[1].grid.equipment) do
+							if equipment.type == type then
+								equiped = true
+								break
+							end
+						end
+						if equiped == false then
+							player.set_shortcut_available(type, false)
+						end
+					end
+				end
+			end
+		end
+	end
 
-	disable_shortcuts("driver-is-gunner")
-	disable_shortcuts("spidertron-logistics")
-	disable_shortcuts("spidertron-logistic-requests")
-	disable_shortcuts("targeting-with-gunner")
-	disable_shortcuts("targeting-without-gunner")
-	disable_shortcuts("train-mode-toggle")
+	disable_shortcuts_equipment("active-defense-equipment")
+	disable_shortcuts_equipment("belt-immunity-equipment")
+	disable_shortcuts_equipment("night-vision-equipment")
+	disable_shortcuts_equipment("discharge-defense-remote")
+
+
+	-- VEHICLE
+	if player.vehicle then
+		local type = player.vehicle.type
+		if type ~= "car" and type ~= "spider-vehicle" then
+			disable_shortcuts("driver-is-gunner")
+		end
+		if type ~= "spider-vehicle" then
+			disable_shortcuts("spidertron-logistics")
+			disable_shortcuts("spidertron-logistic-requests")
+			disable_shortcuts("targeting-with-gunner")
+			disable_shortcuts("targeting-without-gunner")
+		end
+		if type ~= "locomotive" and type ~= "cargo-wagon"  and type ~= "fluid-wagon" and type ~= "artillery-wagon" then
+			disable_shortcuts("train-mode-toggle")
+		end
+	end
 
 
 	-- SPECIAL CASES

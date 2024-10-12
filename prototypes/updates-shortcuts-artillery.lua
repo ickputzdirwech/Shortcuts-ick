@@ -10,13 +10,15 @@
 ]]
 
 -- TAGS
-local artillery_cluster_remote_artillery_shell = ""
+local artillery_cluster_remote_artillery_shell
 
 if settings.startup["ick-tags"].value == "tags" then
 	local tag = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]"}
 	artillery_cluster_remote_artillery_shell = tag
 elseif settings.startup["ick-tags"].value == "icons" then
 	artillery_cluster_remote_artillery_shell = "[img=item/artillery-cluster-remote-artillery-shell] "
+else
+	artillery_cluster_remote_artillery_shell = ""
 end
 
 -- ADVANCED ARTILLERY REMOTES CONTINUED

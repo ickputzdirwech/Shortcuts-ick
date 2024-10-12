@@ -40,7 +40,7 @@ for i, type in pairs(equipment_list) do
 			if type == "night-vision-equipment" then
 				disabled_equipment.energy_input = "0kW"
 			end
-			
+
 			disabled_equipment.take_result = name
 			disabled_equipment.sprite.tint = {0.5, 0.5, 0.5}
 			if disabled_equipment.sprite.hr_version then
@@ -48,9 +48,9 @@ for i, type in pairs(equipment_list) do
 			end
 
 			if type == "belt-immunity-equipment" or (type == "active-defense-equipment" and equipment.automatic == true) then
-				disabled_equipment.energy_source.input_flow_limit = "0kW"
-				disabled_equipment.energy_source.buffer_capacity = "0kJ"
-				disabled_equipment.energy_source.drain = "1kW"
+				disabled_equipment.energy_source.input_flow_limit = "0W"
+				disabled_equipment.energy_source.buffer_capacity = "0J"
+				disabled_equipment.energy_source.drain = "0W"
 			end
 
 			data:extend({disabled_equipment})

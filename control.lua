@@ -108,7 +108,7 @@ local function update_state(event, equipment_type) -- toggles the armor
 					local name = equipment.name
 					local position = equipment.position
 					local energy = equipment.energy
-					if not (string.sub(equipment.name, 1, 9) == "disabled-" or string.sub(equipment.name, 1, 4) == "nvt-") then
+					if not (string.sub(equipment.name, 1, 9) == "disabled-" or string.sub(equipment.name, 1, 4) == "nvt-") then -- disables the equipment
 						if equipment_type ~= "active-defense-equipment" or (equipment_type == "active-defense-equipment" and game.equipment_prototypes["disabled-" .. equipment.name]) then
 							grid.take{name = name, position = position}
 							local new_equipment = grid.put{name = "disabled-" .. name, position = position}
@@ -117,7 +117,7 @@ local function update_state(event, equipment_type) -- toggles the armor
 							end
 							player.set_shortcut_toggled(equipment_type, false)
 						end
-					elseif (string.sub(equipment.name, 1, 9) == "disabled-") then
+					elseif (string.sub(equipment.name, 1, 9) == "disabled-") then -- eneables the equipment
 						grid.take{name = name, position = position}
 						local new_equipment = grid.put{name = (string.sub(name, 10, #name)), position = position}
 						if new_equipment and new_equipment.valid then
@@ -187,10 +187,10 @@ local function reset_state(event, toggle) -- verifies placement of equipment and
 				end
 			end
 		end
-		local equipment = event.equipment
-		if equipment and toggle == 1 then --place
-			local type = equipment.type
-			if type == "night-vision-equipment" or type == "belt-immunity-equipment" or (type == "active-defense-equipment" and game.equipment_prototypes["disabledinactive-" .. equipment.name] == nil) then
+		local e_equipment = event.equipment
+		if e_equipment and toggle == 1 then --place
+			local type = e_equipment.type
+			if type == "night-vision-equipment" or type == "belt-immunity-equipment" or (type == "active-defense-equipment" and game.equipment_prototypes["disabledinactive-" .. e_equipment.name] == nil) then
 				if settings.startup[type] and settings.startup[type].value then
 					for _, equipment in pairs(grid.equipment) do	--	Enable all of a type of equipment, even if only one is placed in the grid.
 						if equipment.valid and equipment.type == type then
@@ -199,9 +199,8 @@ local function reset_state(event, toggle) -- verifies placement of equipment and
 					end
 				end
 			end
-		elseif equipment and toggle == 2 then --take
-			local type = game.equipment_prototypes[equipment].type
-			local name = game.equipment_prototypes[equipment].name
+		elseif e_equipment and toggle == 2 then --take
+			local type = game.equipment_prototypes[e_equipment].type
 			if type == "night-vision-equipment" or type == "belt-immunity-equipment" or type == "active-defense-equipment" then
 				if settings.startup[type] and settings.startup[type].value then
 					local value = false
@@ -294,15 +293,14 @@ local function artillery_swap(entity, new_name)
 	local inventory = {}
 	local manual_mode = true
 	local speed = 0
-	local old_equipment = false
+	local old_equipments = {}
 	if entity.type == "artillery-wagon" and entity.name ~= "entity-ghost" then
 		inventory = entity.get_inventory(defines.inventory.artillery_wagon_ammo)
 		manual_mode = entity.train.manual_mode
 		speed = entity.train.speed
 		if entity.grid and entity.grid.equipment[1] then
-			old_equipment = {}
 			for _, equipment in pairs(entity.grid.equipment) do
-				table.insert(old_equipment, {name = equipment.name, position = equipment.position, energy = equipment.energy, shield = equipment.shield})
+				table.insert(old_equipments, {name = equipment.name, position = equipment.position, energy = equipment.energy, shield = equipment.shield})
 			end
 		end
 	elseif entity.type == "artillery-turret" and entity.name ~= "entity-ghost" then
@@ -324,7 +322,7 @@ local function artillery_swap(entity, new_name)
 	local kills = entity.kills
 	local damage = entity.damage_dealt
 	local health = entity.health
-	local new_entity = {}
+	local new_entity
 
 	if entity.name == "entity-ghost" then
 		local ghost = string.sub(entity.ghost_name,10)
@@ -355,7 +353,7 @@ local function artillery_swap(entity, new_name)
 		new_entity.kills = kills
 		new_entity.damage_dealt = damage
 		new_entity.health = health
-		for i, stack in pairs(shellcount) do
+		for i, _ in pairs(shellcount) do
 			if new_entity.can_insert({name = shellname[i], count = shellcount[i]}) then
 				new_entity.insert({name = shellname[i], count = shellcount[i]})
 			end
@@ -364,16 +362,14 @@ local function artillery_swap(entity, new_name)
 			new_entity.train.speed = speed
 			new_entity.train.manual_mode = manual_mode
 		end
-		if old_equipment then
-			for _, old_equipment in pairs(old_equipment) do
-				local new_equipment = new_entity.grid.put{name = old_equipment.name, position = old_equipment.position}
-				new_equipment.energy = old_equipment.energy
-				if new_equipment.max_shield > 0 then
-					new_equipment.shield = old_equipment.shield
-				end
+		for _, old_equipment in pairs(old_equipments) do
+			local new_equipment = new_entity.grid.put{name = old_equipment.name, position = old_equipment.position}
+			new_equipment.energy = old_equipment.energy
+			if new_equipment and new_equipment.max_shield > 0 then
+				new_equipment.shield = old_equipment.shield
 			end
 		end
-	elseif new_entity.name ~= "entity-ghost" then
+	elseif new_entity and new_entity.name ~= "entity-ghost" then
 		player.print({"", {"Shortcuts-ick.error-artillery"}, " (ERROR 1)"})
 	end
 	return new_entity
@@ -408,7 +404,6 @@ if artillery_setting == "both" or artillery_setting == "artillery-turret" or art
 			local j = 0
 			for _, entity in pairs(event.entities) do
 				local name = entity.name
-				local type = entity.type
 				if entity.valid then
 					if string.sub(name,1,9) == "disabled-" or (name == "entity-ghost" and string.sub(entity.ghost_name, 1, 9) == "disabled-") then
 						j = j+1
@@ -501,24 +496,27 @@ script.on_event(defines.events.on_runtime_mod_setting_changed, function(event)
 				end
 			end
 		end
-		
-		local function enable_equipment(equipment_name)
+
+		local function enable_equipment(equipment_types)
 			for _, player in pairs(game.players) do
 				local armor = player.get_inventory(defines.inventory.character_armor)
 				if armor and armor.valid and armor[1].valid_for_read then
 					local grid = armor[1].grid
 					if grid and grid.valid and grid.get_contents() then
 						local count = 0
-						for _, equipment in pairs(grid.equipment) do
-							if equipment.name == "disabled-" .. equipment_name then
-								local position = equipment.position
-								grid.take{name = equipment.name, position = position}
-								local new_equipment = grid.put{name = equipment_name, position = position}
-								if global.shortcuts_armor[i] and global.shortcuts_armor[i].get(position) then
-									new_equipment.energy = global.shortcuts_armor[i].get(position).energy
-									global.shortcuts_armor[i] = grid
+						for _, equipment_type in pairs(equipment_types) do
+							for i, equipment in pairs(grid.equipment) do
+								local name = equipment.name
+								if string.sub(name, 1, 9) == "disabled-" and equipment.type == equipment_type then
+									local position = equipment.position
+									grid.take{name = name, position = position}
+									local new_equipment = grid.put{name = string.sub(name, 10), position = position}
+									if global.shortcuts_armor[i] and global.shortcuts_armor[i].get(position) then
+										new_equipment.energy = global.shortcuts_armor[i].get(position).energy
+										global.shortcuts_armor[i] = grid
+									end
+									count = count + 1
 								end
-								count = count + 1
 							end
 						end
 						if count > 0 then
@@ -542,9 +540,7 @@ script.on_event(defines.events.on_runtime_mod_setting_changed, function(event)
 
 		if mode == "uninstall" then
 			enable_artillery()
-			for _, equipment_name in pairs({"active-defense-equipment", "belt-immunity-equipment", "night-vision-equipment"}) do
-				enable_equipment(equipment_name)
-			end
+			enable_equipment({"active-defense-equipment", "belt-immunity-equipment", "night-vision-equipment"})
 			enable_recipe("artillery-targeting-remote", "artillery")
 			enable_recipe("discharge-defense-remote", "discharge-defense-equipment")
 			enable_recipe("spidertron-remote", "spidertron")
@@ -560,7 +556,7 @@ script.on_event(defines.events.on_runtime_mod_setting_changed, function(event)
 			enable_artillery()
 			game.print({"", "READY TO DISABLE SETTING: ", {"Shortcuts-ick.artillery-toggle"}})
 		elseif mode == "active-defense-equipment" or mode == "belt-immunity-equipment" or mode == "night-vision-equipment" then
-			enable_equipment(mode)
+			enable_equipment({mode})
 		else
 			game.print("There went something wrong. Please make sure you entered the right word. (ERROR X)")
 		end
@@ -817,7 +813,7 @@ if settings.startup["spidertron-remote"].value == "enabled" then
 		local player = game.players[event.player_index]
 		local inventory = player.get_main_inventory()
 		for i=1, #inventory do
-			if inventory[i].valid_for_read and inventory[i].name == "spidertron-remote" and (inventory[i].connected_entity == event.vehicle or inventory[i].connected_entity == nil) then
+			if inventory and inventory[i].valid_for_read and inventory[i].name == "spidertron-remote" and (inventory[i].connected_entity == event.vehicle or inventory[i].connected_entity == nil) then
 				inventory[i].clear()
 			end
 		end
@@ -862,6 +858,16 @@ local function vehicle_shortcuts(player, name, vehicle_types, parameter)
 					player.vehicle.vehicle_automatic_targeting_parameters = params
 				end
 				vehicle = player.vehicle.vehicle_automatic_targeting_parameters
+			elseif parameter == "auto_target_without_gunner" then
+					local params = player.vehicle.vehicle_automatic_targeting_parameters
+					if player.vehicle.vehicle_automatic_targeting_parameters.auto_target_without_gunner then
+						params.auto_target_without_gunner = false
+						player.vehicle.vehicle_automatic_targeting_parameters = params
+					else
+						params.auto_target_without_gunner = true
+						player.vehicle.vehicle_automatic_targeting_parameters = params
+					end
+					vehicle = player.vehicle.vehicle_automatic_targeting_parameters
 			else
 				if parameter == "manual_mode" then
 					vehicle = player.vehicle.train
@@ -919,7 +925,7 @@ script.on_event(defines.events.on_player_driving_changed_state, function(event)
 			enable_shortcuts(player, player.vehicle.enable_logistics_while_moving, "spidertron-logistics")
 			enable_shortcuts(player, player.vehicle.vehicle_logistic_requests_enabled, "spidertron-logistic-requests")
 			enable_shortcuts(player, player.vehicle.vehicle_automatic_targeting_parameters.auto_target_with_gunner, "targeting-with-gunner")
-			enable_shortcuts(player, player.vehicle.vehicle_automatic_targeting_parameters.auto_target_with_gunner, "targeting-without-gunner")
+			enable_shortcuts(player, player.vehicle.vehicle_automatic_targeting_parameters.auto_target_without_gunner, "targeting-without-gunner")
 		end
 		if type == "locomotive" or type == "cargo-wagon"  or type == "fluid-wagon" or type == "artillery-wagon" then
 			enable_shortcuts(player, player.vehicle.train.manual_mode, "train-mode-toggle")
@@ -942,8 +948,8 @@ end)
 
 -- ON_GUI_CLOSED
 script.on_event(defines.events.on_gui_closed, function(event)
-	if event.gui_type == 1 then
-		local entity = event.entity
+	local entity = event.entity
+	if event.gui_type == 1 and entity then
 		local type = entity.type
 		local setting = settings.startup
 		local function search_vehicle(name, parameter)

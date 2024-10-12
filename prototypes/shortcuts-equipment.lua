@@ -14,10 +14,10 @@
 ]]
 
 -- TAGS
-local belt_immunity_equipment = ""
-local discharge_defense_remote = ""
-local night_vision_equipment = ""
-local personal_laser_defense_equipment = ""
+local belt_immunity_equipment
+local discharge_defense_remote
+local night_vision_equipment
+local personal_laser_defense_equipment
 if settings.startup["ick-tags"].value == "tags" then
 	local tag = {"Shortcuts-ick.equipment"}
 	belt_immunity_equipment = tag
@@ -29,6 +29,11 @@ elseif settings.startup["ick-tags"].value == "icons" then
 	discharge_defense_remote = "[img=item/discharge-defense-remote] "
 	night_vision_equipment = "[img=item/night-vision-equipment] "
 	personal_laser_defense_equipment = "[img=item/personal-laser-defense-equipment] "
+else
+	belt_immunity_equipment = ""
+	discharge_defense_remote = ""
+	night_vision_equipment = ""
+	personal_laser_defense_equipment = ""
 end
 
 -- BELT IMMUNITY EQUIPMENT

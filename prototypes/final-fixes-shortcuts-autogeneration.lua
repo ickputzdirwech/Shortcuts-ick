@@ -26,11 +26,10 @@ local function hide_the_remote(recipe, technology, item)
 		recipe_prototype.hidden = true
 		recipe_prototype.ingredients = {{"iron-plate", 1}}
 		if technology ~= nil and tech_prototype then
-			local effect = tech_prototype.effects
-			for i, e in pairs(effect) do
-				if effect[i].type == "unlock-recipe" then
-					if effect[i].recipe == recipe then
-						table.remove(effect, i)
+			for i, effect in pairs(tech_prototype.effects) do
+				if effect.type == "unlock-recipe" then
+					if effect.recipe == recipe then
+						table.remove(tech_prototype.effects, i)
 						return
 					end
 				end
@@ -56,6 +55,7 @@ if autogen_color == "default" or autogen_color == "red" or autogen_color == "gre
 		"max-rate-calculator",
 		"module-inserter",
 		"merge-chest-selector",
+		"nullius-rock-picker",
 		"outpost-builder",
 		"path-remote-control",
 		"pump-selection-tool",
@@ -85,8 +85,8 @@ if autogen_color == "default" or autogen_color == "red" or autogen_color == "gre
 		local name = tool.name
 		local continue = true
 
-		-- Ignore tools from "Blueprint Sandboxes" by somethingtohide
-		if string.sub(name, 1, 9) == "bpsb-sbr-" then
+		-- Ignore tools from "Blueprint Sandboxes" by somethingtohide and from "Janky quality (BETA)" by Soul-Burn
+		if string.sub(name, 1, 9) == "bpsb-sbr-" or string.sub(name, 1, 15) == "quality-module-" then
 			continue = false
 		else
 			-- Ignore tools from the ignore_list
