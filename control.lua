@@ -502,23 +502,26 @@ script.on_event(defines.events.on_runtime_mod_setting_changed, function(event)
 			end
 		end
 		
-		local function enable_equipment(equipment_name)
+		local function enable_equipment(equipment_types)
 			for _, player in pairs(game.players) do
 				local armor = player.get_inventory(defines.inventory.character_armor)
 				if armor and armor.valid and armor[1].valid_for_read then
 					local grid = armor[1].grid
 					if grid and grid.valid and grid.get_contents() then
 						local count = 0
-						for _, equipment in pairs(grid.equipment) do
-							if equipment.name == "disabled-" .. equipment_name then
+						for _, equipment_type in pairs(equipment_types) do
+							for i, equipment in pairs(grid.equipment) do
+								local name = equipment.name
+								if string.sub(name, 1, 9) == "disabled-" and equipment.type == equipment_type then
 								local position = equipment.position
-								grid.take{name = equipment.name, position = position}
-								local new_equipment = grid.put{name = equipment_name, position = position}
+									grid.take{name = name, position = position}
+									local new_equipment = grid.put{name = string.sub(name, 10), position = position}
 								if global.shortcuts_armor[i] and global.shortcuts_armor[i].get(position) then
 									new_equipment.energy = global.shortcuts_armor[i].get(position).energy
 									global.shortcuts_armor[i] = grid
 								end
 								count = count + 1
+								end
 							end
 						end
 						if count > 0 then
@@ -542,9 +545,7 @@ script.on_event(defines.events.on_runtime_mod_setting_changed, function(event)
 
 		if mode == "uninstall" then
 			enable_artillery()
-			for _, equipment_name in pairs({"active-defense-equipment", "belt-immunity-equipment", "night-vision-equipment"}) do
-				enable_equipment(equipment_name)
-			end
+			enable_equipment({"active-defense-equipment", "belt-immunity-equipment", "night-vision-equipment"})
 			enable_recipe("artillery-targeting-remote", "artillery")
 			enable_recipe("discharge-defense-remote", "discharge-defense-equipment")
 			enable_recipe("spidertron-remote", "spidertron")
@@ -560,7 +561,7 @@ script.on_event(defines.events.on_runtime_mod_setting_changed, function(event)
 			enable_artillery()
 			game.print({"", "READY TO DISABLE SETTING: ", {"Shortcuts-ick.artillery-toggle"}})
 		elseif mode == "active-defense-equipment" or mode == "belt-immunity-equipment" or mode == "night-vision-equipment" then
-			enable_equipment(mode)
+			enable_equipment({mode})
 		else
 			game.print("There went something wrong. Please make sure you entered the right word. (ERROR X)")
 		end
