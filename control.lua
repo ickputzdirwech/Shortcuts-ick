@@ -858,6 +858,16 @@ local function vehicle_shortcuts(player, name, vehicle_types, parameter)
 					player.vehicle.vehicle_automatic_targeting_parameters = params
 				end
 				vehicle = player.vehicle.vehicle_automatic_targeting_parameters
+			elseif parameter == "auto_target_without_gunner" then
+					local params = player.vehicle.vehicle_automatic_targeting_parameters
+					if player.vehicle.vehicle_automatic_targeting_parameters.auto_target_without_gunner then
+						params.auto_target_without_gunner = false
+						player.vehicle.vehicle_automatic_targeting_parameters = params
+					else
+						params.auto_target_without_gunner = true
+						player.vehicle.vehicle_automatic_targeting_parameters = params
+					end
+					vehicle = player.vehicle.vehicle_automatic_targeting_parameters
 			else
 				if parameter == "manual_mode" then
 					vehicle = player.vehicle.train
@@ -915,7 +925,7 @@ script.on_event(defines.events.on_player_driving_changed_state, function(event)
 			enable_shortcuts(player, player.vehicle.enable_logistics_while_moving, "spidertron-logistics")
 			enable_shortcuts(player, player.vehicle.vehicle_logistic_requests_enabled, "spidertron-logistic-requests")
 			enable_shortcuts(player, player.vehicle.vehicle_automatic_targeting_parameters.auto_target_with_gunner, "targeting-with-gunner")
-			enable_shortcuts(player, player.vehicle.vehicle_automatic_targeting_parameters.auto_target_with_gunner, "targeting-without-gunner")
+			enable_shortcuts(player, player.vehicle.vehicle_automatic_targeting_parameters.auto_target_without_gunner, "targeting-without-gunner")
 		end
 		if type == "locomotive" or type == "cargo-wagon"  or type == "fluid-wagon" or type == "artillery-wagon" then
 			enable_shortcuts(player, player.vehicle.train.manual_mode, "train-mode-toggle")

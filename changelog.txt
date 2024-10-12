@@ -5,8 +5,10 @@ Date: 12.10.2024
     - Removed minimal drain from disabled equipment.
     - Improved compatibility with "Nullius" by anachrony (thanks to Kenira).
     - Improved compatibility with "Janky quality (BETA)" by Soul-Burn (thanks to Soul-Burn).
+    - Marked "Pacifist" by derpumu as incompatible.
   Bugfixes:
     - Fixed that the uninstall-setting enabled only the vanilla night vision and belt immunity equipments.
+    - Fixed error when using the "Spidertron Auto targeting without gunner" shortcut.
 
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.28
