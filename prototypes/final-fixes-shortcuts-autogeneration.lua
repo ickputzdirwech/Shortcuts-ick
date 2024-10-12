@@ -27,9 +27,9 @@ local function hide_the_remote(recipe, technology, item)
 		recipe_prototype.ingredients = {{"iron-plate", 1}}
 		if technology ~= nil and tech_prototype then
 			for i, effect in pairs(tech_prototype.effects) do
-				if effect[i].type == "unlock-recipe" then
-					if effect[i].recipe == recipe then
-						table.remove(effect, i)
+				if effect.type == "unlock-recipe" then
+					if effect.recipe == recipe then
+						table.remove(tech_prototype.effects, i)
 						return
 					end
 				end
