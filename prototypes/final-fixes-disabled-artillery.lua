@@ -23,8 +23,8 @@ if artillery_toggle == "both" or artillery_toggle == "artillery-wagon" or artill
 		disable_turret_types = {artillery_toggle}
 	end
 
-	for a, type in pairs(disable_turret_types) do
-		for b, entity in pairs(data.raw[type]) do
+	for _, type in pairs(disable_turret_types) do
+		for _, entity in pairs(data.raw[type]) do
 			if string.sub(entity.name,1,9) ~= "disabled-" then
 
 				-- DISABLED TURRET

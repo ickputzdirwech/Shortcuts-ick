@@ -17,14 +17,14 @@
 ]]
 
 -- TAGS
-local small_lamp = ""
-local alert_icon = ""
-local draw_grid = ""
-local rail_signal = ""
-local logistics_robot = ""
-local big_zoom = ""
-local minimap = ""
-local max_rate_calculator = ""
+local small_lamp
+local alert_icon
+local draw_grid
+local rail_signal
+local logistics_robot
+local big_zoom
+local minimap
+local max_rate_calculator
 if settings.startup["ick-tags"].value == "tags" then
 	local tag = {"Shortcuts-ick.basic"}
 	small_lamp = tag
@@ -44,6 +44,15 @@ elseif settings.startup["ick-tags"].value == "icons" then
 	big_zoom = "[img=utility.search_white] "
 	minimap = "[img=utility.map] "
 	max_rate_calculator = "[img=item/max-rate-calculator] "
+else
+	small_lamp = ""
+	alert_icon = ""
+	draw_grid = ""
+	rail_signal = ""
+	logistics_robot = ""
+	big_zoom = ""
+	minimap = ""
+	max_rate_calculator = ""
 end
 
 -- CHARACTER LAMP

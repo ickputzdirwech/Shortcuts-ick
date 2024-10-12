@@ -27,11 +27,10 @@ local function hide_the_remote(recipe, technology, item)
 	if recipe_prototype then
 		recipe_prototype.hidden = true
 		if technology ~= nil and tech_prototype then
-			local effect = tech_prototype.effects
-			for i, e in pairs(effect) do
-				if effect[i].type == "unlock-recipe" then
-					if effect[i].recipe == recipe then
-						table.remove(effect, i)
+			for i, effect in pairs(tech_prototype.effects) do
+				if effect.type == "unlock-recipe" then
+					if effect.recipe == recipe then
+						table.remove(tech_prototype.effects, i)
 						return
 					end
 				end

@@ -18,13 +18,13 @@
 ]]
 
 -- TAGS
-local driver_is_gunner = ""
-local spidertron_remote = ""
-local spidertron = ""
-local train = ""
-local unit_remote_control = ""
-local path_remote_control = ""
-local winch = ""
+local driver_is_gunner
+local spidertron_remote
+local spidertron
+local train
+local unit_remote_control
+local path_remote_control
+local winch
 if settings.startup["ick-tags"].value == "tags" then
 	local tag = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]"}
 	driver_is_gunner = tag
@@ -42,6 +42,14 @@ elseif settings.startup["ick-tags"].value == "icons" then
 	unit_remote_control = "[img=item/unit-remote-control] "
 	path_remote_control = "[img=item/path-remote-control] "
 	winch = "[img=item/winch] "
+else
+	driver_is_gunner = ""
+	spidertron_remote = ""
+	spidertron = ""
+	train = ""
+	unit_remote_control = ""
+	path_remote_control = ""
+	winch = ""
 end
 
 -- DRIVER IS GUNNER

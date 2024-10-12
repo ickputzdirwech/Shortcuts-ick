@@ -19,15 +19,15 @@
 ]]
 
 -- TAGS
-local artillery_targeting_remote = ""
-local artillery_discovery_remote = ""
-local artillery_bombardment_remote = ""
-local smart_artillery_bombardment_remote = ""
-local smart_artillery_exploration_remote = ""
-local artillery_turret = ""
-local mirv_targeting_remote = ""
-local atomic_artillery_targeting_remote = ""
-local landmine_thrower_remote = ""
+local artillery_targeting_remote
+local artillery_discovery_remote
+local artillery_bombardment_remote
+local smart_artillery_bombardment_remote
+local smart_artillery_exploration_remote
+local artillery_turret
+local mirv_targeting_remote
+local atomic_artillery_targeting_remote
+local landmine_thrower_remote
 if settings.startup["ick-tags"].value == "tags" then
 	local tag = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]"}
 	artillery_targeting_remote = tag
@@ -49,6 +49,16 @@ elseif settings.startup["ick-tags"].value == "icons" then
 	mirv_targeting_remote = "[img=item/mirv-targeting-remote] "
 	atomic_artillery_targeting_remote = "[img=item/artillery-targeting-remote] "
 	landmine_thrower_remote = "[img=item/landmine-thrower-remote] "
+else
+	artillery_targeting_remote = ""
+	artillery_discovery_remote = ""
+	artillery_bombardment_remote = ""
+	smart_artillery_bombardment_remote = ""
+	smart_artillery_exploration_remote = ""
+	artillery_turret = ""
+	mirv_targeting_remote = ""
+	atomic_artillery_targeting_remote = ""
+	landmine_thrower_remote = ""
 end
 
 -- ARTILLERY TARGETING REMOTE
