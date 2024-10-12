@@ -16,7 +16,8 @@
 		"(?) PersonalLogisticsShortcut",
 		"(?) PickerInventoryTools",
 		"(?) VehicleWagon2",
-		"(?) WellPlanner"
+		"(?) WellPlanner",
+		"! Pacifist"
 	],
 	"description": "Adds a host of useful shortcuts to improve QOL. Shortcuts for:\n\n- Toggles for equipment and personal logistic requests\n- Artillery remote and an artillery cannon fire toggle\n- Environment deconstruction planner\n- Spidertron settings, spidertron remote and train manual mode\n- Rail block visualisation, player lamp, customizable grid overlay and far zoom\n- Shortcuts for various other mods\n\nOriginal mod by npc_strider (morley376): mods.factorio.com/mod/Shortcuts"
 }
