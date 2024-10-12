@@ -55,6 +55,7 @@ if autogen_color == "default" or autogen_color == "red" or autogen_color == "gre
 		"max-rate-calculator",
 		"module-inserter",
 		"merge-chest-selector",
+		"nullius-rock-picker",
 		"outpost-builder",
 		"path-remote-control",
 		"pump-selection-tool",
@@ -84,8 +85,8 @@ if autogen_color == "default" or autogen_color == "red" or autogen_color == "gre
 		local name = tool.name
 		local continue = true
 
-		-- Ignore tools from "Blueprint Sandboxes" by somethingtohide
-		if string.sub(name, 1, 9) == "bpsb-sbr-" then
+		-- Ignore tools from "Blueprint Sandboxes" by somethingtohide and from "Janky quality (BETA)" by Soul-Burn
+		if string.sub(name, 1, 9) == "bpsb-sbr-" or string.sub(name, 1, 15) == "quality-module-" then
 			continue = false
 		else
 			-- Ignore tools from the ignore_list

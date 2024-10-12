@@ -3,6 +3,8 @@ Version: 1.1.29
 Date: 12.10.2024
   Changes:
     - Removed minimal drain from disabled equipment.
+    - Improved compatibility with "Nullius" by anachrony (thanks to Kenira).
+    - Improved compatibility with "Janky quality (BETA)" by Soul-Burn (thanks to Soul-Burn).
   Bugfixes:
     - Fixed that the uninstall-setting enabled only the vanilla night vision and belt immunity equipments.
 
