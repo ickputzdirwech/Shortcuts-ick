@@ -136,9 +136,8 @@ if autogen_color == "default" or autogen_color == "red" or autogen_color == "gre
 					style = settings.startup["autogen-color"].value,
 					icon = {
 						filename = icon,
-						priority = "extra-high-no-scale",
 						size = icon_size,
-						flags = {"icon"}
+						scale = 0.5
 					}
 				}
 
