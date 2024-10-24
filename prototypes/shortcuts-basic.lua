@@ -73,16 +73,6 @@ if settings.startup["flashlight-toggle"].value then
 			filename = "__Shortcuts-ick__/graphics/flashlight-toggle-x24.png",
 			priority = "extra-high-no-scale",
 			size = 24
-		},
-		disabled_icon = {
-			filename = "__Shortcuts-ick__/graphics/flashlight-toggle-x32-white.png",
-			priority = "extra-high-no-scale",
-			size = 32
-		},
-		disabled_small_icon = {
-			filename = "__Shortcuts-ick__/graphics/flashlight-toggle-x24-white.png",
-			priority = "extra-high-no-scale",
-			size = 24
 		}
 	}})
 end
@@ -153,18 +143,6 @@ if settings.startup["rail-block-visualization-toggle"].value then
 			priority = "extra-high-no-scale",
 			size = 32,
 			mipmap_count = 2
-		},
-		disabled_icon = {
-			filename = "__Shortcuts-ick__/graphics/rail-block-visualization-toggle-x32-2-white.png",
-			priority = "extra-high-no-scale",
-			size = 32,
-			mipmap_count = 2
-		},
-		disabled_small_icon = {
-			filename = "__Shortcuts-ick__/graphics/rail-block-visualization-toggle-x32-2-white.png",
-			priority = "extra-high-no-scale",
-			size = 32,
-			mipmap_count = 2
 		}
 	}})
 end
@@ -188,18 +166,6 @@ if settings.startup["toggle-personal-logistic-requests"] and settings.startup["t
 		},
 		small_icon = {
 			filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x24.png",
-			priority = "extra-high-no-scale",
-			size = 24,
-			mipmap_count = 2
-		},
-		disabled_icon = {
-			filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x32-white.png",
-			priority = "extra-high-no-scale",
-			size = 32,
-			mipmap_count = 2
-		},
-		disabled_small_icon = {
-			filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x24-white.png",
 			priority = "extra-high-no-scale",
 			size = 24,
 			mipmap_count = 2

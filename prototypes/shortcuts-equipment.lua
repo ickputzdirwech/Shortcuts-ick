@@ -54,16 +54,6 @@ if settings.startup["belt-immunity-equipment"].value then
 			filename = "__Shortcuts-ick__/graphics/belt-immunity-toggle-x24.png",
 			priority = "extra-high-no-scale",
 			size = 24
-		},
-		disabled_icon = {
-			filename = "__Shortcuts-ick__/graphics/belt-immunity-toggle-x32-white.png",
-			priority = "extra-high-no-scale",
-			size = 32
-		},
-		disabled_small_icon = {
-			filename = "__Shortcuts-ick__/graphics/belt-immunity-toggle-x24-white.png",
-			priority = "extra-high-no-scale",
-			size = 24
 		}
 	}})
 end
@@ -113,16 +103,6 @@ if settings.startup["night-vision-equipment"].value then
 			filename = "__Shortcuts-ick__/graphics/night-vision-toggle-x24.png",
 			priority = "extra-high-no-scale",
 			size = 24
-		},
-		disabled_icon = {
-			filename = "__Shortcuts-ick__/graphics/night-vision-toggle-x32-white.png",
-			priority = "extra-high-no-scale",
-			size = 32
-		},
-		disabled_small_icon = {
-			filename = "__Shortcuts-ick__/graphics/night-vision-toggle-x24-white.png",
-			priority = "extra-high-no-scale",
-			size = 24
 		}
 	}})
 end
@@ -150,16 +130,6 @@ if settings.startup["active-defense-equipment"].value then
 			filename = "__Shortcuts-ick__/graphics/active-defense-equipment-x24.png",
 			priority = "extra-high-no-scale",
 			size = 24
-		},
-		disabled_icon = {
-			filename = "__Shortcuts-ick__/graphics/active-defense-equipment-x32-white.png",
-			priority = "extra-high-no-scale",
-			size = 32
-		},
-		disabled_small_icon = {
-			filename = "__Shortcuts-ick__/graphics/active-defense-equipment-x24-white.png",
-			priority = "extra-high-no-scale",
-			size = 24
 		}
 	}})
 end
@@ -184,16 +154,6 @@ if mods["jetpack"] and settings.startup["jetpack"].value then
 			},
 			small_icon = {
 				filename = "__Shortcuts-ick__/graphics/jetpack-x24.png",
-				priority = "extra-high-no-scale",
-				size = 24
-			},
-			disabled_icon = {
-				filename = "__Shortcuts-ick__/graphics/jetpack-x32-white.png",
-				priority = "extra-high-no-scale",
-				size = 32
-			},
-			disabled_small_icon = {
-				filename = "__Shortcuts-ick__/graphics/jetpack-x24-white.png",
 				priority = "extra-high-no-scale",
 				size = 24
 			}

@@ -196,12 +196,6 @@ if settings.startup["train-mode-toggle"].value then
 			priority = "extra-high-no-scale",
 			size = 32,
 			mipmap_count = 2
-		},
-		disabled_icon = {
-			filename = "__Shortcuts-ick__/graphics/train-mode-toggle-x32-2-white.png",
-			priority = "extra-high-no-scale",
-			size = 32,
-			mipmap_count = 2
 		}
 	}})
 end
@@ -263,16 +257,6 @@ if mods["VehicleWagon2"] and settings.startup["winch"].value then
 		},
 		small_icon = {
 			filename = "__Shortcuts-ick__/graphics/module-inserter-x24.png",
-			priority = "extra-high-no-scale",
-			size = 24
-		},
-		disabled_icon = {
-			filename = "__Shortcuts-ick__/graphics/module-inserter-x32-white.png",
-			priority = "extra-high-no-scale",
-			size = 32
-		},
-		disabled_small_icon = {
-			filename = "__Shortcuts-ick__/graphics/module-inserter-x24-white.png",
 			priority = "extra-high-no-scale",
 			size = 24
 		}
