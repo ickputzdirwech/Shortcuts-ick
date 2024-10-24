@@ -64,14 +64,10 @@ if settings.startup["flashlight-toggle"].value then
 		order = "a[basic]-b[flashlight-toggle]",
 		action = "lua",
 		toggleable = true,
-		icon = {
-			filename = "__Shortcuts-ick__/graphics/flashlight-toggle-x32.png",
-			size = 32
-		},
-		small_icon = {
-			filename = "__Shortcuts-ick__/graphics/flashlight-toggle-x24.png",
-			size = 24
-		}
+		icon = "__Shortcuts-ick__/graphics/flashlight-toggle-x32.png",
+		icon_size = 32,
+		small_icon = "__Shortcuts-ick__/graphics/flashlight-toggle-x24.png",
+		small_icon_size = 24
 	}})
 end
 
@@ -85,14 +81,10 @@ if settings.startup["signal-flare"].value then
 		action = "lua",
 		toggleable = true,
 		style = "red",
-		icon = {
-			filename = "__Shortcuts-ick__/graphics/signal-flare-x32-white.png",
-			size = 32
-		},
-		small_icon = {
-			filename = "__Shortcuts-ick__/graphics/signal-flare-x24-white.png",
-			size = 24
-		}
+		icon = "__Shortcuts-ick__/graphics/signal-flare-x32-white.png",
+		icon_size = 32,
+		small_icon = "__Shortcuts-ick__/graphics/signal-flare-x24-white.png",
+		small_icon_size = 24
 	}})
 end
 
@@ -106,14 +98,10 @@ if settings.startup["draw-grid"].value then
 		action = "lua",
 		toggleable = true,
 		style = "blue",
-		icon = {
-			filename = "__Shortcuts-ick__/graphics/grid-x32-white.png",
-			size = 32
-		},
-		small_icon = {
-			filename = "__Shortcuts-ick__/graphics/grid-x24-white.png",
-			size = 24
-		}
+		icon = "__Shortcuts-ick__/graphics/grid-x32-white.png",
+		icon_size = 32,
+		small_icon = "__Shortcuts-ick__/graphics/grid-x24-white.png",
+		small_icon_size = 24
 	}})
 end
 
@@ -126,14 +114,10 @@ if settings.startup["rail-block-visualization-toggle"].value then
 		order = "a[basic]-e[rail-block-visualization-toggle]",
 		action = "lua",
 		toggleable = true,
-		icon = {
-			filename = "__Shortcuts-ick__/graphics/rail-block-visualization-toggle-x32-2.png",
-			size = 32
-		},
-		small_icon = {
-			filename = "__Shortcuts-ick__/graphics/rail-block-visualization-toggle-x32-2.png",
-			size = 32
-		}
+		icon = "__Shortcuts-ick__/graphics/rail-block-visualization-toggle-x32-2.png",
+		icon_size = 32,
+		small_icon = "__Shortcuts-ick__/graphics/rail-block-visualization-toggle-x32-2.png",
+		small_icon_size = 32
 	}})
 end
 
@@ -148,14 +132,10 @@ if settings.startup["toggle-personal-logistic-requests"] and settings.startup["t
 		action = "toggle-personal-logistic-requests",
 		associated_control_input = "toggle-personal-logistic-requests",
 		technology_to_unlock = "logistic-robotics",
-		icon = {
-			filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x32.png",
-			size = 32
-		},
-		small_icon = {
-			filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x24.png",
-			size = 24
-		}
+		icon = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x32.png",
+		icon_size = 32,
+		small_icon = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x24.png",
+		small_icon_size = 24
 	}})
 	-- end Haxtorio
 end
@@ -170,14 +150,10 @@ if settings.startup["big-zoom"].value then
 		action = "lua",
 		toggleable = true,
 		style = "blue",
-		icon = {
-			filename = "__Shortcuts-ick__/graphics/big-zoom-x32-white.png",
-			size = 32
-		},
-		small_icon = {
-			filename = "__Shortcuts-ick__/graphics/big-zoom-x24-white.png",
-			size = 24
-		}
+		icon = "__Shortcuts-ick__/graphics/big-zoom-x32-white.png",
+		icon_size = 32,
+		small_icon = "__Shortcuts-ick__/graphics/big-zoom-x24-white.png",
+		small_icon_size = 24
 	}})
 end
 
@@ -191,10 +167,8 @@ if settings.startup["minimap"].value then
 		action = "lua",
 		toggleable = true,
 		style = "blue",
-		icon = {
-			filename = "__core__/graphics/icons/mip/map.png",
-			size = 32
-		}
+		icon = "__core__/graphics/icons/mip/map.png",
+		icon_size = 32
 	}})
 end
 
@@ -213,13 +187,9 @@ if mods["MaxRateCalculator"] and data.raw["selection-tool"]["max-rate-calculator
 		action = "spawn-item",
 		item_to_spawn = "max-rate-calculator",
 		style = "blue",
-		icon = {
-			filename = "__Shortcuts-ick__/graphics/max-rate-calculator-x32-white.png",
-			size = 32
-		},
-		small_icon = {
-			filename = "__Shortcuts-ick__/graphics/max-rate-calculator-x24-white.png",
-			size = 24
-		}
+		icon = "__Shortcuts-ick__/graphics/max-rate-calculator-x32-white.png",
+		icon_size = 32,
+		small_icon = "__Shortcuts-ick__/graphics/max-rate-calculator-x24-white.png",
+		small_icon_size = 24
 	}})
 end

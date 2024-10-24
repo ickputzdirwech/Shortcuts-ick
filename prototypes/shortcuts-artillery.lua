@@ -70,14 +70,10 @@ if settings.startup["artillery-targeting-remote"].value then
 		order = "d[artillery]-a[artillery-targeting-remote]",
 		action = "lua",
 		style = "red",
-		icon = {
-			filename = "__Shortcuts-ick__/graphics/artillery-targeting-remote-x32-white.png",
-			size = 32
-		},
-		small_icon = {
-			filename = "__Shortcuts-ick__/graphics/artillery-targeting-remote-x24-white.png",
-			size = 24
-		}
+		icon = "__Shortcuts-ick__/graphics/artillery-targeting-remote-x32-white.png",
+		icon_size = 32,
+		small_icon = "__Shortcuts-ick__/graphics/artillery-targeting-remote-x24-white.png",
+		small_icon_size = 24
 	}})
 end
 
@@ -91,10 +87,8 @@ if settings.startup["artillery-targeting-remote"].value and data.raw.capsule["ar
 			order = "d[artillery]-c[artillery-discovery-remote]",
 			action = "lua",
 			style = "red",
-			icon = {
-				filename = "__Shortcuts-ick__/graphics/artillery-discovery-remote-x32-white.png",
-				size = 32
-			}
+			icon = "__Shortcuts-ick__/graphics/artillery-discovery-remote-x32-white.png",
+			icon_size = 32
 		}
 	})
 end
@@ -108,10 +102,8 @@ if settings.startup["artillery-targeting-remote"].value and data.raw["selection-
 			localised_name = {"", artillery_bombardment_remote, {"item-name.artillery-bombardment-remote"}},
 			order = "d[artillery]-e[artillery-bombardment-remote]",
 			action = "lua",
-			icon = {
-				filename = data.raw["selection-tool"]["artillery-bombardment-remote"].icons[1].icon,
-				size = 32
-			}
+			icon = data.raw["selection-tool"]["artillery-bombardment-remote"].icons[1].icon,
+			icon_size = 32
 		},
 		{
 			type = "shortcut",
@@ -119,10 +111,8 @@ if settings.startup["artillery-targeting-remote"].value and data.raw["selection-
 			localised_name = {"", smart_artillery_bombardment_remote, {"item-name.smart-artillery-bombardment-remote"}},
 			order = "d[artillery]-e[smart-artillery-bombardment-remote]",
 			action = "lua",
-			icon = {
-				filename = data.raw["selection-tool"]["smart-artillery-bombardment-remote"].icons[1].icon,
-				size = 32
-			}
+			icon = data.raw["selection-tool"]["smart-artillery-bombardment-remote"].icons[1].icon,
+			icon_size = 32
 		},
 		{
 			type = "shortcut",
@@ -130,10 +120,8 @@ if settings.startup["artillery-targeting-remote"].value and data.raw["selection-
 			localised_name = {"", smart_artillery_exploration_remote, {"item-name.smart-artillery-exploration-remote"}},
 			order = "d[artillery]-f[smart-artillery-exploration-remote]",
 			action = "lua",
-			icon = {
-				filename = data.raw["selection-tool"]["smart-artillery-exploration-remote"].icons[1].icon,
-				size = 32
-			}
+			icon = data.raw["selection-tool"]["smart-artillery-exploration-remote"].icons[1].icon,
+			icon_size = 32
 		}
 	})
 end
@@ -158,14 +146,10 @@ if artillery_toggle == "both" or artillery_toggle == "artillery-wagon" or artill
 			order = "d[artillery]-g[artillery-jammer-tool]",
 			action = "lua",
 			style = "red",
-			icon = {
-				filename = "__Shortcuts-ick__/graphics/artillery-jammer-tool-x32-white.png",
-				size = 32
-			},
-			small_icon = {
-				filename = "__Shortcuts-ick__/graphics/artillery-jammer-tool-x24-white.png",
-				size = 24
-			}
+			icon = "__Shortcuts-ick__/graphics/artillery-jammer-tool-x32-white.png",
+			icon_size = 32,
+			small_icon = "__Shortcuts-ick__/graphics/artillery-jammer-tool-x24-white.png",
+			small_icon_size = 24
 		},
 		{
 			type = "selection-tool",
@@ -204,14 +188,10 @@ if mods["MIRV"] and data.raw.capsule["mirv-targeting-remote"] and settings.start
 		order = "d[artillery]-h[mirv-targeting-remote]",
 		action = "lua",
 		style = "red",
-		icon = {
-			filename = "__Shortcuts-ick__/graphics/mirv-targeting-remote-x32-white.png",
-			size = 32
-		},
-		small_icon = {
-			filename = "__Shortcuts-ick__/graphics/mirv-targeting-remote-x24-white.png",
-			size = 24
-		}
+		icon = "__Shortcuts-ick__/graphics/mirv-targeting-remote-x32-white.png",
+		icon_size = 32,
+		small_icon = "__Shortcuts-ick__/graphics/mirv-targeting-remote-x24-white.png",
+		small_icon_size = 24
 	}})
 end
 
@@ -224,14 +204,10 @@ if mods["AtomicArtilleryRemote"] and settings.startup["atomic-artillery-targetin
 		order = "d[artillery]-i[atomic-artillery-targeting-remote]",
 		action = "lua",
 		style = "red",
-		icon = {
-			filename = "__Shortcuts-ick__/graphics/mirv-targeting-remote-x32-white.png",
-			size = 32
-		},
-		small_icon = {
-			filename = "__Shortcuts-ick__/graphics/mirv-targeting-remote-x24-white.png",
-			size = 24
-		}
+		icon = "__Shortcuts-ick__/graphics/mirv-targeting-remote-x32-white.png",
+		icon_size = 32,
+		small_icon = "__Shortcuts-ick__/graphics/mirv-targeting-remote-x24-white.png",
+		small_icon_size = 24
 	}})
 end
 
@@ -244,10 +220,7 @@ if mods["landmine-thrower"] and data.raw.capsule["landmine-thrower-remote"] and 
 		order = "d[artillery]-j[landmine-thrower-remote]",
 		action = "lua",
 		style = "red",
-		icon =
-		{
-			filename = "__Shortcuts-ick__/graphics/landmine-thrower-remote-x24-white.png",
-			size = 24
-		}
+		icon = "__Shortcuts-ick__/graphics/landmine-thrower-remote-x24-white.png",
+		icon_size = 24
 	}})
 end

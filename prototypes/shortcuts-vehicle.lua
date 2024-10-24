@@ -62,10 +62,8 @@ if settings.startup["driver-is-gunner"].value then
 		action = "lua",
 		toggleable = true,
 		style = "red",
-		icon = {
-			filename = "__Shortcuts-ick__/graphics/driver-is-gunner-x32-2-white.png",
-			size = 32
-		}
+		icon = "__Shortcuts-ick__/graphics/driver-is-gunner-x32-2-white.png",
+		icon_size = 32
 	}})
 end
 
@@ -78,14 +76,10 @@ if settings.startup["spidertron-remote"].value == "enabled" or settings.startup[
 		order = "e[vehicle]-b[spidertron-remote]",
 		action = "lua",
 		style = "green",
-		icon = {
-			filename = "__Shortcuts-ick__/graphics/path-remote-control-x32-white.png",
-			size = 32
-		},
-		small_icon = {
-			filename = "__Shortcuts-ick__/graphics/path-remote-control-x24-white.png",
-			size = 24
-		}
+		icon = "__Shortcuts-ick__/graphics/path-remote-control-x32-white.png",
+		icon_size = 32,
+		small_icon = "__Shortcuts-ick__/graphics/path-remote-control-x24-white.png",
+		small_icon_size = 24
 	}})
 end
 
@@ -99,14 +93,10 @@ if settings.startup["spidertron-logistics"].value then
 		action = "lua",
 		toggleable = true,
 		style = "green",
-		icon = {
-			filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-roboport-x32-white.png",
-			size = 32,
-		},
-		small_icon = {
-			filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-roboport-x24-white.png",
-			size = 24,
-		}
+		icon = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-roboport-x32-white.png",
+		icon_size = 32,
+		small_icon = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-roboport-x24-white.png",
+		small_icon_size = 24
 	}})
 end
 
@@ -120,14 +110,10 @@ if settings.startup["spidertron-logistic-requests"].value then
 		action = "lua",
 		toggleable = true,
 		style = "green",
-		icon = {
-			filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x32-white.png",
-			size = 32,
-		},
-		small_icon = {
-			filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x24-white.png",
-			size = 24,
-		}
+		icon = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x32-white.png",
+		icon_size = 32,
+		small_icon = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x24-white.png",
+		small_icon_size = 24
 	}})
 end
 
@@ -141,10 +127,8 @@ if settings.startup["targeting-with-gunner"].value then
 		action = "lua",
 		toggleable = true,
 		style = "green",
-		icon ={
-			filename = "__Shortcuts-ick__/graphics/spidertron-targeting-with-gunner-x32-2-white.png",
-			size = 32,
-		}
+		icon = "__Shortcuts-ick__/graphics/spidertron-targeting-with-gunner-x32-2-white.png",
+		icon_size = 32
 	}})
 end
 
@@ -158,11 +142,8 @@ if settings.startup["targeting-without-gunner"].value then
 		action = "lua",
 		toggleable = true,
 		style = "green",
-		icon =
-		{
-			filename = "__Shortcuts-ick__/graphics/driver-is-gunner-x32-2-white.png",
-			size = 32,
-		}
+		icon = "__Shortcuts-ick__/graphics/driver-is-gunner-x32-2-white.png",
+		icon_size = 32
 	}})
 end
 
@@ -175,10 +156,8 @@ if settings.startup["train-mode-toggle"].value then
 		order = "e[vehicle]-g[train-mode-toggle]",
 		action = "lua",
 		toggleable = true,
-		icon = {
-			filename = "__Shortcuts-ick__/graphics/train-mode-toggle-x32-2.png",
-			size = 32,
-		}
+		icon = "__Shortcuts-ick__/graphics/train-mode-toggle-x32-2.png",
+		icon_size = 32
 	}})
 end
 
@@ -192,14 +171,10 @@ if mods["aai-programmable-vehicles"] and settings.startup["aai-remote-controls"]
 			order = "e[vehicle]-h[unit-remote-control]",
 			action = "lua",
 			style = "blue",
-			icon = {
-				filename = "__Shortcuts-ick__/graphics/unit-remote-control-x32-white.png",
-				size = 32
-			},
-			small_icon = {
-				filename = "__Shortcuts-ick__/graphics/unit-remote-control-x24-white.png",
-				size = 24
-			}
+			icon = "__Shortcuts-ick__/graphics/unit-remote-control-x32-white.png",
+			icon_size = 32,
+			small_icon = "__Shortcuts-ick__/graphics/unit-remote-control-x24-white.png",
+			small_icon_size = 24
 		},
 		{
 			type = "shortcut",
@@ -208,14 +183,10 @@ if mods["aai-programmable-vehicles"] and settings.startup["aai-remote-controls"]
 			order = "e[vehicle]-i[path-remote-control]",
 			action = "lua",
 			style = "blue",
-			icon = {
-				filename = "__Shortcuts-ick__/graphics/path-remote-control-x32-white.png",
-				size = 32
-			},
-			small_icon = {
-				filename = "__Shortcuts-ick__/graphics/path-remote-control-x24-white.png",
-				size = 24
-			}
+			icon = "__Shortcuts-ick__/graphics/path-remote-control-x32-white.png",
+			icon_size = 32,
+			small_icon = "__Shortcuts-ick__/graphics/path-remote-control-x24-white.png",
+			small_icon_size = 24
 		}
 	})
 end
@@ -228,13 +199,9 @@ if mods["VehicleWagon2"] and settings.startup["winch"].value then
 		localised_name = {"", winch, {"item-name.winch"}},
 		order = "e[vehicle]-j[winch]",
 		action = "lua",
-		icon = {
-			filename = "__Shortcuts-ick__/graphics/module-inserter-x32.png",
-			size = 32
-		},
-		small_icon = {
-			filename = "__Shortcuts-ick__/graphics/module-inserter-x24.png",
-			size = 24
-		}
+		icon = "__Shortcuts-ick__/graphics/module-inserter-x32.png",
+		icon_size = 32,
+		small_icon = "__Shortcuts-ick__/graphics/module-inserter-x24.png",
+		small_icon_size = 24
 	}})
 end

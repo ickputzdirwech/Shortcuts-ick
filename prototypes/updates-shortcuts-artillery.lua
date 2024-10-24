@@ -32,10 +32,8 @@ if settings.startup["artillery-targeting-remote"].value and data.raw.capsule["ar
 			order = "d[artillery]-b[artillery-cluster-remote-artillery-shell]",
 			action = "lua",
 			style = "red",
-			icon = {
-				filename = "__Shortcuts-ick__/graphics/artillery-cluster-remote-x32-white.png",
-				size = 32
-			}
+			icon = "__Shortcuts-ick__/graphics/artillery-cluster-remote-x32-white.png",
+			icon_size = 32
 		}
 	})
 end

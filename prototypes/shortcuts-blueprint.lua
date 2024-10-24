@@ -46,14 +46,10 @@ if settings.startup["tree-killer"].value then
 			action = "lua",
 			technology_to_unlock = "construction-robotics",
 			style = "red",
-			icon = {
-				filename = "__Shortcuts-ick__/graphics/tree-killer-x32-white.png",
-				size = 32
-			},
-			small_icon = {
-				filename = "__Shortcuts-ick__/graphics/tree-killer-x24-white.png",
-				size = 24
-			}
+			icon = "__Shortcuts-ick__/graphics/tree-killer-x32-white.png",
+			icon_size = 32,
+			small_icon = "__Shortcuts-ick__/graphics/tree-killer-x24-white.png",
+			small_icon_size = 24
 		}
 	})
 end
@@ -66,10 +62,10 @@ if settings.startup["well-planner"] and settings.startup["well-planner"].value a
 		localised_name = {"", well_planner, {"item-name.well-planner"}},
 		order = "b[blueprint]-j[well-planner]",
 		action = "lua",
-		icon = {
-			filename = "__WellPlanner__/graphics/well-planner.png",
+		icons = {{
+			icon = "__WellPlanner__/graphics/well-planner.png",
 			size = 64,
 			scale = 0.5
-		}
+		}}
 	}})
 end

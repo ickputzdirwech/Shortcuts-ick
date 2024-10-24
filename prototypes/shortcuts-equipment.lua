@@ -45,14 +45,10 @@ if settings.startup["belt-immunity-equipment"].value then
 		order = "c[equipment-c[belt-immunity-equipment]",
 		action = "lua",
 		toggleable = true,
-		icon = {
-			filename = "__Shortcuts-ick__/graphics/belt-immunity-toggle-x32.png",
-			size = 32
-		},
-		small_icon = {
-			filename = "__Shortcuts-ick__/graphics/belt-immunity-toggle-x24.png",
-			size = 24
-		}
+		icon = "__Shortcuts-ick__/graphics/belt-immunity-toggle-x32.png",
+		icon_size = 32,
+		small_icon = "__Shortcuts-ick__/graphics/belt-immunity-toggle-x24.png",
+		small_icon_size = 24
 	}})
 end
 
@@ -65,14 +61,10 @@ if settings.startup["discharge-defense-remote"].value then
 		order = "c[equipment]-d[discharge-defense-remote]",
 		action = "lua",
 		style = "red",
-		icon = {
-			filename = "__Shortcuts-ick__/graphics/discharge-defense-remote-x32-white.png",
-			size = 32
-		},
-		small_icon = {
-			filename = "__Shortcuts-ick__/graphics/discharge-defense-remote-x24-white.png",
-			size = 24
-		}
+		icon = "__Shortcuts-ick__/graphics/discharge-defense-remote-x32-white.png",
+		icon_size = 32,
+		small_icon = "__Shortcuts-ick__/graphics/discharge-defense-remote-x24-white.png",
+		small_icon_size = 24
 	}})
 end
 
@@ -90,14 +82,10 @@ if settings.startup["night-vision-equipment"].value then
 		order = "c[equipment]-e[night-vision-equipment]",
 		action = "lua",
 		toggleable = true,
-		icon = {
-			filename = "__Shortcuts-ick__/graphics/night-vision-toggle-x32.png",
-			size = 32
-		},
-		small_icon = {
-			filename = "__Shortcuts-ick__/graphics/night-vision-toggle-x24.png",
-			size = 24
-		}
+		icon = "__Shortcuts-ick__/graphics/night-vision-toggle-x32.png",
+		icon_size = 32,
+		small_icon = "__Shortcuts-ick__/graphics/night-vision-toggle-x24.png",
+		small_icon_size = 24
 	}})
 end
 
@@ -115,14 +103,10 @@ if settings.startup["active-defense-equipment"].value then
 		order = "c[equipment]-f[active-defense-equipment]",
 		action = "lua",
 		toggleable = true,
-		icon = {
-			filename = "__Shortcuts-ick__/graphics/active-defense-equipment-x32.png",
-			size = 32
-		},
-		small_icon = {
-			filename = "__Shortcuts-ick__/graphics/active-defense-equipment-x24.png",
-			size = 24
-		}
+		icon = "__Shortcuts-ick__/graphics/active-defense-equipment-x32.png",
+		icon_size = 32,
+		small_icon = "__Shortcuts-ick__/graphics/active-defense-equipment-x24.png",
+		small_icon_size = 24
 	}})
 end
 
@@ -138,14 +122,10 @@ if mods["jetpack"] and settings.startup["jetpack"].value then
 			associated_control_input = "jetpack",
 			action = "lua",
 			toggleable = true,
-			icon = {
-				filename = "__Shortcuts-ick__/graphics/jetpack-x32.png",
-				size = 32
-			},
-			small_icon = {
-				filename = "__Shortcuts-ick__/graphics/jetpack-x24.png",
-				size = 24
-			}
+			icon = "__Shortcuts-ick__/graphics/jetpack-x32.png",
+			icon_size = 32,
+			small_icon = "__Shortcuts-ick__/graphics/jetpack-x24.png",
+			small_icon_size = 24
 		}})
 	end
 end

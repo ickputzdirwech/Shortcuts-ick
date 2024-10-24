@@ -134,11 +134,11 @@ if autogen_color == "default" or autogen_color == "red" or autogen_color == "gre
 					localised_name = {"item-name." .. name},
 					item_to_spawn = name,
 					style = settings.startup["autogen-color"].value,
-					icon = {
-						filename = icon,
+					icons = {{
+						icon = icon,
 						size = icon_size,
 						scale = 0.5
-					}
+					}}
 				}
 
 				data:extend({shortcut})
