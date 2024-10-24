@@ -63,7 +63,9 @@ if settings.startup["driver-is-gunner"].value then
 		toggleable = true,
 		style = "red",
 		icon = "__Shortcuts-ick__/graphics/driver-is-gunner-x32-2-white.png",
-		icon_size = 32
+		icon_size = 32,
+		small_icon = "__Shortcuts-ick__/graphics/driver-is-gunner-x32-2-white.png",
+		small_icon_size = 32
 	}})
 end
 
@@ -128,7 +130,9 @@ if settings.startup["targeting-with-gunner"].value then
 		toggleable = true,
 		style = "green",
 		icon = "__Shortcuts-ick__/graphics/spidertron-targeting-with-gunner-x32-2-white.png",
-		icon_size = 32
+		icon_size = 32,
+		small_icon = "__Shortcuts-ick__/graphics/spidertron-targeting-with-gunner-x32-2-white.png",
+		small_icon_size = 32
 	}})
 end
 
@@ -143,7 +147,9 @@ if settings.startup["targeting-without-gunner"].value then
 		toggleable = true,
 		style = "green",
 		icon = "__Shortcuts-ick__/graphics/driver-is-gunner-x32-2-white.png",
-		icon_size = 32
+		icon_size = 32,
+		small_icon = "__Shortcuts-ick__/graphics/driver-is-gunner-x32-2-white.png",
+		small_icon_size = 32
 	}})
 end
 
@@ -157,7 +163,9 @@ if settings.startup["train-mode-toggle"].value then
 		action = "lua",
 		toggleable = true,
 		icon = "__Shortcuts-ick__/graphics/train-mode-toggle-x32-2.png",
-		icon_size = 32
+		icon_size = 32,
+		small_icon = "__Shortcuts-ick__/graphics/train-mode-toggle-x32-2.png",
+		small_icon_size = 32
 	}})
 end
 

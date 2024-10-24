@@ -168,7 +168,9 @@ if settings.startup["minimap"].value then
 		toggleable = true,
 		style = "blue",
 		icon = "__core__/graphics/icons/mip/map.png",
-		icon_size = 32
+		icon_size = 32,
+		small_icon = "__core__/graphics/icons/mip/map.png",
+		small_icon_size = 32
 	}})
 end
 

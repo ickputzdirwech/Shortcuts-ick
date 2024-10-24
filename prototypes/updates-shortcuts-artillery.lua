@@ -33,7 +33,9 @@ if settings.startup["artillery-targeting-remote"].value and data.raw.capsule["ar
 			action = "lua",
 			style = "red",
 			icon = "__Shortcuts-ick__/graphics/artillery-cluster-remote-x32-white.png",
-			icon_size = 32
+			icon_size = 32,
+			small_icon = "__Shortcuts-ick__/graphics/artillery-cluster-remote-x32-white.png",
+			small_icon_size = 32
 		}
 	})
 end

@@ -88,7 +88,9 @@ if settings.startup["artillery-targeting-remote"].value and data.raw.capsule["ar
 			action = "lua",
 			style = "red",
 			icon = "__Shortcuts-ick__/graphics/artillery-discovery-remote-x32-white.png",
-			icon_size = 32
+			icon_size = 32,
+			small_icon = "__Shortcuts-ick__/graphics/artillery-discovery-remote-x32-white.png",
+			small_icon_size = 32
 		}
 	})
 end
@@ -103,7 +105,9 @@ if settings.startup["artillery-targeting-remote"].value and data.raw["selection-
 			order = "d[artillery]-e[artillery-bombardment-remote]",
 			action = "lua",
 			icon = data.raw["selection-tool"]["artillery-bombardment-remote"].icons[1].icon,
-			icon_size = 32
+			icon_size = 32,
+			small_icon = data.raw["selection-tool"]["artillery-bombardment-remote"].icons[1].icon,
+			small_icon_size = 32
 		},
 		{
 			type = "shortcut",
@@ -112,7 +116,9 @@ if settings.startup["artillery-targeting-remote"].value and data.raw["selection-
 			order = "d[artillery]-e[smart-artillery-bombardment-remote]",
 			action = "lua",
 			icon = data.raw["selection-tool"]["smart-artillery-bombardment-remote"].icons[1].icon,
-			icon_size = 32
+			icon_size = 32,
+			small_icon = data.raw["selection-tool"]["smart-artillery-bombardment-remote"].icons[1].icon,
+			small_icon_size = 32
 		},
 		{
 			type = "shortcut",
@@ -121,7 +127,9 @@ if settings.startup["artillery-targeting-remote"].value and data.raw["selection-
 			order = "d[artillery]-f[smart-artillery-exploration-remote]",
 			action = "lua",
 			icon = data.raw["selection-tool"]["smart-artillery-exploration-remote"].icons[1].icon,
-			icon_size = 32
+			icon_size = 32,
+			small_icon = data.raw["selection-tool"]["smart-artillery-exploration-remote"].icons[1].icon,
+			small_icon_size = 32
 		}
 	})
 end
