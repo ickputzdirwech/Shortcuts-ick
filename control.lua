@@ -807,7 +807,7 @@ local function give_shortcut_item(player, prototype_name)
 end
 
 
--- CLEAR DUPLICATE SPIDERTRON REMOTES
+--[[ CLEAR DUPLICATE SPIDERTRON REMOTES
 if settings.startup["spidertron-remote"].value == "enabled" then
 	script.on_event(defines.events.on_player_configured_spider_remote, function(event)
 		local player = game.players[event.player_index]
@@ -818,7 +818,7 @@ if settings.startup["spidertron-remote"].value == "enabled" then
 			end
 		end
 	end)
-end
+end]]
 
 
 ---------------------------------------------------------------------------------------------------
