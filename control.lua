@@ -640,7 +640,7 @@ local function draw_grid(player_index)
 					players = {player},
 					draw_on_ground = ground_grid
 				}
-				storage.shortcuts_grid[player_index][#storage.shortcuts_grid[player_index]+1] = line
+				storage.shortcuts_grid[player_index][#storage.shortcuts_grid[player_index]+1] = line.id
 			end
 
 			local width = thinn_width
@@ -657,14 +657,14 @@ local function draw_grid(player_index)
 					players = {player},
 					draw_on_ground = ground_grid
 				}
-				storage.shortcuts_grid[player_index][#storage.shortcuts_grid[player_index]+1] = line
+				storage.shortcuts_grid[player_index][#storage.shortcuts_grid[player_index]+1] = line.id
 			end
 		end
 	else
 		player.set_shortcut_toggled("draw-grid", false)
 		local grid = storage.shortcuts_grid[player_index]
 		for i=1,(#grid) do
-			rendering.destroy(grid[i])
+			rendering.get_object_by_id(grid[i]).destroy()
 			grid[i] = nil
 		end
 	end
