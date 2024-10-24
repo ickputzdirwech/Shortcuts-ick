@@ -43,9 +43,6 @@ for i, type in pairs(equipment_list) do
 
 			disabled_equipment.take_result = name
 			disabled_equipment.sprite.tint = {0.5, 0.5, 0.5}
-			if disabled_equipment.sprite.hr_version then
-				disabled_equipment.sprite.hr_version.tint = {0.5, 0.5, 0.5}
-			end
 
 			if type == "belt-immunity-equipment" or (type == "active-defense-equipment" and equipment.automatic == true) then
 				disabled_equipment.energy_source.input_flow_limit = "0W"
