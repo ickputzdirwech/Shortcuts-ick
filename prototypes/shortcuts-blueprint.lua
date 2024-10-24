@@ -74,7 +74,7 @@ if settings.startup["well-planner"] and settings.startup["well-planner"].value a
 			filename = "__WellPlanner__/graphics/well-planner.png",
 			priority = "extra-high-no-scale",
 			size = 64,
-			flags = {"gui-icon"}
+			scale = 0.5
 		}
 	}})
 end
