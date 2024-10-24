@@ -100,7 +100,7 @@ if autogen_color == "default" or autogen_color == "red" or autogen_color == "gre
 
 		if continue == true then
 			local create = true
-			for i, shortcut in pairs(data.raw["shortcut"]) do
+			for _, shortcut in pairs(data.raw["shortcut"]) do
 				if shortcut.action == "spawn-item" and shortcut.item_to_spawn == name then
 					create = false
 					break
@@ -108,22 +108,21 @@ if autogen_color == "default" or autogen_color == "red" or autogen_color == "gre
 			end
 
 			if create == true then
-				local icon
-				local icon_size
-				if tool.icon then
-					icon = tool.icon
-				elseif tool.icons then
-					icon = tool.icons[1].icon
+				local icons
+				if tool.icons then
+					icons = tool.icons
+				elseif tool.icon and tool.icon_size then
+					icons = {{
+						icon = tool.icon,
+						icon_size = tool.icon_size,
+						scale = 0.5
+					}}
 				else
-					icon = "__core__/graphics/shoot.png"
-				end
-
-				if tool.icons and tool.icons[1].icon_size then
-					icon_size = tool.icons[1].icon_size
-				elseif tool.icon_size then
-					icon_size = tool.icon_size
-				else
-					icon_size = 32
+					icons = {{
+						icon = "__core__/graphics/questionmark.png",
+						icon_size = 64,
+						scale = 0.5
+					}}
 				end
 
 				local shortcut = {
@@ -134,11 +133,8 @@ if autogen_color == "default" or autogen_color == "red" or autogen_color == "gre
 					localised_name = {"item-name." .. name},
 					item_to_spawn = name,
 					style = settings.startup["autogen-color"].value,
-					icons = {{
-						icon = icon,
-						size = icon_size,
-						scale = 0.5
-					}}
+					icons = icons,
+					small_icons = icons
 				}
 
 				data:extend({shortcut})
