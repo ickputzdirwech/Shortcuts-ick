@@ -36,7 +36,6 @@ if settings.startup["artillery-targeting-remote"].value and data.raw.capsule["ar
 				filename = "__Shortcuts-ick__/graphics/artillery-cluster-remote-x32-white.png",
 				priority = "extra-high-no-scale",
 				size = 32,
-				scale = 0.5,
 				flags = {"gui-icon"}
 			}
 		}

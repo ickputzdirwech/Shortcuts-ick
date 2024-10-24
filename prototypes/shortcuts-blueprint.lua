@@ -50,14 +50,12 @@ if  settings.startup["tree-killer"].value then
 				filename = "__Shortcuts-ick__/graphics/tree-killer-x32-white.png",
 				priority = "extra-high-no-scale",
 				size = 32,
-				scale = 0.5,
 				flags = {"gui-icon"}
 			},
 			small_icon = {
 				filename = "__Shortcuts-ick__/graphics/tree-killer-x24-white.png",
 				priority = "extra-high-no-scale",
 				size = 24,
-				scale = 0.5,
 				flags = {"gui-icon"}
 			}
 		}
@@ -76,7 +74,6 @@ if settings.startup["well-planner"] and settings.startup["well-planner"].value a
 			filename = "__WellPlanner__/graphics/well-planner.png",
 			priority = "extra-high-no-scale",
 			size = 64,
-			scale = 0.5,
 			flags = {"gui-icon"}
 		}
 	}})
