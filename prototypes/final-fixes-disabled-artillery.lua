@@ -30,7 +30,7 @@ if artillery_toggle == "both" or artillery_toggle == "artillery-wagon" or artill
 				-- DISABLED TURRET
 				local disabled_turret = table.deepcopy(entity)
 					disabled_turret.name = "disabled-" .. entity.name
-					table.insert(disabled_turret.flags, "hidden")
+					disabled_turret.hidden = true
 					if entity.localised_name then
 						disabled_turret.localised_name = {"", entity.localised_name, " (", {"gui-constant.off"}, ")"}
 					else
@@ -56,7 +56,7 @@ if artillery_toggle == "both" or artillery_toggle == "artillery-wagon" or artill
 				local disabled_gun = table.deepcopy(data.raw.gun[entity.gun])
 					disabled_gun.name = "disabled-" .. entity.gun
 					disabled_gun.localised_name = disabled_turret.localised_name
-					disabled_gun.flags = {"hidden"}
+					disabled_gun.hidden = true
 					disabled_gun.attack_parameters.range = 0
 					disabled_gun.attack_parameters.min_range = 0
 					if disabled_gun.icon then
