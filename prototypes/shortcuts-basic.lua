@@ -67,26 +67,22 @@ if settings.startup["flashlight-toggle"].value then
 		icon = {
 			filename = "__Shortcuts-ick__/graphics/flashlight-toggle-x32.png",
 			priority = "extra-high-no-scale",
-			size = 32,
-			flags = {"gui-icon"}
+			size = 32
 		},
 		small_icon = {
 			filename = "__Shortcuts-ick__/graphics/flashlight-toggle-x24.png",
 			priority = "extra-high-no-scale",
-			size = 24,
-			flags = {"gui-icon"}
+			size = 24
 		},
 		disabled_icon = {
 			filename = "__Shortcuts-ick__/graphics/flashlight-toggle-x32-white.png",
 			priority = "extra-high-no-scale",
-			size = 32,
-			flags = {"gui-icon"}
+			size = 32
 		},
 		disabled_small_icon = {
 			filename = "__Shortcuts-ick__/graphics/flashlight-toggle-x24-white.png",
 			priority = "extra-high-no-scale",
-			size = 24,
-			flags = {"gui-icon"}
+			size = 24
 		}
 	}})
 end
@@ -104,14 +100,12 @@ if settings.startup["signal-flare"].value then
 		icon = {
 			filename = "__Shortcuts-ick__/graphics/signal-flare-x32-white.png",
 			priority = "extra-high-no-scale",
-			size = 32,
-			flags = {"gui-icon"}
+			size = 32
 		},
 		small_icon = {
 			filename = "__Shortcuts-ick__/graphics/signal-flare-x24-white.png",
 			priority = "extra-high-no-scale",
-			size = 24,
-			flags = {"gui-icon"}
+			size = 24
 		}
 	}})
 end
@@ -129,14 +123,12 @@ if settings.startup["draw-grid"].value then
 		icon = {
 			filename = "__Shortcuts-ick__/graphics/grid-x32-white.png",
 			priority = "extra-high-no-scale",
-			size = 32,
-			flags = {"gui-icon"}
+			size = 32
 		},
 		small_icon = {
 			filename = "__Shortcuts-ick__/graphics/grid-x24-white.png",
 			priority = "extra-high-no-scale",
-			size = 24,
-			flags = {"gui-icon"}
+			size = 24
 		}
 	}})
 end
@@ -154,29 +146,25 @@ if settings.startup["rail-block-visualization-toggle"].value then
 			filename = "__Shortcuts-ick__/graphics/rail-block-visualization-toggle-x32-2.png",
 			priority = "extra-high-no-scale",
 			size = 32,
-			mipmap_count = 2,
-			flags = {"gui-icon"}
+			mipmap_count = 2
 		},
 		small_icon = {
 			filename = "__Shortcuts-ick__/graphics/rail-block-visualization-toggle-x32-2.png",
 			priority = "extra-high-no-scale",
 			size = 32,
-			mipmap_count = 2,
-			flags = {"gui-icon"}
+			mipmap_count = 2
 		},
 		disabled_icon = {
 			filename = "__Shortcuts-ick__/graphics/rail-block-visualization-toggle-x32-2-white.png",
 			priority = "extra-high-no-scale",
 			size = 32,
-			mipmap_count = 2,
-			flags = {"gui-icon"}
+			mipmap_count = 2
 		},
 		disabled_small_icon = {
 			filename = "__Shortcuts-ick__/graphics/rail-block-visualization-toggle-x32-2-white.png",
 			priority = "extra-high-no-scale",
 			size = 32,
-			mipmap_count = 2,
-			flags = {"gui-icon"}
+			mipmap_count = 2
 		}
 	}})
 end
@@ -196,29 +184,25 @@ if settings.startup["toggle-personal-logistic-requests"] and settings.startup["t
 			filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x32.png",
 			priority = "extra-high-no-scale",
 			size = 32,
-			mipmap_count = 2,
-			flags = {"gui-icon"}
+			mipmap_count = 2
 		},
 		small_icon = {
 			filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x24.png",
 			priority = "extra-high-no-scale",
 			size = 24,
-			mipmap_count = 2,
-			flags = {"gui-icon"}
+			mipmap_count = 2
 		},
 		disabled_icon = {
 			filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x32-white.png",
 			priority = "extra-high-no-scale",
 			size = 32,
-			mipmap_count = 2,
-			flags = {"gui-icon"}
+			mipmap_count = 2
 		},
 		disabled_small_icon = {
 			filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x24-white.png",
 			priority = "extra-high-no-scale",
 			size = 24,
-			mipmap_count = 2,
-			flags = {"gui-icon"}
+			mipmap_count = 2
 		}
 	}})
 	-- end Haxtorio
@@ -237,14 +221,12 @@ if settings.startup["big-zoom"].value then
 		icon = {
 			filename = "__Shortcuts-ick__/graphics/big-zoom-x32-white.png",
 			priority = "extra-high-no-scale",
-			size = 32,
-			flags = {"gui-icon"}
+			size = 32
 		},
 		small_icon = {
 			filename = "__Shortcuts-ick__/graphics/big-zoom-x24-white.png",
 			priority = "extra-high-no-scale",
-			size = 24,
-			flags = {"gui-icon"}
+			size = 24
 		}
 	}})
 end
@@ -262,8 +244,7 @@ if settings.startup["minimap"].value then
 		icon = {
 			filename = "__core__/graphics/icons/mip/map.png",
 			priority = "extra-high-no-scale",
-			size = 32,
-			flags = {"gui-icon"}
+			size = 32
 		}
 	}})
 end
@@ -286,14 +267,12 @@ if mods["MaxRateCalculator"] and data.raw["selection-tool"]["max-rate-calculator
 		icon = {
 			filename = "__Shortcuts-ick__/graphics/max-rate-calculator-x32-white.png",
 			priority = "extra-high-no-scale",
-			size = 32,
-			flags = {"gui-icon"}
+			size = 32
 		},
 		small_icon = {
 			filename = "__Shortcuts-ick__/graphics/max-rate-calculator-x24-white.png",
 			priority = "extra-high-no-scale",
-			size = 24,
-			flags = {"gui-icon"}
+			size = 24
 		}
 	}})
 end

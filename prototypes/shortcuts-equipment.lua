@@ -48,26 +48,22 @@ if settings.startup["belt-immunity-equipment"].value then
 		icon = {
 			filename = "__Shortcuts-ick__/graphics/belt-immunity-toggle-x32.png",
 			priority = "extra-high-no-scale",
-			size = 32,
-			flags = {"gui-icon"}
+			size = 32
 		},
 		small_icon = {
 			filename = "__Shortcuts-ick__/graphics/belt-immunity-toggle-x24.png",
 			priority = "extra-high-no-scale",
-			size = 24,
-			flags = {"gui-icon"}
+			size = 24
 		},
 		disabled_icon = {
 			filename = "__Shortcuts-ick__/graphics/belt-immunity-toggle-x32-white.png",
 			priority = "extra-high-no-scale",
-			size = 32,
-			flags = {"gui-icon"}
+			size = 32
 		},
 		disabled_small_icon = {
 			filename = "__Shortcuts-ick__/graphics/belt-immunity-toggle-x24-white.png",
 			priority = "extra-high-no-scale",
-			size = 24,
-			flags = {"gui-icon"}
+			size = 24
 		}
 	}})
 end
@@ -84,14 +80,12 @@ if settings.startup["discharge-defense-remote"].value then
 		icon = {
 			filename = "__Shortcuts-ick__/graphics/discharge-defense-remote-x32-white.png",
 			priority = "extra-high-no-scale",
-			size = 32,
-			flags = {"gui-icon"}
+			size = 32
 		},
 		small_icon = {
 			filename = "__Shortcuts-ick__/graphics/discharge-defense-remote-x24-white.png",
 			priority = "extra-high-no-scale",
-			size = 24,
-			flags = {"gui-icon"}
+			size = 24
 		}
 	}})
 end
@@ -113,26 +107,22 @@ if settings.startup["night-vision-equipment"].value then
 		icon = {
 			filename = "__Shortcuts-ick__/graphics/night-vision-toggle-x32.png",
 			priority = "extra-high-no-scale",
-			size = 32,
-			flags = {"gui-icon"}
+			size = 32
 		},
 		small_icon = {
 			filename = "__Shortcuts-ick__/graphics/night-vision-toggle-x24.png",
 			priority = "extra-high-no-scale",
-			size = 24,
-			flags = {"gui-icon"}
+			size = 24
 		},
 		disabled_icon = {
 			filename = "__Shortcuts-ick__/graphics/night-vision-toggle-x32-white.png",
 			priority = "extra-high-no-scale",
-			size = 32,
-			flags = {"gui-icon"}
+			size = 32
 		},
 		disabled_small_icon = {
 			filename = "__Shortcuts-ick__/graphics/night-vision-toggle-x24-white.png",
 			priority = "extra-high-no-scale",
-			size = 24,
-			flags = {"gui-icon"}
+			size = 24
 		}
 	}})
 end
@@ -154,26 +144,22 @@ if settings.startup["active-defense-equipment"].value then
 		icon = {
 			filename = "__Shortcuts-ick__/graphics/active-defense-equipment-x32.png",
 			priority = "extra-high-no-scale",
-			size = 32,
-			flags = {"gui-icon"}
+			size = 32
 		},
 		small_icon = {
 			filename = "__Shortcuts-ick__/graphics/active-defense-equipment-x24.png",
 			priority = "extra-high-no-scale",
-			size = 24,
-			flags = {"gui-icon"}
+			size = 24
 		},
 		disabled_icon = {
 			filename = "__Shortcuts-ick__/graphics/active-defense-equipment-x32-white.png",
 			priority = "extra-high-no-scale",
-			size = 32,
-			flags = {"gui-icon"}
+			size = 32
 		},
 		disabled_small_icon = {
 			filename = "__Shortcuts-ick__/graphics/active-defense-equipment-x24-white.png",
 			priority = "extra-high-no-scale",
-			size = 24,
-			flags = {"gui-icon"}
+			size = 24
 		}
 	}})
 end
@@ -194,26 +180,22 @@ if mods["jetpack"] and settings.startup["jetpack"].value then
 				filename = "__Shortcuts-ick__/graphics/jetpack-x32.png",
 				priority = "extra-high-no-scale",
 				size = 32,
-				mipmap_count = 2,
-				flags = {"gui-icon"}
+				mipmap_count = 2
 			},
 			small_icon = {
 				filename = "__Shortcuts-ick__/graphics/jetpack-x24.png",
 				priority = "extra-high-no-scale",
-				size = 24,
-				flags = {"gui-icon"}
+				size = 24
 			},
 			disabled_icon = {
 				filename = "__Shortcuts-ick__/graphics/jetpack-x32-white.png",
 				priority = "extra-high-no-scale",
-				size = 32,
-				flags = {"gui-icon"}
+				size = 32
 			},
 			disabled_small_icon = {
 				filename = "__Shortcuts-ick__/graphics/jetpack-x24-white.png",
 				priority = "extra-high-no-scale",
-				size = 24,
-				flags = {"gui-icon"}
+				size = 24
 			}
 		}})
 	end

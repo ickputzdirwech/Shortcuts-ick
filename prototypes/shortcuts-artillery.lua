@@ -73,14 +73,12 @@ if settings.startup["artillery-targeting-remote"].value then
 		icon = {
 			filename = "__Shortcuts-ick__/graphics/artillery-targeting-remote-x32-white.png",
 			priority = "extra-high-no-scale",
-			size = 32,
-			flags = {"gui-icon"}
+			size = 32
 		},
 		small_icon = {
 			filename = "__Shortcuts-ick__/graphics/artillery-targeting-remote-x24-white.png",
 			priority = "extra-high-no-scale",
-			size = 24,
-			flags = {"gui-icon"}
+			size = 24
 		}
 	}})
 end
@@ -98,8 +96,7 @@ if settings.startup["artillery-targeting-remote"].value and data.raw.capsule["ar
 			icon = {
 				filename = "__Shortcuts-ick__/graphics/artillery-discovery-remote-x32-white.png",
 				priority = "extra-high-no-scale",
-				size = 32,
-				flags = {"gui-icon"}
+				size = 32
 			}
 		}
 	})
@@ -117,8 +114,7 @@ if settings.startup["artillery-targeting-remote"].value and data.raw["selection-
 			icon = {
 				filename = data.raw["selection-tool"]["artillery-bombardment-remote"].icons[1].icon,
 				priority = "extra-high-no-scale",
-				size = 32,
-				flags = {"gui-icon"}
+				size = 32
 			}
 		},
 		{
@@ -130,8 +126,7 @@ if settings.startup["artillery-targeting-remote"].value and data.raw["selection-
 			icon = {
 				filename = data.raw["selection-tool"]["smart-artillery-bombardment-remote"].icons[1].icon,
 				priority = "extra-high-no-scale",
-				size = 32,
-				flags = {"gui-icon"}
+				size = 32
 			}
 		},
 		{
@@ -143,8 +138,7 @@ if settings.startup["artillery-targeting-remote"].value and data.raw["selection-
 			icon = {
 				filename = data.raw["selection-tool"]["smart-artillery-exploration-remote"].icons[1].icon,
 				priority = "extra-high-no-scale",
-				size = 32,
-				flags = {"gui-icon"}
+				size = 32
 			}
 		}
 	})
@@ -173,14 +167,12 @@ if artillery_toggle == "both" or artillery_toggle == "artillery-wagon" or artill
 			icon = {
 				filename = "__Shortcuts-ick__/graphics/artillery-jammer-tool-x32-white.png",
 				priority = "extra-high-no-scale",
-				size = 32,
-				flags = {"gui-icon"}
+				size = 32
 			},
 			small_icon = {
 				filename = "__Shortcuts-ick__/graphics/artillery-jammer-tool-x24-white.png",
 				priority = "extra-high-no-scale",
-				size = 24,
-				flags = {"gui-icon"}
+				size = 24
 			}
 		},
 		{
@@ -223,14 +215,12 @@ if mods["MIRV"] and data.raw.capsule["mirv-targeting-remote"] and settings.start
 		icon = {
 			filename = "__Shortcuts-ick__/graphics/mirv-targeting-remote-x32-white.png",
 			priority = "extra-high-no-scale",
-			size = 32,
-			flags = {"gui-icon"}
+			size = 32
 		},
 		small_icon = {
 			filename = "__Shortcuts-ick__/graphics/mirv-targeting-remote-x24-white.png",
 			priority = "extra-high-no-scale",
-			size = 24,
-			flags = {"gui-icon"}
+			size = 24
 		}
 	}})
 end
@@ -247,14 +237,12 @@ if mods["AtomicArtilleryRemote"] and settings.startup["atomic-artillery-targetin
 		icon = {
 			filename = "__Shortcuts-ick__/graphics/mirv-targeting-remote-x32-white.png",
 			priority = "extra-high-no-scale",
-			size = 32,
-			flags = {"gui-icon"}
+			size = 32
 		},
 		small_icon = {
 			filename = "__Shortcuts-ick__/graphics/mirv-targeting-remote-x24-white.png",
 			priority = "extra-high-no-scale",
-			size = 24,
-			flags = {"gui-icon"}
+			size = 24
 		}
 	}})
 end
@@ -272,8 +260,7 @@ if mods["landmine-thrower"] and data.raw.capsule["landmine-thrower-remote"] and 
 		{
 			filename = "__Shortcuts-ick__/graphics/landmine-thrower-remote-x24-white.png",
 			priority = "extra-high-no-scale",
-			size = 24,
-			flags = {"gui-icon"}
+			size = 24
 		}
 	}})
 end

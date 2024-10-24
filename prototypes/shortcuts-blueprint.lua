@@ -49,14 +49,12 @@ if  settings.startup["tree-killer"].value then
 			icon = {
 				filename = "__Shortcuts-ick__/graphics/tree-killer-x32-white.png",
 				priority = "extra-high-no-scale",
-				size = 32,
-				flags = {"gui-icon"}
+				size = 32
 			},
 			small_icon = {
 				filename = "__Shortcuts-ick__/graphics/tree-killer-x24-white.png",
 				priority = "extra-high-no-scale",
-				size = 24,
-				flags = {"gui-icon"}
+				size = 24
 			}
 		}
 	})
