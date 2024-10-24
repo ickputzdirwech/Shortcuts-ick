@@ -66,12 +66,10 @@ if settings.startup["flashlight-toggle"].value then
 		toggleable = true,
 		icon = {
 			filename = "__Shortcuts-ick__/graphics/flashlight-toggle-x32.png",
-			priority = "extra-high-no-scale",
 			size = 32
 		},
 		small_icon = {
 			filename = "__Shortcuts-ick__/graphics/flashlight-toggle-x24.png",
-			priority = "extra-high-no-scale",
 			size = 24
 		}
 	}})
@@ -89,12 +87,10 @@ if settings.startup["signal-flare"].value then
 		style = "red",
 		icon = {
 			filename = "__Shortcuts-ick__/graphics/signal-flare-x32-white.png",
-			priority = "extra-high-no-scale",
 			size = 32
 		},
 		small_icon = {
 			filename = "__Shortcuts-ick__/graphics/signal-flare-x24-white.png",
-			priority = "extra-high-no-scale",
 			size = 24
 		}
 	}})
@@ -112,12 +108,10 @@ if settings.startup["draw-grid"].value then
 		style = "blue",
 		icon = {
 			filename = "__Shortcuts-ick__/graphics/grid-x32-white.png",
-			priority = "extra-high-no-scale",
 			size = 32
 		},
 		small_icon = {
 			filename = "__Shortcuts-ick__/graphics/grid-x24-white.png",
-			priority = "extra-high-no-scale",
 			size = 24
 		}
 	}})
@@ -134,15 +128,11 @@ if settings.startup["rail-block-visualization-toggle"].value then
 		toggleable = true,
 		icon = {
 			filename = "__Shortcuts-ick__/graphics/rail-block-visualization-toggle-x32-2.png",
-			priority = "extra-high-no-scale",
-			size = 32,
-			mipmap_count = 2
+			size = 32
 		},
 		small_icon = {
 			filename = "__Shortcuts-ick__/graphics/rail-block-visualization-toggle-x32-2.png",
-			priority = "extra-high-no-scale",
-			size = 32,
-			mipmap_count = 2
+			size = 32
 		}
 	}})
 end
@@ -160,15 +150,11 @@ if settings.startup["toggle-personal-logistic-requests"] and settings.startup["t
 		technology_to_unlock = "logistic-robotics",
 		icon = {
 			filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x32.png",
-			priority = "extra-high-no-scale",
-			size = 32,
-			mipmap_count = 2
+			size = 32
 		},
 		small_icon = {
 			filename = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x24.png",
-			priority = "extra-high-no-scale",
-			size = 24,
-			mipmap_count = 2
+			size = 24
 		}
 	}})
 	-- end Haxtorio
@@ -186,12 +172,10 @@ if settings.startup["big-zoom"].value then
 		style = "blue",
 		icon = {
 			filename = "__Shortcuts-ick__/graphics/big-zoom-x32-white.png",
-			priority = "extra-high-no-scale",
 			size = 32
 		},
 		small_icon = {
 			filename = "__Shortcuts-ick__/graphics/big-zoom-x24-white.png",
-			priority = "extra-high-no-scale",
 			size = 24
 		}
 	}})
@@ -209,7 +193,6 @@ if settings.startup["minimap"].value then
 		style = "blue",
 		icon = {
 			filename = "__core__/graphics/icons/mip/map.png",
-			priority = "extra-high-no-scale",
 			size = 32
 		}
 	}})
@@ -232,12 +215,10 @@ if mods["MaxRateCalculator"] and data.raw["selection-tool"]["max-rate-calculator
 		style = "blue",
 		icon = {
 			filename = "__Shortcuts-ick__/graphics/max-rate-calculator-x32-white.png",
-			priority = "extra-high-no-scale",
 			size = 32
 		},
 		small_icon = {
 			filename = "__Shortcuts-ick__/graphics/max-rate-calculator-x24-white.png",
-			priority = "extra-high-no-scale",
 			size = 24
 		}
 	}})

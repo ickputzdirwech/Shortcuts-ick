@@ -48,12 +48,10 @@ if  settings.startup["tree-killer"].value then
 			style = "red",
 			icon = {
 				filename = "__Shortcuts-ick__/graphics/tree-killer-x32-white.png",
-				priority = "extra-high-no-scale",
 				size = 32
 			},
 			small_icon = {
 				filename = "__Shortcuts-ick__/graphics/tree-killer-x24-white.png",
-				priority = "extra-high-no-scale",
 				size = 24
 			}
 		}
@@ -70,7 +68,6 @@ if settings.startup["well-planner"] and settings.startup["well-planner"].value a
 		action = "lua",
 		icon = {
 			filename = "__WellPlanner__/graphics/well-planner.png",
-			priority = "extra-high-no-scale",
 			size = 64,
 			scale = 0.5
 		}

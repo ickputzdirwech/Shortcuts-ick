@@ -34,7 +34,6 @@ if settings.startup["artillery-targeting-remote"].value and data.raw.capsule["ar
 			style = "red",
 			icon = {
 				filename = "__Shortcuts-ick__/graphics/artillery-cluster-remote-x32-white.png",
-				priority = "extra-high-no-scale",
 				size = 32
 			}
 		}

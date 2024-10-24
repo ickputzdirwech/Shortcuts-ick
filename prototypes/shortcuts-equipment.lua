@@ -47,12 +47,10 @@ if settings.startup["belt-immunity-equipment"].value then
 		toggleable = true,
 		icon = {
 			filename = "__Shortcuts-ick__/graphics/belt-immunity-toggle-x32.png",
-			priority = "extra-high-no-scale",
 			size = 32
 		},
 		small_icon = {
 			filename = "__Shortcuts-ick__/graphics/belt-immunity-toggle-x24.png",
-			priority = "extra-high-no-scale",
 			size = 24
 		}
 	}})
@@ -69,12 +67,10 @@ if settings.startup["discharge-defense-remote"].value then
 		style = "red",
 		icon = {
 			filename = "__Shortcuts-ick__/graphics/discharge-defense-remote-x32-white.png",
-			priority = "extra-high-no-scale",
 			size = 32
 		},
 		small_icon = {
 			filename = "__Shortcuts-ick__/graphics/discharge-defense-remote-x24-white.png",
-			priority = "extra-high-no-scale",
 			size = 24
 		}
 	}})
@@ -96,12 +92,10 @@ if settings.startup["night-vision-equipment"].value then
 		toggleable = true,
 		icon = {
 			filename = "__Shortcuts-ick__/graphics/night-vision-toggle-x32.png",
-			priority = "extra-high-no-scale",
 			size = 32
 		},
 		small_icon = {
 			filename = "__Shortcuts-ick__/graphics/night-vision-toggle-x24.png",
-			priority = "extra-high-no-scale",
 			size = 24
 		}
 	}})
@@ -123,12 +117,10 @@ if settings.startup["active-defense-equipment"].value then
 		toggleable = true,
 		icon = {
 			filename = "__Shortcuts-ick__/graphics/active-defense-equipment-x32.png",
-			priority = "extra-high-no-scale",
 			size = 32
 		},
 		small_icon = {
 			filename = "__Shortcuts-ick__/graphics/active-defense-equipment-x24.png",
-			priority = "extra-high-no-scale",
 			size = 24
 		}
 	}})
@@ -148,13 +140,10 @@ if mods["jetpack"] and settings.startup["jetpack"].value then
 			toggleable = true,
 			icon = {
 				filename = "__Shortcuts-ick__/graphics/jetpack-x32.png",
-				priority = "extra-high-no-scale",
-				size = 32,
-				mipmap_count = 2
+				size = 32
 			},
 			small_icon = {
 				filename = "__Shortcuts-ick__/graphics/jetpack-x24.png",
-				priority = "extra-high-no-scale",
 				size = 24
 			}
 		}})
