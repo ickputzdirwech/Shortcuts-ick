@@ -18,10 +18,10 @@
 data:extend(
 {
 	{
-    	setting_type = "startup",
+		setting_type = "startup",
 		name = "artillery-targeting-remote",
-    	localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.artillery-targeting-remote"}},
-    	order = "d[artillery]-a[artillery-targeting-remote]",
+		localised_name = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]", {"item-name.artillery-targeting-remote"}},
+		order = "d[artillery]-a[artillery-targeting-remote]",
 		type = "bool-setting",
 		default_value = true
 	},

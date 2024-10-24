@@ -81,7 +81,7 @@ function ick_reset_available_shortcuts(player)
 			disable_shortcuts("targeting-with-gunner")
 			disable_shortcuts("targeting-without-gunner")
 		end
-		if type ~= "locomotive" and type ~= "cargo-wagon"  and type ~= "fluid-wagon" and type ~= "artillery-wagon" then
+		if type ~= "locomotive" and type ~= "cargo-wagon" and type ~= "fluid-wagon" and type ~= "artillery-wagon" then
 			disable_shortcuts("train-mode-toggle")
 		end
 	end
@@ -159,7 +159,7 @@ function ick_reset_available_shortcuts(player)
 		disable_shortcuts_2("PickerInventoryTools", "personal-roboport-equipment", "toggle-equipment-bot-chip-items")
 		disable_shortcuts_2("PickerInventoryTools", "personal-roboport-equipment", "toggle-equipment-bot-chip-launcher")
 		disable_shortcuts_2("PickerInventoryTools", "personal-roboport-equipment", "toggle-equipment-bot-chip-nanointerface")
-		disable_shortcuts_2("PickerInventoryTools",  "personal-roboport-equipment", "toggle-equipment-bot-chip-trees")
+		disable_shortcuts_2("PickerInventoryTools", "personal-roboport-equipment", "toggle-equipment-bot-chip-trees")
 	end
 
 	disable_shortcuts_2("pump", "oil-processing", "pump-shortcut")

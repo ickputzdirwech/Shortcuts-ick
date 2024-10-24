@@ -336,7 +336,7 @@ local function artillery_swap(entity, new_name)
 			position = position,
 			direction = direction,
 			orientation = orientation,
-			force = force,
+			force = force
 		}
 	else
 		entity.destroy()
@@ -591,7 +591,7 @@ end
 -- EMERGENCY LOCATOR BEACON
 local function signal_flare(player)
 	if settings.global["disable-flare"].value then
-		player.force.print({"", "[img=utility.danger_icon] [color=1,0.1,0.1]", {"entity-name.character"}, " " ..  player.name .. " [gps=" .. math.floor(player.position.x+0.5) .. "," .. math.floor(player.position.y+0.5) ..  "][/color] [img=utility.danger_icon]"})
+		player.force.print({"", "[img=utility.danger_icon] [color=1,0.1,0.1]", {"entity-name.character"}, " " .. player.name .. " [gps=" .. math.floor(player.position.x+0.5) .. "," .. math.floor(player.position.y+0.5) .. "][/color] [img=utility.danger_icon]"})
 	else
 		player.print({"", {"error.error-message-box-title"}, ": ", {"technology-name.military"}, " ", {"entity-name.beacon"}, " ", {"gui-mod-info.status-disabled"}})
 	end
@@ -927,7 +927,7 @@ script.on_event(defines.events.on_player_driving_changed_state, function(event)
 			enable_shortcuts(player, player.vehicle.vehicle_automatic_targeting_parameters.auto_target_with_gunner, "targeting-with-gunner")
 			enable_shortcuts(player, player.vehicle.vehicle_automatic_targeting_parameters.auto_target_without_gunner, "targeting-without-gunner")
 		end
-		if type == "locomotive" or type == "cargo-wagon"  or type == "fluid-wagon" or type == "artillery-wagon" then
+		if type == "locomotive" or type == "cargo-wagon" or type == "fluid-wagon" or type == "artillery-wagon" then
 			enable_shortcuts(player, player.vehicle.train.manual_mode, "train-mode-toggle")
 		end
 	elseif player.driving == false then
@@ -1081,12 +1081,12 @@ end
 -- BASIC
 if settings.startup["flashlight-toggle"].value then
 	script.on_event("flashlight-toggle", function(event)
-	  toggle_light(game.players[event.player_index])
+		toggle_light(game.players[event.player_index])
 	end)
 end
 if settings.startup["signal-flare"].value then
 	script.on_event("signal-flare", function(event)
-	  signal_flare(game.players[event.player_index])
+		signal_flare(game.players[event.player_index])
 	end)
 end
 if settings.startup["draw-grid"].value then
@@ -1098,18 +1098,18 @@ if settings.startup["rail-block-visualization-toggle"].value then
 	script.on_event("rail-block-visualization-toggle", function(event)
 		local player = game.players[event.player_index]
 		if player.is_shortcut_available("rail-block-visualization-toggle") then
-	  	toggle_rail(player)
+		toggle_rail(player)
 		end
 	end)
 end
 if settings.startup["big-zoom"].value then
 	script.on_event("big-zoom", function(event)
-	  big_zoom(game.players[event.player_index])
+		big_zoom(game.players[event.player_index])
 	end)
 end
 if settings.startup["minimap"].value then
 	script.on_event("minimap", function(event)
-	  toggle_minimap(game.players[event.player_index])
+		toggle_minimap(game.players[event.player_index])
 	end)
 end
 

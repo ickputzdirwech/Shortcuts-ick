@@ -28,7 +28,7 @@ if mods["WellPlanner"] then
 		name = "well-planner",
 		localised_name = {"", "[color=blue]", {"item-name.blueprint"}, ": [/color]", {"item-name.well-planner"}},
 		order = "b[blueprint]-j[well-planner]",
-    	type = "bool-setting",
+		type = "bool-setting",
 		default_value = true
 	}})
 end

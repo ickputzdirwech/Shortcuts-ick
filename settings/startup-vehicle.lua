@@ -90,12 +90,12 @@ if mods["aai-programmable-vehicles"] then
 end
 
 if mods["VehicleWagon2"] then
-  	data:extend({{
-      	setting_type = "startup",
-  		name = "winch",
+	data:extend({{
+		setting_type = "startup",
+		name = "winch",
 		localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color] Vehicle Wagon 2 ", {"item-name.winch"}},
-      	order = "e[vehicle]-j[winch]",
-  		type = "bool-setting",
-  		default_value = true
-  	}})
+		order = "e[vehicle]-j[winch]",
+		type = "bool-setting",
+		default_value = true
+	}})
 end

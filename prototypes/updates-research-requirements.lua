@@ -14,9 +14,9 @@
 -- Compatibility with IR2
 ---------------------------------------------------------------------------------------------------
 local function change_technology_to_unlock(shortcut, tech)
-    if data.raw.shortcut[shortcut] then
-        data.raw.shortcut[shortcut].technology_to_unlock = tech
-    end
+	if data.raw.shortcut[shortcut] then
+		data.raw.shortcut[shortcut].technology_to_unlock = tech
+	end
 end
 
 if settings.startup["ick-compatibility-mode"].value == false then

@@ -23,7 +23,7 @@ data:extend(
 		default_value = true
 	},
 	{
-    	setting_type = "startup",
+		setting_type = "startup",
 		name = "discharge-defense-remote",
 		localised_name = {"", {"Shortcuts-ick.equipment"}, {"item-name.discharge-defense-remote"}},
 		order = "c[equipment]-d[discharge-defense-remote]",
@@ -31,18 +31,18 @@ data:extend(
 		default_value = true
 	},
 	{
-    	setting_type = "startup",
+		setting_type = "startup",
 		name = "night-vision-equipment",
-    	localised_name = {"", {"Shortcuts-ick.equipment"}, {"technology-name.night-vision-equipment"}},
-    	order = "c[equipment]-e[night-vision-equipment]",
+		localised_name = {"", {"Shortcuts-ick.equipment"}, {"technology-name.night-vision-equipment"}},
+		order = "c[equipment]-e[night-vision-equipment]",
 		type = "bool-setting",
 		default_value = true
 	},
 	{
-    	setting_type = "startup",
+		setting_type = "startup",
 		name = "active-defense-equipment",
-    	localised_name = {"", {"Shortcuts-ick.equipment"}, {"equipment-name.personal-laser-defense-equipment"}},
-    	order = "c[equipment]-f[active-defense-equipment]",
+		localised_name = {"", {"Shortcuts-ick.equipment"}, {"equipment-name.personal-laser-defense-equipment"}},
+		order = "c[equipment]-f[active-defense-equipment]",
 		type = "bool-setting",
 		default_value = true
 	}

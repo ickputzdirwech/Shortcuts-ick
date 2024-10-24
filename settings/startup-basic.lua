@@ -19,7 +19,7 @@
 data:extend(
 {
 	{
-    	setting_type = "startup",
+		setting_type = "startup",
 		name = "flashlight-toggle",
 		localised_name = {"", {"Shortcuts-ick.basic"}, {"Shortcuts-ick.flashlight-toggle"}},
 		order = "a[basic]-b[flashlight-toggle]",
@@ -35,7 +35,7 @@ data:extend(
 		default_value = true
 	},
 	{
-    	setting_type = "startup",
+		setting_type = "startup",
 		name = "draw-grid",
 		localised_name = {"", {"Shortcuts-ick.basic"}, {"gui.grid"}},
 		order = "a[basic]-d[draw-grid]",
@@ -43,7 +43,7 @@ data:extend(
 		default_value = true
 	},
 	{
-    	setting_type = "startup",
+		setting_type = "startup",
 		name = "rail-block-visualization-toggle",
 		localised_name = {"", {"Shortcuts-ick.basic"}, {"gui-interface-settings.show-rail-block-visualization"}},
 		order = "a[basic]-e[rail-block-visualization-toggle]",
@@ -51,7 +51,7 @@ data:extend(
 		default_value = true
 	},
 	{
-    	setting_type = "startup",
+		setting_type = "startup",
 		name = "big-zoom",
 		localised_name = {"", {"Shortcuts-ick.basic"}, {"controls.alt-zoom-out"}},
 		order = "a[basic]-g[big-zoom]",
@@ -59,7 +59,7 @@ data:extend(
 		default_value = true
 	},
 	{
-    	setting_type = "startup",
+		setting_type = "startup",
 		name = "minimap",
 		localised_name = {"", {"Shortcuts-ick.basic"}, {"gui-interface-settings.show-minimap"}},
 		order = "a[basic]-h[minimap]",
@@ -88,5 +88,5 @@ if mods["MaxRateCalculator"] then
 		order = "a[basic]-i[max-rate-calculator]",
 		type = "bool-setting",
 		default_value = true
-  	}})
+	}})
 end
