@@ -48,20 +48,20 @@ local function initialize()
 	for name in pairs(game.forces) do
 		game.forces[name].reset_technology_effects()
 	end
-	if global.shortcuts_light == nil then
-		global.shortcuts_light = {}
+	if storage.shortcuts_light == nil then
+		storage.shortcuts_light = {}
 	end
-	if global.toggle_rail == nil then
-		global.toggle_rail = {}
+	if storage.toggle_rail == nil then
+		storage.toggle_rail = {}
 	end
-	if global.shortcuts_armor == nil then
-		global.shortcuts_armor = {}
+	if storage.shortcuts_armor == nil then
+		storage.shortcuts_armor = {}
 	end
-	if global.shortcuts_grid == nil then
-		global.shortcuts_grid = {}
+	if storage.shortcuts_grid == nil then
+		storage.shortcuts_grid = {}
 	end
-	if global.shortcuts_jetpack == nil then
-		global.shortcuts_jetpack = {}
+	if storage.shortcuts_jetpack == nil then
+		storage.shortcuts_jetpack = {}
 	end
 end
 
@@ -87,12 +87,12 @@ local function update_armor(player)
 	if power_armor and power_armor.valid then
 		if power_armor[1].valid_for_read then
 			if power_armor[1].grid and power_armor[1].grid.valid and power_armor[1].grid.width > 0 then
-				global.shortcuts_armor[player.index] = power_armor[1].grid
+				storage.shortcuts_armor[player.index] = power_armor[1].grid
 			else
-				table.remove(global.shortcuts_armor, player.index)
+				table.remove(storage.shortcuts_armor, player.index)
 			end
 		else
-			table.remove(global.shortcuts_armor, player.index)
+			table.remove(storage.shortcuts_armor, player.index)
 		end
 	end
 end
@@ -101,7 +101,7 @@ local function update_state(event, equipment_type) -- toggles the armor
 	local player = game.players[event.player_index]
 	if player.character then
 		update_armor(player)
-		local grid = global.shortcuts_armor[event.player_index]
+		local grid = storage.shortcuts_armor[event.player_index]
 		if grid and grid.valid then
 			for _, equipment in pairs(grid.equipment) do
 				if equipment.valid and equipment.type == equipment_type then
@@ -177,7 +177,7 @@ end
 local function reset_state(event, toggle) -- verifies placement of equipment and armor switching
 	local player = game.players[event.player_index]
 	update_armor(player)
-	local grid = global.shortcuts_armor[event.player_index]
+	local grid = storage.shortcuts_armor[event.player_index]
 	if grid and grid.valid then
 		if settings.startup["discharge-defense-remote"].value then
 			player.set_shortcut_available("discharge-defense-remote", false)
@@ -241,17 +241,17 @@ end
 remote.add_interface("Shortcuts-ick", { -- Checks if the armor inventory change was caused by the jetpack mod.
 	on_character_swapped = function(data)
 		if data.new_character.get_inventory(defines.inventory.character_armor).is_empty() == false and data.new_character.player then
-			global.shortcuts_jetpack[data.new_character.player.index] = true
+			storage.shortcuts_jetpack[data.new_character.player.index] = true
 		end
 	end
 })
 
 
 script.on_event(defines.events.on_player_armor_inventory_changed, function(event)
-	if global.shortcuts_jetpack[event.player_index] == nil then
+	if storage.shortcuts_jetpack[event.player_index] == nil then
 		reset_state(event, 0) -- If no change by the jetpack mod was detected the equipment gets reset.
 	else
-		global.shortcuts_jetpack[event.player_index] = nil -- Otherwise clear the global again.
+		storage.shortcuts_jetpack[event.player_index] = nil -- Otherwise clear the global again.
 	end
 end)
 script.on_event(defines.events.on_player_placed_equipment, function(event)
@@ -511,9 +511,9 @@ script.on_event(defines.events.on_runtime_mod_setting_changed, function(event)
 									local position = equipment.position
 									grid.take{name = name, position = position}
 									local new_equipment = grid.put{name = string.sub(name, 10), position = position}
-									if global.shortcuts_armor[i] and global.shortcuts_armor[i].get(position) then
-										new_equipment.energy = global.shortcuts_armor[i].get(position).energy
-										global.shortcuts_armor[i] = grid
+									if storage.shortcuts_armor[i] and storage.shortcuts_armor[i].get(position) then
+										new_equipment.energy = storage.shortcuts_armor[i].get(position).energy
+										storage.shortcuts_armor[i] = grid
 									end
 									count = count + 1
 								end
@@ -571,16 +571,16 @@ end)
 -- CHARACTER LAMP
 local function toggle_light(player)
 	if player.character then
-		if global.shortcuts_light[player.index] == nil then
-			global.shortcuts_light[player.index] = true
+		if storage.shortcuts_light[player.index] == nil then
+			storage.shortcuts_light[player.index] = true
 		end
-		if global.shortcuts_light[player.index] then
+		if storage.shortcuts_light[player.index] then
 			player.character.disable_flashlight()
-			global.shortcuts_light[player.index] = false
+			storage.shortcuts_light[player.index] = false
 			player.set_shortcut_toggled("flashlight-toggle", false)
-		elseif global.shortcuts_light[player.index] == false then
+		elseif storage.shortcuts_light[player.index] == false then
 			player.character.enable_flashlight()
-			global.shortcuts_light[player.index] = true
+			storage.shortcuts_light[player.index] = true
 			player.set_shortcut_toggled("flashlight-toggle", true)
 		end
 	else
@@ -600,11 +600,11 @@ end
 -- GRID
 local function draw_grid(player_index)
 	local player = game.players[player_index]
-	if global.shortcuts_grid[player_index] == nil then
-		global.shortcuts_grid[player_index] = {}
+	if storage.shortcuts_grid[player_index] == nil then
+		storage.shortcuts_grid[player_index] = {}
 	end
-	-- game.print(#global.shortcuts_grid[player_index])
-	if #global.shortcuts_grid[player_index] == 0 then
+	-- game.print(#storage.shortcuts_grid[player_index])
+	if #storage.shortcuts_grid[player_index] == 0 then
 		player.set_shortcut_toggled("draw-grid", true)
 		-- Opts
 		local settings = settings.get_player_settings(player)
@@ -640,7 +640,7 @@ local function draw_grid(player_index)
 					players = {player},
 					draw_on_ground = ground_grid
 				}
-				global.shortcuts_grid[player_index][#global.shortcuts_grid[player_index]+1] = line
+				storage.shortcuts_grid[player_index][#storage.shortcuts_grid[player_index]+1] = line
 			end
 
 			local width = thinn_width
@@ -657,12 +657,12 @@ local function draw_grid(player_index)
 					players = {player},
 					draw_on_ground = ground_grid
 				}
-				global.shortcuts_grid[player_index][#global.shortcuts_grid[player_index]+1] = line
+				storage.shortcuts_grid[player_index][#storage.shortcuts_grid[player_index]+1] = line
 			end
 		end
 	else
 		player.set_shortcut_toggled("draw-grid", false)
-		local grid = global.shortcuts_grid[player_index]
+		local grid = storage.shortcuts_grid[player_index]
 		for i=1,(#grid) do
 			rendering.destroy(grid[i])
 			grid[i] = nil
@@ -672,16 +672,16 @@ end
 
 -- RAIL BLOCK VISUALISATION
 local function toggle_rail(player)
-	if global.toggle_rail[player.index] == nil then
-		global.toggle_rail[player.index] = false
+	if storage.toggle_rail[player.index] == nil then
+		storage.toggle_rail[player.index] = false
 	end
-	if global.toggle_rail[player.index] then
+	if storage.toggle_rail[player.index] then
 		player.game_view_settings.show_rail_block_visualisation = false
-		global.toggle_rail[player.index] = false
+		storage.toggle_rail[player.index] = false
 		player.set_shortcut_toggled("rail-block-visualization-toggle", false)
-	elseif global.toggle_rail[player.index] == false then
+	elseif storage.toggle_rail[player.index] == false then
 		player.game_view_settings.show_rail_block_visualisation = true
-		global.toggle_rail[player.index] = true
+		storage.toggle_rail[player.index] = true
 		player.set_shortcut_toggled("rail-block-visualization-toggle", true)
 	end
 end
