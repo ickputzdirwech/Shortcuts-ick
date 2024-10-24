@@ -17,7 +17,7 @@ function ick_reset_available_shortcuts(player)
 
 	-- FUNCTIONS
 	local tech = player.force.technologies
-	local mods = game.active_mods
+	local mods = script.active_mods
 	local setting = settings.startup
 
 	local function disable_shortcuts(name) -- checks if the setting is active
