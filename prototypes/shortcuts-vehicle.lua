@@ -95,9 +95,9 @@ if settings.startup["spidertron-logistics"].value then
 		action = "lua",
 		toggleable = true,
 		style = "green",
-		icon = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-roboport-x32-white.png",
+		icon = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-roboport-x32.png",
 		icon_size = 32,
-		small_icon = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-roboport-x24-white.png",
+		small_icon = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-roboport-x24.png",
 		small_icon_size = 24
 	}})
 end
@@ -112,9 +112,9 @@ if settings.startup["spidertron-logistic-requests"].value then
 		action = "lua",
 		toggleable = true,
 		style = "green",
-		icon = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x32-white.png",
+		icon = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x32.png",
 		icon_size = 32,
-		small_icon = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x24-white.png",
+		small_icon = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x24.png",
 		small_icon_size = 24
 	}})
 end
