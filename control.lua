@@ -438,14 +438,14 @@ if artillery_setting == "both" or artillery_setting == "artillery-turret" or art
 	]]
 
 	script.on_event(defines.events.on_robot_built_entity, function(event)
-		local entity = event.created_entity
+		local entity = event.entity
 		if string.sub(entity.name, 1, 9) == "disabled-" then
 			draw_warning_icon(entity)
 		end
 	end, entity_type_filter)
 
 	script.on_event(defines.events.on_built_entity, function(event)
-		local entity = event.created_entity
+		local entity = event.entity
 		if string.sub(entity.ghost_name, 1, 9) == "disabled-" then
 			draw_warning_icon(entity)
 		end
