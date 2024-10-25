@@ -29,15 +29,6 @@ data:extend(
 	},
 	{
 		setting_type = "startup",
-		name = "spidertron-remote",
-		localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"item-name.spidertron-remote"}},
-		order = "e[vehicle]-b[spidertron-remote]",
-		type = "string-setting",
-		allowed_values = {"disabled", "enabled", "enabled-hidden"},
-		default_value = "enabled"
-	},
-	{
-		setting_type = "startup",
 		name = "spidertron-logistics",
 		localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"entity-name.spidertron"}, " ", {"gui.enable-logistics-while-moving"}},
 		order = "e[vehicle]-c[spidertron-logistics]",

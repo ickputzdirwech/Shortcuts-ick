@@ -54,11 +54,6 @@ if settings.startup["ick-compatibility-mode"].value == false then
 			player.set_shortcut_available("artillery-jammer-tool", true)
 		end
 
-		local spidertron_remote = setting["spidertron-remote"].value
-		if research == "spidertron" and (spidertron_remote == "enabled" or spidertron_remote == "enabled-hidden") then
-			player.set_shortcut_available("spidertron-remote", true)
-		end
-
 
 		-- MOD
 		if mods["aai-programmable-vehicles"] and (research == "automobilism" or research == "spidertron") then

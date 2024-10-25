@@ -48,13 +48,6 @@ if settings.startup["discharge-defense-remote"].value == true then
 	hide_the_remote("discharge-defense-remote", "discharge-defense-equipment", data.raw.capsule["discharge-defense-remote"])
 end
 
-if settings.startup["spidertron-remote"].value == "enabled" then
-	hide_the_remote("spidertron-remote", "spidertron")
-end
-if settings.startup["spidertron-remote"].value == "enabled-hidden" then
-	hide_the_remote("spidertron-remote", "spidertron", data.raw["spidertron-remote"]["spidertron-remote"])
-end
-
 -- IEMS FROM MODS WE MADE A SHORTCUT FOR
 if mods["aai-programmable-vehicles"] then
 	if data.raw["selection-tool"]["unit-remote-control"] then

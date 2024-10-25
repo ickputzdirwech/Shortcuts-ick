@@ -105,13 +105,6 @@ function ick_reset_available_shortcuts(player)
 		player.set_shortcut_available("artillery-jammer-tool", false)
 	end
 
-	local spidertron_remote = setting["spidertron-remote"].value
-	if tech["spidertron"].researched == false then
-		if spidertron_remote == "enabled" or spidertron_remote == "enabled-hidden" then
-			player.set_shortcut_available("spidertron-remote", false)
-		end
-	end
-
 
 	-- MOD
 	if tech["spidertron"].researched == false then

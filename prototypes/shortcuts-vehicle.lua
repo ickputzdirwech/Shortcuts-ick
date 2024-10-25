@@ -19,7 +19,6 @@
 
 -- TAGS
 local driver_is_gunner
-local spidertron_remote
 local spidertron
 local train
 local unit_remote_control
@@ -28,7 +27,6 @@ local winch
 if settings.startup["ick-tags"].value == "tags" then
 	local tag = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]"}
 	driver_is_gunner = tag
-	spidertron_remote = tag
 	spidertron = tag
 	train = tag
 	unit_remote_control = tag
@@ -36,7 +34,6 @@ if settings.startup["ick-tags"].value == "tags" then
 	winch = tag
 elseif settings.startup["ick-tags"].value == "icons" then
 	driver_is_gunner = "[img=item/submachine-gun] "
-	spidertron_remote = "[img=item/spidertron-remote] "
 	spidertron = "[img=item/spidertron] "
 	train = "[img=item/locomotive] "
 	unit_remote_control = "[img=item/unit-remote-control] "
@@ -44,7 +41,6 @@ elseif settings.startup["ick-tags"].value == "icons" then
 	winch = "[img=item/winch] "
 else
 	driver_is_gunner = ""
-	spidertron_remote = ""
 	spidertron = ""
 	train = ""
 	unit_remote_control = ""
@@ -66,22 +62,6 @@ if settings.startup["driver-is-gunner"].value then
 		icon_size = 32,
 		small_icon = "__Shortcuts-ick__/graphics/driver-is-gunner-x32-2-white.png",
 		small_icon_size = 32
-	}})
-end
-
--- SPIDERTRON REMOTE
-if settings.startup["spidertron-remote"].value == "enabled" or settings.startup["spidertron-remote"].value == "enabled-hidden" then
-	data:extend({{
-		type = "shortcut",
-		name = "spidertron-remote",
-		localised_name = {"", spidertron_remote, {"item-name.spidertron-remote"}},
-		order = "e[vehicle]-b[spidertron-remote]",
-		action = "lua",
-		style = "green",
-		icon = "__Shortcuts-ick__/graphics/path-remote-control-x32-white.png",
-		icon_size = 32,
-		small_icon = "__Shortcuts-ick__/graphics/path-remote-control-x24-white.png",
-		small_icon_size = 24
 	}})
 end
 

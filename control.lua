@@ -543,7 +543,6 @@ script.on_event(defines.events.on_runtime_mod_setting_changed, function(event)
 			enable_equipment({"active-defense-equipment", "belt-immunity-equipment", "night-vision-equipment"})
 			enable_recipe("artillery-targeting-remote", "artillery")
 			enable_recipe("discharge-defense-remote", "discharge-defense-equipment")
-			enable_recipe("spidertron-remote", "spidertron")
 			enable_recipe("artillery-cluster-remote-artillery-shell", "artillery")
 			enable_recipe("artillery-discovery-remote", "artillery")
 			enable_recipe("mirv-targeting-remote", "mirv-technology")
@@ -725,7 +724,6 @@ local allowed_items = {
 	"mirv-targeting-remote",
 	"path-remote-control",
 	"unit-remote-control",
-	"spidertron-remote",
 	"squad-spidertron-remote",
 	"tree-killer",
 	"well-planner",
@@ -792,14 +790,6 @@ local function give_shortcut_item(player, prototype_name)
 			remove_duplicate_tools(player, "well-planner")
 		elseif prototype_name == "rail-signal-planner" then
 			remove_duplicate_tools(player, "rail-signal-planner")
-		elseif prototype_name == "spidertron-remote" then
-			if settings.startup["spidertron-remote"].value == "enabled" then
-				for i=1, #player.get_main_inventory() do
-					if player.get_main_inventory()[i].valid_for_read and player.get_main_inventory()[i].name == "spidertron-remote" and player.get_main_inventory()[i].connected_entity == nil then
-						player.get_main_inventory()[i].clear()
-					end
-				end
-			end
 		elseif prototype_name == "tree-killer" then
 			tree_killer_setup(player)
 		end
@@ -807,26 +797,10 @@ local function give_shortcut_item(player, prototype_name)
 end
 
 
---[[ CLEAR DUPLICATE SPIDERTRON REMOTES
-if settings.startup["spidertron-remote"].value == "enabled" then
-	script.on_event(defines.events.on_player_configured_spider_remote, function(event)
-		local player = game.players[event.player_index]
-		local inventory = player.get_main_inventory()
-		for i=1, #inventory do
-			if inventory and inventory[i].valid_for_read and inventory[i].name == "spidertron-remote" and (inventory[i].connected_entity == event.vehicle or inventory[i].connected_entity == nil) then
-				inventory[i].clear()
-			end
-		end
-	end)
-end]]
-
-
 ---------------------------------------------------------------------------------------------------
 -- VEHICLE UPDATES
 ---------------------------------------------------------------------------------------------------
 -- FUNCTIONS
-local spidertron_setting = settings.startup["spidertron-remote"].value
-
 local function update_shortcuts(driver, vehicle_setting, prototype_name)
 	if driver.is_player() then --If driver is a player without character
 		driver.set_shortcut_available(prototype_name, true)
@@ -909,9 +883,6 @@ script.on_event(defines.events.on_player_driving_changed_state, function(event)
 			enable_shortcuts(player, player.vehicle.driver_is_gunner, "driver-is-gunner")
 		end
 		if type == "spider-vehicle" then
-			if spidertron_setting == "enabled" or spidertron_setting == "enabled-hidden" then
-				player.set_shortcut_available("spidertron-remote", true)
-			end
 			if mods["Spider_Control"] then
 				player.set_shortcut_available("squad-spidertron-follow", true)
 				player.set_shortcut_available("squad-spidertron-remote", true)
@@ -1157,7 +1128,3 @@ custom_input_give_item_1("mirv-targeting-remote")
 
 custom_input_give_item_1("well-planner")
 custom_input_give_item_1("winch")
-
-if spidertron_setting == "enabled" or spidertron_setting == "enabled-hidden" then
-	custom_input_give_item_2("spidertron-remote")
-end

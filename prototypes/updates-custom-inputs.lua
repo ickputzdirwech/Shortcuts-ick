@@ -38,7 +38,6 @@ local shortcuts = {
 	"active-defense-equipment",
 
 	"driver-is-gunner",
-	"spidertron-remote",
 	"spidertron-logistics",
 	"spidertron-logistic-requests",
 	"targeting-with-gunner",
