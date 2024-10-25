@@ -109,7 +109,7 @@ local function update_state(event, equipment_type) -- toggles the armor
 					local position = equipment.position
 					local energy = equipment.energy
 					if not (string.sub(equipment.name, 1, 9) == "disabled-" or string.sub(equipment.name, 1, 4) == "nvt-") then -- disables the equipment
-						if equipment_type ~= "active-defense-equipment" or (equipment_type == "active-defense-equipment" and game.equipment_prototypes["disabled-" .. equipment.name]) then
+						if equipment_type ~= "active-defense-equipment" or (equipment_type == "active-defense-equipment" and prototypes.equipment["disabled-" .. equipment.name]) then
 							grid.take{name = name, position = position}
 							local new_equipment = grid.put{name = "disabled-" .. name, position = position}
 							if new_equipment and new_equipment.valid then
@@ -190,7 +190,7 @@ local function reset_state(event, toggle) -- verifies placement of equipment and
 		local e_equipment = event.equipment
 		if e_equipment and toggle == 1 then --place
 			local type = e_equipment.type
-			if type == "night-vision-equipment" or type == "belt-immunity-equipment" or (type == "active-defense-equipment" and game.equipment_prototypes["disabledinactive-" .. e_equipment.name] == nil) then
+			if type == "night-vision-equipment" or type == "belt-immunity-equipment" or (type == "active-defense-equipment" and prototypes.equipment["disabledinactive-" .. e_equipment.name] == nil) then
 				if settings.startup[type] and settings.startup[type].value then
 					for _, equipment in pairs(grid.equipment) do	--	Enable all of a type of equipment, even if only one is placed in the grid.
 						if equipment.valid and equipment.type == type then
@@ -200,13 +200,13 @@ local function reset_state(event, toggle) -- verifies placement of equipment and
 				end
 			end
 		elseif e_equipment and toggle == 2 then --take
-			local type = game.equipment_prototypes[e_equipment].type
+			local type = prototypes.equipment[e_equipment].type
 			if type == "night-vision-equipment" or type == "belt-immunity-equipment" or type == "active-defense-equipment" then
 				if settings.startup[type] and settings.startup[type].value then
 					local value = false
 					for _, equipment in pairs(grid.equipment) do
 						if equipment.type == type and equipment.valid then
-							if game.equipment_prototypes["disabledinactive-" .. equipment.name] then else
+							if prototypes.equipment["disabledinactive-" .. equipment.name] then else
 								value = true
 								break
 							end
@@ -222,7 +222,7 @@ local function reset_state(event, toggle) -- verifies placement of equipment and
 			false_shortcuts(player)
 			for _, equipment in pairs(grid.equipment) do
 				local type = equipment.type
-				if equipment.valid and type == "night-vision-equipment" or type == "belt-immunity-equipment" or (type == "active-defense-equipment" and game.equipment_prototypes["disabledinactive-" .. equipment.name] == nil) then
+				if equipment.valid and type == "night-vision-equipment" or type == "belt-immunity-equipment" or (type == "active-defense-equipment" and prototypes.equipment["disabledinactive-" .. equipment.name] == nil) then
 					if settings.startup[type] and settings.startup[type].value then
 						enable_it(player, equipment, grid, equipment.type)
 					end
@@ -410,7 +410,7 @@ if artillery_setting == "both" or artillery_setting == "artillery-turret" or art
 						artillery_swap(entity, string.sub(name, 10, #name))
 					else
 						local new_name = "disabled-" .. name
-						if game.entity_prototypes[new_name] or (name == "entity-ghost" and game.entity_prototypes["disabled-"..entity.ghost_name]) then
+						if prototypes.entity[new_name] or (name == "entity-ghost" and prototypes.entity["disabled-"..entity.ghost_name]) then
 							i = i+1
 							draw_warning_icon(artillery_swap(entity, new_name))
 						else
@@ -528,11 +528,11 @@ script.on_event(defines.events.on_runtime_mod_setting_changed, function(event)
 		end
 
 		local function enable_recipe(recipe, tech)
-			if game.recipe_prototypes[recipe] and game.technology_prototypes[tech] then
+			if prototypes.recipe[recipe] and prototypes.technology[tech] then
 				for _, force in pairs(game.forces) do
 					if force.technologies[tech].researched then
 						force.recipes[recipe].enabled = true
-						game.print("FORCE: " .. force.name .."\nEnabled Recipe: " .. game.recipe_prototypes[recipe].name)
+						game.print("FORCE: " .. force.name .."\nEnabled Recipe: " .. prototypes.recipe[recipe].name)
 					end
 				end
 			end
@@ -763,11 +763,11 @@ local function tree_killer_setup(player)
 	else
 		local filters = {}
 		for _, type in pairs(entity_types) do
-			for _, entity in pairs(game.get_filtered_entity_prototypes({{filter = "type", type = type}})) do
+			for _, entity in pairs(prototypes.get_entity_filtered({{filter = "type", type = type}})) do
 				if entity.has_flag("not-deconstructable") == false and (type == "cliff" or entity.mineable_properties.minable) then
 					if #filters < 255 then
 						if type == "simple-entity" then
-							if game.entity_prototypes[entity.name].count_as_rock_for_filtered_deconstruction then
+							if prototypes.entity[entity.name].count_as_rock_for_filtered_deconstruction then
 								table.insert(filters, entity.name)
 							end
 						else
@@ -786,7 +786,7 @@ end
 
 
 local function give_shortcut_item(player, prototype_name)
-	if game.item_prototypes[prototype_name] and player.clear_cursor() then
+	if prototypes.item[prototype_name] and player.clear_cursor() then
 		player.cursor_stack.set_stack({name = prototype_name})
 		if prototype_name == "well-planner" then
 			remove_duplicate_tools(player, "well-planner")
@@ -895,7 +895,7 @@ end
 -- ON_PLAYER_DRIVING_CHANGED_STATE
 script.on_event(defines.events.on_player_driving_changed_state, function(event)
 	local player = game.players[event.player_index]
-	local mods = game.active_mods
+	local mods = script.active_mods
 	local setting = settings.startup
 
 	if player.driving then
@@ -1031,7 +1031,7 @@ script.on_event(defines.events.on_lua_shortcut, function(event)
 		give_shortcut_item(player, "pump-selection-tool")
 	elseif prototype_name == "give-rail-signal-planner" then
 		give_shortcut_item(player, "rail-signal-planner")
-	elseif game.shortcut_prototypes[prototype_name] then
+	elseif prototypes.shortcut[prototype_name] then
 		for _, item_name in pairs(allowed_items) do
 			if item_name == prototype_name then
 				give_shortcut_item(player, prototype_name)
