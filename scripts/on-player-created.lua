@@ -96,10 +96,6 @@ function ick_reset_available_shortcuts(player)
 		disable_shortcuts("rail-block-visualization-toggle")
 	end
 
-	if tech["artillery"].researched == false and setting["artillery-targeting-remote"].value then
-		player.set_shortcut_available("artillery-targeting-remote", false)
-	end
-
 	local artillery_toggle = setting["artillery-toggle"].value
 	if tech["artillery"].researched == false and (artillery_toggle == "both" or artillery_toggle == "artillery-wagon" or artillery_toggle == "artillery-turret") then
 		player.set_shortcut_available("artillery-jammer-tool", false)
@@ -112,12 +108,12 @@ function ick_reset_available_shortcuts(player)
 		disable_shortcuts_2("aai-programmable-vehicles", "automobilism", "unit-remote-control")
 	end
 
-	if mods["AdvancedArtilleryRemotesContinued"] and setting["artillery-targeting-remote"].value and tech["artillery"].researched == false then
+	if mods["AdvancedArtilleryRemotesContinued"] and setting["artillery-targeting-remotes"].value and tech["artillery"].researched == false then
 		player.set_shortcut_available("artillery-cluster-remote-artillery-shell", false)
 		player.set_shortcut_available("artillery-discovery-remote", false)
 	end
 
-	if (mods["artillery-bombardment-remote"] or mods["artillery-bombardment-remote-reloaded"] or mods["dbots-artillery-bombardment-remote"]) and setting["artillery-targeting-remote"].value then
+	if (mods["artillery-bombardment-remote"] or mods["artillery-bombardment-remote-reloaded"] or mods["dbots-artillery-bombardment-remote"]) and setting["artillery-targeting-remotes"].value then
 		if tech["artillery-bombardment-remote"].researched == false then
 			player.set_shortcut_available("artillery-bombardment-remote", false)
 		end

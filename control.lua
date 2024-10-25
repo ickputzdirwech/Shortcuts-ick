@@ -541,7 +541,6 @@ script.on_event(defines.events.on_runtime_mod_setting_changed, function(event)
 		if mode == "uninstall" then
 			enable_artillery()
 			enable_equipment({"active-defense-equipment", "belt-immunity-equipment", "night-vision-equipment"})
-			enable_recipe("artillery-targeting-remote", "artillery")
 			enable_recipe("discharge-defense-remote", "discharge-defense-equipment")
 			enable_recipe("artillery-cluster-remote-artillery-shell", "artillery")
 			enable_recipe("artillery-discovery-remote", "artillery")
@@ -713,7 +712,6 @@ local allowed_items = {
 	"artillery-cluster-remote-artillery-shell",
 	"artillery-discovery-remote",
 	"artillery-jammer-tool",
-	"artillery-targeting-remote",
 	"artillery-bombardment-remote",
 	"smart-artillery-bombardment-remote",
 	"smart-artillery-exploration-remote",
@@ -1103,23 +1101,18 @@ custom_input_vehicle("train-mode-toggle", {"locomotive", "cargo-wagon", "fluid-w
 -- GIVE ITEM
 custom_input_give_item_1("tree-killer")
 
-if settings.startup["artillery-targeting-remote"].value then
-	if settings.startup["advanced-artillery-remote"] and settings.startup["advanced-artillery-remote"].value then
-		custom_input_give_item_2("artillery-cluster-remote-artillery-shell")
-		custom_input_give_item_2("artillery-discovery-remote")
-	end
-	if settings.startup["artillery-bombardment-remote"] and settings.startup["artillery-bombardment-remote"].value then
-		custom_input_give_item_2("artillery-bombardment-remote")
-		custom_input_give_item_2("smart-artillery-bombardment-remote")
-		custom_input_give_item_2("smart-artillery-exploration-remote")
-	end
+if settings.startup["artillery-targeting-remotes"] and settings.startup["artillery-targeting-remotes"].value then
+	custom_input_give_item_2("artillery-cluster-remote-artillery-shell")
+	custom_input_give_item_2("artillery-discovery-remote")
+	custom_input_give_item_2("artillery-bombardment-remote")
+	custom_input_give_item_2("smart-artillery-bombardment-remote")
+	custom_input_give_item_2("smart-artillery-exploration-remote")
 end
 
 if artillery_setting == "both" or artillery_setting == "artillery-wagon" or artillery_setting == "artillery-turret" then
 	custom_input_give_item_2("artillery-jammer-tool")
 end
 
-custom_input_give_item_1("artillery-targeting-remote")
 custom_input_give_item_1("atomic-artillery-targeting-remote")
 custom_input_give_item_1("discharge-defense-remote")
 custom_input_give_item_1("ion-cannon-targeter")

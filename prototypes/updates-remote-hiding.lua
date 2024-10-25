@@ -40,10 +40,6 @@ local function hide_the_remote(recipe, technology, item)
 end
 
 -- VANILLA ITEMS
-if settings.startup["artillery-targeting-remote"].value == true then
-	hide_the_remote("artillery-targeting-remote", "artillery", data.raw.capsule["artillery-targeting-remote"])
-end
-
 if settings.startup["discharge-defense-remote"].value == true then
 	hide_the_remote("discharge-defense-remote", "discharge-defense-equipment", data.raw.capsule["discharge-defense-remote"])
 end

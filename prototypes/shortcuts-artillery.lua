@@ -19,7 +19,6 @@
 ]]
 
 -- TAGS
-local artillery_targeting_remote
 local artillery_discovery_remote
 local artillery_bombardment_remote
 local smart_artillery_bombardment_remote
@@ -30,7 +29,6 @@ local atomic_artillery_targeting_remote
 local landmine_thrower_remote
 if settings.startup["ick-tags"].value == "tags" then
 	local tag = {"", "[color=red]", {"technology-name.artillery"}, ": [/color]"}
-	artillery_targeting_remote = tag
 	artillery_discovery_remote = tag
 	artillery_bombardment_remote = tag
 	smart_artillery_bombardment_remote = tag
@@ -40,7 +38,6 @@ if settings.startup["ick-tags"].value == "tags" then
 	atomic_artillery_targeting_remote = tag
 	landmine_thrower_remote = tag
 elseif settings.startup["ick-tags"].value == "icons" then
-	artillery_targeting_remote = "[img=item/artillery-targeting-remote] "
 	artillery_discovery_remote = "[img=item/artillery-discovery-remote] "
 	artillery_bombardment_remote = "[img=item/artillery-bombardment-remote] "
 	smart_artillery_bombardment_remote = "[img=item/smart-artillery-bombardment-remote] "
@@ -50,7 +47,6 @@ elseif settings.startup["ick-tags"].value == "icons" then
 	atomic_artillery_targeting_remote = "[img=item/artillery-targeting-remote] "
 	landmine_thrower_remote = "[img=item/landmine-thrower-remote] "
 else
-	artillery_targeting_remote = ""
 	artillery_discovery_remote = ""
 	artillery_bombardment_remote = ""
 	smart_artillery_bombardment_remote = ""
@@ -61,24 +57,8 @@ else
 	landmine_thrower_remote = ""
 end
 
--- ARTILLERY TARGETING REMOTE
-if settings.startup["artillery-targeting-remote"].value then
-	data:extend({{
-		type = "shortcut",
-		name = "artillery-targeting-remote",
-		localised_name = {"", artillery_targeting_remote, {"item-name.artillery-targeting-remote"}},
-		order = "d[artillery]-a[artillery-targeting-remote]",
-		action = "lua",
-		style = "red",
-		icon = "__Shortcuts-ick__/graphics/artillery-targeting-remote-x32-white.png",
-		icon_size = 32,
-		small_icon = "__Shortcuts-ick__/graphics/artillery-targeting-remote-x24-white.png",
-		small_icon_size = 24
-	}})
-end
-
 -- ADVANCED ARTILLERY REMOTES CONTINUED
-if settings.startup["artillery-targeting-remote"].value and data.raw.capsule["artillery-discovery-remote"] then
+if settings.startup["artillery-targeting-remotes"].value and data.raw.capsule["artillery-discovery-remote"] then
 	data:extend({
 		{
 			type = "shortcut",
@@ -96,7 +76,7 @@ if settings.startup["artillery-targeting-remote"].value and data.raw.capsule["ar
 end
 
 -- ARTILLERY BOMBARDMENT REMOTES
-if settings.startup["artillery-targeting-remote"].value and data.raw["selection-tool"]["artillery-bombardment-remote"] and data.raw["selection-tool"]["smart-artillery-bombardment-remote"] and data.raw["selection-tool"]["smart-artillery-exploration-remote"] then
+if settings.startup["artillery-targeting-remotes"].value and data.raw["selection-tool"]["artillery-bombardment-remote"] and data.raw["selection-tool"]["smart-artillery-bombardment-remote"] and data.raw["selection-tool"]["smart-artillery-exploration-remote"] then
 	data:extend({
 		{
 			type = "shortcut",

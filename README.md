@@ -45,7 +45,6 @@ You can help translate this mod on [Crowdin](https://crowdin.com/project/factori
 
 **Artillery**
 
-* Artillery targeting remote
 * MOD: Advanced Artillery Remotes Continued
 * MOD: Artillery Bombardment Remote
 * MOD: Artillery Bombardment Remote (Reloaded)
@@ -59,7 +58,6 @@ You can help translate this mod on [Crowdin](https://crowdin.com/project/factori
 **Vehicle**
 
 * Driver is gunner
-* Spidertron remote
 * Spidertron Enable/disable logistics while moving
 * Spidertron Logistic request
 * Spidertron Auto targeting with gunner
