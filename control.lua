@@ -179,14 +179,6 @@ local function reset_state(event, toggle) -- verifies placement of equipment and
 	update_armor(player)
 	local grid = storage.shortcuts_armor[event.player_index]
 	if grid and grid.valid then
-		if settings.startup["discharge-defense-remote"].value then
-			player.set_shortcut_available("discharge-defense-remote", false)
-			for _, equipment in pairs(grid.equipment) do
-				if equipment.name == "discharge-defense-equipment" then
-					player.set_shortcut_available("discharge-defense-remote", true)
-				end
-			end
-		end
 		local e_equipment = event.equipment
 		if e_equipment and toggle == 1 then --place
 			local type = e_equipment.type
@@ -228,11 +220,6 @@ local function reset_state(event, toggle) -- verifies placement of equipment and
 					end
 				end
 			end
-		end
-	else
-		false_shortcuts(player)
-		if settings.startup["discharge-defense-remote"].value then
-			player.set_shortcut_available("discharge-defense-remote", false)
 		end
 	end
 end
@@ -277,9 +264,6 @@ script.on_event(defines.events.on_player_toggled_map_editor, function(event) -- 
 	end
 	if settings.startup["belt-immunity-equipment"].value then
 		player.set_shortcut_available("belt-immunity-equipment", toggle)
-	end
-	if settings.startup["discharge-defense-remote"].value then
-		player.set_shortcut_available("discharge-defense-remote", toggle)
 	end
 end)
 
@@ -541,7 +525,6 @@ script.on_event(defines.events.on_runtime_mod_setting_changed, function(event)
 		if mode == "uninstall" then
 			enable_artillery()
 			enable_equipment({"active-defense-equipment", "belt-immunity-equipment", "night-vision-equipment"})
-			enable_recipe("discharge-defense-remote", "discharge-defense-equipment")
 			enable_recipe("artillery-cluster-remote-artillery-shell", "artillery")
 			enable_recipe("artillery-discovery-remote", "artillery")
 			enable_recipe("mirv-targeting-remote", "mirv-technology")
@@ -716,7 +699,6 @@ local allowed_items = {
 	"smart-artillery-bombardment-remote",
 	"smart-artillery-exploration-remote",
 	"atomic-artillery-targeting-remote",
-	"discharge-defense-remote",
 	"ion-cannon-targeter",
 	"landmine-thrower-remote",
 	"mirv-targeting-remote",
@@ -1114,7 +1096,6 @@ if artillery_setting == "both" or artillery_setting == "artillery-wagon" or arti
 end
 
 custom_input_give_item_1("atomic-artillery-targeting-remote")
-custom_input_give_item_1("discharge-defense-remote")
 custom_input_give_item_1("ion-cannon-targeter")
 custom_input_give_item_1("landmine-thrower-remote")
 custom_input_give_item_1("mirv-targeting-remote")

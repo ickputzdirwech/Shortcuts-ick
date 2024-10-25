@@ -7,7 +7,6 @@
 
 --[[ Overview of shortcuts-equipment.lua:
 	* Belt immunity equipment shortcut.
-	* Discharge defense remote shortcut.
 	* Night vision equipment shortcut.
 	* Personal laser defense shortcut.
 	* (Jetpack shortcut.)
@@ -15,23 +14,19 @@
 
 -- TAGS
 local belt_immunity_equipment
-local discharge_defense_remote
 local night_vision_equipment
 local personal_laser_defense_equipment
 if settings.startup["ick-tags"].value == "tags" then
 	local tag = {"Shortcuts-ick.equipment"}
 	belt_immunity_equipment = tag
-	discharge_defense_remote = tag
 	night_vision_equipment = tag
 	personal_laser_defense_equipment = tag
 elseif settings.startup["ick-tags"].value == "icons" then
 	belt_immunity_equipment = "[img=item/belt-immunity-equipment] "
-	discharge_defense_remote = "[img=item/discharge-defense-remote] "
 	night_vision_equipment = "[img=item/night-vision-equipment] "
 	personal_laser_defense_equipment = "[img=item/personal-laser-defense-equipment] "
 else
 	belt_immunity_equipment = ""
-	discharge_defense_remote = ""
 	night_vision_equipment = ""
 	personal_laser_defense_equipment = ""
 end
@@ -48,22 +43,6 @@ if settings.startup["belt-immunity-equipment"].value then
 		icon = "__Shortcuts-ick__/graphics/belt-immunity-toggle-x32.png",
 		icon_size = 32,
 		small_icon = "__Shortcuts-ick__/graphics/belt-immunity-toggle-x24.png",
-		small_icon_size = 24
-	}})
-end
-
--- DISCHARGE DEFENSE REMOTE
-if settings.startup["discharge-defense-remote"].value then
-	data:extend({{
-		type = "shortcut",
-		name = "discharge-defense-remote",
-		localised_name = {"", discharge_defense_remote, {"item-name.discharge-defense-remote"}},
-		order = "c[equipment]-d[discharge-defense-remote]",
-		action = "lua",
-		style = "red",
-		icon = "__Shortcuts-ick__/graphics/discharge-defense-remote-x32-white.png",
-		icon_size = 32,
-		small_icon = "__Shortcuts-ick__/graphics/discharge-defense-remote-x24-white.png",
 		small_icon_size = 24
 	}})
 end

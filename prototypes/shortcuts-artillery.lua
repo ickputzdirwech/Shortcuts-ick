@@ -6,7 +6,6 @@
 ]]
 
 --[[ Overview of shortcuts-artillery.lua:
-	* Artillery targeting remote shortcut.
 	* AdvancedArtilleryRemotesContinued artillery-discovery-remote shortcut.
 	* Artillery Bombardment Remote shortcuts
 	* Toggle artillery cannon fire

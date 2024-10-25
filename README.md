@@ -38,7 +38,6 @@ You can help translate this mod on [Crowdin](https://crowdin.com/project/factori
 **Equipment**
 
 * Belt immunity equipment
-* Discharge defense remote
 * Nightvision
 * Personal laser defense
 

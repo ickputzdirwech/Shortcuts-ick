@@ -66,7 +66,6 @@ function ick_reset_available_shortcuts(player)
 	disable_shortcuts_equipment("active-defense-equipment")
 	disable_shortcuts_equipment("belt-immunity-equipment")
 	disable_shortcuts_equipment("night-vision-equipment")
-	disable_shortcuts_equipment("discharge-defense-remote")
 
 
 	-- VEHICLE

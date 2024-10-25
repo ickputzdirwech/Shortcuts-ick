@@ -7,7 +7,6 @@
 
 --[[ Overview of startup-equipment.lua
 	* Belt immunity equipment
-	* Discharge defense remote
 	* Nightvision
 	* Personal laser defense
 ]]
@@ -19,14 +18,6 @@ data:extend(
 		name = "belt-immunity-equipment",
 		localised_name = {"", {"Shortcuts-ick.equipment"}, {"item-name.belt-immunity-equipment"}},
 		order = "c[equipment]-c[belt-immunity-equipment]",
-		type = "bool-setting",
-		default_value = true
-	},
-	{
-		setting_type = "startup",
-		name = "discharge-defense-remote",
-		localised_name = {"", {"Shortcuts-ick.equipment"}, {"item-name.discharge-defense-remote"}},
-		order = "c[equipment]-d[discharge-defense-remote]",
 		type = "bool-setting",
 		default_value = true
 	},

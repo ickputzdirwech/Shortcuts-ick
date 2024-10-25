@@ -39,10 +39,6 @@ local function hide_the_remote(recipe, technology, item)
 	end
 end
 
--- VANILLA ITEMS
-if settings.startup["discharge-defense-remote"].value == true then
-	hide_the_remote("discharge-defense-remote", "discharge-defense-equipment", data.raw.capsule["discharge-defense-remote"])
-end
 
 -- IEMS FROM MODS WE MADE A SHORTCUT FOR
 if mods["aai-programmable-vehicles"] then

@@ -7,7 +7,6 @@
 
 --[[ Overview of shortcuts-vehicle.lua:
 	* Driver is gunner shortcut.
-	* Spidertron remote shortcut.
 	* Spidertron Enable/disable logistics while moving shortcut.
 	* Spidertron logistic request shortcut.
 	* Spidertron Auto targeting with gunner shortcut.

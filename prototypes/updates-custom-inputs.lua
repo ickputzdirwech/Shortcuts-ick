@@ -32,7 +32,6 @@ local shortcuts = {
 	"well-planner",
 
 	"belt-immunity-equipment",
-	"discharge-defense-remote",
 	"night-vision-equipment",
 	"active-defense-equipment",
 

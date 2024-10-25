@@ -6,6 +6,7 @@ Date: 24.10.2024
   Changes:
     - Removed spidertron remote shortcut since it was implemented in the base game.
     - Removed artillery targeting remote shortcut since it was implemented in the base game.
+    - Removed discharge defense remote shortcut since it was implemented in the base game.
 
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.29
