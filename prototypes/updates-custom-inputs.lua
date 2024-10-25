@@ -56,6 +56,6 @@ for _, name in pairs(shortcuts) do
 			order = data.raw.shortcut[name].order,
 			key_sequence = ""
 		}})
-		data.raw.shortcut[name].localised_name = {"", data.raw.shortcut[name].localised_name, " ", {"Shortcuts-ick.control", name}}
+		data.raw.shortcut[name].localised_name = {"", data.raw.shortcut[name].localised_name, " ", {"Shortcuts-ick.control-" .. name}}
 	end
 end
