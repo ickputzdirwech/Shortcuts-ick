@@ -18,7 +18,7 @@ if settings.startup["ick-compatibility-mode"].value == false then
 
 		-- FUNCTIONS
 		local research = event.research.name
-		local mods = game.active_mods
+		local mods = script.active_mods
 		local setting = settings.startup
 
 		local function enable_shortcut(setting_name, name)
