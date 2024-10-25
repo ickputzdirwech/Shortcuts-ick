@@ -13,8 +13,6 @@
 	* Spidertron Auto targeting with gunner
 	* Spidertron Auto targeting without gunner
 	* Train Manual mode
-	* MOD: AAI programmable vehicles remote controls
-	* MOD: Vehicle waggon 2 winch
 ]]
 
 data:extend(
@@ -68,25 +66,3 @@ data:extend(
 		default_value = true
 	}
 })
-
-if mods["aai-programmable-vehicles"] then
-	data:extend({{
-		setting_type = "startup",
-		name = "aai-remote-controls",
-		localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color] AAI Programmable Vehicles ", {"item-name.unit-remote-control"}},
-		order = "e[vehicle]-h[aai-remote-controls]",
-		type = "bool-setting",
-		default_value = true
-		}})
-end
-
-if mods["VehicleWagon2"] then
-	data:extend({{
-		setting_type = "startup",
-		name = "winch",
-		localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color] Vehicle Wagon 2 ", {"item-name.winch"}},
-		order = "e[vehicle]-j[winch]",
-		type = "bool-setting",
-		default_value = true
-	}})
-end

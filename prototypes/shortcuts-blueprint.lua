@@ -9,22 +9,17 @@
 	* Environment deconstruction planner
 		- Tree killer deconstruction planner.
 		- Tree killer shortcut.
-	* WellPlanner shortcut.
 ]]
 
 -- TAGS
 local deconstruction_planner
-local well_planner
 if settings.startup["ick-tags"].value == "tags" then
 	local tag = {"", "[color=blue]", {"item-name.blueprint"}, ": [/color]"}
 	deconstruction_planner = tag
-	well_planner = tag
 elseif settings.startup["ick-tags"].value == "icons" then
 	deconstruction_planner = "[img=entity/tree-01] "
-	well_planner = "[img=item/well-planner] "
 else
 	deconstruction_planner = ""
-	well_planner = ""
 end
 
 -- ENVIRONMENT DECONSTRUCTION PLANNER
@@ -52,22 +47,4 @@ if settings.startup["tree-killer"].value then
 			small_icon_size = 24
 		}
 	})
-end
-
--- WELL PLANNER
-if settings.startup["well-planner"] and settings.startup["well-planner"].value and data.raw["selection-tool"]["well-planner"] then
-	data:extend({{
-		type = "shortcut",
-		name = "well-planner",
-		localised_name = {"", well_planner, {"item-name.well-planner"}},
-		order = "b[blueprint]-j[well-planner]",
-		action = "lua",
-		technology_to_unlock = "oil-gathering",
-		unavailable_until_unlocked = true,
-		icons = {{
-			icon = "__WellPlanner__/graphics/well-planner.png",
-			size = 64,
-			scale = 0.5
-		}}
-	}})
 end

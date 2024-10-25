@@ -49,11 +49,6 @@ end
 
 -- NIGHT VISION EQUIPMENT
 if settings.startup["night-vision-equipment"].value then
-	-- Remove shortcut from PickerInventoryTools
-	if mods["PickerInventoryTools"] and data.raw.shortcut["toggle-night-vision-equipment"] then
-		data.raw.shortcut["toggle-night-vision-equipment"] = nil
-	end
-
 	data:extend({{
 		type = "shortcut",
 		name = "night-vision-equipment",
@@ -70,11 +65,6 @@ end
 
 -- PERSONAL LASER DEFENSE
 if settings.startup["active-defense-equipment"].value then
-	-- Remove shortcut from PickerInventoryTools
-	if mods["PickerInventoryTools"] and data.raw.shortcut["toggle-active-defense-equipment"] then
-		data.raw.shortcut["toggle-active-defense-equipment"] = nil
-	end
-
 	data:extend({{
 		type = "shortcut",
 		name = "active-defense-equipment",
@@ -88,26 +78,3 @@ if settings.startup["active-defense-equipment"].value then
 		small_icon_size = 24
 	}})
 end
-
--- JETPACK
---[[
-if mods["jetpack"] and settings.startup["jetpack"].value then
-	if settings.startup["jetpack"].value then
-		data:extend({{
-			type = "shortcut",
-			name = "jetpack",
-			localised_name = {"", {"Shortcuts-ick.equipment"}, {"mod-name.jetpack"}},
-			order = "c[equipment]-g[jetpack]",
-			associated_control_input = "jetpack",
-			action = "lua",
-			technology_to_unlock = "jetpack-1",
-			unavailable_until_unlocked = true,
-			toggleable = true,
-			icon = "__Shortcuts-ick__/graphics/jetpack-x32.png",
-			icon_size = 32,
-			small_icon = "__Shortcuts-ick__/graphics/jetpack-x24.png",
-			small_icon_size = 24
-		}})
-	end
-end
-]]

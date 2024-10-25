@@ -38,7 +38,6 @@
 
 
 require("scripts.on-player-created")
-require("scripts.on-research-finished")
 
 
 ---------------------------------------------------------------------------------------------------
@@ -108,7 +107,7 @@ local function update_state(event, equipment_type) -- toggles the armor
 					local name = equipment.name
 					local position = equipment.position
 					local energy = equipment.energy
-					if not (string.sub(equipment.name, 1, 9) == "disabled-" or string.sub(equipment.name, 1, 4) == "nvt-") then -- disables the equipment
+					if not string.sub(equipment.name, 1, 9) == "disabled-" then -- disables the equipment
 						if equipment_type ~= "active-defense-equipment" or (equipment_type == "active-defense-equipment" and prototypes.equipment["disabled-" .. equipment.name]) then
 							grid.take{name = name, position = position}
 							local new_equipment = grid.put{name = "disabled-" .. name, position = position}
@@ -120,14 +119,6 @@ local function update_state(event, equipment_type) -- toggles the armor
 					elseif (string.sub(equipment.name, 1, 9) == "disabled-") then -- eneables the equipment
 						grid.take{name = name, position = position}
 						local new_equipment = grid.put{name = (string.sub(name, 10, #name)), position = position}
-						if new_equipment and new_equipment.valid then
-							new_equipment.energy = energy
-						end
-						player.set_shortcut_toggled(equipment_type, true)
-					-- make it compatible with NightvisionToggles
-					elseif (string.sub(equipment.name, 1, 4) == "nvt-") then
-						grid.take{name = name, position = position}
-						local new_equipment = grid.put{name = (string.sub(name, 5, #name)), position = position}
 						if new_equipment and new_equipment.valid then
 							new_equipment.energy = energy
 						end
@@ -511,27 +502,9 @@ script.on_event(defines.events.on_runtime_mod_setting_changed, function(event)
 			end
 		end
 
-		local function enable_recipe(recipe, tech)
-			if prototypes.recipe[recipe] and prototypes.technology[tech] then
-				for _, force in pairs(game.forces) do
-					if force.technologies[tech].researched then
-						force.recipes[recipe].enabled = true
-						game.print("FORCE: " .. force.name .."\nEnabled Recipe: " .. prototypes.recipe[recipe].name)
-					end
-				end
-			end
-		end
-
 		if mode == "uninstall" then
 			enable_artillery()
 			enable_equipment({"active-defense-equipment", "belt-immunity-equipment", "night-vision-equipment"})
-			enable_recipe("artillery-cluster-remote-artillery-shell", "artillery")
-			enable_recipe("artillery-discovery-remote", "artillery")
-			enable_recipe("mirv-targeting-remote", "mirv-technology")
-			enable_recipe("atomic-artillery-targeting-remote", "atomic-artillery")
-			enable_recipe("landmine-thrower-remote", "landmine-thrower")
-			enable_recipe("winch", "vehicle-wagons")
-			enable_recipe("ion-cannon-targeter", "orbital-ion-cannon")
 			game.print("\nREADY TO UNINSTALL")
 		elseif mode == "artillery" then
 			enable_artillery()
@@ -692,30 +665,9 @@ end
 -- GIVE ITEM
 ---------------------------------------------------------------------------------------------------
 local allowed_items = {
-	"artillery-cluster-remote-artillery-shell",
-	"artillery-discovery-remote",
 	"artillery-jammer-tool",
-	"artillery-bombardment-remote",
-	"smart-artillery-bombardment-remote",
-	"smart-artillery-exploration-remote",
-	"atomic-artillery-targeting-remote",
-	"ion-cannon-targeter",
-	"landmine-thrower-remote",
-	"mirv-targeting-remote",
-	"path-remote-control",
-	"unit-remote-control",
-	"squad-spidertron-remote",
-	"tree-killer",
-	"well-planner",
-	"winch"}
-
-local function remove_duplicate_tools(player, prototype_name)
-	for i=1, #player.get_main_inventory() do
-		if player.get_main_inventory()[i].valid_for_read and player.get_main_inventory()[i].name == prototype_name then
-			player.get_main_inventory()[i].clear()
-		end
-	end
-end
+	"tree-killer"
+}
 
 
 local function tree_killer_setup(player)
@@ -766,11 +718,7 @@ end
 local function give_shortcut_item(player, prototype_name)
 	if prototypes.item[prototype_name] and player.clear_cursor() then
 		player.cursor_stack.set_stack({name = prototype_name})
-		if prototype_name == "well-planner" then
-			remove_duplicate_tools(player, "well-planner")
-		elseif prototype_name == "rail-signal-planner" then
-			remove_duplicate_tools(player, "rail-signal-planner")
-		elseif prototype_name == "tree-killer" then
+		if prototype_name == "tree-killer" then
 			tree_killer_setup(player)
 		end
 	end
@@ -859,7 +807,6 @@ end
 -- ON_PLAYER_DRIVING_CHANGED_STATE
 script.on_event(defines.events.on_player_driving_changed_state, function(event)
 	local player = game.players[event.player_index]
-	local mods = script.active_mods
 	local setting = settings.startup
 
 	if player.driving then
@@ -873,16 +820,6 @@ script.on_event(defines.events.on_player_driving_changed_state, function(event)
 			enable_shortcuts(player, player.vehicle.driver_is_gunner, "driver-is-gunner")
 		end
 		if type == "spider-vehicle" then
-			if mods["Spider_Control"] then
-				player.set_shortcut_available("squad-spidertron-follow", true)
-				player.set_shortcut_available("squad-spidertron-remote", true)
-				player.set_shortcut_available("squad-spidertron-list", true)
-				player.set_shortcut_available("squad-spidertron-link-tool", true)
-			end
-			if mods["SpidertronWaypoints"] then
-				player.set_shortcut_available("spidertron-remote-waypoint", true)
-				player.set_shortcut_available("spidertron-remote-patrol", true)
-			end
 			enable_shortcuts(player, player.vehicle.enable_logistics_while_moving, "spidertron-logistics")
 			enable_shortcuts(player, player.vehicle.vehicle_automatic_targeting_parameters.auto_target_with_gunner, "targeting-with-gunner")
 			enable_shortcuts(player, player.vehicle.vehicle_automatic_targeting_parameters.auto_target_without_gunner, "targeting-without-gunner")
@@ -988,12 +925,8 @@ script.on_event(defines.events.on_lua_shortcut, function(event)
 		vehicle_shortcuts(player, "train-mode-toggle", {"locomotive", "cargo-wagon", "fluid-wagon", "artillery-wagon"}, "manual_mode")
 
 	-- GIVE ITEM
-	elseif prototype_name == "check-circuit" then
-		give_shortcut_item(player, "circuit-checker")
 	elseif prototype_name == "pump-shortcut" then
 		give_shortcut_item(player, "pump-selection-tool")
-	elseif prototype_name == "give-rail-signal-planner" then
-		give_shortcut_item(player, "rail-signal-planner")
 	elseif prototypes.shortcut[prototype_name] then
 		for _, item_name in pairs(allowed_items) do
 			if item_name == prototype_name then
@@ -1095,22 +1028,6 @@ custom_input_vehicle("train-mode-toggle", {"locomotive", "cargo-wagon", "fluid-w
 -- GIVE ITEM
 custom_input_give_item_1("tree-killer")
 
-if settings.startup["artillery-targeting-remotes"] and settings.startup["artillery-targeting-remotes"].value then
-	custom_input_give_item_2("artillery-cluster-remote-artillery-shell")
-	custom_input_give_item_2("artillery-discovery-remote")
-	custom_input_give_item_2("artillery-bombardment-remote")
-	custom_input_give_item_2("smart-artillery-bombardment-remote")
-	custom_input_give_item_2("smart-artillery-exploration-remote")
-end
-
 if artillery_setting == "both" or artillery_setting == "artillery-wagon" or artillery_setting == "artillery-turret" then
 	custom_input_give_item_2("artillery-jammer-tool")
 end
-
-custom_input_give_item_1("atomic-artillery-targeting-remote")
-custom_input_give_item_1("ion-cannon-targeter")
-custom_input_give_item_1("landmine-thrower-remote")
-custom_input_give_item_1("mirv-targeting-remote")
-
-custom_input_give_item_1("well-planner")
-custom_input_give_item_1("winch")

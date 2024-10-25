@@ -10,10 +10,9 @@
 	* Emergency locator beacon
 	* Grid
 	* Show rail block visualization
+	* Toggle personal logistic requests
 	* Zoom out of world
 	* Show minimap
-	* Toggle personal logistic requests
-	* MOD: Max rate calculator
 ]]
 
 data:extend(
@@ -52,6 +51,14 @@ data:extend(
 	},
 	{
 		setting_type = "startup",
+		name = "toggle-personal-logistic-requests",
+		localised_name = {"", {"Shortcuts-ick.basic"}, {"shortcut.toggle-personal-logistic-requests"}},
+		order = "a[basic]-f[toggle-personal-logistic-requests]",
+		type = "bool-setting",
+		default_value = true
+	},
+	{
+		setting_type = "startup",
 		name = "big-zoom",
 		localised_name = {"", {"Shortcuts-ick.basic"}, {"controls.alt-zoom-out"}},
 		order = "a[basic]-g[big-zoom]",
@@ -67,26 +74,3 @@ data:extend(
 		default_value = true
 	}
 })
-
-if mods["PersonalLogisticsShortcut"] then
-else
-	data:extend({{
-		setting_type = "startup",
-		name = "toggle-personal-logistic-requests",
-		localised_name = {"", {"Shortcuts-ick.basic"}, {"shortcut.toggle-personal-logistic-requests"}},
-		order = "a[basic]-f[toggle-personal-logistic-requests]",
-		type = "bool-setting",
-		default_value = true
-	}})
-end
-
-if mods["MaxRateCalculator"] then
-	data:extend({{
-		setting_type = "startup",
-		name = "max-rate-calculator",
-		localised_name = {"", {"Shortcuts-ick.basic"}, {"item-name.max-rate-calculator"}},
-		order = "a[basic]-i[max-rate-calculator]",
-		type = "bool-setting",
-		default_value = true
-	}})
-end

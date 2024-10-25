@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 2.0.0
-Date: 24.10.2024
+Date: 25.10.2024
   Features:
     - Updated for 2.0. Be advised: there are no migrations for saves from 1.1 that allready had this mod installed.
     - The "Spidertron logistic request" shortcut now works for all vehicles with logistics and was renamed to "Vehicle logistics".
@@ -8,6 +8,11 @@ Date: 24.10.2024
     - Removed spidertron remote shortcut since it was implemented in the base game.
     - Removed artillery targeting remote shortcut since it was implemented in the base game.
     - Removed discharge defense remote shortcut since it was implemented in the base game.
+    - Removed winch shortcut since it was implemented into the VehicleWagon2 mod directly.
+    - Removed land mine thrower shortcut since it was implemented into the landmine-thrower mod directly.
+    - Removed option to automatically generate shortcuts from selection tools from other mods.
+    - Removed changes to research requirements for shortcuts from the following mods: car-finder, pump and VehicleSnap.
+    - Dropped support for the following mods that were not ported to 2.0 (yet): Spider_Control, RailSignalPlanner, RailSignalPlannerNeo, SpidertronWaypoints, ModuleInserter, ModuleInserterER, Kux-OrbitalIonCannon, circuit-checker, WellPlanner, OreEraser, aai-programmable-vehicles, MaxRateCalculator, artillery-bombardment-remote, artillery-bombardment-remote-reloaded, dbots-artillery-bombardment-remote, MIRV, AdvancedArtilleryRemotesContinued, janky-quality, PickerInventoryTools, Pacifist, PersonalLogisticsShortcut, NightvisionToggles, Nanobots and IndustrialRevolution.
 
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.29

@@ -12,8 +12,6 @@
 	* Spidertron Auto targeting with gunner shortcut.
 	* Spidertron Auto targeting without gunner shortcut.
 	* Train mode toggle shortcut.
-	* AAI remote control shortcuts.
-	* VehicleWagon2 winch shortcut.
 ]]
 
 -- TAGS
@@ -21,34 +19,22 @@ local driver_is_gunner
 local logistics
 local spidertron
 local train
-local unit_remote_control
-local path_remote_control
-local winch
 if settings.startup["ick-tags"].value == "tags" then
 	local tag = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]"}
 	driver_is_gunner = tag
 	logistics = tag
 	spidertron = tag
 	train = tag
-	unit_remote_control = tag
-	path_remote_control = tag
-	winch = tag
 elseif settings.startup["ick-tags"].value == "icons" then
 	driver_is_gunner = "[img=item/submachine-gun] "
 	logistics = "[img=item/logistics-robot] "
 	spidertron = "[img=item/spidertron] "
 	train = "[img=item/locomotive] "
-	unit_remote_control = "[img=item/unit-remote-control] "
-	path_remote_control = "[img=item/path-remote-control] "
-	winch = "[img=item/winch] "
 else
 	driver_is_gunner = ""
 	logistics = ""
 	spidertron = ""
 	train = ""
-	unit_remote_control = ""
-	path_remote_control = ""
-	winch = ""
 end
 
 -- DRIVER IS GUNNER
@@ -149,52 +135,5 @@ if settings.startup["train-mode-toggle"].value then
 		icon_size = 32,
 		small_icon = "__Shortcuts-ick__/graphics/train-mode-toggle-x32-2.png",
 		small_icon_size = 32
-	}})
-end
-
--- AAI PROGRAMMABLE VEHICLES REMOTE CONTROLS
-if mods["aai-programmable-vehicles"] and settings.startup["aai-remote-controls"].value then
-	data:extend({
-		{
-			type = "shortcut",
-			name = "unit-remote-control",
-			localised_name = {"", unit_remote_control, {"item-name.unit-remote-control"}, " ", {"Shortcuts-ick.control", "create-toggle-controller"}},
-			order = "e[vehicle]-h[unit-remote-control]",
-			action = "lua",
-			style = "blue",
-			icon = "__Shortcuts-ick__/graphics/unit-remote-control-x32-white.png",
-			icon_size = 32,
-			small_icon = "__Shortcuts-ick__/graphics/unit-remote-control-x24-white.png",
-			small_icon_size = 24
-		},
-		{
-			type = "shortcut",
-			name = "path-remote-control",
-			localised_name = {"", path_remote_control, {"item-name.path-remote-control"}, " ", {"Shortcuts-ick.control", "create-toggle-controller"}},
-			order = "e[vehicle]-i[path-remote-control]",
-			action = "lua",
-			style = "blue",
-			icon = "__Shortcuts-ick__/graphics/path-remote-control-x32-white.png",
-			icon_size = 32,
-			small_icon = "__Shortcuts-ick__/graphics/path-remote-control-x24-white.png",
-			small_icon_size = 24
-		}
-	})
-end
-
--- VEHICLE WAGON WINCH
-if mods["VehicleWagon2"] and settings.startup["winch"].value then
-	data:extend({{
-		type = "shortcut",
-		name = "winch",
-		localised_name = {"", winch, {"item-name.winch"}},
-		order = "e[vehicle]-j[winch]",
-		action = "lua",
-		technology_to_unlock = "vehicle-wagons",
-		unavailable_until_unlocked = true,
-		icon = "__Shortcuts-ick__/graphics/module-inserter-x32.png",
-		icon_size = 32,
-		small_icon = "__Shortcuts-ick__/graphics/module-inserter-x24.png",
-		small_icon_size = 24
 	}})
 end

@@ -13,7 +13,6 @@
 	* Toggle Personal logistics requests shortcut.
 	* Zoom out of world shortcut.
 	* Minimap shortcut.
-	* MaxRateCalculator shortcut.
 ]]
 
 -- TAGS
@@ -24,7 +23,6 @@ local rail_signal
 local logistics_robot
 local big_zoom
 local minimap
-local max_rate_calculator
 if settings.startup["ick-tags"].value == "tags" then
 	local tag = {"Shortcuts-ick.basic"}
 	small_lamp = tag
@@ -34,7 +32,6 @@ if settings.startup["ick-tags"].value == "tags" then
 	logistics_robot = tag
 	big_zoom = tag
 	minimap = tag
-	max_rate_calculator = tag
 elseif settings.startup["ick-tags"].value == "icons" then
 	small_lamp = "[img=item/small-lamp] "
 	alert_icon = "[img=utility.danger_icon] "
@@ -43,7 +40,6 @@ elseif settings.startup["ick-tags"].value == "icons" then
 	logistics_robot = "[img=item/logistic-robot] "
 	big_zoom = "[img=utility.search_white] "
 	minimap = "[img=utility.map] "
-	max_rate_calculator = "[img=item/max-rate-calculator] "
 else
 	small_lamp = ""
 	alert_icon = ""
@@ -52,7 +48,6 @@ else
 	logistics_robot = ""
 	big_zoom = ""
 	minimap = ""
-	max_rate_calculator = ""
 end
 
 -- CHARACTER LAMP
@@ -134,6 +129,7 @@ if settings.startup["toggle-personal-logistic-requests"] and settings.startup["t
 		action = "toggle-personal-logistic-requests",
 		associated_control_input = "toggle-personal-logistic-requests",
 		technology_to_unlock = "logistic-robotics",
+		unavailable_until_unlocked = true,
 		icon = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x32.png",
 		icon_size = 32,
 		small_icon = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x24.png",
@@ -173,27 +169,5 @@ if settings.startup["minimap"].value then
 		icon_size = 32,
 		small_icon = "__core__/graphics/icons/mip/map.png",
 		small_icon_size = 32
-	}})
-end
-
--- MAX RATE CALCULATOR
-if mods["MaxRateCalculator"] and data.raw["selection-tool"]["max-rate-calculator"] and settings.startup["max-rate-calculator"].value then
-
-	data.raw["selection-tool"]["max-rate-calculator"].icon = "__MaxRateCalculator__/graphics/calculator.png"
-	data.raw["selection-tool"]["max-rate-calculator"].icon_size = 64
-	table.insert(data.raw["selection-tool"]["max-rate-calculator"].flags, "spawnable")
-
-	data:extend({{
-		type = "shortcut",
-		name = "max-rate-shortcut",
-		localised_name = {"", max_rate_calculator, {"item-name.max-rate-calculator"}, " ", {"Shortcuts-ick.control", "marc_hotkey"}},
-		order = "a[basic]-i[max-rate-shortcut]",
-		action = "spawn-item",
-		item_to_spawn = "max-rate-calculator",
-		style = "blue",
-		icon = "__Shortcuts-ick__/graphics/max-rate-calculator-x32-white.png",
-		icon_size = 32,
-		small_icon = "__Shortcuts-ick__/graphics/max-rate-calculator-x24-white.png",
-		small_icon_size = 24
 	}})
 end

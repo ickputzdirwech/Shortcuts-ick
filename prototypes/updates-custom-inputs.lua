@@ -10,16 +10,7 @@
 ]]
 
 local shortcuts = {
-	"artillery-cluster-remote-artillery-shell",
-	"artillery-discovery-remote",
-	"artillery-bombardment-remote",
-	"smart-artillery-bombardment-remote",
-	"smart-artillery-exploration-remote",
 	"artillery-jammer-tool",
-	"mirv-targeting-remote",
-	"atomic-artillery-targeting-remote",
-	"landmine-thrower-remote",
-	"ion-cannon-targeter",
 
 	"flashlight-toggle",
 	"signal-flare",
@@ -29,7 +20,6 @@ local shortcuts = {
 	"minimap",
 
 	"tree-killer",
-	"well-planner",
 
 	"belt-immunity-equipment",
 	"night-vision-equipment",
@@ -41,7 +31,6 @@ local shortcuts = {
 	"targeting-with-gunner",
 	"targeting-without-gunner",
 	"train-mode-toggle",
-	"winch"
 }
 
 for _, name in pairs(shortcuts) do

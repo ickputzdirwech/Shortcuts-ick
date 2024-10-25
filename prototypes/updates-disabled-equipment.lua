@@ -24,8 +24,8 @@ end
 for i, type in pairs(equipment_list) do
 	for _, equipment in pairs(data.raw[type]) do
 		local name = equipment.name
-		-- make it compatible with NightvisionToggles, GunEquipment, Nanobots and Nullius
-		if string.sub(name, 1, 8) ~= "disabled" and name ~= "nvt-night-vision-equipment" and string.sub(name, 1, 16) ~= "personal-turret-" and string.sub(name, 1, 7) ~= "picker-" and string.sub(name, 1, 8) ~= "nullius-" then
+		-- make it compatible with GunEquipment and Nullius
+		if string.sub(name, 1, 8) ~= "disabled" and string.sub(name, 1, 16) ~= "personal-turret-" and string.sub(name, 1, 8) ~= "nullius-" then
 
 			local disabled_equipment = util.table.deepcopy(equipment)
 

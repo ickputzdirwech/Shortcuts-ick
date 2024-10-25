@@ -38,16 +38,3 @@ data:extend(
 		default_value = true
 	}
 })
-
---[[ This shortcut doesn't work yet
-if mods["jetpack"] then
-	data:extend({{
-		setting_type = "startup",
-		name = "jetpack",
-		localised_name = {"", {"Shortcuts-ick.equipment"}, {"mod-name.jetpack"}},
-		order = "c[equipment]-g[jetpack]",
-		type = "bool-setting",
-		default_value = true
-	}})
-end
-]]
