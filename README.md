@@ -11,7 +11,6 @@ You can help translate this mod on [Crowdin](https://crowdin.com/project/factori
 * Most items given to the player by a shortcut can not be placed inside any inventory.
 * Most shortcuts are only available if a specific technology has been researched.
 * There are startup settings to disable individual shortcuts.
-* There is a setting to automatically generate shortcuts for selection tools from other mods.
 * There is a setting to disable all changes done to technology requirements for shortcuts in case there is a conflict with an overhaul mod.
 * There is a map setting that can be used to prepare certain startup setting changes or uninstallation.
 
@@ -44,13 +43,6 @@ You can help translate this mod on [Crowdin](https://crowdin.com/project/factori
 * Spidertron Auto targeting with gunner
 * Spidertron Auto targeting without gunner
 * Train Manual mode
-
-
-# Compatible mods
-**Shortcuts from these mods are only available if a specific technology has been researched:**
-* [Car/Tank/Spidertron Locator Button (Find / Locate My Lost Car / Car Finder)](https://mods.factorio.com/mod/car-finder)
-* [P.U.M.P](https://mods.factorio.com/mod/pump)
-* [VehicleSnap](https://mods.factorio.com/mod/VehicleSnap)
 
 
 # KNOWN ISSUES
