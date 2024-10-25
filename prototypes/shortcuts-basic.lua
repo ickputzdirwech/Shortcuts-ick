@@ -113,6 +113,8 @@ if settings.startup["rail-block-visualization-toggle"].value then
 		localised_name = {"", rail_signal, {"gui-interface-settings.show-rail-block-visualization"}},
 		order = "a[basic]-e[rail-block-visualization-toggle]",
 		action = "lua",
+		technology_to_unlock = "railway",
+		unavailable_until_unlocked = true,
 		toggleable = true,
 		icon = "__Shortcuts-ick__/graphics/rail-block-visualization-toggle-x32-2.png",
 		icon_size = 32,

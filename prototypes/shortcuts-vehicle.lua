@@ -190,6 +190,8 @@ if mods["VehicleWagon2"] and settings.startup["winch"].value then
 		localised_name = {"", winch, {"item-name.winch"}},
 		order = "e[vehicle]-j[winch]",
 		action = "lua",
+		technology_to_unlock = "vehicle-wagons",
+		unavailable_until_unlocked = true,
 		icon = "__Shortcuts-ick__/graphics/module-inserter-x32.png",
 		icon_size = 32,
 		small_icon = "__Shortcuts-ick__/graphics/module-inserter-x24.png",

@@ -31,6 +31,8 @@ if settings.startup["artillery-targeting-remotes"] and settings.startup["artille
 			localised_name = {"", artillery_cluster_remote_artillery_shell, data.raw.capsule["artillery-cluster-remote-artillery-shell"].localised_name },
 			order = "d[artillery]-b[artillery-cluster-remote-artillery-shell]",
 			action = "lua",
+			technology_to_unlock = "artillery",
+			unavailable_until_unlocked = true,
 			style = "red",
 			icon = "__Shortcuts-ick__/graphics/artillery-cluster-remote-x32-white.png",
 			icon_size = 32,

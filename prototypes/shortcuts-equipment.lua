@@ -100,6 +100,8 @@ if mods["jetpack"] and settings.startup["jetpack"].value then
 			order = "c[equipment]-g[jetpack]",
 			associated_control_input = "jetpack",
 			action = "lua",
+			technology_to_unlock = "jetpack-1",
+			unavailable_until_unlocked = true,
 			toggleable = true,
 			icon = "__Shortcuts-ick__/graphics/jetpack-x32.png",
 			icon_size = 32,

@@ -27,27 +27,10 @@ if settings.startup["ick-compatibility-mode"].value == false then
 			end
 		end
 
-		local function enable_shortcut_1(mod_name, tech_name, name)
-			if mods[mod_name] and setting[name].value and research == tech_name then
-				player.set_shortcut_available(name, true)
-			end
-		end
-
 		local function enable_shortcut_2(mod_name, tech_name, name)
 			if mods[mod_name] and research == tech_name then
 				player.set_shortcut_available(name, true)
 			end
-		end
-
-
-		-- SPECIAL CASES
-		if research == "railway" then
-			enable_shortcut("rail-block-visualization-toggle", "rail-block-visualization-toggle")
-		end
-
-		local artillery_toggle = setting["artillery-toggle"].value
-		if research == "artillery" and (artillery_toggle == "both" or artillery_toggle == "artillery-wagon" or artillery_toggle == "artillery-turret") then
-			player.set_shortcut_available("artillery-jammer-tool", true)
 		end
 
 
@@ -56,30 +39,6 @@ if settings.startup["ick-compatibility-mode"].value == false then
 			enable_shortcut("aai-remote-controls", "path-remote-control")
 			enable_shortcut("aai-remote-controls", "unit-remote-control")
 		end
-
-		if mods["AdvancedArtilleryRemotesContinued"] and setting["artillery-targeting-remotes"].value and research == "artillery" then
-			player.set_shortcut_available("artillery-cluster-remote-artillery-shell", true)
-			player.set_shortcut_available("artillery-discovery-remote", true)
-		end
-
-		if (mods["artillery-bombardment-remote"] or mods["artillery-bombardment-remote-reloaded"] or mods["dbots-artillery-bombardment-remote"]) and setting["artillery-targeting-remotes"].value then
-			if research == "artillery-bombardment-remote" then
-				player.set_shortcut_available("artillery-bombardment-remote", true)
-			end
-			if research == "smart-artillery-bombardment-remote" then
-				player.set_shortcut_available("smart-artillery-bombardment-remote", true)
-			end
-			if research == "smart-artillery-exploration-remote" then
-				player.set_shortcut_available("smart-artillery-exploration-remote", true)
-			end
-		end
-
-		enable_shortcut_1("AtomicArtilleryRemote", "atomic-artillery", "atomic-artillery-targeting-remote")
-		-- enable_shortcut_1("jetpack", "jetpack-1", "jetpack")
-		enable_shortcut_1("landmine-thrower", "landmine-thrower", "landmine-thrower-remote")
-		enable_shortcut_1("MIRV", "mirv-technology", "mirv-targeting-remote")
-		enable_shortcut_1("VehicleWagon2", "vehicle-wagons", "winch")
-		enable_shortcut_1("WellPlanner", "oil-processing", "well-planner")
 
 
 		-- MOD WITH OWN SHORTCUT

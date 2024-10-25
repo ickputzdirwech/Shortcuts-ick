@@ -62,6 +62,8 @@ if settings.startup["well-planner"] and settings.startup["well-planner"].value a
 		localised_name = {"", well_planner, {"item-name.well-planner"}},
 		order = "b[blueprint]-j[well-planner]",
 		action = "lua",
+		technology_to_unlock = "oil-gathering",
+		unavailable_until_unlocked = true,
 		icons = {{
 			icon = "__WellPlanner__/graphics/well-planner.png",
 			size = 64,
