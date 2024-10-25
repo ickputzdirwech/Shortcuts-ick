@@ -8,7 +8,7 @@
 --[[ Overview of shortcuts-vehicle.lua:
 	* Driver is gunner shortcut.
 	* Spidertron Enable/disable logistics while moving shortcut.
-	* Spidertron logistic request shortcut.
+	* Vehicle logistic shortcut.
 	* Spidertron Auto targeting with gunner shortcut.
 	* Spidertron Auto targeting without gunner shortcut.
 	* Train mode toggle shortcut.
@@ -18,6 +18,7 @@
 
 -- TAGS
 local driver_is_gunner
+local logistics
 local spidertron
 local train
 local unit_remote_control
@@ -26,6 +27,7 @@ local winch
 if settings.startup["ick-tags"].value == "tags" then
 	local tag = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]"}
 	driver_is_gunner = tag
+	logistics = tag
 	spidertron = tag
 	train = tag
 	unit_remote_control = tag
@@ -33,6 +35,7 @@ if settings.startup["ick-tags"].value == "tags" then
 	winch = tag
 elseif settings.startup["ick-tags"].value == "icons" then
 	driver_is_gunner = "[img=item/submachine-gun] "
+	logistics = "[img=item/logistics-robot] "
 	spidertron = "[img=item/spidertron] "
 	train = "[img=item/locomotive] "
 	unit_remote_control = "[img=item/unit-remote-control] "
@@ -40,6 +43,7 @@ elseif settings.startup["ick-tags"].value == "icons" then
 	winch = "[img=item/winch] "
 else
 	driver_is_gunner = ""
+	logistics = ""
 	spidertron = ""
 	train = ""
 	unit_remote_control = ""
@@ -81,13 +85,13 @@ if settings.startup["spidertron-logistics"].value then
 	}})
 end
 
--- SPIDERTRON LOGISTIC REQUESTS
-if settings.startup["spidertron-logistic-requests"].value then
+-- VEHICLE LOGISTIC
+if settings.startup["vehicle-logistic-requests"].value then
 	data:extend({{
 		type = "shortcut",
-		name = "spidertron-logistic-requests",
-		localised_name = {"", spidertron, {"entity-name.spidertron"}, " ", {"gui-logistic.title-request"}},
-		order = "e[vehicle]-d[spidertron-logistic-requests]",
+		name = "vehicle-logistic-requests",
+		localised_name = {"", logistics, {"gui-logistic.vehicle-logistics-and-trash"}},
+		order = "e[vehicle]-d[vehicle-logistic-requests]",
 		action = "lua",
 		toggleable = true,
 		style = "green",

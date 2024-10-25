@@ -37,7 +37,7 @@ local shortcuts = {
 
 	"driver-is-gunner",
 	"spidertron-logistics",
-	"spidertron-logistic-requests",
+	"vehicle-logistic-requests",
 	"targeting-with-gunner",
 	"targeting-without-gunner",
 	"train-mode-toggle",

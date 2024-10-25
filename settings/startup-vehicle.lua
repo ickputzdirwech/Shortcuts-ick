@@ -9,7 +9,7 @@
 	* Driver is gunner
 	* Spidertron remote
 	* Spidertron Enable/disable logistics while moving
-	* Spidertron Logistic request
+	* Vehicle logistics
 	* Spidertron Auto targeting with gunner
 	* Spidertron Auto targeting without gunner
 	* Train Manual mode
@@ -37,9 +37,9 @@ data:extend(
 	},
 	{
 		setting_type = "startup",
-		name = "spidertron-logistic-requests",
-		localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"entity-name.spidertron"}, " ", {"gui-logistic.title-request"}},
-		order = "e[vehicle]-d[spidertron-logistics]",
+		name = "vehicle-logistic-requests",
+		localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"gui-logistic.vehicle-logistics-and-trash"}},
+		order = "e[vehicle]-d[vehicle-logistics]",
 		type = "bool-setting",
 		default_value = true
 	},

@@ -76,12 +76,14 @@ function ick_reset_available_shortcuts(player)
 		end
 		if type ~= "spider-vehicle" then
 			disable_shortcuts("spidertron-logistics")
-			disable_shortcuts("spidertron-logistic-requests")
 			disable_shortcuts("targeting-with-gunner")
 			disable_shortcuts("targeting-without-gunner")
 		end
 		if type ~= "locomotive" and type ~= "cargo-wagon" and type ~= "fluid-wagon" and type ~= "artillery-wagon" then
 			disable_shortcuts("train-mode-toggle")
+		end
+		if player.vehicle.get_requester_point() and player.vehicle.get_requester_point().enabled then else
+			disable_shortcuts("vehicle-logistic-requests")
 		end
 	end
 

@@ -58,7 +58,7 @@ You can help translate this mod on [Crowdin](https://crowdin.com/project/factori
 
 * Driver is gunner
 * Spidertron Enable/disable logistics while moving
-* Spidertron Logistic request
+* Vehicle logistics
 * Spidertron Auto targeting with gunner
 * Spidertron Auto targeting without gunner
 * Train Manual mode
