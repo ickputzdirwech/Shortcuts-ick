@@ -23,7 +23,7 @@ end
 
 -- ADVANCED ARTILLERY REMOTES CONTINUED
 -- Mod initialises cluster remotes during data-updates phase, which requires initialising the shortcut during the same phase and use of hidden dependency to ensure load order.
-if settings.startup["artillery-targeting-remotes"].value and data.raw.capsule["artillery-cluster-remote-artillery-shell"] then
+if settings.startup["artillery-targeting-remotes"] and settings.startup["artillery-targeting-remotes"].value and data.raw.capsule["artillery-cluster-remote-artillery-shell"] then
 	data:extend({
 		{
 			type = "shortcut",

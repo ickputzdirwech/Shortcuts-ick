@@ -57,7 +57,7 @@ else
 end
 
 -- ADVANCED ARTILLERY REMOTES CONTINUED
-if settings.startup["artillery-targeting-remotes"].value and data.raw.capsule["artillery-discovery-remote"] then
+if settings.startup["artillery-targeting-remotes"] and settings.startup["artillery-targeting-remotes"].value and data.raw.capsule["artillery-discovery-remote"] then
 	data:extend({
 		{
 			type = "shortcut",
@@ -75,7 +75,7 @@ if settings.startup["artillery-targeting-remotes"].value and data.raw.capsule["a
 end
 
 -- ARTILLERY BOMBARDMENT REMOTES
-if settings.startup["artillery-targeting-remotes"].value and data.raw["selection-tool"]["artillery-bombardment-remote"] and data.raw["selection-tool"]["smart-artillery-bombardment-remote"] and data.raw["selection-tool"]["smart-artillery-exploration-remote"] then
+if settings.startup["artillery-targeting-remotes"] and settings.startup["artillery-targeting-remotes"].value and data.raw["selection-tool"]["artillery-bombardment-remote"] and data.raw["selection-tool"]["smart-artillery-bombardment-remote"] and data.raw["selection-tool"]["smart-artillery-exploration-remote"] then
 	data:extend({
 		{
 			type = "shortcut",
