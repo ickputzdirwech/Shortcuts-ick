@@ -9,12 +9,10 @@
 	* Driver is gunner
 	* Spidertron remote
 	* Spidertron Enable/disable logistics while moving
-	* Spidertron Logistic request
+	* Vehicle logistics
 	* Spidertron Auto targeting with gunner
 	* Spidertron Auto targeting without gunner
 	* Train Manual mode
-	* MOD: AAI programmable vehicles remote controls
-	* MOD: Vehicle waggon 2 winch
 ]]
 
 data:extend(
@@ -29,15 +27,6 @@ data:extend(
 	},
 	{
 		setting_type = "startup",
-		name = "spidertron-remote",
-		localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"item-name.spidertron-remote"}},
-		order = "e[vehicle]-b[spidertron-remote]",
-		type = "string-setting",
-		allowed_values = {"disabled", "enabled", "enabled-hidden"},
-		default_value = "enabled"
-	},
-	{
-		setting_type = "startup",
 		name = "spidertron-logistics",
 		localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"entity-name.spidertron"}, " ", {"gui.enable-logistics-while-moving"}},
 		order = "e[vehicle]-c[spidertron-logistics]",
@@ -46,9 +35,9 @@ data:extend(
 	},
 	{
 		setting_type = "startup",
-		name = "spidertron-logistic-requests",
-		localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"entity-name.spidertron"}, " ", {"gui-logistic.title-request"}},
-		order = "e[vehicle]-d[spidertron-logistics]",
+		name = "vehicle-logistic-requests",
+		localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"gui-logistic.vehicle-logistics-and-trash"}},
+		order = "e[vehicle]-d[vehicle-logistics]",
 		type = "bool-setting",
 		default_value = true
 	},
@@ -77,25 +66,3 @@ data:extend(
 		default_value = true
 	}
 })
-
-if mods["aai-programmable-vehicles"] then
-	data:extend({{
-		setting_type = "startup",
-		name = "aai-remote-controls",
-		localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color] AAI Programmable Vehicles ", {"item-name.unit-remote-control"}},
-		order = "e[vehicle]-h[aai-remote-controls]",
-		type = "bool-setting",
-		default_value = true
-		}})
-end
-
-if mods["VehicleWagon2"] then
-  	data:extend({{
-      	setting_type = "startup",
-  		name = "winch",
-		localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color] Vehicle Wagon 2 ", {"item-name.winch"}},
-      	order = "e[vehicle]-j[winch]",
-  		type = "bool-setting",
-  		default_value = true
-  	}})
-end

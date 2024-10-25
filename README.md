@@ -18,7 +18,6 @@ You can help translate this mod on [Crowdin](https://crowdin.com/project/factori
 
 # Shortcuts
 **Basic**
-
 * Character lamp
 * Emergency locator beacon
 * Grid
@@ -26,78 +25,32 @@ You can help translate this mod on [Crowdin](https://crowdin.com/project/factori
 * Toggle personal logistic requests
 * Zoom out of world
 * Show minimap
-* MOD: Max rate calculator
-
 
 **Blueprint**
-
 * Environment Deconstruction planner
-* MOD: Well Planner
-
 
 **Equipment**
-
 * Belt immunity equipment
-* Discharge defense remote
 * Nightvision
 * Personal laser defense
 
-
 **Artillery**
-
-* Artillery targeting remote
-* MOD: Advanced Artillery Remotes Continued
-* MOD: Artillery Bombardment Remote
-* MOD: Artillery Bombardment Remote (Reloaded)
-* MOD: Artillery Bombardment Remote (DBot's fork)
 * Artillery cannon toggle
-* MOD: M.I.R.V. targeting remote
-* MOD: Atomic Artillery Remote
-* MOD: Landmine thrower
-
 
 **Vehicle**
-
 * Driver is gunner
-* Spidertron remote
 * Spidertron Enable/disable logistics while moving
-* Spidertron Logistic request
+* Vehicle logistics
 * Spidertron Auto targeting with gunner
 * Spidertron Auto targeting without gunner
 * Train Manual mode
-* MOD: AAI programmable vehicles remote controls
-* MOD: Vehicle waggon 2 winch
 
 
 # Compatible mods
-**Duplicate selection tools from these mods are removed from the inventory:**
-
-* Rail Signal Planner
-* Well Planner
-
-
-**Selection tools from these mods are hidden from the inventory:**
-
-* Circuit Checker
-* Orbital Ion Cannon (SE Edition)
-* Ore Eraser (continued)
-* Module Inserter
-* Module Inserter (Non-conflict version)
-
-
 **Shortcuts from these mods are only available if a specific technology has been researched:**
-
-* Car/Tank/Spidertron Locator Button
-* Circuit Checker
-* Orbital Ion Cannon (SE Edition)
-* Module Inserter
-* Module Inserter (Non-conflict version)
-* P.U.M.P
-* Rail Signal Planner
-* Rail Signal Planner (Fixed sliders)
-* Spidertron squad control
-* Spidertron Waypoints
-* VehicleSnap
+* [Car/Tank/Spidertron Locator Button (Find / Locate My Lost Car / Car Finder)](https://mods.factorio.com/mod/car-finder)
+* [P.U.M.P](https://mods.factorio.com/mod/pump)
+* [VehicleSnap](https://mods.factorio.com/mod/VehicleSnap)
 
 
 # KNOWN ISSUES

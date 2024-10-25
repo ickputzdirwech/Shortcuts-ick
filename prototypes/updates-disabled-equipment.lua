@@ -24,8 +24,8 @@ end
 for i, type in pairs(equipment_list) do
 	for _, equipment in pairs(data.raw[type]) do
 		local name = equipment.name
-		-- make it compatible with NightvisionToggles, GunEquipment, Nanobots and Nullius
-		if string.sub(name, 1, 8) ~= "disabled" and name ~= "nvt-night-vision-equipment" and string.sub(name, 1, 16) ~= "personal-turret-" and string.sub(name, 1, 7) ~= "picker-" and string.sub(name, 1, 8) ~= "nullius-" then
+		-- make it compatible with GunEquipment and Nullius
+		if string.sub(name, 1, 8) ~= "disabled" and string.sub(name, 1, 16) ~= "personal-turret-" and string.sub(name, 1, 8) ~= "nullius-" then
 
 			local disabled_equipment = util.table.deepcopy(equipment)
 
@@ -43,9 +43,6 @@ for i, type in pairs(equipment_list) do
 
 			disabled_equipment.take_result = name
 			disabled_equipment.sprite.tint = {0.5, 0.5, 0.5}
-			if disabled_equipment.sprite.hr_version then
-				disabled_equipment.sprite.hr_version.tint = {0.5, 0.5, 0.5}
-			end
 
 			if type == "belt-immunity-equipment" or (type == "active-defense-equipment" and equipment.automatic == true) then
 				disabled_equipment.energy_source.input_flow_limit = "0W"
