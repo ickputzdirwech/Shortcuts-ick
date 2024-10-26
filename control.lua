@@ -809,7 +809,7 @@ script.on_event(defines.events.on_player_driving_changed_state, function(event)
 	local player = game.players[event.player_index]
 	local setting = settings.startup
 
-	if player.driving then
+	if player.driving and player.vehicle then
 		local type = player.vehicle.type
 		local function enable_shortcuts(player, parameter, name)
 			if setting[name].value then
