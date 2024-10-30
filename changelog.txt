@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 2.0.2
+Date: 30.10.2024
+  Bugfixes:
+    - Fixed that shortcuts to disable equipment didn't work (thanks to Marius8).
+    - Fixed that quality got lost when disabling equipment or artillery.
+
+---------------------------------------------------------------------------------------------------
 Version: 2.0.1
 Date: 26.10.2024
   Bugfixes:

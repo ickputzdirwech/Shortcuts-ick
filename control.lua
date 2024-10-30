@@ -107,10 +107,11 @@ local function update_state(event, equipment_type) -- toggles the armor
 					local name = equipment.name
 					local position = equipment.position
 					local energy = equipment.energy
-					if not string.sub(equipment.name, 1, 9) == "disabled-" then -- disables the equipment
+					local quality = equipment.quality
+					if string.sub(equipment.name, 1, 9) ~= "disabled-" then -- disables the equipment
 						if equipment_type ~= "active-defense-equipment" or (equipment_type == "active-defense-equipment" and prototypes.equipment["disabled-" .. equipment.name]) then
 							grid.take{name = name, position = position}
-							local new_equipment = grid.put{name = "disabled-" .. name, position = position}
+							local new_equipment = grid.put{name = "disabled-" .. name, position = position, quality = quality}
 							if new_equipment and new_equipment.valid then
 								new_equipment.energy = energy
 							end
@@ -118,7 +119,7 @@ local function update_state(event, equipment_type) -- toggles the armor
 						end
 					elseif (string.sub(equipment.name, 1, 9) == "disabled-") then -- eneables the equipment
 						grid.take{name = name, position = position}
-						local new_equipment = grid.put{name = (string.sub(name, 10, #name)), position = position}
+						local new_equipment = grid.put{name = (string.sub(name, 10, #name)), position = position, quality = quality}
 						if new_equipment and new_equipment.valid then
 							new_equipment.energy = energy
 						end
@@ -149,12 +150,13 @@ local function enable_it(player, equipment, grid, type) -- enables things
 	if grid.valid and equipment.valid then
 		local name = equipment.name
 		local position = equipment.position
+		local quality = equipment.quality
 		local energy = equipment.energy
 		player.set_shortcut_available(type, true)
 		player.set_shortcut_toggled(type, true)
 		if (string.sub(equipment.name, 1, 9) == "disabled-") then
 			grid.take{name = name, position = position}
-			local new_equipment = grid.put{name = (string.sub(name, 10, #name)), position = position}
+			local new_equipment = grid.put{name = (string.sub(name, 10, #name)), position = position, quality = quality}
 			if new_equipment and new_equipment.valid then
 				new_equipment.energy = energy
 			end
@@ -290,6 +292,7 @@ local function artillery_swap(entity, new_name)
 	end
 
 	local surface = entity.surface.name
+	local quality = entity.quality
 	local position = entity.position
 	local direction = entity.direction
 	local orientation = entity.orientation
@@ -307,6 +310,7 @@ local function artillery_swap(entity, new_name)
 		entity.destroy()
 		new_entity = game.surfaces[surface].create_entity{
 			name = "entity-ghost",
+			quality = quality,
 			ghost_name = ghost,
 			position = position,
 			direction = direction,
@@ -317,6 +321,7 @@ local function artillery_swap(entity, new_name)
 		entity.destroy()
 		new_entity = game.surfaces[surface].create_entity{
 			name = new_name,
+			quality = quality,
 			position = position,
 			direction = direction,
 			orientation = orientation,
@@ -338,7 +343,7 @@ local function artillery_swap(entity, new_name)
 			new_entity.train.manual_mode = manual_mode
 		end
 		for _, old_equipment in pairs(old_equipments) do
-			local new_equipment = new_entity.grid.put{name = old_equipment.name, position = old_equipment.position}
+			local new_equipment = new_entity.grid.put{name = old_equipment.name, position = old_equipment.position, quality = old_equipment.quality}
 			new_equipment.energy = old_equipment.energy
 			if new_equipment and new_equipment.max_shield > 0 then
 				new_equipment.shield = old_equipment.shield
@@ -484,8 +489,9 @@ script.on_event(defines.events.on_runtime_mod_setting_changed, function(event)
 								local name = equipment.name
 								if string.sub(name, 1, 9) == "disabled-" and equipment.type == equipment_type then
 									local position = equipment.position
+									local quality = equipment.quality
 									grid.take{name = name, position = position}
-									local new_equipment = grid.put{name = string.sub(name, 10), position = position}
+									local new_equipment = grid.put{name = string.sub(name, 10), position = position, quality = quality}
 									if storage.shortcuts_armor[i] and storage.shortcuts_armor[i].get(position) then
 										new_equipment.energy = storage.shortcuts_armor[i].get(position).energy
 										storage.shortcuts_armor[i] = grid
@@ -908,7 +914,6 @@ script.on_event(defines.events.on_lua_shortcut, function(event)
 	elseif prototype_name == "active-defense-equipment" then
 		update_state(event, "active-defense-equipment")
 		return
-	-- elseif prototype_name == "jetpack" then
 
 	-- VEHICLE
 	elseif prototype_name == "driver-is-gunner" then
@@ -945,7 +950,6 @@ local function custom_input_equipment(name)
 	if settings.startup[name].value then
 		script.on_event(name, function(event)
 			update_state(event, name)
-			return
 		end)
 	end
 end
