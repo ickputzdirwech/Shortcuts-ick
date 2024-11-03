@@ -27,7 +27,7 @@ if settings.startup["tree-killer"].value then
 	local tree_killer = util.table.deepcopy(data.raw["deconstruction-item"]["deconstruction-planner"])
 		tree_killer.name = "tree-killer"
 		tree_killer.localised_name = {"", {"item-group-name.environment"}, " ", {"item-name.deconstruction-planner"}}
-		tree_killer.flags = {"only-in-cursor"}
+		--tree_killer.flags = {"only-in-cursor", "spawnable"}
 		tree_killer.hidden = true
 		tree_killer.entity_filter_count = 255
 

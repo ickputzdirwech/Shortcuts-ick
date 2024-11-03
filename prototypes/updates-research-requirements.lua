@@ -12,13 +12,14 @@
 ---------------------------------------------------------------------------------------------------
 -- General compatibility
 ---------------------------------------------------------------------------------------------------
-local function change_technology_to_unlock(shortcut, tech)
+local function remove_technology_to_unlock(shortcut)
 	if data.raw.shortcut[shortcut] then
-		data.raw.shortcut[shortcut].technology_to_unlock = tech
+		data.raw.shortcut[shortcut].technology_to_unlock = nil
 	end
 end
 
-if settings.startup["ick-compatibility-mode"].value == false then
-	change_technology_to_unlock("toggle-personal-logistic-requests", nil)
-	change_technology_to_unlock("tree-killer", nil)
+if settings.startup["ick-compatibility-mode"].value then
+	remove_technology_to_unlock("tree-killer")
+	remove_technology_to_unlock("artillery-jammer-tool")
+	remove_technology_to_unlock("rail-block-visualization-toggle")
 end

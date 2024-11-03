@@ -54,13 +54,13 @@ if settings.startup["driver-is-gunner"].value then
 	}})
 end
 
--- SPIDERTRON LOGISTICS WHILE MOVING
-if settings.startup["spidertron-logistics"].value then
+-- VEHICLE LOGISTICS WHILE MOVING
+if settings.startup["vehicle-logistics-while-moving"].value then
 	data:extend({{
 		type = "shortcut",
-		name = "spidertron-logistics",
-		localised_name = {"", spidertron, {"entity-name.spidertron"}, " ", {"gui.enable-logistics-while-moving"}},
-		order = "e[vehicle]-c[spidertron-logistics]",
+		name = "vehicle-logistics-while-moving",
+		localised_name = {"", logistics, {"gui.enable-logistics-while-moving"}},
+		order = "e[vehicle]-c[vehicle-logistics]",
 		action = "lua",
 		toggleable = true,
 		style = "green",
@@ -81,10 +81,71 @@ if settings.startup["vehicle-logistic-requests"].value then
 		action = "lua",
 		toggleable = true,
 		style = "green",
-		icon = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x32.png",
-		icon_size = 32,
-		small_icon = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x24.png",
-		small_icon_size = 24
+		icons = {
+			{
+				icon = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x32.png",
+				icon_size = 32,
+				scale = 2
+			},
+			{
+				icon = "__Shortcuts-ick__/graphics/driver-is-gunner-x32-2-white.png",
+				icon_size = 32,
+				scale = 1.5,
+				shift = {16, 16}
+			}
+		},
+		small_icons = {
+			{
+				icon = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x32.png",
+				icon_size = 32,
+				scale = 2
+			},
+			{
+				icon = "__Shortcuts-ick__/graphics/driver-is-gunner-x32-2-white.png",
+				icon_size = 32,
+				scale = 1.5,
+				shift = {16, 16}
+			}
+		}
+	}})
+end
+
+-- VEHICLE TRASH UNREQUESTED
+if settings.startup["vehicle-trash-not-requested"].value then
+	data:extend({{
+		type = "shortcut",
+		name = "vehicle-trash-not-requested",
+		localised_name = {"", logistics, {"trash-not-requested-items"}},
+		order = "e[vehicle]-e[vehicle-trash-not-requested]",
+		action = "lua",
+		toggleable = true,
+		style = "green",
+		icons = {
+			{
+				icon = "__core__/graphics/icons/mip/trash.png",
+				icon_size = 32,
+				scale = 2
+			},
+			{
+				icon = "__Shortcuts-ick__/graphics/driver-is-gunner-x32-2-white.png",
+				icon_size = 32,
+				scale = 1.5,
+				shift = {16, 16}
+			}
+		},
+		small_icons = {
+			{
+				icon = "__core__/graphics/icons/mip/trash.png",
+				icon_size = 32,
+				scale = 2
+			},
+			{
+				icon = "__Shortcuts-ick__/graphics/driver-is-gunner-x32-2-white.png",
+				icon_size = 32,
+				scale = 1.5,
+				shift = {16, 16}
+			}
+		}
 	}})
 end
 
@@ -94,7 +155,7 @@ if settings.startup["targeting-with-gunner"].value then
 		type = "shortcut",
 		name = "targeting-with-gunner",
 		localised_name = {"", spidertron, {"entity-name.spidertron"}, " ", {"gui-car.automatic-targeting"}, " ", {"gui-car.with-gunner"}},
-		order = "e[vehicle]-e[targeting-with-gunner]",
+		order = "e[vehicle]-f[targeting-with-gunner]",
 		action = "lua",
 		toggleable = true,
 		style = "green",
@@ -111,7 +172,7 @@ if settings.startup["targeting-without-gunner"].value then
 		type = "shortcut",
 		name = "targeting-without-gunner",
 		localised_name = {"", spidertron, {"entity-name.spidertron"}, " ", {"gui-car.automatic-targeting"}, " ", {"gui-car.without-gunner"}},
-		order = "e[vehicle]-f[targeting-with-gunner]",
+		order = "e[vehicle]-g[targeting-with-gunner]",
 		action = "lua",
 		toggleable = true,
 		style = "green",
@@ -128,7 +189,7 @@ if settings.startup["train-mode-toggle"].value then
 		type = "shortcut",
 		name = "train-mode-toggle",
 		localised_name = {"", train, {"tooltip-category.train"}, " ", {"gui-trains.manual-mode"}},
-		order = "e[vehicle]-g[train-mode-toggle]",
+		order = "e[vehicle]-h[train-mode-toggle]",
 		action = "lua",
 		toggleable = true,
 		icon = "__Shortcuts-ick__/graphics/train-mode-toggle-x32-2.png",

@@ -56,7 +56,7 @@ if artillery_toggle == "both" or artillery_toggle == "artillery-wagon" or artill
 			order = "c[automated-construction]-a[artillery-jammer-tool]",
 			icon = "__Shortcuts-ick__/graphics/artillery-jammer-tool-red.png",
 			icon_size = 32,
-			flags = {"only-in-cursor", "not-stackable"},
+			flags = {"only-in-cursor", "not-stackable", "spawnable"},
 			hidden = true,
 			stack_size = 1,
 			select = {

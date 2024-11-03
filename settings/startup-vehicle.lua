@@ -27,9 +27,9 @@ data:extend(
 	},
 	{
 		setting_type = "startup",
-		name = "spidertron-logistics",
-		localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"entity-name.spidertron"}, " ", {"gui.enable-logistics-while-moving"}},
-		order = "e[vehicle]-c[spidertron-logistics]",
+		name = "vehicle-logistics-while-moving",
+		localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"gui.enable-logistics-while-moving"}},
+		order = "e[vehicle]-c[vehicle-logistics]",
 		type = "bool-setting",
 		default_value = true
 	},
@@ -43,9 +43,17 @@ data:extend(
 	},
 	{
 		setting_type = "startup",
+		name = "vehicle-trash-not-requested",
+		localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"trash-not-requested-items"}},
+		order = "e[vehicle]-e[vehicle-trash-not-requested]",
+		type = "bool-setting",
+		default_value = true
+	},
+	{
+		setting_type = "startup",
 		name = "targeting-with-gunner",
 		localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"entity-name.spidertron"}, " ", {"gui-car.automatic-targeting"}, " ", {"gui-car.with-gunner"}},
-		order = "e[vehicle]-e[targeting-with-gunner]",
+		order = "e[vehicle]-f[targeting-with-gunner]",
 		type = "bool-setting",
 		default_value = true
 	},
@@ -53,7 +61,7 @@ data:extend(
 		setting_type = "startup",
 		name = "targeting-without-gunner",
 		localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"entity-name.spidertron"}, " ", {"gui-car.automatic-targeting"}, " ", {"gui-car.without-gunner"}},
-		order = "e[vehicle]-f[targeting-without-gunner]",
+		order = "e[vehicle]-g[targeting-without-gunner]",
 		type = "bool-setting",
 		default_value = false
 	},
@@ -61,7 +69,7 @@ data:extend(
 		setting_type = "startup",
 		name = "train-mode-toggle",
 		localised_name = {"", "[color=orange]", {"tooltip-category.vehicle"}, ": [/color]", {"tooltip-category.train"}, " ", {"gui-trains.manual-mode"}},
-		order = "e[vehicle]-g[targeting-with-gunner]",
+		order = "e[vehicle]-h[targeting-with-gunner]",
 		type = "bool-setting",
 		default_value = true
 	}

@@ -26,8 +26,9 @@ local shortcuts = {
 	"active-defense-equipment",
 
 	"driver-is-gunner",
-	"spidertron-logistics",
+	"vehicle-logistics-while-moving",
 	"vehicle-logistic-requests",
+	"vehicle-trash-not-requested",
 	"targeting-with-gunner",
 	"targeting-without-gunner",
 	"train-mode-toggle",

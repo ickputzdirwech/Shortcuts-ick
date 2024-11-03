@@ -6,17 +6,14 @@
 ]]
 
 --[[ Overview of on-player-created.lua:
-	* Functions
-	* Special cases
-	* Equipment and vehicle
-	* Mod
-	* Mod with own shortcut
+	* Equipment
+	* Vehicle
+	* With technology to unlock
+	* Set shortcuts toggled
 ]]
 
 function ick_reset_available_shortcuts(player)
 
-	-- FUNCTIONS
-	local tech = player.force.technologies
 	local setting = settings.startup
 
 	local function disable_shortcuts(name) -- checks if the setting is active
@@ -26,7 +23,7 @@ function ick_reset_available_shortcuts(player)
 	end
 
 
-	-- EQUIPMENT and VEHICLE
+	-- EQUIPMENT
 	local function disable_shortcuts_equipment(type) -- checks if the setting is active and if the player has the equipment equiped
 		if setting[type].value then
 			local equiped = false
@@ -40,12 +37,10 @@ function ick_reset_available_shortcuts(player)
 								break
 							end
 						end
-						if equiped == false then
-							player.set_shortcut_available(type, false)
-						end
 					end
 				end
 			end
+			player.set_shortcut_available(type, equiped)
 		end
 	end
 
@@ -61,7 +56,6 @@ function ick_reset_available_shortcuts(player)
 			disable_shortcuts("driver-is-gunner")
 		end
 		if type ~= "spider-vehicle" then
-			disable_shortcuts("spidertron-logistics")
 			disable_shortcuts("targeting-with-gunner")
 			disable_shortcuts("targeting-without-gunner")
 		end
@@ -70,24 +64,41 @@ function ick_reset_available_shortcuts(player)
 		end
 		if player.vehicle.get_requester_point() and player.vehicle.get_requester_point().enabled then else
 			disable_shortcuts("vehicle-logistic-requests")
+			disable_shortcuts("vehicle-trash-not-requested")
 		end
+		if player.vehicle.grid then else
+			disable_shortcuts("vehicle-logistics-while-moving")
+		end
+	else
+		disable_shortcuts("driver-is-gunner")
+		disable_shortcuts("targeting-with-gunner")
+		disable_shortcuts("targeting-without-gunner")
+		disable_shortcuts("train-mode-toggle")
+		disable_shortcuts("vehicle-logistic-requests")
+		disable_shortcuts("vehicle-trash-not-requested")
+		disable_shortcuts("vehicle-logistics-while-moving")
 	end
 
 
-	-- SPECIAL CASES
+	-- WITH TECHNOLOGY TO UNLOCK
+	if settings.startup["ick-compatibility-mode"].value == false then -- technology_to_unlock deosn't work for shortcuts with action ="lua". Temporary disabled until base game bug is fixed.
+		--[[disable_shortcuts("tree-killer")
+		disable_shortcuts("rail-block-visualization-toggle")
+		if setting["artillery-toggle"].value ~= "disabled" then
+			player.set_shortcut_available("artillery-jammer-tool", false)
+		end]]
+	end
+
+	-- SET SHORTCUTS TOGGLED
 	if setting["flashlight-toggle"].value then
 		player.set_shortcut_toggled("flashlight-toggle", true)
 	end
 
-	local artillery_toggle = setting["artillery-toggle"].value
-	if tech["artillery"].researched == false and (artillery_toggle == "both" or artillery_toggle == "artillery-wagon" or artillery_toggle == "artillery-turret") then
-		player.set_shortcut_available("artillery-jammer-tool", false)
-	end
-
 end
 
-if settings.startup["ick-compatibility-mode"].value == false then
-	script.on_event(defines.events.on_player_created, function(event)
-		ick_reset_available_shortcuts(game.players[event.player_index])
-	end)
-end
+script.on_event(defines.events.on_player_created, function(event)
+	ick_reset_available_shortcuts(game.players[event.player_index])
+end)
+script.on_event(defines.events.on_player_toggled_map_editor, function(event)
+	ick_reset_available_shortcuts(game.players[event.player_index])
+end)
