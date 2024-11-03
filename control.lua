@@ -819,7 +819,7 @@ script.on_event(defines.events.on_player_driving_changed_state, function(event)
 				update_shortcuts(player_p, parameter, name)
 			end
 		end
-		if type == "car" or type == "spider-vehicle" then
+		if type == "car" or type == "spider-vehicle" and game.is_multiplayer() then
 			enable_shortcuts(player, player.vehicle.driver_is_gunner, "driver-is-gunner")
 		end
 		if type == "spider-vehicle" then

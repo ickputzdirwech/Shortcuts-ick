@@ -8,6 +8,7 @@ Date: 02.11.2024
   Changes:
     - Added a small car to the icon of the "Vehicle logistics" shortcut.
     - BREAKING: The "Artillery jammer tool" now uses the new "Auto targeting" toggle instead of replacing the entity. Set the "Prepare a startup setting change [...]" map setting to "artillery" before the update to prevent removal of disabled artillery turrets and wagons.
+    - "Driver is gunner" shortcut is only available in multiplayer.
   Bugfixes:
     - Fixed an error when glosing the GUI of a spider vehicle with no logistic point (thanks to Saken and saaadel).
     - Fixed that the "Enable logistics while moving" shortcut wasn't updated when the setting was changed inside the GUI.
