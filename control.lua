@@ -250,190 +250,89 @@ end)
 ---------------------------------------------------------------------------------------------------
 -- TOGGLE ARTILLERY CANNON FIRE SELECTION TOOL
 ---------------------------------------------------------------------------------------------------
-local function artillery_swap(entity, new_name)
-	local shellname = {}
-	local shellcount = {}
-	local inventory = {}
-	local manual_mode = true
-	local speed = 0
-	local old_equipments = {}
-	if entity.type == "artillery-wagon" and entity.name ~= "entity-ghost" then
-		inventory = entity.get_inventory(defines.inventory.artillery_wagon_ammo)
-		manual_mode = entity.train.manual_mode
-		speed = entity.train.speed
-		if entity.grid and entity.grid.equipment[1] then
-			for _, equipment in pairs(entity.grid.equipment) do
-				table.insert(old_equipments, {name = equipment.name, position = equipment.position, energy = equipment.energy, shield = equipment.shield})
-			end
-		end
-	elseif entity.type == "artillery-turret" and entity.name ~= "entity-ghost" then
-		inventory = entity.get_inventory(defines.inventory.artillery_turret_ammo)
-	end
 
-	for i=1,(#inventory) do
-		if inventory[i].valid_for_read then
-			shellname[#shellname+1] = inventory[i].name
-			shellcount[#shellcount+1] = inventory[i].count
-		end
-	end
-
-	local surface = entity.surface.name
-	local quality = entity.quality
-	local position = entity.position
-	local direction = entity.direction
-	local orientation = entity.orientation
-	local force = entity.force
-	local kills = entity.kills
-	local damage = entity.damage_dealt
-	local health = entity.health
-	local new_entity
-
-	if entity.name == "entity-ghost" then
-		local ghost = string.sub(entity.ghost_name,10)
-		if string.sub(entity.ghost_name,1,9) ~= "disabled-" then
-			ghost = "disabled-"..entity.ghost_name
-		end
-		entity.destroy()
-		new_entity = game.surfaces[surface].create_entity{
-			name = "entity-ghost",
-			quality = quality,
-			ghost_name = ghost,
-			position = position,
-			direction = direction,
-			orientation = orientation,
-			force = force
-		}
-	else
-		entity.destroy()
-		new_entity = game.surfaces[surface].create_entity{
-			name = new_name,
-			quality = quality,
-			position = position,
-			direction = direction,
-			orientation = orientation,
-			force = force,
-			create_build_effect_smoke = false
-		}
-	end
-	if new_entity and new_entity.name ~= "entity-ghost" then
-		new_entity.kills = kills
-		new_entity.damage_dealt = damage
-		new_entity.health = health
-		for i, _ in pairs(shellcount) do
-			if new_entity.can_insert({name = shellname[i], count = shellcount[i]}) then
-				new_entity.insert({name = shellname[i], count = shellcount[i]})
-			end
-		end
-		if new_entity.type == "artillery-wagon" then
-			new_entity.train.speed = speed
-			new_entity.train.manual_mode = manual_mode
-		end
-		for _, old_equipment in pairs(old_equipments) do
-			local new_equipment = new_entity.grid.put{name = old_equipment.name, position = old_equipment.position, quality = old_equipment.quality}
-			new_equipment.energy = old_equipment.energy
-			if new_equipment and new_equipment.max_shield > 0 then
-				new_equipment.shield = old_equipment.shield
-			end
-		end
-	elseif new_entity and new_entity.name ~= "entity-ghost" then
-		player.print({"", {"Shortcuts-ick.error-artillery"}, " (ERROR 1)"})
-	end
-	return new_entity
-end
-
-local artillery_setting = settings.startup["artillery-toggle"].value
-if artillery_setting == "both" or artillery_setting == "artillery-turret" or artillery_setting == "artillery-wagon" then
-
-	local entity_type_filter = {}
-
-	if artillery_setting == "both" then
-		entity_type_filter = {{filter="type", type = "artillery-turret"}, {filter="type", type = "artillery-wagon"}}
-	else
-		entity_type_filter = {{filter="type", type = artillery_setting}}
-	end
-
-	local function draw_warning_icon(entity)
+local function artillery_icon_draw(entity) -- If "Auto targeting" is disabled, the icon is created on the given entity.
+	if entity.artillery_auto_targeting == false then
 		rendering.draw_sprite{
-			sprite = "utility.warning_icon",
-			x_scale = 1, y_scale = 1,
-			target_offset = {0.0,-0.25},
+			sprite = "tooltip-category-effect",
+			tint = {r = 1},
 			render_layer = "entity-info-icon-above",
 			target = entity,
 			surface = entity.surface,
 			forces = {entity.force}
 		}
 	end
-
-	script.on_event(defines.events.on_player_selected_area, function(event)
-		if event.item == "artillery-jammer-tool" and event.entities ~= nil then
-			local i = 0
-			local j = 0
-			for _, entity in pairs(event.entities) do
-				if entity.valid then
-					if entity.artillery_auto_targeting then
-						draw_warning_icon(entity)
-						entity.artillery_auto_targeting = false
-						i = i+1
-					else
-						for _, icon in pairs(rendering.get_all_objects("Shortcuts-ick")) do
-							if icon.entity == entity then
-								icon.destroy()
-								break
-							end
-						end
-						entity.artillery_auto_targeting = true
-						j = j+1
-					end
-				end
-			end
-			if game.is_multiplayer() then
-				local player = game.players[event.player_index]
-				local message = ("Player " .. player.name .. " on surface " .. player.surface.name .. " has ")
-				if i ~= 0 and j == 0 then
-					player.force.print(message .. "disabled " .. i .. " artillery")
-				elseif i == 0 and j ~= 0 then
-					player.force.print(message .. "enabled " .. j .. " artillery")
-				elseif i ~= 0 and j ~= 0 then
-					player.force.print(message .. "enabled " .. j .. " and disabled " .. i .. " artillery")
-				end
-			end
-		end
-	end)
-
-	--[[
-	script.on_event(defines.events.on_player_reverse_selected_area, function(event)
-		-- enable selected artillery
-		-- replace above
-	end)
-
-	script.on_event(defines.events.on_player_reverse_selected_area, function(event)
-		-- disable selected artillery
-	end)
-
-	script.on_event(defines.events.on_player_alt_selected_area, function(event)
-		-- enable not selected artillery on that surface
-	end)
-
-	script.on_event(defines.events.on_player_alt_reverse_selected_area, function(event)
-		-- disable not selected artillery on that surface
-		-- this event doen't exist
-	end)
-	]]
-
-	script.on_event(defines.events.on_robot_built_entity, function(event)
-		local entity = event.entity
-		if string.sub(entity.name, 1, 9) == "disabled-" then
-			draw_warning_icon(entity)
-		end
-	end, entity_type_filter)
-
-	script.on_event(defines.events.on_built_entity, function(event)
-		local entity = event.entity
-		if string.sub(entity.ghost_name, 1, 9) == "disabled-" then
-			draw_warning_icon(entity)
-		end
-	end, {{filter="ghost"}})
 end
+
+local function artillery_icon_destroy(entity) -- If "Auto targeting" is enabled, the icon is removed from the given entity.
+	if entity.artillery_auto_targeting == true then
+		for _, icon in pairs(rendering.get_all_objects("Shortcuts-ick")) do
+			if icon.target.entity == entity then
+				icon.destroy()
+				break
+			end
+		end
+	end
+end
+
+local function artillery_on_gui_closed(event) -- Creates or removes "Auto targeting"-disabled-icon for the entity which GUI was closed. Called on_gui_closed, even when artillery jammer tool setting is disabled.
+	local entity = event.entity
+	if event.gui_type == 1 and entity and (entity.type == "artillery-turret" or entity.type == "artillery-wagon" or (entity.type == "entity-ghost" and (entity.ghost_type == "artillery-turret" or entity.ghost_type == "artillery-wagon"))) then
+		artillery_icon_draw(entity) -- Create if "Auto targeting" is disabled.
+		artillery_icon_destroy(entity) -- Remove if "Auto targeting" is enabled.
+	end
+end
+
+local function artillery_on_player_selected_area(event) -- Toggles "Auto targeting" for selected entities, creates or removes icon and in multiplayer prints number of toggled entities.
+	if event.item == "artillery-jammer-tool" and event.entities ~= nil then
+		local i = 0
+		local j = 0
+		for _, entity in pairs(event.entities) do
+			if entity.valid then
+				if entity.artillery_auto_targeting then
+					entity.artillery_auto_targeting = false
+					artillery_icon_draw(entity)
+					i = i+1
+				else
+					entity.artillery_auto_targeting = true
+					artillery_icon_destroy(entity)
+					j = j+1
+				end
+			end
+		end
+		if game.is_multiplayer() then
+			local player = game.players[event.player_index]
+			local message = ("Player " .. player.name .. " on surface " .. player.surface.name .. " has ")
+			if i ~= 0 and j == 0 then
+				player.force.print(message .. "disabled " .. i .. " artillery")
+			elseif i == 0 and j ~= 0 then
+				player.force.print(message .. "enabled " .. j .. " artillery")
+			elseif i ~= 0 and j ~= 0 then
+				player.force.print(message .. "enabled " .. j .. " and disabled " .. i .. " artillery")
+			end
+		end
+	end
+end
+
+--[[
+script.on_event(defines.events.on_player_reverse_selected_area, function(event)
+	-- enable selected artillery
+	-- replace above
+end)
+
+script.on_event(defines.events.on_player_reverse_selected_area, function(event)
+	-- disable selected artillery
+end)
+
+script.on_event(defines.events.on_player_alt_selected_area, function(event)
+	-- enable not selected artillery on that surface
+end)
+
+script.on_event(defines.events.on_player_alt_reverse_selected_area, function(event)
+	-- disable not selected artillery on that surface
+	-- this event doen't exist
+end)
+]]
 
 ---------------------------------------------------------------------------------------------------
 -- PREPARE UNINSTAL
@@ -441,28 +340,6 @@ end
 script.on_event(defines.events.on_runtime_mod_setting_changed, function(event)
 	local mode = settings.global["ick-prepare-uninstall"].value
 	if event.setting_type == "runtime-global" and event.setting == "ick-prepare-uninstall" and mode ~= "" then
-		local function enable_artillery()
-			for surface_name in pairs(game.surfaces) do
-				local surface = game.surfaces[surface_name]
-				local artillery = surface.find_entities_filtered{type= {"artillery-turret", "artillery-wagon"}}
-				local artillery_ghosts = surface.find_entities_filtered{ghost_type= {"artillery-turret", "artillery-wagon"}}
-				local count = 0
-				for _, array in pairs({artillery, artillery_ghosts}) do
-					for _, entity in ipairs(array) do
-						if entity.valid then
-							local name = entity.name
-							if string.sub(name, 1, 9) == "disabled-" or (name == "entity-ghost" and string.sub(entity.ghost_name, 1, 9) == "disabled-") then
-								artillery_swap(entity, string.sub(name, 10, #name))
-								count = count + 1
-							end
-						end
-					end
-				end
-				if count > 0 then
-					game.print("SURFACE: " .. surface_name .. "\nNumber of artillery turrets and waggons (including ghosts) enabled: " .. count)
-				end
-			end
-		end
 
 		local function enable_equipment(equipment_types)
 			for _, player in pairs(game.players) do
@@ -496,14 +373,11 @@ script.on_event(defines.events.on_runtime_mod_setting_changed, function(event)
 		end
 
 		if mode == "uninstall" then
-			enable_artillery()
 			enable_equipment({"active-defense-equipment", "belt-immunity-equipment", "night-vision-equipment"})
 			game.print("\nREADY TO UNINSTALL")
-		elseif mode == "artillery" then
-			enable_artillery()
-			game.print({"", "READY TO DISABLE SETTING: ", {"Shortcuts-ick.artillery-toggle"}})
 		elseif mode == "active-defense-equipment" or mode == "belt-immunity-equipment" or mode == "night-vision-equipment" then
 			enable_equipment({mode})
+			game.print("Ready to disable the setting corresponding to " .. mode)
 		else
 			game.print("There went something wrong. Please make sure you entered the right word. (ERROR X)")
 		end
@@ -854,7 +728,7 @@ end)
 
 
 -- ON_GUI_CLOSED
-script.on_event(defines.events.on_gui_closed, function(event)
+local function vehicle_on_gui_closed(event)
 	local entity = event.entity
 	if (event.gui_type == 1 or event.gui_type == 24) and entity and (entity.type == "car" or entity.type == "spider-vehicle" or entity.type == "locomotive") then
 		local type = entity.type
@@ -886,7 +760,7 @@ script.on_event(defines.events.on_gui_closed, function(event)
 			end
 		end
 	end
-end)
+end
 
 
 ---------------------------------------------------------------------------------------------------
@@ -1041,6 +915,33 @@ custom_input_vehicle("train-mode-toggle", {"locomotive", "cargo-wagon", "fluid-w
 -- GIVE ITEM
 custom_input_give_item_1("tree-killer")
 
-if artillery_setting == "both" or artillery_setting == "artillery-wagon" or artillery_setting == "artillery-turret" then
+if settings.startup["artillery-toggle"].value ~= "disabled" then
 	custom_input_give_item_2("artillery-jammer-tool")
+end
+
+
+---------------------------------------------------------------------------------------------------
+-- EVENTS
+---------------------------------------------------------------------------------------------------
+script.on_event(defines.events.on_gui_closed, function(event)
+	vehicle_on_gui_closed(event)
+	artillery_on_gui_closed(event)
+end)
+
+if settings.startup["artillery-toggle"].value ~= "disabled" then
+
+	script.on_event(defines.events.on_player_selected_area, function(event)
+		artillery_on_player_selected_area(event)
+	end)
+
+	script.on_event(defines.events.on_robot_built_entity, function(event)
+		artillery_icon_draw(event.entity) -- Create icon if "Auto targeting" is disabled.
+		artillery_icon_destroy(event.entity) -- Remove icon if "Auto targeting" is enabled and a ghost was replaced.
+	end, {{filter = "type", type = "artillery-turret"}, {filter = "type", type = "artillery-wagon"}})
+
+	script.on_event(defines.events.on_built_entity, function(event)
+		artillery_icon_draw(event.entity) -- Create icon if "Auto targeting" is disabled.
+		artillery_icon_destroy(event.entity) -- Remove icon if "Auto targeting" is enabled and a ghost was replaced.
+	end, {{filter = "type", type = "artillery-turret"}, {filter = "type", type = "artillery-wagon"}, {filter = "ghost_type", type = "artillery-turret"}, {filter = "ghost_type", type = "artillery-wagon"}})
+
 end

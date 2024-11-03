@@ -5,6 +5,7 @@ Date: 02.11.2024
     - The "Spidertron Enable logistics while moving" shortcut now works for all vehicles with an equipment grid and was renamed to "Enable logistics while moving".
     - Added "Vehicle trash unrequested" shortcut.
     - Added fulgoran ruins to the environment deconstruction planner (thanks to james1715).
+    - Added icon to artillery turrets and wagons with disabled "Auto targeting" toggle.
   Changes:
     - Added a small car to the icon of the "Vehicle logistics" shortcut.
     - BREAKING: The "Artillery jammer tool" now uses the new "Auto targeting" toggle instead of replacing the entity. Set the "Prepare a startup setting change [...]" map setting to "artillery" before the update to prevent removal of disabled artillery turrets and wagons.
