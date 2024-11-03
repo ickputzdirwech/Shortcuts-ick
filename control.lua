@@ -69,9 +69,7 @@ script.on_init(initialize)
 local function configuration_changed()
 	initialize()
 	for _, player in pairs(game.players) do
-		if settings.startup["ick-compatibility-mode"].value == false then
-			ick_reset_available_shortcuts(player)
-		end
+		ick_reset_available_shortcuts(player)
 	end
 end
 
@@ -173,18 +171,18 @@ local function reset_state(event, toggle) -- verifies placement of equipment and
 	local grid = storage.shortcuts_armor[event.player_index]
 	if grid and grid.valid then
 		local e_equipment = event.equipment
-		if e_equipment and toggle == 1 then --place
+		if e_equipment and toggle == 1 then -- placed equipment
 			local type = e_equipment.type
 			if type == "night-vision-equipment" or type == "belt-immunity-equipment" or (type == "active-defense-equipment" and prototypes.equipment["disabledinactive-" .. e_equipment.name] == nil) then
 				if settings.startup[type] and settings.startup[type].value then
-					for _, equipment in pairs(grid.equipment) do	--	Enable all of a type of equipment, even if only one is placed in the grid.
+					for _, equipment in pairs(grid.equipment) do --	Enable all of a type of equipment, even if only one is placed in the grid.
 						if equipment.valid and equipment.type == type then
 							enable_it(player, equipment, grid, type)
 						end
 					end
 				end
 			end
-		elseif e_equipment and toggle == 2 then --take
+		elseif e_equipment and toggle == 2 then -- took equipment
 			local type = prototypes.equipment[e_equipment].type
 			if type == "night-vision-equipment" or type == "belt-immunity-equipment" or type == "active-defense-equipment" then
 				if settings.startup[type] and settings.startup[type].value then
@@ -203,7 +201,7 @@ local function reset_state(event, toggle) -- verifies placement of equipment and
 					end
 				end
 			end
-		elseif toggle == 0 then --armor place
+		elseif toggle == 0 then -- placed armor with grid
 			false_shortcuts(player)
 			for _, equipment in pairs(grid.equipment) do
 				local type = equipment.type
@@ -212,6 +210,12 @@ local function reset_state(event, toggle) -- verifies placement of equipment and
 						enable_it(player, equipment, grid, equipment.type)
 					end
 				end
+			end
+		end
+	else -- removed armor or placed armor without grid
+		for _, shortcut in pairs({"night-vision-equipment", "belt-immunity-equipment", "active-defense-equipment"}) do
+			if settings.startup[shortcut].value then
+				player.set_shortcut_available(shortcut, false)
 			end
 		end
 	end
@@ -243,210 +247,92 @@ end)
 -- Not using on_equipment_inserted and on_equipment_removed because the changes would trigger them again.
 
 
-script.on_event(defines.events.on_player_toggled_map_editor, function(event) -- make equipment shortcuts unavailable while in editor
-	local player = game.players[event.player_index]
-	local toggle = true
-	if player.controller_type == defines.controllers.editor then
-		toggle = false
-	end
-	if settings.startup["night-vision-equipment"].value then
-		player.set_shortcut_available("night-vision-equipment", toggle)
-	end
-	if settings.startup["active-defense-equipment"].value then
-		player.set_shortcut_available("active-defense-equipment", toggle)
-	end
-	if settings.startup["belt-immunity-equipment"].value then
-		player.set_shortcut_available("belt-immunity-equipment", toggle)
-	end
-end)
-
-
 ---------------------------------------------------------------------------------------------------
 -- TOGGLE ARTILLERY CANNON FIRE SELECTION TOOL
 ---------------------------------------------------------------------------------------------------
-local function artillery_swap(entity, new_name)
-	local shellname = {}
-	local shellcount = {}
-	local inventory = {}
-	local manual_mode = true
-	local speed = 0
-	local old_equipments = {}
-	if entity.type == "artillery-wagon" and entity.name ~= "entity-ghost" then
-		inventory = entity.get_inventory(defines.inventory.artillery_wagon_ammo)
-		manual_mode = entity.train.manual_mode
-		speed = entity.train.speed
-		if entity.grid and entity.grid.equipment[1] then
-			for _, equipment in pairs(entity.grid.equipment) do
-				table.insert(old_equipments, {name = equipment.name, position = equipment.position, energy = equipment.energy, shield = equipment.shield})
-			end
-		end
-	elseif entity.type == "artillery-turret" and entity.name ~= "entity-ghost" then
-		inventory = entity.get_inventory(defines.inventory.artillery_turret_ammo)
-	end
 
-	for i=1,(#inventory) do
-		if inventory[i].valid_for_read then
-			shellname[#shellname+1] = inventory[i].name
-			shellcount[#shellcount+1] = inventory[i].count
-		end
-	end
-
-	local surface = entity.surface.name
-	local quality = entity.quality
-	local position = entity.position
-	local direction = entity.direction
-	local orientation = entity.orientation
-	local force = entity.force
-	local kills = entity.kills
-	local damage = entity.damage_dealt
-	local health = entity.health
-	local new_entity
-
-	if entity.name == "entity-ghost" then
-		local ghost = string.sub(entity.ghost_name,10)
-		if string.sub(entity.ghost_name,1,9) ~= "disabled-" then
-			ghost = "disabled-"..entity.ghost_name
-		end
-		entity.destroy()
-		new_entity = game.surfaces[surface].create_entity{
-			name = "entity-ghost",
-			quality = quality,
-			ghost_name = ghost,
-			position = position,
-			direction = direction,
-			orientation = orientation,
-			force = force
-		}
-	else
-		entity.destroy()
-		new_entity = game.surfaces[surface].create_entity{
-			name = new_name,
-			quality = quality,
-			position = position,
-			direction = direction,
-			orientation = orientation,
-			force = force,
-			create_build_effect_smoke = false
-		}
-	end
-	if new_entity and new_entity.name ~= "entity-ghost" then
-		new_entity.kills = kills
-		new_entity.damage_dealt = damage
-		new_entity.health = health
-		for i, _ in pairs(shellcount) do
-			if new_entity.can_insert({name = shellname[i], count = shellcount[i]}) then
-				new_entity.insert({name = shellname[i], count = shellcount[i]})
-			end
-		end
-		if new_entity.type == "artillery-wagon" then
-			new_entity.train.speed = speed
-			new_entity.train.manual_mode = manual_mode
-		end
-		for _, old_equipment in pairs(old_equipments) do
-			local new_equipment = new_entity.grid.put{name = old_equipment.name, position = old_equipment.position, quality = old_equipment.quality}
-			new_equipment.energy = old_equipment.energy
-			if new_equipment and new_equipment.max_shield > 0 then
-				new_equipment.shield = old_equipment.shield
-			end
-		end
-	elseif new_entity and new_entity.name ~= "entity-ghost" then
-		player.print({"", {"Shortcuts-ick.error-artillery"}, " (ERROR 1)"})
-	end
-	return new_entity
-end
-
-local artillery_setting = settings.startup["artillery-toggle"].value
-if artillery_setting == "both" or artillery_setting == "artillery-turret" or artillery_setting == "artillery-wagon" then
-
-	local entity_type_filter = {}
-
-	if artillery_setting == "both" then
-		entity_type_filter = {{filter="type", type = "artillery-turret"}, {filter="type", type = "artillery-wagon"}}
-	else
-		entity_type_filter = {{filter="type", type = artillery_setting}}
-	end
-
-	local function draw_warning_icon(entity)
+local function artillery_icon_draw(entity) -- If "Auto targeting" is disabled, the icon is created on the given entity.
+	if entity.artillery_auto_targeting == false then
 		rendering.draw_sprite{
-			sprite = "utility.warning_icon",
-			x_scale = 1, y_scale = 1,
-			target_offset = {0.0,-0.25},
+			sprite = "tooltip-category-effect",
+			tint = {r = 1},
 			render_layer = "entity-info-icon-above",
 			target = entity,
 			surface = entity.surface,
 			forces = {entity.force}
 		}
 	end
-
-	script.on_event(defines.events.on_player_selected_area, function(event)
-		if event.item == "artillery-jammer-tool" and event.entities ~= nil then
-			local i = 0
-			local j = 0
-			for _, entity in pairs(event.entities) do
-				local name = entity.name
-				if entity.valid then
-					if string.sub(name,1,9) == "disabled-" or (name == "entity-ghost" and string.sub(entity.ghost_name, 1, 9) == "disabled-") then
-						j = j+1
-						artillery_swap(entity, string.sub(name, 10, #name))
-					else
-						local new_name = "disabled-" .. name
-						if prototypes.entity[new_name] or (name == "entity-ghost" and prototypes.entity["disabled-"..entity.ghost_name]) then
-							i = i+1
-							draw_warning_icon(artillery_swap(entity, new_name))
-						else
-							player.print({"", {"Shortcuts-ick.error-artillery"}, " (ERROR 2)"})
-						end
-					end
-				end
-			end
-			if game.is_multiplayer() then
-				local player = game.players[event.player_index]
-				local message = ("Player " .. player.name .. " on surface " .. player.surface.name .. " has ")
-				if i ~= 0 and j == 0 then
-					player.force.print(message .. "disabled " .. i .. " artillery")
-				elseif i == 0 and j ~= 0 then
-					player.force.print(message .. "enabled " .. j .. " artillery")
-				elseif i ~= 0 and j ~= 0 then
-					player.force.print(message .. "enabled " .. j .. " and disabled " .. i .. " artillery")
-				end
-			end
-		end
-	end)
-
-	--[[
-	script.on_event(defines.events.on_player_reverse_selected_area, function(event)
-		-- enable selected artillery
-		-- replace above
-	end)
-
-	script.on_event(defines.events.on_player_reverse_selected_area, function(event)
-		-- disable selected artillery
-	end)
-
-	script.on_event(defines.events.on_player_alt_selected_area, function(event)
-		-- enable not selected artillery on that surface
-	end)
-
-	script.on_event(defines.events.on_player_alt_reverse_selected_area, function(event)
-		-- disable not selected artillery on that surface
-		-- this event doen't exist
-	end)
-	]]
-
-	script.on_event(defines.events.on_robot_built_entity, function(event)
-		local entity = event.entity
-		if string.sub(entity.name, 1, 9) == "disabled-" then
-			draw_warning_icon(entity)
-		end
-	end, entity_type_filter)
-
-	script.on_event(defines.events.on_built_entity, function(event)
-		local entity = event.entity
-		if string.sub(entity.ghost_name, 1, 9) == "disabled-" then
-			draw_warning_icon(entity)
-		end
-	end, {{filter="ghost"}})
 end
+
+local function artillery_icon_destroy(entity) -- If "Auto targeting" is enabled, the icon is removed from the given entity.
+	if entity.artillery_auto_targeting == true then
+		for _, icon in pairs(rendering.get_all_objects("Shortcuts-ick")) do
+			if icon.target.entity == entity then
+				icon.destroy()
+				break
+			end
+		end
+	end
+end
+
+local function artillery_on_gui_closed(event) -- Creates or removes "Auto targeting"-disabled-icon for the entity which GUI was closed. Called on_gui_closed, even when artillery jammer tool setting is disabled.
+	local entity = event.entity
+	if event.gui_type == 1 and entity and (entity.type == "artillery-turret" or entity.type == "artillery-wagon" or (entity.type == "entity-ghost" and (entity.ghost_type == "artillery-turret" or entity.ghost_type == "artillery-wagon"))) then
+		artillery_icon_draw(entity) -- Create if "Auto targeting" is disabled.
+		artillery_icon_destroy(entity) -- Remove if "Auto targeting" is enabled.
+	end
+end
+
+local function artillery_on_player_selected_area(event) -- Toggles "Auto targeting" for selected entities, creates or removes icon and in multiplayer prints number of toggled entities.
+	if event.item == "artillery-jammer-tool" and event.entities ~= nil then
+		local i = 0
+		local j = 0
+		for _, entity in pairs(event.entities) do
+			if entity.valid then
+				if entity.artillery_auto_targeting then
+					entity.artillery_auto_targeting = false
+					artillery_icon_draw(entity)
+					i = i+1
+				else
+					entity.artillery_auto_targeting = true
+					artillery_icon_destroy(entity)
+					j = j+1
+				end
+			end
+		end
+		if game.is_multiplayer() then
+			local player = game.players[event.player_index]
+			local message = ("Player " .. player.name .. " on surface " .. player.surface.name .. " has ")
+			if i ~= 0 and j == 0 then
+				player.force.print(message .. "disabled " .. i .. " artillery")
+			elseif i == 0 and j ~= 0 then
+				player.force.print(message .. "enabled " .. j .. " artillery")
+			elseif i ~= 0 and j ~= 0 then
+				player.force.print(message .. "enabled " .. j .. " and disabled " .. i .. " artillery")
+			end
+		end
+	end
+end
+
+--[[
+script.on_event(defines.events.on_player_reverse_selected_area, function(event)
+	-- enable selected artillery
+	-- replace above
+end)
+
+script.on_event(defines.events.on_player_reverse_selected_area, function(event)
+	-- disable selected artillery
+end)
+
+script.on_event(defines.events.on_player_alt_selected_area, function(event)
+	-- enable not selected artillery on that surface
+end)
+
+script.on_event(defines.events.on_player_alt_reverse_selected_area, function(event)
+	-- disable not selected artillery on that surface
+	-- this event doen't exist
+end)
+]]
 
 ---------------------------------------------------------------------------------------------------
 -- PREPARE UNINSTAL
@@ -454,28 +340,6 @@ end
 script.on_event(defines.events.on_runtime_mod_setting_changed, function(event)
 	local mode = settings.global["ick-prepare-uninstall"].value
 	if event.setting_type == "runtime-global" and event.setting == "ick-prepare-uninstall" and mode ~= "" then
-		local function enable_artillery()
-			for surface_name in pairs(game.surfaces) do
-				local surface = game.surfaces[surface_name]
-				local artillery = surface.find_entities_filtered{type= {"artillery-turret", "artillery-wagon"}}
-				local artillery_ghosts = surface.find_entities_filtered{ghost_type= {"artillery-turret", "artillery-wagon"}}
-				local count = 0
-				for _, array in pairs({artillery, artillery_ghosts}) do
-					for _, entity in ipairs(array) do
-						if entity.valid then
-							local name = entity.name
-							if string.sub(name, 1, 9) == "disabled-" or (name == "entity-ghost" and string.sub(entity.ghost_name, 1, 9) == "disabled-") then
-								artillery_swap(entity, string.sub(name, 10, #name))
-								count = count + 1
-							end
-						end
-					end
-				end
-				if count > 0 then
-					game.print("SURFACE: " .. surface_name .. "\nNumber of artillery turrets and waggons (including ghosts) enabled: " .. count)
-				end
-			end
-		end
 
 		local function enable_equipment(equipment_types)
 			for _, player in pairs(game.players) do
@@ -509,14 +373,11 @@ script.on_event(defines.events.on_runtime_mod_setting_changed, function(event)
 		end
 
 		if mode == "uninstall" then
-			enable_artillery()
 			enable_equipment({"active-defense-equipment", "belt-immunity-equipment", "night-vision-equipment"})
 			game.print("\nREADY TO UNINSTALL")
-		elseif mode == "artillery" then
-			enable_artillery()
-			game.print({"", "READY TO DISABLE SETTING: ", {"Shortcuts-ick.artillery-toggle"}})
 		elseif mode == "active-defense-equipment" or mode == "belt-immunity-equipment" or mode == "night-vision-equipment" then
 			enable_equipment({mode})
+			game.print("Ready to disable the setting corresponding to " .. mode)
 		else
 			game.print("There went something wrong. Please make sure you entered the right word. (ERROR X)")
 		end
@@ -630,6 +491,44 @@ local function draw_grid(player_index)
 	end
 end
 
+-- PLAYER TRASH NOT REQUESTED
+local function player_trash_not_requested(player)
+	local player_c
+	if player.character then
+		player_c = player.character -- If player has a character.
+	else
+		player_c = player -- If player has no character.
+	end
+	if player_c.get_requester_point() then
+		if player_c.get_requester_point().trash_not_requested then
+			player_c.get_requester_point().trash_not_requested = false
+			player.set_shortcut_toggled("player-trash-not-requested", false)
+		else
+			player_c.get_requester_point().trash_not_requested = true
+			player.set_shortcut_toggled("player-trash-not-requested", true)
+		end
+	end
+end
+
+local function player_on_gui_closed(event) -- Toggles player-trash-not-requested shortcut in case the setting was changed in the GUI.
+	local player = game.players[event.player_index]
+	if event.gui_type == 3 and player then
+		local player_c
+		if player.character then
+			player_c = player.character -- If player has a character.
+		else
+			player_c = player -- If player has no character.
+		end
+		if player_c and player_c.get_requester_point() then
+			if player_c.get_requester_point().trash_not_requested then
+				player.set_shortcut_toggled("player-trash-not-requested", true)
+			else
+				player.set_shortcut_toggled("player-trash-not-requested", false)
+			end
+		end
+	end
+end
+
 -- RAIL BLOCK VISUALISATION
 local function toggle_rail(player)
 	if storage.toggle_rail[player.index] == nil then
@@ -670,53 +569,51 @@ end
 ---------------------------------------------------------------------------------------------------
 -- GIVE ITEM
 ---------------------------------------------------------------------------------------------------
-local allowed_items = {
-	"artillery-jammer-tool",
-	"tree-killer"
-}
-
 
 local function tree_killer_setup(player)
-	local settings = settings.get_player_settings(player)
-	local entity_types = {}
-	if settings["environment-killer-item"].value then
-		table.insert(entity_types, "item-entity")
-	end
-	if settings["environment-killer-cliff"].value then
-		table.insert(entity_types, "cliff")
-	end
-	if settings["environment-killer-fish"].value then
-		table.insert(entity_types, "fish")
-	end
-	if settings["environment-killer-rocks"].value then
-		table.insert(entity_types, "simple-entity")
-	end
-	if settings["environment-killer-trees"].value then
-		table.insert(entity_types, "tree")
-	end
-	if #entity_types == 2 and (entity_types[1] == "tree" or entity_types[2] == "tree") and (entity_types[1] == "simple-entity" or entity_types[2] == "simple-entity") then
-		player.cursor_stack.trees_and_rocks_only = true
-	else
-		local filters = {}
-		for _, type in pairs(entity_types) do
-			for _, entity in pairs(prototypes.get_entity_filtered({{filter = "type", type = type}})) do
-				if entity.has_flag("not-deconstructable") == false and (type == "cliff" or entity.mineable_properties.minable) then
-					if #filters < 255 then
-						if type == "simple-entity" then
-							if prototypes.entity[entity.name].count_as_rock_for_filtered_deconstruction then
+	if prototypes.item["tree-killer"] and player.clear_cursor() then
+		player.cursor_stack.set_stack({name = "tree-killer"})
+		local settings = settings.get_player_settings(player)
+		local entity_types = {}
+		if settings["environment-killer-item"].value then
+			table.insert(entity_types, "item-entity")
+		end
+		if settings["environment-killer-cliff"].value then
+			table.insert(entity_types, "cliff")
+		end
+		if settings["environment-killer-fish"].value then
+			table.insert(entity_types, "fish")
+		end
+		if settings["environment-killer-rocks"].value then
+			table.insert(entity_types, "simple-entity")
+		end
+		if settings["environment-killer-trees"].value then
+			table.insert(entity_types, "tree")
+		end
+		if #entity_types == 2 and (entity_types[1] == "tree" or entity_types[2] == "tree") and (entity_types[1] == "simple-entity" or entity_types[2] == "simple-entity") then
+			player.cursor_stack.trees_and_rocks_only = true
+		else
+			local filters = {}
+			for _, type in pairs(entity_types) do
+				for _, entity in pairs(prototypes.get_entity_filtered({{filter = "type", type = type}})) do
+					if entity.has_flag("not-deconstructable") == false and (type == "cliff" or entity.mineable_properties.minable) then
+						if #filters < 255 then
+							if type == "simple-entity" then
+								if prototypes.entity[entity.name].count_as_rock_for_filtered_deconstruction or string.sub(entity.name, 1, 14) == "fulgoran-ruin-" then
+									table.insert(filters, entity.name)
+								end
+							else
 								table.insert(filters, entity.name)
 							end
 						else
-							table.insert(filters, entity.name)
+							player.print({"", {"Shortcuts-ick.error-environment", type}, " (ERROR 3)"})
+							break
 						end
-					else
-						player.print({"", {"Shortcuts-ick.error-environment", type}, " (ERROR 3)"})
-						break
 					end
 				end
 			end
+			player.cursor_stack.entity_filters = filters
 		end
-		player.cursor_stack.entity_filters = filters
 	end
 end
 
@@ -724,9 +621,6 @@ end
 local function give_shortcut_item(player, prototype_name)
 	if prototypes.item[prototype_name] and player.clear_cursor() then
 		player.cursor_stack.set_stack({name = prototype_name})
-		if prototype_name == "tree-killer" then
-			tree_killer_setup(player)
-		end
 	end
 end
 
@@ -776,11 +670,17 @@ local function vehicle_shortcuts(player, name, vehicle_types, parameter)
 					player.vehicle.vehicle_automatic_targeting_parameters = params
 				end
 				vehicle = player.vehicle.vehicle_automatic_targeting_parameters
-			elseif parameter == "logistic-point-enabled" then
+			elseif parameter == "logistic_point_enabled" then
 				if vehicle.get_requester_point().enabled then
 					vehicle.get_requester_point().enabled = false
 				else
 					vehicle.get_requester_point().enabled = true
+				end
+			elseif parameter == "trash_not_requested" then
+				if vehicle.get_requester_point().trash_not_requested then
+					vehicle.get_requester_point().trash_not_requested = false
+				else
+					vehicle.get_requester_point().trash_not_requested = true
 				end
 			else
 				if parameter == "manual_mode" then
@@ -796,9 +696,13 @@ local function vehicle_shortcuts(player, name, vehicle_types, parameter)
 				for _, driver in pairs(vehicle.passengers) do
 					update_shortcuts(driver, vehicle[parameter], name)
 				end
-			elseif parameter == "logistic-point-enabled" then
+			elseif parameter == "logistic_point_enabled" then
 				for _, driver in pairs({player.vehicle.get_driver(), player.vehicle.get_passenger()}) do
 					update_shortcuts(driver, vehicle.get_requester_point().enabled, name)
+				end
+			elseif parameter == "trash_not_requested" then
+				for _, driver in pairs({player.vehicle.get_driver(), player.vehicle.get_passenger()}) do
+					update_shortcuts(driver, vehicle.get_requester_point().trash_not_requested, name)
 				end
 			else
 				for _, driver in pairs({player.vehicle.get_driver(), player.vehicle.get_passenger()}) do
@@ -817,21 +721,24 @@ script.on_event(defines.events.on_player_driving_changed_state, function(event)
 
 	if player.driving and player.vehicle then
 		local type = player.vehicle.type
-		local function enable_shortcuts(player, parameter, name)
+		local function enable_shortcuts(player_p, parameter, name)
 			if setting[name].value then
-				update_shortcuts(player, parameter, name)
+				update_shortcuts(player_p, parameter, name)
 			end
 		end
-		if type == "car" or type == "spider-vehicle" then
+		if type == "car" or type == "spider-vehicle" and game.is_multiplayer() then
 			enable_shortcuts(player, player.vehicle.driver_is_gunner, "driver-is-gunner")
 		end
 		if type == "spider-vehicle" then
-			enable_shortcuts(player, player.vehicle.enable_logistics_while_moving, "spidertron-logistics")
 			enable_shortcuts(player, player.vehicle.vehicle_automatic_targeting_parameters.auto_target_with_gunner, "targeting-with-gunner")
 			enable_shortcuts(player, player.vehicle.vehicle_automatic_targeting_parameters.auto_target_without_gunner, "targeting-without-gunner")
 		end
 		if player.vehicle.get_requester_point() then
 			enable_shortcuts(player, player.vehicle.get_requester_point().enabled, "vehicle-logistic-requests")
+			enable_shortcuts(player, player.vehicle.get_requester_point().trash_not_requested, "vehicle-trash-not-requested")
+		end
+		if player.vehicle.grid then
+			enable_shortcuts(player, player.vehicle.enable_logistics_while_moving, "vehicle-logistics-while-moving")
 		end
 		if type == "locomotive" or type == "cargo-wagon" or type == "fluid-wagon" or type == "artillery-wagon" then
 			enable_shortcuts(player, player.vehicle.train.manual_mode, "train-mode-toggle")
@@ -843,8 +750,9 @@ script.on_event(defines.events.on_player_driving_changed_state, function(event)
 			end
 		end
 		disable_shortcuts("driver-is-gunner")
-		disable_shortcuts("spidertron-logistics")
+		disable_shortcuts("vehicle-logistics-while-moving")
 		disable_shortcuts("vehicle-logistic-requests")
+		disable_shortcuts("vehicle-trash-not-requested")
 		disable_shortcuts("targeting-with-gunner")
 		disable_shortcuts("targeting-without-gunner")
 		disable_shortcuts("train-mode-toggle")
@@ -853,9 +761,9 @@ end)
 
 
 -- ON_GUI_CLOSED
-script.on_event(defines.events.on_gui_closed, function(event)
+local function vehicle_on_gui_closed(event)
 	local entity = event.entity
-	if event.gui_type == 1 and entity then
+	if (event.gui_type == 1 or event.gui_type == 24) and entity and (entity.type == "car" or entity.type == "spider-vehicle" or entity.type == "locomotive") then
 		local type = entity.type
 		local setting = settings.startup
 		local function search_vehicle(name, parameter)
@@ -869,10 +777,15 @@ script.on_event(defines.events.on_gui_closed, function(event)
 			search_vehicle("driver-is-gunner", entity.driver_is_gunner)
 		end
 		if type == "spider-vehicle" then
-			search_vehicle("spidertron-logistics", entity.enable_logistics_while_moving)
-			search_vehicle("vehicle-logistic-requests", entity.get_requester_point().enabled)
 			search_vehicle("targeting-with-gunner", entity.vehicle_automatic_targeting_parameters.auto_target_with_gunner)
 			search_vehicle("targeting-without-gunner", entity.vehicle_automatic_targeting_parameters.auto_target_without_gunner)
+		end
+		if entity.get_requester_point() then
+			search_vehicle("vehicle-logistic-requests", entity.get_requester_point().enabled)
+			search_vehicle("vehicle-trash-not-requested", entity.get_requester_point().trash_not_requested)
+		end
+		if entity.grid then
+			search_vehicle("vehicle-logistics-while-moving", entity.enable_logistics_while_moving)
 		end
 		if setting["train-mode-toggle"].value and type == "locomotive" and entity.train.passengers then
 			for _, driver in pairs(entity.train.passengers) do
@@ -880,7 +793,7 @@ script.on_event(defines.events.on_gui_closed, function(event)
 			end
 		end
 	end
-end)
+end
 
 
 ---------------------------------------------------------------------------------------------------
@@ -899,6 +812,8 @@ script.on_event(defines.events.on_lua_shortcut, function(event)
 		draw_grid(event.player_index)
 	elseif prototype_name == "rail-block-visualization-toggle" then
 		toggle_rail(player)
+	elseif prototype_name == "player-trash-not-requested" then
+		player_trash_not_requested(player)
 	elseif prototype_name == "big-zoom" then
 		big_zoom(player)
 	elseif prototype_name == "minimap" then
@@ -918,10 +833,12 @@ script.on_event(defines.events.on_lua_shortcut, function(event)
 	-- VEHICLE
 	elseif prototype_name == "driver-is-gunner" then
 		vehicle_shortcuts(player, "driver-is-gunner", {"car", "spider-vehicle"}, "driver_is_gunner")
-	elseif prototype_name == "spidertron-logistics" then
-		vehicle_shortcuts(player, "spidertron-logistics", {"spider-vehicle"}, "enable_logistics_while_moving")
+	elseif prototype_name == "vehicle-logistics-while-moving" then
+		vehicle_shortcuts(player, "vehicle-logistics-while-moving", {"car", "spider-vehicle", "locomotive", "cargo-wagon", "fluid-wagon", "artillery-wagon"}, "enable_logistics_while_moving")
 	elseif prototype_name == "vehicle-logistic-requests" then
-		vehicle_shortcuts(player, "vehicle-logistic-requests", {"car", "spider-vehicle", "locomotive", "cargo-wagon", "fluid-wagon", "artillery-wagon"}, "logistic-point-enabled")
+		vehicle_shortcuts(player, "vehicle-logistic-requests", {"car", "spider-vehicle", "locomotive", "cargo-wagon", "fluid-wagon", "artillery-wagon"}, "logistic_point_enabled")
+	elseif prototype_name == "vehicle-trash-not-requested" then
+		vehicle_shortcuts(player, "vehicle-trash-not-requested", {"car", "spider-vehicle", "locomotive", "cargo-wagon", "fluid-wagon", "artillery-wagon"}, "trash_not_requested")
 	elseif prototype_name == "targeting-with-gunner" then
 		vehicle_shortcuts(player, "targeting-with-gunner", {"spider-vehicle"}, "auto_target_with_gunner")
 	elseif prototype_name == "targeting-without-gunner" then
@@ -930,14 +847,10 @@ script.on_event(defines.events.on_lua_shortcut, function(event)
 		vehicle_shortcuts(player, "train-mode-toggle", {"locomotive", "cargo-wagon", "fluid-wagon", "artillery-wagon"}, "manual_mode")
 
 	-- GIVE ITEM
-	elseif prototype_name == "pump-shortcut" then
-		give_shortcut_item(player, "pump-selection-tool")
-	elseif prototypes.shortcut[prototype_name] then
-		for _, item_name in pairs(allowed_items) do
-			if item_name == prototype_name then
-				give_shortcut_item(player, prototype_name)
-			end
-		end
+	elseif prototype_name == "artillery-jammer-tool" then
+		give_shortcut_item(player, "artillery-jammer-tool")
+	elseif prototype_name == "tree-killer" then
+		tree_killer_setup(player)
 	end
 end)
 
@@ -962,19 +875,24 @@ local function custom_input_vehicle(name, vehicle_types, parameter)
 	end
 end
 
-local function custom_input_give_item_2(item)
-	script.on_event(item, function(event)
+
+-- GIVE ITEM
+if settings.startup["tree-killer"].value then
+	script.on_event("tree-killer", function(event)
 		local player = game.players[event.player_index]
-		if player.is_shortcut_available(item) then
-			give_shortcut_item(player, item)
+		if player.is_shortcut_available("tree-killer") then
+			tree_killer_setup(player)
 		end
 	end)
 end
 
-local function custom_input_give_item_1(item)
-	if settings.startup[item] and settings.startup[item].value then
-		custom_input_give_item_2(item)
-	end
+if settings.startup["artillery-toggle"].value ~= "disabled" then
+	script.on_event("artillery-jammer-tool", function(event)
+		local player = game.players[event.player_index]
+		if player.is_shortcut_available("artillery-jammer-tool") then
+			give_shortcut_item(player, "artillery-jammer-tool")
+		end
+	end)
 end
 
 
@@ -998,7 +916,14 @@ if settings.startup["rail-block-visualization-toggle"].value then
 	script.on_event("rail-block-visualization-toggle", function(event)
 		local player = game.players[event.player_index]
 		if player.is_shortcut_available("rail-block-visualization-toggle") then
-		toggle_rail(player)
+			toggle_rail(player)
+		end
+	end)
+end
+if settings.startup["player-trash-not-requested"].value then
+	script.on_event("player-trash-not-requested", function(event)
+		if player.is_shortcut_available("player-trash-not-requested") then
+			player_trash_not_requested(game.players[event.player_index])
 		end
 	end)
 end
@@ -1022,16 +947,37 @@ custom_input_equipment("active-defense-equipment")
 
 -- VEHICLE
 custom_input_vehicle("driver-is-gunner", {"car", "spider-vehicle"}, "driver_is_gunner")
-custom_input_vehicle("spidertron-logistics", {"spider-vehicle"}, "enable_logistics_while_moving")
-custom_input_vehicle("vehicle-logistic-requests", {"car", "spider-vehicle", "locomotive", "cargo-wagon", "fluid-wagon", "artillery-wagon"}, "logistic-point-enabled")
+custom_input_vehicle("vehicle-logistics-while-moving", {"car", "spider-vehicle", "locomotive", "cargo-wagon", "fluid-wagon", "artillery-wagon"}, "enable_logistics_while_moving")
+custom_input_vehicle("vehicle-logistic-requests", {"car", "spider-vehicle", "locomotive", "cargo-wagon", "fluid-wagon", "artillery-wagon"}, "logistic_point_enabled")
+custom_input_vehicle("vehicle-trash-not-requested", {"car", "spider-vehicle", "locomotive", "cargo-wagon", "fluid-wagon", "artillery-wagon"}, "trash_not_requested")
 custom_input_vehicle("targeting-with-gunner", {"spider-vehicle"}, "auto_target_with_gunner")
 custom_input_vehicle("targeting-without-gunner", {"spider-vehicle"}, "auto_target_without_gunner")
 custom_input_vehicle("train-mode-toggle", {"locomotive", "cargo-wagon", "fluid-wagon", "artillery-wagon"}, "manual_mode")
 
 
--- GIVE ITEM
-custom_input_give_item_1("tree-killer")
+---------------------------------------------------------------------------------------------------
+-- EVENTS
+---------------------------------------------------------------------------------------------------
+script.on_event(defines.events.on_gui_closed, function(event)
+	vehicle_on_gui_closed(event)
+	artillery_on_gui_closed(event)
+	player_on_gui_closed(event)
+end)
 
-if artillery_setting == "both" or artillery_setting == "artillery-wagon" or artillery_setting == "artillery-turret" then
-	custom_input_give_item_2("artillery-jammer-tool")
+if settings.startup["artillery-toggle"].value ~= "disabled" then
+
+	script.on_event(defines.events.on_player_selected_area, function(event)
+		artillery_on_player_selected_area(event)
+	end)
+
+	script.on_event(defines.events.on_robot_built_entity, function(event)
+		artillery_icon_draw(event.entity) -- Create icon if "Auto targeting" is disabled.
+		artillery_icon_destroy(event.entity) -- Remove icon if "Auto targeting" is enabled and a ghost was replaced.
+	end, {{filter = "type", type = "artillery-turret"}, {filter = "type", type = "artillery-wagon"}})
+
+	script.on_event(defines.events.on_built_entity, function(event)
+		artillery_icon_draw(event.entity) -- Create icon if "Auto targeting" is disabled.
+		artillery_icon_destroy(event.entity) -- Remove icon if "Auto targeting" is enabled and a ghost was replaced.
+	end, {{filter = "type", type = "artillery-turret"}, {filter = "type", type = "artillery-wagon"}, {filter = "ghost_type", type = "artillery-turret"}, {filter = "ghost_type", type = "artillery-wagon"}})
+
 end
