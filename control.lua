@@ -961,7 +961,9 @@ custom_input_vehicle("train-mode-toggle", {"locomotive", "cargo-wagon", "fluid-w
 script.on_event(defines.events.on_gui_closed, function(event)
 	vehicle_on_gui_closed(event)
 	artillery_on_gui_closed(event)
-	player_on_gui_closed(event)
+	if settings.startup["player-trash-not-requested"].value then
+		player_on_gui_closed(event)
+	end
 end)
 
 if settings.startup["artillery-toggle"].value ~= "disabled" then

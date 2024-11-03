@@ -1,6 +1,6 @@
 {
 	"name": "Shortcuts-ick",
-	"version": "2.0.3",
+	"version": "2.0.4",
 	"factorio_version": "2.0",
 	"title": "Shortcuts for 2.0",
 	"author": "npc_strider(morley376), modified by ickputzdirwech",
@@ -9,5 +9,5 @@
 	"dependencies": [
 		"base >= 2.0.14"
 	],
-	"description": "Adds a host of useful shortcuts and cusom inputs to improve QOL. Shortcuts for:\n\n- Toggles for equipment and personal logistic requests\n- Artillery cannon fire toggle\n- Environment deconstruction planner\n- Vehicle settings and train manual mode\n- Rail block visualisation, player lamp, customizable grid overlay and far zoom\n- Shortcuts for various other mods\n\nOriginal mod by npc_strider (morley376): mods.factorio.com/mod/Shortcuts"
+	"description": "Adds a host of useful shortcuts and custom inputs to improve QOL. Shortcuts for:\n\n- Toggles for equipment and personal logistic requests\n- Artillery cannon fire toggle\n- Environment deconstruction planner\n- Vehicle settings and train manual mode\n- Rail block visualisation, player lamp, customizable grid overlay and far zoom\n- Shortcuts for various other mods\n\nOriginal mod by npc_strider (morley376): mods.factorio.com/mod/Shortcuts"
 }
