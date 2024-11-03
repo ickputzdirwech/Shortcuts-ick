@@ -59,6 +59,14 @@ data:extend(
 	},
 	{
 		setting_type = "startup",
+		name = "player-trash-not-requested",
+		localised_name = {"", {"Shortcuts-ick.basic"}, {"trash-not-requested-items"}},
+		order = "a[basic]-f[player-trash-not-requested]",
+		type = "bool-setting",
+		default_value = true
+	},
+	{
+		setting_type = "startup",
 		name = "big-zoom",
 		localised_name = {"", {"Shortcuts-ick.basic"}, {"controls.alt-zoom-out"}},
 		order = "a[basic]-g[big-zoom]",

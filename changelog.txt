@@ -1,8 +1,9 @@
 ---------------------------------------------------------------------------------------------------
 Version: 2.0.3
-Date: 02.11.2024
+Date: 03.11.2024
   Features:
     - The "Spidertron Enable logistics while moving" shortcut now works for all vehicles with an equipment grid and was renamed to "Enable logistics while moving".
+    - Added "Trash unrequested" shortcut.
     - Added "Vehicle trash unrequested" shortcut.
     - Added fulgoran ruins to the environment deconstruction planner (thanks to james1715).
     - Added icon to artillery turrets and wagons with disabled "Auto targeting" toggle.

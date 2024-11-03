@@ -16,6 +16,7 @@ local shortcuts = {
 	"signal-flare",
 	"draw-grid",
 	"rail-block-visualization-toggle",
+	"player-trash-not-requested",
 	"big-zoom",
 	"minimap",
 

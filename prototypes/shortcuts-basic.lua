@@ -21,6 +21,7 @@ local alert_icon
 local draw_grid
 local rail_signal
 local logistics_robot
+local trash
 local big_zoom
 local minimap
 if settings.startup["ick-tags"].value == "tags" then
@@ -30,6 +31,7 @@ if settings.startup["ick-tags"].value == "tags" then
 	draw_grid = tag
 	rail_signal = tag
 	logistics_robot = tag
+	trash = tag
 	big_zoom = tag
 	minimap = tag
 elseif settings.startup["ick-tags"].value == "icons" then
@@ -38,6 +40,7 @@ elseif settings.startup["ick-tags"].value == "icons" then
 	draw_grid = "[img=utility.equipment_grid] "
 	rail_signal = "[img=item/rail-signal] "
 	logistics_robot = "[img=item/logistic-robot] "
+	trash = "[img=utility.trash] "
 	big_zoom = "[img=utility.search_white] "
 	minimap = "[img=utility.map] "
 else
@@ -46,6 +49,7 @@ else
 	draw_grid = ""
 	rail_signal = ""
 	logistics_robot = ""
+	trash = ""
 	big_zoom = ""
 	minimap = ""
 end
@@ -119,7 +123,7 @@ if settings.startup["rail-block-visualization-toggle"].value then
 end
 
 -- PERSONAL LOGISTICS REQUESTS
-if settings.startup["toggle-personal-logistic-requests"] and settings.startup["toggle-personal-logistic-requests"].value then
+if settings.startup["toggle-personal-logistic-requests"].value then
 	-- taken from mods.factorio.com/mod/PersonalLogisticsShortcut from Haxtorio, modified by ickputzdirwech
 	data:extend({{
 		type = "shortcut",
@@ -138,13 +142,31 @@ if settings.startup["toggle-personal-logistic-requests"] and settings.startup["t
 	-- end Haxtorio
 end
 
+-- TRASH NOT REQUESTED
+if settings.startup["player-trash-not-requested"].value then
+	data:extend({{
+		type = "shortcut",
+		name = "player-trash-not-requested",
+		localised_name = {"", trash, {"trash-not-requested-items"}},
+		order = "a[basic]-g[player-trash-not-requested]",
+		action = "lua",
+		technology_to_unlock = "logistic-robotics",
+		unavailable_until_unlocked = true,
+		toggleable = true,
+		icon = "__core__/graphics/icons/mip/trash.png",
+		icon_size = 32,
+		small_icon = "__core__/graphics/icons/mip/trash.png",
+		small_icon_size = 32
+	}})
+end
+
 -- ZOOM OUT OF WORLD
 if settings.startup["big-zoom"].value then
 	data:extend({{
 		type = "shortcut",
 		name = "big-zoom",
 		localised_name = {"", big_zoom, {"controls.alt-zoom-out"}},
-		order = "a[basic]-g[big-zoom]",
+		order = "a[basic]-h[big-zoom]",
 		action = "lua",
 		toggleable = true,
 		style = "blue",
@@ -161,7 +183,7 @@ if settings.startup["minimap"].value then
 		type = "shortcut",
 		name = "minimap",
 		localised_name = {"", minimap, {"gui-interface-settings.show-minimap"}},
-		order = "a[basic]-h[minimap]",
+		order = "a[basic]-i[minimap]",
 		action = "lua",
 		toggleable = true,
 		style = "blue",

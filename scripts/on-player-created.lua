@@ -84,6 +84,7 @@ function ick_reset_available_shortcuts(player)
 	if settings.startup["ick-compatibility-mode"].value == false then -- technology_to_unlock deosn't work for shortcuts with action ="lua". Temporary disabled until base game bug is fixed.
 		--[[disable_shortcuts("tree-killer")
 		disable_shortcuts("rail-block-visualization-toggle")
+		disable_shortcuts("player-trash-not-requested")
 		if setting["artillery-toggle"].value ~= "disabled" then
 			player.set_shortcut_available("artillery-jammer-tool", false)
 		end]]

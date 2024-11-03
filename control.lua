@@ -491,6 +491,44 @@ local function draw_grid(player_index)
 	end
 end
 
+-- PLAYER TRASH NOT REQUESTED
+local function player_trash_not_requested(player)
+	local player_c
+	if player.character then
+		player_c = player.character -- If player has a character.
+	else
+		player_c = player -- If player has no character.
+	end
+	if player_c.get_requester_point() then
+		if player_c.get_requester_point().trash_not_requested then
+			player_c.get_requester_point().trash_not_requested = false
+			player.set_shortcut_toggled("player-trash-not-requested", false)
+		else
+			player_c.get_requester_point().trash_not_requested = true
+			player.set_shortcut_toggled("player-trash-not-requested", true)
+		end
+	end
+end
+
+local function player_on_gui_closed(event) -- Toggles player-trash-not-requested shortcut in case the setting was changed in the GUI.
+	local player = game.players[event.player_index]
+	if event.gui_type == 3 and player then
+		local player_c
+		if player.character then
+			player_c = player.character -- If player has a character.
+		else
+			player_c = player -- If player has no character.
+		end
+		if player_c and player_c.get_requester_point() then
+			if player_c.get_requester_point().trash_not_requested then
+				player.set_shortcut_toggled("player-trash-not-requested", true)
+			else
+				player.set_shortcut_toggled("player-trash-not-requested", false)
+			end
+		end
+	end
+end
+
 -- RAIL BLOCK VISUALISATION
 local function toggle_rail(player)
 	if storage.toggle_rail[player.index] == nil then
@@ -779,6 +817,8 @@ script.on_event(defines.events.on_lua_shortcut, function(event)
 		draw_grid(event.player_index)
 	elseif prototype_name == "rail-block-visualization-toggle" then
 		toggle_rail(player)
+	elseif prototype_name == "player-trash-not-requested" then
+		player_trash_not_requested(player)
 	elseif prototype_name == "big-zoom" then
 		big_zoom(player)
 	elseif prototype_name == "minimap" then
@@ -878,7 +918,14 @@ if settings.startup["rail-block-visualization-toggle"].value then
 	script.on_event("rail-block-visualization-toggle", function(event)
 		local player = game.players[event.player_index]
 		if player.is_shortcut_available("rail-block-visualization-toggle") then
-		toggle_rail(player)
+			toggle_rail(player)
+		end
+	end)
+end
+if settings.startup["player-trash-not-requested"].value then
+	script.on_event("player-trash-not-requested", function(event)
+		if player.is_shortcut_available("player-trash-not-requested") then
+			player_trash_not_requested(game.players[event.player_index])
 		end
 	end)
 end
@@ -924,6 +971,7 @@ end
 script.on_event(defines.events.on_gui_closed, function(event)
 	vehicle_on_gui_closed(event)
 	artillery_on_gui_closed(event)
+	player_on_gui_closed(event)
 end)
 
 if settings.startup["artillery-toggle"].value ~= "disabled" then
