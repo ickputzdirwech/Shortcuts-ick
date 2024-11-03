@@ -569,53 +569,51 @@ end
 ---------------------------------------------------------------------------------------------------
 -- GIVE ITEM
 ---------------------------------------------------------------------------------------------------
-local allowed_items = {
-	"artillery-jammer-tool",
-	"tree-killer"
-}
-
 
 local function tree_killer_setup(player)
-	local settings = settings.get_player_settings(player)
-	local entity_types = {}
-	if settings["environment-killer-item"].value then
-		table.insert(entity_types, "item-entity")
-	end
-	if settings["environment-killer-cliff"].value then
-		table.insert(entity_types, "cliff")
-	end
-	if settings["environment-killer-fish"].value then
-		table.insert(entity_types, "fish")
-	end
-	if settings["environment-killer-rocks"].value then
-		table.insert(entity_types, "simple-entity")
-	end
-	if settings["environment-killer-trees"].value then
-		table.insert(entity_types, "tree")
-	end
-	if #entity_types == 2 and (entity_types[1] == "tree" or entity_types[2] == "tree") and (entity_types[1] == "simple-entity" or entity_types[2] == "simple-entity") then
-		player.cursor_stack.trees_and_rocks_only = true
-	else
-		local filters = {}
-		for _, type in pairs(entity_types) do
-			for _, entity in pairs(prototypes.get_entity_filtered({{filter = "type", type = type}})) do
-				if entity.has_flag("not-deconstructable") == false and (type == "cliff" or entity.mineable_properties.minable) then
-					if #filters < 255 then
-						if type == "simple-entity" then
-							if prototypes.entity[entity.name].count_as_rock_for_filtered_deconstruction or string.sub(entity.name, 1, 14) == "fulgoran-ruin-" then
+	if prototypes.item["tree-killer"] and player.clear_cursor() then
+		player.cursor_stack.set_stack({name = "tree-killer"})
+		local settings = settings.get_player_settings(player)
+		local entity_types = {}
+		if settings["environment-killer-item"].value then
+			table.insert(entity_types, "item-entity")
+		end
+		if settings["environment-killer-cliff"].value then
+			table.insert(entity_types, "cliff")
+		end
+		if settings["environment-killer-fish"].value then
+			table.insert(entity_types, "fish")
+		end
+		if settings["environment-killer-rocks"].value then
+			table.insert(entity_types, "simple-entity")
+		end
+		if settings["environment-killer-trees"].value then
+			table.insert(entity_types, "tree")
+		end
+		if #entity_types == 2 and (entity_types[1] == "tree" or entity_types[2] == "tree") and (entity_types[1] == "simple-entity" or entity_types[2] == "simple-entity") then
+			player.cursor_stack.trees_and_rocks_only = true
+		else
+			local filters = {}
+			for _, type in pairs(entity_types) do
+				for _, entity in pairs(prototypes.get_entity_filtered({{filter = "type", type = type}})) do
+					if entity.has_flag("not-deconstructable") == false and (type == "cliff" or entity.mineable_properties.minable) then
+						if #filters < 255 then
+							if type == "simple-entity" then
+								if prototypes.entity[entity.name].count_as_rock_for_filtered_deconstruction or string.sub(entity.name, 1, 14) == "fulgoran-ruin-" then
+									table.insert(filters, entity.name)
+								end
+							else
 								table.insert(filters, entity.name)
 							end
 						else
-							table.insert(filters, entity.name)
+							player.print({"", {"Shortcuts-ick.error-environment", type}, " (ERROR 3)"})
+							break
 						end
-					else
-						player.print({"", {"Shortcuts-ick.error-environment", type}, " (ERROR 3)"})
-						break
 					end
 				end
 			end
+			player.cursor_stack.entity_filters = filters
 		end
-		player.cursor_stack.entity_filters = filters
 	end
 end
 
@@ -623,9 +621,6 @@ end
 local function give_shortcut_item(player, prototype_name)
 	if prototypes.item[prototype_name] and player.clear_cursor() then
 		player.cursor_stack.set_stack({name = prototype_name})
-		if prototype_name == "tree-killer" then
-			tree_killer_setup(player)
-		end
 	end
 end
 
@@ -852,12 +847,10 @@ script.on_event(defines.events.on_lua_shortcut, function(event)
 		vehicle_shortcuts(player, "train-mode-toggle", {"locomotive", "cargo-wagon", "fluid-wagon", "artillery-wagon"}, "manual_mode")
 
 	-- GIVE ITEM
-	elseif prototypes.shortcut[prototype_name] then
-		for _, item_name in pairs(allowed_items) do
-			if item_name == prototype_name then
-				give_shortcut_item(player, prototype_name)
-			end
-		end
+	elseif prototype_name == "artillery-jammer-tool" then
+		give_shortcut_item(player, "artillery-jammer-tool")
+	elseif prototype_name == "tree-killer" then
+		tree_killer_setup(player)
 	end
 end)
 
@@ -882,19 +875,24 @@ local function custom_input_vehicle(name, vehicle_types, parameter)
 	end
 end
 
-local function custom_input_give_item_2(item)
-	script.on_event(item, function(event)
+
+-- GIVE ITEM
+if settings.startup["tree-killer"].value then
+	script.on_event("tree-killer", function(event)
 		local player = game.players[event.player_index]
-		if player.is_shortcut_available(item) then
-			give_shortcut_item(player, item)
+		if player.is_shortcut_available("tree-killer") then
+			tree_killer_setup(player)
 		end
 	end)
 end
 
-local function custom_input_give_item_1(item)
-	if settings.startup[item] and settings.startup[item].value then
-		custom_input_give_item_2(item)
-	end
+if settings.startup["artillery-toggle"].value ~= "disabled" then
+	script.on_event("artillery-jammer-tool", function(event)
+		local player = game.players[event.player_index]
+		if player.is_shortcut_available("artillery-jammer-tool") then
+			give_shortcut_item(player, "artillery-jammer-tool")
+		end
+	end)
 end
 
 
@@ -955,14 +953,6 @@ custom_input_vehicle("vehicle-trash-not-requested", {"car", "spider-vehicle", "l
 custom_input_vehicle("targeting-with-gunner", {"spider-vehicle"}, "auto_target_with_gunner")
 custom_input_vehicle("targeting-without-gunner", {"spider-vehicle"}, "auto_target_without_gunner")
 custom_input_vehicle("train-mode-toggle", {"locomotive", "cargo-wagon", "fluid-wagon", "artillery-wagon"}, "manual_mode")
-
-
--- GIVE ITEM
-custom_input_give_item_1("tree-killer")
-
-if settings.startup["artillery-toggle"].value ~= "disabled" then
-	custom_input_give_item_2("artillery-jammer-tool")
-end
 
 
 ---------------------------------------------------------------------------------------------------
