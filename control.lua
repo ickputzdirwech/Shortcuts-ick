@@ -812,8 +812,6 @@ script.on_event(defines.events.on_lua_shortcut, function(event)
 		vehicle_shortcuts(player, "train-mode-toggle", {"locomotive", "cargo-wagon", "fluid-wagon", "artillery-wagon"}, "manual_mode")
 
 	-- GIVE ITEM
-	elseif prototype_name == "pump-shortcut" then
-		give_shortcut_item(player, "pump-selection-tool")
 	elseif prototypes.shortcut[prototype_name] then
 		for _, item_name in pairs(allowed_items) do
 			if item_name == prototype_name then
