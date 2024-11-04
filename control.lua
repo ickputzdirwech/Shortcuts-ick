@@ -704,6 +704,17 @@ local function vehicle_shortcuts(player, name, vehicle_types, parameter)
 				for _, driver in pairs({player.vehicle.get_driver(), player.vehicle.get_passenger()}) do
 					update_shortcuts(driver, vehicle.get_requester_point().trash_not_requested, name)
 				end
+			elseif parameter == "enable_logistics_while_moving" then
+				if vehicle.type == "car" or vehicle.type == "spider-vehicle" then
+					for _, driver in pairs({player.vehicle.get_driver(), player.vehicle.get_passenger()}) do
+						update_shortcuts(driver, vehicle.enable_logistics_while_moving, name)
+					end
+				elseif vehicle.type == "locomotive" then
+					for _, driver in pairs(vehicle.train.passengers) do
+						update_shortcuts(driver, vehicle.enable_logistics_while_moving, name)
+					end
+				end
+
 			else
 				for _, driver in pairs({player.vehicle.get_driver(), player.vehicle.get_passenger()}) do
 					update_shortcuts(driver, vehicle[parameter], name)
@@ -785,7 +796,13 @@ local function vehicle_on_gui_closed(event)
 			search_vehicle("vehicle-trash-not-requested", entity.get_requester_point().trash_not_requested)
 		end
 		if entity.grid then
-			search_vehicle("vehicle-logistics-while-moving", entity.enable_logistics_while_moving)
+			if entity.type == "car" or entity.type == "spider-vehicle" then
+				search_vehicle("vehicle-logistics-while-moving", entity.enable_logistics_while_moving)
+			elseif entity.type == "locomotive" then
+				for _, driver in pairs(entity.train.passengers) do
+					update_shortcuts(driver, entity.enable_logistics_while_moving, "vehicle-logistics-while-moving")
+				end
+			end
 		end
 		if setting["train-mode-toggle"].value and type == "locomotive" and entity.train.passengers then
 			for _, driver in pairs(entity.train.passengers) do
