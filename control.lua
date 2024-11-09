@@ -267,7 +267,7 @@ end
 local function artillery_icon_destroy(entity) -- If "Auto targeting" is enabled, the icon is removed from the given entity.
 	if entity.artillery_auto_targeting == true then
 		for _, icon in pairs(rendering.get_all_objects("Shortcuts-ick")) do
-			if icon.target.entity == entity then
+			if icon.type == "sprite" and icon.target and icon.target.entity == entity then
 				icon.destroy()
 				break
 			end
@@ -939,8 +939,9 @@ if settings.startup["rail-block-visualization-toggle"].value then
 end
 if settings.startup["player-trash-not-requested"].value then
 	script.on_event("player-trash-not-requested", function(event)
+		local player = game.players[event.player_index]
 		if player.is_shortcut_available("player-trash-not-requested") then
-			player_trash_not_requested(game.players[event.player_index])
+			player_trash_not_requested(player)
 		end
 	end)
 end

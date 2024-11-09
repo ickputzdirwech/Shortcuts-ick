@@ -22,6 +22,12 @@ function ick_reset_available_shortcuts(player)
 		end
 	end
 
+	local function enable_shorctus(name)
+		if setting[name].value then
+			player.set_shortcut_available(name, true)
+		end
+	end
+
 
 	-- EQUIPMENT
 	local function disable_shortcuts_equipment(type) -- checks if the setting is active and if the player has the equipment equiped
@@ -81,13 +87,13 @@ function ick_reset_available_shortcuts(player)
 
 
 	-- WITH TECHNOLOGY TO UNLOCK
-	if settings.startup["ick-compatibility-mode"].value == false then -- technology_to_unlock deosn't work for shortcuts with action ="lua". Temporary disabled until base game bug is fixed.
-		--[[disable_shortcuts("tree-killer")
-		disable_shortcuts("rail-block-visualization-toggle")
-		disable_shortcuts("player-trash-not-requested")
+	if settings.startup["ick-compatibility-mode"].value == true then
+		enable_shorctus("tree-killer")
+		enable_shorctus("rail-block-visualization-toggle")
+		enable_shorctus("player-trash-not-requested")
 		if setting["artillery-toggle"].value ~= "disabled" then
-			player.set_shortcut_available("artillery-jammer-tool", false)
-		end]]
+			player.set_shortcut_available("artillery-jammer-tool", true)
+		end
 	end
 
 	-- SET SHORTCUTS TOGGLED

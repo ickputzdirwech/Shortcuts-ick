@@ -22,11 +22,12 @@ You can help translate this mod on [Crowdin](https://crowdin.com/project/factori
 * Grid
 * Show rail block visualization
 * Toggle personal logistic requests
+* Trash unrequested
 * Zoom out of world
 * Show minimap
 
 **Blueprint**
-* Environment Deconstruction planner
+* Environment deconstruction planner
 
 **Equipment**
 * Belt immunity equipment
@@ -40,6 +41,7 @@ You can help translate this mod on [Crowdin](https://crowdin.com/project/factori
 * Driver is gunner
 * Spidertron Enable/disable logistics while moving
 * Vehicle logistics
+* Vehicle trash unrequested
 * Spidertron Auto targeting with gunner
 * Spidertron Auto targeting without gunner
 * Train Manual mode

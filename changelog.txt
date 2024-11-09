@@ -1,8 +1,16 @@
 ---------------------------------------------------------------------------------------------------
+Version: 2.0.6
+Date: 09.11.2024
+  Bugfixes:
+    - Fixed error when building artillery while grid was enabled (thanks to Beeblebroxx and aetherialsamurai).
+    - Fixed that technology_to_unlock didn't work properly when the shortcut was explicitely disabled beforehand.
+    - Fixed error when using the custom input for the "Trash unrequested" shortcut (thanks to saaadel).
+
+---------------------------------------------------------------------------------------------------
 Version: 2.0.5
 Date: 04.11.2024
   Bugfixes:
-    - Fixed error when closing a train GUI which had an equipment grid (thanks to rosie1204).
+    - Fixed error when closing a train GUI which had an equipment grid (thanks to LokiLaufeyjarson, Factory077, ModifiedShopkeep, Serjevski and LoganDark).
 
 ---------------------------------------------------------------------------------------------------
 Version: 2.0.4

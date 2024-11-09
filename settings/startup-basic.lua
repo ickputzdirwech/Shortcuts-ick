@@ -61,7 +61,7 @@ data:extend(
 		setting_type = "startup",
 		name = "player-trash-not-requested",
 		localised_name = {"", {"Shortcuts-ick.basic"}, {"trash-not-requested-items"}},
-		order = "a[basic]-f[player-trash-not-requested]",
+		order = "a[basic]-g[player-trash-not-requested]",
 		type = "bool-setting",
 		default_value = true
 	},
@@ -69,7 +69,7 @@ data:extend(
 		setting_type = "startup",
 		name = "big-zoom",
 		localised_name = {"", {"Shortcuts-ick.basic"}, {"controls.alt-zoom-out"}},
-		order = "a[basic]-g[big-zoom]",
+		order = "a[basic]-h[big-zoom]",
 		type = "bool-setting",
 		default_value = true
 	},
@@ -77,7 +77,7 @@ data:extend(
 		setting_type = "startup",
 		name = "minimap",
 		localised_name = {"", {"Shortcuts-ick.basic"}, {"gui-interface-settings.show-minimap"}},
-		order = "a[basic]-h[minimap]",
+		order = "a[basic]-i[minimap]",
 		type = "bool-setting",
 		default_value = true
 	}
