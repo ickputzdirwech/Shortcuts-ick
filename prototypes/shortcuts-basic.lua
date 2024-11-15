@@ -134,9 +134,9 @@ if settings.startup["toggle-personal-logistic-requests"].value then
 		associated_control_input = "toggle-personal-logistic-requests",
 		technology_to_unlock = "logistic-robotics",
 		unavailable_until_unlocked = true,
-		icon = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x32.png",
+		icon = "__Shortcuts-ick__/graphics/toggle-personal-logistics-x32.png",
 		icon_size = 32,
-		small_icon = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x24.png",
+		small_icon = "__Shortcuts-ick__/graphics/toggle-personal-logistics-x24.png",
 		small_icon_size = 24
 	}})
 	-- end Haxtorio

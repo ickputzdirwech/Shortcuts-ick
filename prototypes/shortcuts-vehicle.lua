@@ -64,8 +64,8 @@ if settings.startup["vehicle-logistics-while-moving"].value then
 		action = "lua",
 		toggleable = true,
 		style = "green",
-		icon = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-roboport-x32.png",
-		icon_size = 32,
+		icon = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-roboport-x56.png",
+		icon_size = 56,
 		small_icon = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-roboport-x24.png",
 		small_icon_size = 24
 	}})
@@ -83,7 +83,7 @@ if settings.startup["vehicle-logistic-requests"].value then
 		style = "green",
 		icons = {
 			{
-				icon = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x32.png",
+				icon = "__Shortcuts-ick__/graphics/toggle-personal-logistics-x32.png",
 				icon_size = 32,
 				scale = 2
 			},
@@ -96,7 +96,7 @@ if settings.startup["vehicle-logistic-requests"].value then
 		},
 		small_icons = {
 			{
-				icon = "__base__/graphics/icons/shortcut-toolbar/mip/toggle-personal-logistics-x32.png",
+				icon = "__Shortcuts-ick__/graphics/toggle-personal-logistics-x32.png",
 				icon_size = 32,
 				scale = 2
 			},

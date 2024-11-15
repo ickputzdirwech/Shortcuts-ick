@@ -785,7 +785,7 @@ local function vehicle_on_gui_closed(event)
 			search_vehicle("vehicle-logistic-requests", entity.get_requester_point().enabled)
 			search_vehicle("vehicle-trash-not-requested", entity.get_requester_point().trash_not_requested)
 		end
-		if entity.grid then
+		if setting["vehicle-logistics-while-moving"].value and entity.grid then
 			if entity.type == "car" or entity.type == "spider-vehicle" then
 				search_vehicle("vehicle-logistics-while-moving", entity.enable_logistics_while_moving)
 			elseif entity.type == "locomotive" then
@@ -806,78 +806,78 @@ end
 -- ON LUA SHORTCUT
 ---------------------------------------------------------------------------------------------------
 local function handle_lua_shortcut(event)
-  local prototype_name = event.prototype_name
-  local player = game.players[event.player_index]
+	local prototype_name = event.prototype_name
+	local player = game.players[event.player_index]
 
-  -- BASIC
-  if prototype_name == "flashlight-toggle" then
-    toggle_light(player)
-  elseif prototype_name == "signal-flare" then
-    signal_flare(player)
-  elseif prototype_name == "draw-grid" then
-    draw_grid(event.player_index)
-  elseif prototype_name == "rail-block-visualization-toggle" then
-    toggle_rail(player)
-  elseif prototype_name == "player-trash-not-requested" then
-    player_trash_not_requested(player)
-  elseif prototype_name == "big-zoom" then
-    big_zoom(player)
-  elseif prototype_name == "minimap" then
-    toggle_minimap(player)
+	-- BASIC
+	if prototype_name == "flashlight-toggle" then
+		toggle_light(player)
+	elseif prototype_name == "signal-flare" then
+		signal_flare(player)
+	elseif prototype_name == "draw-grid" then
+		draw_grid(event.player_index)
+	elseif prototype_name == "rail-block-visualization-toggle" then
+		toggle_rail(player)
+	elseif prototype_name == "player-trash-not-requested" then
+		player_trash_not_requested(player)
+	elseif prototype_name == "big-zoom" then
+		big_zoom(player)
+	elseif prototype_name == "minimap" then
+		toggle_minimap(player)
 
-  -- EQUIPMENT
-  elseif prototype_name == "night-vision-equipment" then
-    update_state(event, "night-vision-equipment")
-    return
-  elseif prototype_name == "belt-immunity-equipment" then
-    update_state(event, "belt-immunity-equipment")
-    return
-  elseif prototype_name == "active-defense-equipment" then
-    update_state(event, "active-defense-equipment")
-    return
+	-- EQUIPMENT
+	elseif prototype_name == "night-vision-equipment" then
+		update_state(event, "night-vision-equipment")
+		return
+	elseif prototype_name == "belt-immunity-equipment" then
+		update_state(event, "belt-immunity-equipment")
+		return
+	elseif prototype_name == "active-defense-equipment" then
+		update_state(event, "active-defense-equipment")
+		return
 
-  -- VEHICLE
-  elseif prototype_name == "driver-is-gunner" then
-    vehicle_shortcuts(player, "driver-is-gunner", { "car", "spider-vehicle" }, "driver_is_gunner")
-  elseif prototype_name == "vehicle-logistics-while-moving" then
-    vehicle_shortcuts(
-      player,
-      "vehicle-logistics-while-moving",
-      { "car", "spider-vehicle", "locomotive", "cargo-wagon", "fluid-wagon", "artillery-wagon" },
-      "enable_logistics_while_moving"
-    )
-  elseif prototype_name == "vehicle-logistic-requests" then
-    vehicle_shortcuts(
-      player,
-      "vehicle-logistic-requests",
-      { "car", "spider-vehicle", "locomotive", "cargo-wagon", "fluid-wagon", "artillery-wagon" },
-      "logistic_point_enabled"
-    )
-  elseif prototype_name == "vehicle-trash-not-requested" then
-    vehicle_shortcuts(
-      player,
-      "vehicle-trash-not-requested",
-      { "car", "spider-vehicle", "locomotive", "cargo-wagon", "fluid-wagon", "artillery-wagon" },
-      "trash_not_requested"
-    )
-  elseif prototype_name == "targeting-with-gunner" then
-    vehicle_shortcuts(player, "targeting-with-gunner", { "spider-vehicle" }, "auto_target_with_gunner")
-  elseif prototype_name == "targeting-without-gunner" then
-    vehicle_shortcuts(player, "targeting-without-gunner", { "spider-vehicle" }, "auto_target_without_gunner")
-  elseif prototype_name == "train-mode-toggle" then
-    vehicle_shortcuts(
-      player,
-      "train-mode-toggle",
-      { "locomotive", "cargo-wagon", "fluid-wagon", "artillery-wagon" },
-      "manual_mode"
-    )
+	-- VEHICLE
+	elseif prototype_name == "driver-is-gunner" then
+		vehicle_shortcuts(player, "driver-is-gunner", { "car", "spider-vehicle" }, "driver_is_gunner")
+	elseif prototype_name == "vehicle-logistics-while-moving" then
+		vehicle_shortcuts(
+			player,
+			"vehicle-logistics-while-moving",
+			{ "car", "spider-vehicle", "locomotive", "cargo-wagon", "fluid-wagon", "artillery-wagon" },
+			"enable_logistics_while_moving"
+		)
+	elseif prototype_name == "vehicle-logistic-requests" then
+		vehicle_shortcuts(
+			player,
+			"vehicle-logistic-requests",
+			{ "car", "spider-vehicle", "locomotive", "cargo-wagon", "fluid-wagon", "artillery-wagon" },
+			"logistic_point_enabled"
+		)
+	elseif prototype_name == "vehicle-trash-not-requested" then
+		vehicle_shortcuts(
+			player,
+			"vehicle-trash-not-requested",
+			{ "car", "spider-vehicle", "locomotive", "cargo-wagon", "fluid-wagon", "artillery-wagon" },
+			"trash_not_requested"
+		)
+	elseif prototype_name == "targeting-with-gunner" then
+		vehicle_shortcuts(player, "targeting-with-gunner", { "spider-vehicle" }, "auto_target_with_gunner")
+	elseif prototype_name == "targeting-without-gunner" then
+		vehicle_shortcuts(player, "targeting-without-gunner", { "spider-vehicle" }, "auto_target_without_gunner")
+	elseif prototype_name == "train-mode-toggle" then
+		vehicle_shortcuts(
+			player,
+			"train-mode-toggle",
+			{ "locomotive", "cargo-wagon", "fluid-wagon", "artillery-wagon" },
+			"manual_mode"
+		)
 
-  -- GIVE ITEM
-  elseif prototype_name == "artillery-jammer-tool" then
-    give_shortcut_item(player, "artillery-jammer-tool")
-  elseif prototype_name == "tree-killer" then
-    tree_killer_setup(player)
-  end
+	-- GIVE ITEM
+	elseif prototype_name == "artillery-jammer-tool" then
+		give_shortcut_item(player, "artillery-jammer-tool")
+	elseif prototype_name == "tree-killer" then
+		tree_killer_setup(player)
+	end
 end
 
 script.on_event(defines.events.on_lua_shortcut, handle_lua_shortcut)
