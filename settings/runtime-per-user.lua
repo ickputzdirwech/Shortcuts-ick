@@ -88,7 +88,7 @@ data:extend(
 	{
 		setting_type = "runtime-per-user",
 		name = "zoom-level",
-		localised_name = {"", "[color=orange]", {"controls.alt-zoom-out"}, ":[/color] ", {"description.module-bonus-limit"}},
+		localised_name = {"", "[color=orange]", {"modifier-description:zoom-to-world-enabled"}, ":[/color] ", {"description.module-bonus-limit"}},
 		order = "b[zoom]",
 		type = "double-setting",
 		default_value = 0.1,

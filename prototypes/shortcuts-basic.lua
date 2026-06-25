@@ -165,7 +165,7 @@ if settings.startup["big-zoom"].value then
 	data:extend({{
 		type = "shortcut",
 		name = "big-zoom",
-		localised_name = {"", big_zoom, {"controls.alt-zoom-out"}},
+		localised_name = {"", big_zoom, {"modifier-description:zoom-to-world-enabled"}},
 		order = "a[basic]-h[big-zoom]",
 		action = "lua",
 		toggleable = true,

@@ -23,7 +23,7 @@ data:extend(
 	{
 		setting_type = "runtime-global",
 		name = "disable-zoom",
-		localised_name = {"", {"gui-sync-mods-with-save.enable"}, " ", {"controls.alt-zoom-out"}},
+		localised_name = {"", {"gui-sync-mods-with-save.enable"}, " ", {"modifier-description:zoom-to-world-enabled"}},
 		type = "bool-setting",
 		default_value = true
 	},

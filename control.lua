@@ -540,7 +540,7 @@ local function big_zoom(player)
 	if settings.global["disable-zoom"].value then
 		player.zoom = settings.get_player_settings(player)["zoom-level"].value
 	else
-		player.print({"", {"error.error-message-box-title"}, ": ", {"controls.alt-zoom-out"}, " ", {"gui-mod-info.status-disabled"}})
+		player.print({"", {"error.error-message-box-title"}, ": ", {"modifier-description:zoom-to-world-enabled"}, " ", {"gui-mod-info.status-disabled"}})
 	end
 end
 

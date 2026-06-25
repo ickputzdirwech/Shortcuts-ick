@@ -60,15 +60,17 @@ if artillery_toggle == "both" or artillery_toggle == "artillery-wagon" or artill
 			hidden = true,
 			stack_size = 1,
 			select = {
-				mode = "blueprint",
+				mode = "any-entity",
 				entity_type_filters = disable_turret_list,
+				ignore_cannot_select_tiles = true,
 				tile_filters = {"tile-unknown"},
 				cursor_box_type = "not-allowed",
 				border_color = {r = 1, g = 0, b = 0}
 			},
 			alt_select = {
-				mode = "blueprint",
+				mode = "any-entity",
 				entity_type_filters = disable_turret_list,
+				ignore_cannot_select_tiles = true,
 				tile_filters = {"tile-unknown"},
 				cursor_box_type = "not-allowed",
 				border_color = {r = 1, g = 0, b = 0}

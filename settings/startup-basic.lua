@@ -68,7 +68,7 @@ data:extend(
 	{
 		setting_type = "startup",
 		name = "big-zoom",
-		localised_name = {"", {"Shortcuts-ick.basic"}, {"controls.alt-zoom-out"}},
+		localised_name = {"", {"Shortcuts-ick.basic"}, {"modifier-description:zoom-to-world-enabled"}},
 		order = "a[basic]-h[big-zoom]",
 		type = "bool-setting",
 		default_value = true
